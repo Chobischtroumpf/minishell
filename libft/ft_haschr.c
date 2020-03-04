@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_haschr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/04 21:04:18 by adorigo          ###   ########.fr       */
+/*   Created: 2020/03/04 20:05:45 by adorigo           #+#    #+#             */
+/*   Updated: 2020/03/04 20:17:07 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "libft.h"
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <signal.h>
+int ft_haschr(const char *s, char c)
+{
+	int i;
 
-# define SEP_SPACE " \t<>|;"
-# define SEP "<>|;"
-# define SPACE " \t"
-# define PATH_MAX 1024
-# define LINE_MAX 1024
-# define NO_EXCODE -1
-# define NO_STATUS -1
-
-#endif
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}

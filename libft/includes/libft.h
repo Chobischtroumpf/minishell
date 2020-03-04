@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/04 13:18:05 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/04 20:08:18 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strnjoin(char const *s1, char const *s2, 
 															ssize_t r_size);
+int					ft_haschr(const char *s, char c);
 char				*ft_strnew(size_t size);
 int					ft_strlast(char const *str, char const *last);
 

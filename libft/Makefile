@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/01/27 08:43:46 by adorigo          ###   ########.fr        #
+#    Updated: 2020/03/04 20:18:19 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS = ft_memset.c ft_strlast.c ft_memcpy.c ft_memccpy.c ft_memmove.c	\
 		ft_putstr.c ft_putnbr.c ft_isspace.c ft_numlen.c ft_strcat.c	\
 		ft_strcpy.c ft_strncat.c ft_strncpy.c ft_strndup.c ft_strstr.c	\
 		ft_strtrim.c ft_utoa_base.c ft_itoa_base.c ft_itoa.c ft_bzero.c	\
-		get_next_line.c
+		get_next_line.c ft_haschr.c ft_printf.c
 
 SRCS_B = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c 	\
 		ft_lstadd_back_bonus.c ft_lstlast_bonus.c ft_lstdelone_bonus.c 	\
@@ -35,7 +35,7 @@ SRCS_B = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c 	\
 
 SRCS_LIST_FT_PRINTF = aux_check.c aux_pl.c aux_print_and_count.c		\
 				print_c.c print_d.c print_p.c print_percent.c print_s.c	\
-				print_u.c print_x.c ft_printf.c
+				print_u.c print_x.c 
 
 SRCS_FT_PRINTF = $(addprefix ${FOLDER}/, ${SRCS_LIST_FT_PRINTF})
 
