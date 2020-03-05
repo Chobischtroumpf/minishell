@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/05 17:31:55 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/05 19:13:36 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ char		**get_built_in(void)
 	return (built_in);
 }
 
-void		init_env_list(char **env)
-{
-	char		**cut;
-	int			i;
-	t_minishell	*minishell;
+// void		init_env_list(char **env)
+// {
+// 	char		**cut;
+// 	int			i;
+// 	t_minishell	*minishell;
 
-	minishell = get_minishell();
+// 	minishell = get_minishell();
 
 
 int			ft_exec_pwd(void)
@@ -53,10 +53,10 @@ int			ft_exec_pwd(void)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("\n", 2);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	ft_printf("%s\n", cwd);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 // int fd_exec_echo();
@@ -67,15 +67,15 @@ static int 	ft_parse_line(char *line)
 	
 	line = ft_strtrim(line, " \t\n\v\f\r");
 	if (!strncmp(line, "echo", 4))
-		ret = 0;
+		ret = 1;
 		// ret = ft_exec_cd();
 	if (!ft_strncmp(line, "pwd", 3))
 		ret = ft_exec_pwd();
 	else if (!ft_strncmp(line, "exit", 4))
-		ret = 1;
+		ret = 0;
 	else
 	{
-		ret = 0;
+		ret = 1;
 	}
 	return (ret);
 }
@@ -105,19 +105,20 @@ int			main(void)
 	int			done;
 	t_minishell	*minishell;
 
-	init_minishell();
+	// init_minishell();
 	minishell = get_minishell();	
-	// signal(SIGINT, signal_handler);
-	// signal(SIGQUIT, signal_handler);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 	done = 1;
-	while (done != 0)
+	while (done == 1)
 	{
 		ft_putstr("\033[32mminishell\033[0m$ ");
-		get_next_line(1, &(minishell->line));
+		done = get_next_line(1, &(minishell->line));
 		// ft_printf("%d", done);
 		// if (done != 1)
 			// break;
 		// ft_printf("%s\n", line);
 		done = ft_parse_line(minishell->line);
+		ft_printf("%d", done);
     }
 }
