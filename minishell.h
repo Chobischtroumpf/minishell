@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/04 21:04:18 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/05 10:15:10 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,13 @@
 # define LINE_MAX 1024
 # define NO_EXCODE -1
 # define NO_STATUS -1
+
+typedef struct s_minishell
+{
+	char	*line;
+	char	**tokens;
+	int		executed;
+
+} t_minishell;
 
 #endif
