@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/06 12:53:43 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/06 17:44:59 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,56 @@ int			ft_arg_count(char *line)
 	return(cnt);
 }
 
-// char **ft_arg_split(t_minishell *minishell)
-// {
+char **ft_arg_split(t_minishell *minishell, int nbr_arg)
+{
 
-// 	int word_len;
-// 	char **tab;
+	int word_len;
+	int i;
+	char *line;
+	char **tab;
 
-// 	word_len = 0;
-// 	//split normal :
-// 	while (*(minishell->line))
-// 	{
-// 		while (minishell->line[word_len] != ' ')
-// 			word_len++;
-// 		if 
-// 	}
-// 	//split if "" or '' :
-
-
-// }
+	word_len = 0;
+	i = 0;
+	line = minishell->line;
+	if (!(tab = malloc(sizeof(char *) * nbr_arg)))
+		return(NULL);
+	while (*(line))
+	{
+		ft_printf("dans le while\n");
+		word_len = 0;
+		// if (*(line) == '\"' || *(line) == '\'')
+		// {
+		// 	while ((line[++word_len] != '\"' ||
+		// 	line[++word_len] != '\'') && line[word_len])
+		// 	{
+		// 		word_len++;
+		// 		ft_printf("dans le while, dans le if, dans le while\n");
+		// 	}
+		// 	if (line[word_len] == ' ')
+		// 		tab[i++] = ft_strndup(line, word_len);
+		// 	while (*(line) == ' ' && line)
+		// 		line++;
+		// 	line += word_len;
+		// }
+		// else
+		// {
+			while (line[word_len] != ' ' && line[word_len])
+			{
+				word_len++;
+				ft_printf("dans le while, dans le else, dans le while\n");
+			}
+			if (line[word_len] == ' ')
+				tab[i++] = ft_strndup(line, word_len);
+			line += word_len;
+			while (*(line) == ' ' && line)
+			{
+				line++;
+				ft_printf("incremented space\n");
+			}
+	}
+	return (tab);
+	//split if "" or '' :
+}
 
 t_minishell	*get_minishell(void)
 {
@@ -141,34 +173,29 @@ void		signal_handler(int signbr)
 int			main(void)
 {
 	int			done;
-	// int x = 0;
 	int			nbr_arg;
 	t_minishell	*minishell;
+	int x;
 
-	// init_minishell();
 	minishell = get_minishell();	
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	done = 1;
 	while (done == 1)
 	{
+		x = -1;
 		ft_putstr("\n\033[32mminishell\033[0m$ ");
 		if (!get_next_line(1, &(minishell->line)))
 			break;
 		minishell->line = ft_strtrim(minishell->line, " \t\n\v\f\r");
-		ft_printf("line : %s\n", minishell->line);
-		
+		ft_printf("line : %s\n", minishell->line);		
 		if (ft_strncmp(minishell->line, "\0", 1))
 		{
 			nbr_arg = ft_arg_count(minishell->line);
 			printf("nbr_arg : %d\n", nbr_arg);
-			if (!(minishell->tokens = malloc(sizeof(char *) * nbr_arg)))
-				return (0);
-			// ft_arg_split(minishell, nbr_arg);
-			minishell->tokens = ft_split(minishell->line, ' ');
-
-			// while (minishell->tokens[x])
-			done = ft_parse_line(minishell->line);
+			minishell->tokens = ft_arg_split(minishell, nbr_arg);
+			// while (++x < nbr_arg)
+				printf("token : %s\n", minishell->tokens[0]);
 		}
 		ft_printf("done : %d\n", done);
     }
