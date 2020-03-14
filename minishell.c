@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/14 12:04:25 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/14 13:16:31 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int			main(void)
 			nbr_arg = ft_arg_count(minishell->line);
 			printf("nbr_arg : %d\n", nbr_arg);
 			minishell->tokens = ft_arg_split(minishell, nbr_arg);
-			ft_exec_cmd(minishell, 0);
+			done = ft_exec_cmd(minishell, 0);
 		}
 		ft_printf("done : %d\n", done);
     }

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/14 12:05:48 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/14 14:13:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ int			ft_exec_pwd(void)
 	return (1);
 }
 
-int ft_exec_echo(t_minishell *minishell);
+// int ft_exec_echo(t_minishell *minishell);
 
 int ft_exec_exit(void)
 {
 	ft_free_all();
+	return (1);
 }
 
 static int ft_exec_builtin(int bltin_pos, t_minishell *minishell)
 {
 	if (bltin_pos == 0)
-		return (ft_exec_echo(minishell->tokens));
+		return (ft_exec_echo(minishell));
 	if (bltin_pos == 1)
 		return(ft_exec_cd(minishell->tokens));
 	if (bltin_pos == 2)
@@ -50,6 +51,7 @@ static int ft_exec_builtin(int bltin_pos, t_minishell *minishell)
 		return(ft_exec_env());
 	if (bltin_pos == 6)
 		return(ft_exec_exit());
+	return(0);
 }
 
 

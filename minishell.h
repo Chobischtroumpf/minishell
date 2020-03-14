@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/13 12:23:14 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/14 14:16:25 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char			**get_built_in(void);
 int				ft_exec_pwd(void);
 int 			ft_exec_echo();
 int				ft_exec_cmd(t_minishell *minishell, int pos_token);
+void 			*exit_error();
+void 			ft_free_all();
 
 
 #endif
