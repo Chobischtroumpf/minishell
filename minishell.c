@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/10 09:49:00 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/14 12:04:25 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char **ft_arg_split(t_minishell *minishell, int nbr_arg)
 				ft_printf("dans le while, dans le if, dans le while\n");
 			}
 			if (line[word_len] == ' ' || line[word_len] == '\0')
-				printf(" tab just assigné : %s\n", tab[i++] = ft_strndup(line, word_len));
+				if (!(tab[i++] = ft_strndup(line, word_len)))
+					return(exit_error());
 			while (*(line) == ' ' && line)
 				line++;
 			line += word_len;
@@ -79,7 +80,8 @@ char **ft_arg_split(t_minishell *minishell, int nbr_arg)
 				ft_printf("dans le while, dans le else, dans le while\n");
 			}
 			if (line[word_len] == ' ' || line[word_len]  == '\0')
-				printf(" tab just assigné : %s\n", tab[i++] = ft_strndup(line, word_len));
+				if (!(tab[i++] = ft_strndup(line, word_len)))
+					return(exit_error());
 			line += word_len;
 			ft_printf("line :%s\n", line);
 			// ft_printf("%d\n", word_len);
@@ -88,63 +90,8 @@ char **ft_arg_split(t_minishell *minishell, int nbr_arg)
 		}
 	}
 	i = 0;
-	while (tab[i])
-		printf();
 	return (tab);
 	//split if "" or '' :
-}
-
-t_minishell	*get_minishell(void)
-{
-	static t_minishell	minishell;
-		
-	return (&minishell);
-}
-
-char		**get_built_in(void)
-{
-	static char* built_in[8] = {
-		"echo",
-		"cd",
-		"pwd",
-		"export",
-		"unset",
-		"env",
-		"exit",
-		NULL
-	};
-	return (built_in);
-}
-
-int			ft_exec_pwd(void)
-{
-	char cwd[PATH_MAX];
-
-	if (!(getcwd(cwd, sizeof(cwd))))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		return (0);
-	}
-	ft_printf("%s\n", cwd);
-	return (1);
-}
-
-int fd_exec_echo();
-
-static int 	ft_exec_cmd(t_minishell *minishell)
-{
-	char **builtin;
-	int i;
-
-	i = 0;
-	builtin = get_built_in();
-	while (i < 8)
-	{
-		
-	}
-
 }
 
 void		signal_handler(int signbr)
@@ -166,7 +113,6 @@ void		signal_handler(int signbr)
 		}
 	}
 }
-
 
 int			main(void)
 {
@@ -192,7 +138,7 @@ int			main(void)
 			nbr_arg = ft_arg_count(minishell->line);
 			printf("nbr_arg : %d\n", nbr_arg);
 			minishell->tokens = ft_arg_split(minishell, nbr_arg);
-			ft_exec_cmd(minishell);
+			ft_exec_cmd(minishell, 0);
 		}
 		ft_printf("done : %d\n", done);
     }
