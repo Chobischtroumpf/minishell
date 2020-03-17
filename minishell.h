@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/16 00:59:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/17 10:23:52 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,28 @@
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
-typedef struct	s_minishell
+typedef struct		s_cmd
 {
-	char		*line;
-	char		**tokens;
-	int			executed;
+	char			**argv;
+	struct s_cmd	*next;
+}					t_cmd;
 
-} 				t_minishell;
+typedef struct		s_minishell
+{
+	char			*line;
+	char			**tokens;
+	int				executed;
+	int				pos_current_cmd;
+	t_cmd			cmd;
+} 					t_minishell;
 
-t_minishell		*get_minishell(void);
-char			**get_built_in(void);
-int				ft_exec_pwd(void);
-int 			ft_exec_echo(void);
-int				ft_exec_cmd(int pos_token);
-void 			*exit_error(void);
-void 			ft_free_all(void);
+t_minishell			*get_minishell(void);
+char				**get_built_in(void);
+int					ft_exec_pwd(void);
+int 				ft_exec_echo(void);
+int					ft_exec_cmd(void);
+void 				*exit_error(void);
+void 				ft_free_all(void);
 
 
 #endif
