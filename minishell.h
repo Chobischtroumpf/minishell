@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/17 10:23:52 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/17 16:30:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct		s_cmd
 {
 	char			**argv;
+	int				pipe;
 	struct s_cmd	*next;
 }					t_cmd;
 

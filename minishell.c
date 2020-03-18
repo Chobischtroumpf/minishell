@@ -6,14 +6,14 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/17 10:26:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/18 10:33:24 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int
-	ft_arg_count(char *line)
+	ft_cmd_count(char *line)
 {
 	int ck;
 	int cnt;
@@ -22,64 +22,72 @@ int
 	ck = 0;
 	while (*line)
 	{
-		if (!ft_strncmp(line, "\"", 1))
+		if (ft_haschr("\"", *line))
 		{
 			line++;
-			while (ft_strncmp(line, "\"", 1) && *line)
+			while (!ft_haschr("\"", *line) && *line)
+			{
+				line++;
+				if (ft_haschr("\\", *line - 1))	
+					line++;
+			}
+			if (!line)
+				return (0);
+		}
+		else if (ft_haschr("\'", *line))
+		{
+			line++;
+			while (ft_haschr("\"\'", *line) && *line)
 				line++;
 			if (!line)
 				return (0);
 		}
-		if (*line == ' ' && *line + 1 && ck == 0 && (ck = 1))
+		if ((*line == ' ' || *line == '|' || *line == ';') && *line + 1)
 			cnt++;
-		else if (*line == ' ' && ck == 1)
-			continue;
-		else
-			ck = 0;
 		line++;
 	}
 	return(cnt);
 }
 
 char
-	**ft_arg_split(int nbr_arg)
+	**ft_tokens_split(int nbr_tokens)
 {
 	int word_len;
 	int i;
 	char *line;
 	char **tab;
-
+	
 	word_len = 0;
 	i = 0;
 	line = get_minishell()->line;
-	if (!(tab = malloc(sizeof(char**) * (nbr_arg + 1))))
+	if (!(tab = malloc(sizeof(char*) * (nbr_tokens + 1))))
 		return(NULL);
-	while (*line && i < nbr_arg)
+	while (*line && i < nbr_tokens)
 	{
 		word_len = 0;
-		if (*(line) == '\"' || *(line) == '\'')
-		{
-			while ((line[++word_len] != '\"' ||
-			line[++word_len] != '\'') && line[word_len])
-				word_len++;
-			if (line[word_len] == ' ' || line[word_len] == '\0')
-				if (!(tab[i++] = ft_strndup(line, word_len)))
-					return(exit_error());
-			while (line && *(line) == ' ')
-				line++;
-			line += word_len;
-		}
-		else
-		{
-			while (line[word_len] != ' ' && line[word_len])
-				word_len++;
-			if (line[word_len] == ' ' || line[word_len]  == '\0')
-				if (!(tab[i++] = ft_strndup(line, word_len)))
-					return(exit_error());
-			line += word_len;
-			while (line && *(line) == ' ')
-				line++;
-		}
+			if (*(line) == '\"' || *(line) == '\'')
+			{
+				while ((line[word_len + 1] != '\"' ||
+				line[word_len + 1] != '\'') && line[word_len])
+					word_len++;
+				if (line[word_len] == ' ' || line[word_len] == '\0')
+					if (!(tab[i++] = ft_strndup(++line, word_len - 2)))
+						return(exit_error());
+				line += word_len;
+				while (line && *(line) == ' ')
+					line++;
+			}
+			else
+			{
+				while (line[word_len] != ' ' && line[word_len])
+					word_len++;
+				if (line[word_len] == ' ' || line[word_len] == ';' || line[word_len]  == '\0')
+					if (!(tab[i++] = ft_strndup(line, word_len)))
+						return(exit_error());
+				line += word_len;
+				while (line && *(line) == ' ')
+					line++;
+			}
 	}
 	tab[i] = NULL;
 	return (tab);
@@ -110,7 +118,7 @@ int
 	main(void)
 {
 	int			done;
-	int			nbr_arg;
+	int			nbr_tokens;
 	t_minishell	*minishell;
 	int x;
 
@@ -125,12 +133,12 @@ int
 		if (!get_next_line(1, &(minishell->line)))
 			break;
 		minishell->line = ft_strtrim(minishell->line, " \t\n\v\f\r");
-		ft_printf("line : %s\n", minishell->line);		
+		// ft_printf("line : %s\n", minishell->line);		
 		if (ft_strncmp(minishell->line, "\0", 1))
 		{
-			nbr_arg = ft_arg_count(minishell->line);
-			printf("nbr_arg : %d\n", nbr_arg);
-			get_minishell()->tokens = ft_arg_split(nbr_arg);
+			nbr_tokens = ft_cmd_count(minishell->line);
+			printf("nbr_tokens : %d\n", nbr_tokens);
+			minishell->tokens = ft_tokens_split(nbr_tokens);
 			done = ft_exec_cmd();
 			while(minishell->tokens[++x])
 				free(minishell->tokens[x]);
