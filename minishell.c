@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/18 10:33:24 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/18 13:09:36 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int
 			if (!line)
 				return (0);
 		}
-		if ((*line == ' ' || *line == '|' || *line == ';') && *line + 1)
+		if ((*line == ' ' || *line == '|' || *line == ';') && *line + 1 &&
+														 ck == 0 && (ck = 1))
 			cnt++;
 		line++;
 	}
@@ -139,6 +140,7 @@ int
 			nbr_tokens = ft_cmd_count(minishell->line);
 			printf("nbr_tokens : %d\n", nbr_tokens);
 			minishell->tokens = ft_tokens_split(nbr_tokens);
+			// minishell->cmd = ft_cmd_split
 			done = ft_exec_cmd();
 			while(minishell->tokens[++x])
 				free(minishell->tokens[x]);
