@@ -6,11 +6,13 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 20:05:45 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/04 20:17:07 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/26 10:41:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_haschr(const char *s, char c)
+#include "libft.h"
+
+int ft_haschr(const char *s, int c)
 {
 	int i;
 

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/17 10:31:43 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/26 11:50:02 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int 	ft_exec_cmd(void)
 
 	ret = 1;
 	i = -1;
-	pos_cmd = get_minishell()->pos_current_cmd;
+	printf("dans exec_cmd\n"); //
+	pos_cmd = 0;// get_minishell()->pos_current_cmd;
 	builtin = get_built_in();
 	while (++i < 7)
 		if (!ft_strcmp(builtin[i], get_minishell()->tokens[pos_cmd]))

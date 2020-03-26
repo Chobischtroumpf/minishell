@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/17 16:30:01 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/26 09:57:55 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ int 				ft_exec_echo(void);
 int					ft_exec_cmd(void);
 void 				*exit_error(void);
 void 				ft_free_all(void);
+int					ft_tokens_count(char *line);
+int					ft_check_separator(char *line, int i, int space);
+int					ft_brackets(char *line, int i);
+char				*ft_tokens_split(char *line, int nbr_tokens);
+
+
 
 
 #endif

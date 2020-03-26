@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 16:21:26 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/17 13:41:24 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/26 10:33:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ char		*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	ft_strncpy(new, s1 + beg, end);
 	new[end] = '\0';
-	free(s1);
+	// free(s1);
 	return (new);
 }
