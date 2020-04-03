@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/26 09:57:55 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/03/31 12:25:26 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct		s_cmd
 {
 	char			**argv;
 	int				pipe;
+	int				nbr_token;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -38,7 +39,6 @@ typedef struct		s_minishell
 	char			*line;
 	char			**tokens;
 	int				executed;
-	int				pos_current_cmd;
 	t_cmd			cmd;
 } 					t_minishell;
 

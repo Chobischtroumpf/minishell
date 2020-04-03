@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/26 12:10:37 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/02 13:02:53 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int			ft_jump_spaces(char *line, int i, int jump)
 		i++;
 		jump++;
 	}
-	return(jump);
+	return (jump);
 }
 
-int			ft_check_separator(char *line, int i, int space)
+int			ft_check_sep(char *line, int i, int space)
 {
 	int jmp;
 
@@ -61,13 +61,13 @@ static int	ft_is_backslash(char *line, int *i)
 
 int			ft_brackets(char *line, int i)
 {
-	if (line[i] == '\"' &&(i == 0 ||  line[i - 1] != '\\'))
+	if (line[i] == '\"' && (i == 0 || line[i - 1] != '\\'))
 	{
 		i++;
-		while(ft_is_backslash(line, &i))
+		while (ft_is_backslash(line, &i))
 			i++;
 		if (line[i] == '\0')
-			return(-1);
+			return (-1);
 	}
 	else if (line[i] == '\'')
 	{
@@ -95,10 +95,7 @@ int			ft_tokens_count(char *line)
 			while (!ft_haschr(SEP_SPACE, line[i]) && line[i])
 			{
 				if ((i = ft_brackets(line, i)) == -1)
-				{
-					ft_printf("you need to close the brackets\n");
 					return (-1);
-				}
 				if (line[i] == '\\' && !line[i + 1])
 					return (-1);
 				i++;
@@ -106,16 +103,12 @@ int			ft_tokens_count(char *line)
 		}
 		if (ft_haschr(SEP, line[i]))
 			count++;
-		i += ft_check_separator(line, i, 1);
+		i += ft_check_sep(line, i, 0);
 	}
-	return(count);
+	return (count);
 }
 
-
-//quand j'assigne, si \ et juste apres ", je met " a la place de \ dans mon char *, et j'incremente.
-//l'incrementation normale doit se faire dans la condition, sinon je dois incrémenté de 2
-
-char	*ft_tokens_split(char *line, int nbr_token)
+char		*ft_tokens_split(char *line, int nbr_token)
 {
 	int ck;
 	int cnt;
@@ -135,11 +128,9 @@ char	*ft_tokens_split(char *line, int nbr_token)
 			ck = i;
 		}
 		if (ft_haschr(SEP, line[i]) && ++cnt)
-		{
 			if (cnt == nbr_token)
-				return (ft_substr(line, ck, i + ft_check_separator(line, i, 1) - ck));
-		}
-		i += ft_check_separator(line, i, 2);
+				return (ft_substr(line, ck, i + ft_check_sep(line, i, 1) - ck));
+		i += ft_check_sep(line, i, 1);
 		ck = i;
 	}
 	return (NULL);

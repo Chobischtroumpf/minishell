@@ -6,16 +6,16 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 14:30:13 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/17 11:42:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/02 15:27:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_free_all()
+void	ft_free_all(void)
 {
-	int i;
-	char **tokens;
+	int		i;
+	char	**tokens;
 
 	tokens = get_minishell()->tokens;
 	i = -1;
@@ -26,12 +26,12 @@ void ft_free_all()
 	}
 	if (tokens)
 	{
-		free (tokens);
+		free(tokens);
 		tokens = 0;
 	}
 	if (get_minishell()->line != NULL)
 	{
 		free(get_minishell()->line);
 		get_minishell()->line = 0;
-	}	
+	}
 }
