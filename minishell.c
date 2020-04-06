@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/02 13:00:59 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/04 11:22:03 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	ft_cmd_count(void)
 
 	i = -1;
 	j = -1;
-	cmd = get_minishell()->cmd;
+	*cmd = get_minishell()->cmd;
 	tokens = get_minishell()->tokens;
-	while (tokens[++i])
+	while (*tokens[++i])
 	{
 		if (ft_strcmp(tokens[i], ";") && ft_strcmp(tokens[i], "|"))
 			cmd->nbr_token++;
