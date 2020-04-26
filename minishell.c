@@ -6,36 +6,37 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/04 11:22:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/24 12:04:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cmd_count(void)
+int	ft_cmd_count(void)
 {
 	int		i;
 	int		j;
 	int		cnt;
-	t_cmd	*cmd;
 	char	**tokens;
 
 	i = -1;
 	j = -1;
-	*cmd = get_minishell()->cmd;
+	cnt = 1;
 	tokens = get_minishell()->tokens;
-	while (*tokens[++i])
+	while (tokens[++i])
 	{
-		if (ft_strcmp(tokens[i], ";") && ft_strcmp(tokens[i], "|"))
-			cmd->nbr_token++;
-		else
-		{
-			if (!ft_strcmp(tokens[i], "|"))
-				cmd->pipe = 1;
+		printf("%s\n", tokens[i]);
+		if ((!ft_strcmp(tokens[i], ";") ||  !ft_strcmp(tokens[i], "|")) &&
+			tokens[i - 1] && tokens[i + 1])
 			cnt++;
-			cmd = cmd->next;
-		}
+		if ((tokens[i + 1] && !ft_strcmp(tokens[i], ";") && 
+			!ft_strcmp(tokens[i + 1], ";")) || !ft_strcmp(tokens[0], "|") ||
+			(tokens[i + 1] && !ft_strcmp(tokens[i], "|") && 
+			!ft_strcmp(tokens[i + 1], "|")))
+			return (-1);
 	}
+	if (!tokens[0])
+		cnt = 0;
 	return (cnt);
 }
 
@@ -81,21 +82,19 @@ int		main(void)
 		{
 			if ((nbr_tokens = ft_tokens_count(minishell->line)) == -1)
 			{
-				continue;
 				ft_printf("you need to close the brackets\n");
+				continue;
 			}
-			printf("nbr_tokens: %d\n", nbr_tokens);
-			minishell->tokens = malloc(sizeof(char*) * nbr_tokens);
+			if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
+				return(0);
 			while (++x < nbr_tokens)
 				minishell->tokens[x] = ft_tokens_split(minishell->line, x + 1);
 			minishell->tokens[x] = NULL;
 			x = 0;
-			while (minishell->tokens[x])
-			{
-				printf("token : %s\n", minishell->tokens[x]);
-				x++;
-			}
-			done = ft_exec_cmd();
+			minishell->nbr_cmd = ft_cmd_count();
+			printf("%d\n", minishell->nbr_cmd);
+			// split_cmd();
+			// done = ft_exec_cmd();
 		}
 	}
 	ft_printf("\n");

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/03 11:18:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/06 12:07:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,18 @@ static int	ft_exec_builtin(int bltin_pos)
 	t_minishell *minishell;
 
 	minishell = get_minishell();
-	if (bltin_pos == 0)
-		return (ft_exec_echo());
-	if (bltin_pos == 1)
-		return (ft_exec_cd(minishell->tokens));
+	// if (bltin_pos == 0)
+		// return (ft_exec_echo());
+	// if (bltin_pos == 1)
+		// return (ft_exec_cd(minishell->tokens));
 	if (bltin_pos == 2)
 		return (ft_exec_pwd());
-	if (bltin_pos == 3)
-		return (ft_exec_export());
-	if (bltin_pos == 4)
-		return (ft_exec_unset());
-	if (bltin_pos == 5)
-		return (ft_exec_env());
+	// if (bltin_pos == 3)
+	// 	return (ft_exec_export());
+	// if (bltin_pos == 4)
+	// 	return (ft_exec_unset());
+	// if (bltin_pos == 5)
+	// 	return (ft_exec_env());
 	if (bltin_pos == 6)
 		return (ft_exec_exit());
 	return (0);

@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 09:32:08 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/12 21:18:26 by adorigo          ###   ########.fr       */
+/*   Created: 2020/04/08 10:47:56 by adorigo           #+#    #+#             */
+/*   Updated: 2020/04/09 11:11:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+t_cmd init_cmd()
 {
-	char		*dest;
+	t_cmd *cmd;
 
-	if (s1 && s2)
+	if (!(cmd = malloc(sizeof(t_cmd))))
 	{
-		if (!(dest = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1)))
-			return (NULL);
-		ft_strcpy(dest, s1);
-		ft_strcat(dest, s2);
-		return (dest);
+		// ft_free_all();
+		exit_error();
 	}
-	else
-		return (NULL);
+	cmd->nbr_token = 0;
+	cmd->argv = 0;
+	
 }
+

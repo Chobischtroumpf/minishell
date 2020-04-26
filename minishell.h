@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/31 12:25:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/24 10:46:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct		s_minishell
 	char			*line;
 	char			**tokens;
 	int				executed;
-	t_cmd			cmd;
+	int				nbr_cmd;
+	t_cmd			*cmd;
 } 					t_minishell;
 
 t_minishell			*get_minishell(void);
