@@ -6,39 +6,11 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/24 12:04:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 10:47:32 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_cmd_count(void)
-{
-	int		i;
-	int		j;
-	int		cnt;
-	char	**tokens;
-
-	i = -1;
-	j = -1;
-	cnt = 1;
-	tokens = get_minishell()->tokens;
-	while (tokens[++i])
-	{
-		printf("%s\n", tokens[i]);
-		if ((!ft_strcmp(tokens[i], ";") ||  !ft_strcmp(tokens[i], "|")) &&
-			tokens[i - 1] && tokens[i + 1])
-			cnt++;
-		if ((tokens[i + 1] && !ft_strcmp(tokens[i], ";") && 
-			!ft_strcmp(tokens[i + 1], ";")) || !ft_strcmp(tokens[0], "|") ||
-			(tokens[i + 1] && !ft_strcmp(tokens[i], "|") && 
-			!ft_strcmp(tokens[i + 1], "|")))
-			return (-1);
-	}
-	if (!tokens[0])
-		cnt = 0;
-	return (cnt);
-}
 
 void	signal_handler(int signbr)
 {
@@ -66,6 +38,7 @@ int		main(void)
 	int			nbr_tokens;
 	t_minishell	*minishell;
 	int			x;
+	char		*tmp;
 
 	minishell = get_minishell();
 	signal(SIGINT, signal_handler);
@@ -86,15 +59,19 @@ int		main(void)
 				continue;
 			}
 			if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
-				return(0);
+				return (0);
+			printf("%d\n", nbr_tokens);
 			while (++x < nbr_tokens)
-				minishell->tokens[x] = ft_tokens_split(minishell->line, x + 1);
+			{
+				tmp = ft_tokens_split(minishell->line, x + 1);
+				minishell->tokens[x] = ft_strtrim(tmp, " \t\n\v\f\r");
+				printf("%s\n", minishell->tokens[x]);
+				free(tmp);
+			}
 			minishell->tokens[x] = NULL;
 			x = 0;
-			minishell->nbr_cmd = ft_cmd_count();
-			printf("%d\n", minishell->nbr_cmd);
-			// split_cmd();
-			// done = ft_exec_cmd();
+			if (!ft_cmd_parse(minishell->tokens))
+				continue;
 		}
 	}
 	ft_printf("\n");
