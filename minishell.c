@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 10:47:32 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 18:08:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	signal_handler(int signbr)
 			get_minishell()->executed = 0;
 		}
 	}
+}
+
+void	print_lst(t_cmd *cmd)
+{
+	while (cmd->next != NULL)
 }
 
 int		main(void)
@@ -60,18 +65,17 @@ int		main(void)
 			}
 			if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
 				return (0);
-			printf("%d\n", nbr_tokens);
 			while (++x < nbr_tokens)
 			{
 				tmp = ft_tokens_split(minishell->line, x + 1);
 				minishell->tokens[x] = ft_strtrim(tmp, " \t\n\v\f\r");
-				printf("%s\n", minishell->tokens[x]);
 				free(tmp);
 			}
 			minishell->tokens[x] = NULL;
 			x = 0;
 			if (!ft_cmd_parse(minishell->tokens))
 				continue;
+			print_lst(minishell->cmd);
 		}
 	}
 	ft_printf("\n");

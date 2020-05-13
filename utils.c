@@ -6,13 +6,13 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/12 10:44:48 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 17:13:29 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_hasnchar(const char *s, char *c)
+int				ft_hasnchar(const char *s, char *c)
 {
 	int i;
 	int j;
@@ -30,4 +30,24 @@ int ft_hasnchar(const char *s, char *c)
 		i++;
 	}
 	return (0);
+}
+
+int				count_arr(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
+t_cmd			*ft_last_cmd(t_cmd *cmd)
+{
+	t_cmd	*last;
+
+	last = cmd;
+	while (last->next)
+		last = last->next;
+	return (last);
 }

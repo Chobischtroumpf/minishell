@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 12:21:10 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 18:01:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int
 	is_redir(char *s)
 {
-	if (ft_strcmp(s, "<"))
+	if (!ft_strcmp(s, "<"))
 		return (1);
-	if (ft_strcmp(s, ">"))
+	if (!ft_strcmp(s, ">"))
 		return (1);
-	if (ft_strcmp(s, ">>"))
+	if (!ft_strcmp(s, ">>"))
 		return (1);
 	return (0);
 }
@@ -68,7 +68,7 @@ static int
 				return (parse_error("|", 0));
 			pipe++;
 			if (pipe == 2)
-				return (parse_error("|", 0));
+				return (parse_error("||", 0));
 		}
 		else if (pipe == 1 &&
 			(is_redir(tokens[i]) || !ft_strcmp(tokens[i], ";")))
@@ -92,7 +92,7 @@ static int
 	semi = 0;
 	while (tokens[i])
 	{
-		if (ft_strcmp(tokens[i], ";"))
+		if (!ft_strcmp(tokens[i], ";"))
 		{
 			if (i == 0)
 				return (parse_error(";", 0));

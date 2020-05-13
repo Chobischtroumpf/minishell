@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:45:38 by adorigo           #+#    #+#             */
-/*   Updated: 2019/10/17 09:59:49 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 16:50:17 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	ft_bzero(void *s, unsigned int n)
 {
 	unsigned char	*ptr;
 
-	if (s == 0)
-		return ;
-	ptr = (unsigned char *)s;
-	while (n--)
-		*ptr++ = '\0';
+	if (s)
+	{
+		ptr = (unsigned char *)s;
+		while (n--)
+			*ptr++ = '\0';
+	}
 }

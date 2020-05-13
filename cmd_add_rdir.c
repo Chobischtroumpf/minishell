@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 15:35:09 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 16:22:10 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 17:11:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_rdir	*ft_add_rdir(t_rdir *begin, char *file, int is_dbl)
 	return (begin);
 }
 
-void			ft_add_redir_cmd(t_cmd cmd,char *redir, char *file)
+void			ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file)
 {
 	t_cmd *last;
 

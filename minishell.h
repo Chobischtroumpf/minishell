@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 16:23:47 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 17:14:32 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ int					parse_error(char *error, int ret);
 int					ft_check_tokens(char **tokens);
 int					ft_cmd_parse(char **tokens);
 int					is_redir(char *s);
+int					count_arr(char **arr);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
+void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
+
 
 #endif

@@ -6,24 +6,13 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 16:23:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 17:15:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd
-	*ft_last_cmd(t_cmd *cmd)
-{
-	t_cmd	*last;
-
-	last = cmd;
-	while (last->next)
-		last = last->next;
-	return (last);
-}
-
-t_cmd	*ft_new_cmd(char *token)
+t_cmd			*ft_new_cmd(char *token)
 {
 	t_cmd	*new;
 
@@ -45,15 +34,15 @@ t_cmd	*ft_new_cmd(char *token)
 	return(new);
 }
 
-t_cmd	*ft_add_pipe_cmd(t_cmd *cmd)
+static void		ft_add_pipe_cmd(t_cmd *cmd)
 {
 	t_cmd *last;
 	
-	last = lst_add_cmd(cmd);
+	last = ft_last_cmd(cmd);
 	last->pipe = 1;
 }
 
-t_cmd	*ft_add_cmd(t_cmd *cmd, char *token)
+t_cmd			*ft_add_cmd(t_cmd *cmd, char *token)
 {
 	t_cmd	*tmp;
 
@@ -64,12 +53,34 @@ t_cmd	*ft_add_cmd(t_cmd *cmd, char *token)
 		tmp = cmd;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = lst_new_cmd(token);
+		tmp->next = ft_new_cmd(token);
 	}
 	return(cmd);
 }
 
-int		ft_cmd_parse(char **tokens)
+static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
+{
+	t_cmd	*last;
+	int		cnt;
+	char	**new_arr;
+	int		i;
+
+	last = ft_last_cmd(cmd);
+	cnt = count_arr(last->argv);
+	new_arr = malloc(sizeof(char*) * (cnt + 2));
+	i = 0;
+	while (i < cnt)
+	{
+		new_arr[i] = last->argv[i];
+		i++;
+	}
+	new_arr[i] = ft_strdup(arg);
+	new_arr[cnt + 1] = NULL;
+	free(last->argv);
+	last->argv = new_arr;
+}
+
+int				ft_cmd_parse(char **tokens)
 {
 	t_minishell	*minishell;
 	int			i;
@@ -89,5 +100,11 @@ int		ft_cmd_parse(char **tokens)
 			ft_add_pipe_cmd(minishell->cmd);
 		else if (!is_redir(tokens[i]) && (i++))
 			ft_add_redir_cmd(minishell->cmd, tokens[i - 1], tokens[i]);
+		else if (!ft_strcmp(tokens[i], ";") && (new = 1) && (i++))
+			continue;
+		else
+			ft_add_argv_cmd(minishell->cmd, tokens[i]);
+		i++;
 	}
+	return(1);
 }
