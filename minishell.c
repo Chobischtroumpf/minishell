@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 18:08:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 19:08:17 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,32 @@ void	signal_handler(int signbr)
 
 void	print_lst(t_cmd *cmd)
 {
-	while (cmd->next != NULL)
+	int i = 0;
+	t_cmd *tmp;
+	t_rdir *in;
+	t_rdir *out;
+
+	in = cmd->in;
+	out = cmd->out;
+	tmp = cmd;
+	while (tmp != NULL)
+	{
+		while(tmp->argv[i])
+			printf("%s\n", tmp->argv[i++]);
+		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
+		while (in != NULL)
+		{
+			printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
+			in = in->next;
+		}
+		while (out != NULL)
+		{
+			printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
+			out = out->next;
+		}
+		tmp = tmp->next;
+		i = 0;
+	}
 }
 
 int		main(void)
@@ -72,7 +97,6 @@ int		main(void)
 				free(tmp);
 			}
 			minishell->tokens[x] = NULL;
-			x = 0;
 			if (!ft_cmd_parse(minishell->tokens))
 				continue;
 			print_lst(minishell->cmd);

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 17:14:32 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/13 18:34:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct		s_cmd
 	int				pipe;
 	int				is_rdir;
 	int				has_path;
-	int				nbr_token;
 	t_rdir			*in;
 	t_rdir			*out;
 	struct s_cmd	*next;

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 17:15:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/14 09:59:34 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int				ft_cmd_parse(char **tokens)
 	int			i;
 	int			new;
 
-	if (ft_check_tokens(tokens))
+	if ((!ft_check_tokens(tokens)))
 		return (0);
 	minishell = get_minishell();
 	minishell->cmd = 0;
@@ -94,11 +94,12 @@ int				ft_cmd_parse(char **tokens)
 	new = 1;
 	while (tokens[i])
 	{
+		printf("i : %d\n", i);
 		if (new && !(new = 0))
 			minishell->cmd = ft_add_cmd(minishell->cmd, tokens[i]);
 		else if (!ft_strcmp(tokens[i], "|") && (new = 1))
 			ft_add_pipe_cmd(minishell->cmd);
-		else if (!is_redir(tokens[i]) && (i++))
+		else if (is_redir(tokens[i]) && (i++))
 			ft_add_redir_cmd(minishell->cmd, tokens[i - 1], tokens[i]);
 		else if (!ft_strcmp(tokens[i], ";") && (new = 1) && (i++))
 			continue;
