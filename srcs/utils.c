@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 17:13:29 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/14 15:01:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int				ft_hasnchar(const char *s, char *c)
 	return (0);
 }
 
-int				count_arr(char **arr)
+int				count_arg(char **arg)
 {
 	int i;
 
 	i = 0;
-	while (arr[i])
+	while (arg[i])
 		i++;
 	return (i);
 }
