@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/15 09:37:16 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/18 10:30:25 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int					is_redir(char *s);
 int					count_arg(char **arr);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
-int					too_many_args(char *cmd, int ret)
-int					numeric_arg_error(char *cmd, int ret)
-
+int					too_many_args(char *cmd, int ret);
+int					numeric_arg_error(char *cmd, int ret);
+int					ft_exec_exit(t_cmd *cmd);
 
 #endif
