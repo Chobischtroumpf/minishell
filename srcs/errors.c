@@ -15,13 +15,13 @@
 int		numeric_arg_error(char *cmd, char *arg, int ret)
 {
 	ft_printf("minishell: %s: %s: numeric argument required\n", cmd, arg);
-	return (ret)
+	return (ret);
 }
 
 int		too_many_args(char *cmd, int ret)
 {
 	ft_printf("minishell: too many arguments: %s\n", cmd);
-	return (ret)
+	return (ret);
 }
 
 int		parse_error(char *error, int ret)

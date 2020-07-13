@@ -75,7 +75,7 @@ int					count_arg(char **arr);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					too_many_args(char *cmd, int ret);
-int					numeric_arg_error(char *cmd, int ret);
+int					numeric_arg_error(char *cmd,char *arg, int ret);
 int					ft_exec_exit(t_cmd *cmd);
 
 #endif

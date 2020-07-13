@@ -37,7 +37,7 @@ static int	ft_exec_builtin(int bltin_pos)
 		// return (ft_exec_echo());
 	// if (bltin_pos == 1)
 		// return (ft_exec_cd(minishell->tokens));
-	if (bltin_pos == 2)
+//	if (bltin_pos == 2)
 		return (ft_exec_pwd());
 	// if (bltin_pos == 3)
 	// 	return (ft_exec_export());
@@ -45,8 +45,8 @@ static int	ft_exec_builtin(int bltin_pos)
 	// 	return (ft_exec_unset());
 	// if (bltin_pos == 5)
 	// 	return (ft_exec_env());
-	if (bltin_pos == 6)
-		return (ft_exec_exit());
+//	if (bltin_pos == 6)
+//		return (ft_exec_exit());
 	return (0);
 }
 
