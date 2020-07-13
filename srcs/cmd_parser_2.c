@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/14 09:59:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/14 14:59:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 	int		i;
 
 	last = ft_last_cmd(cmd);
-	cnt = count_arr(last->argv);
+	cnt = count_arg(last->argv);
 	new_arr = malloc(sizeof(char*) * (cnt + 2));
 	i = 0;
 	while (i < cnt)
