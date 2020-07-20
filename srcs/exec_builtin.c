@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/14 10:15:49 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/05/14 14:53:02 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,6 @@ int			ft_exec_pwd(void)
 }
 
 
-// int
-// 	ft_exec_echo(void)
-// {
-// 	char	**tokens;
-// 	int		i;
-// 	int		arg_n;
-
-
-// 	tokens = get_minishell()->tokens;
-// 	i = get_minishell()->pos_current_cmd + 1;
-// 	while (tokens && tokens[i] && ft_strcmp(tokens[i], ";"))
-// 	{
-// 		if (!(ft_strncmp(tokens[i], "\"", 1)) && !(ft_strncmp(tokens[i], "'", 1)))
-// 		{
-
-// 		}
-// 		else if (tokens[i][0] == '$')
-// 		{
-
-// 		}
-// 		else
-// 			ft_printf("%s", tokens[i]);
-		
-// 	}
-// }
-
-
-int			ft_exec_exit(void)
-{
-	exit(0);
-	return (1);
-}
-
 static int	ft_exec_builtin(int bltin_pos)
 {
 	t_minishell *minishell;
@@ -70,7 +37,7 @@ static int	ft_exec_builtin(int bltin_pos)
 		// return (ft_exec_echo());
 	// if (bltin_pos == 1)
 		// return (ft_exec_cd(minishell->tokens));
-	if (bltin_pos == 2)
+//	if (bltin_pos == 2)
 		return (ft_exec_pwd());
 	// if (bltin_pos == 3)
 	// 	return (ft_exec_export());
@@ -78,8 +45,8 @@ static int	ft_exec_builtin(int bltin_pos)
 	// 	return (ft_exec_unset());
 	// if (bltin_pos == 5)
 	// 	return (ft_exec_env());
-	if (bltin_pos == 6)
-		return (ft_exec_exit());
+//	if (bltin_pos == 6)
+//		return (ft_exec_exit());
 	return (0);
 }
 
