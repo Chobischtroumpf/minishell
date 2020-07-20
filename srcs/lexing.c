@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/02 13:02:53 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/20 09:26:55 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,19 @@ int			ft_jump_spaces(char *line, int i, int jump)
 
 int			ft_check_sep(char *line, int i, int space)
 {
-	int jmp;
+	int jump;
 
-	if (line[i] == ' ' || line[i] == '\t')
-		jmp = 1;
+	if (line[i] == ' ' || line[i] == '\t' || line[i] == '>' || line[i] == '<'
+		|| line[i] == '|' || line[i] == ';')
+		jump = 1;
 	else if (line[i] == '>' && line[i + 1] == '>')
-		jmp = 2;
-	else if (line[i] == '>')
-		jmp = 1;
-	else if (line[i] == '<')
-		jmp = 1;
-	else if (line[i] == '|')
-		jmp = 1;
-	else if (line[i] == ';')
-		jmp = 1;
+		jump = 2;
 	else
 		return (0);
 	if (space == 0)
-		return (jmp);
+		return (jump);
 	else if (space == 1)
-		return (ft_jump_spaces(line, i, jmp));
+		return (ft_jump_spaces(line, i, jump));
 	return (0);
 }
 
