@@ -41,6 +41,7 @@ int				print_d(t_pl pl, va_list *ap);
 int				print_u(t_pl pl, va_list *ap);
 int				print_x(t_pl pl, va_list *ap);
 int				print_percent(t_pl pl, va_list *ap);
+int				get_p_len(int len, t_pl pl);
 char			*sp_malloc(int size);
 void			free_all(void *ptr);
 

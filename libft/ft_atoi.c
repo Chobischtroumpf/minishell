@@ -50,5 +50,8 @@ int			ft_atoi(const char *str)
 		nb += str[i] - '0';
 		i++;
 	}
-	return ((int)(is_negative ? -nb : nb));
+	if (is_negative)
+		return (-nb);
+	else
+		return(nb);	
 }

@@ -51,3 +51,11 @@ int		print_and_count(t_pl pl, va_list *ap)
 		return (print_percent(pl, ap));
 	return (0);
 }
+
+int get_p_len(int len, t_pl pl)
+{
+	if (len > pl.precise)
+		return (len);
+	else
+		return (pl.precise);
+}

@@ -17,8 +17,11 @@ static int	set_size(t_pl pl, int *p_len, int len, char *ret)
 	if (pl.precise == 0 && *ret == '0')
 		*p_len = 0;
 	else
-		*p_len = (len > pl.precise) ? len : pl.precise;
-	return ((*p_len > pl.min_w) ? *p_len : pl.min_w);
+		*p_len = get_p_len(len, pl);
+	if (*p_len > pl.min_w)
+		return (*p_len);
+	else
+		return (pl.min_w);
 }
 
 static int	print_without_fminus(char *ret, t_pl pl)

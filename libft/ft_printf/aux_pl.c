@@ -61,7 +61,8 @@ static void	get_min_w(t_pl *pl, char **form, va_list *ap)
 		}
 		(*form)++;
 	}
-	pl->min_w = (digit) ? digit : pl->min_w;
+	if (digit)
+		pl->min_w = digit;
 }
 
 static void	get_precision(t_pl *pl, char **form, va_list *ap)

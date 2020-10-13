@@ -54,7 +54,7 @@ char			*ft_itoa(int n)
 		unbr = -n;
 	}
 	len--;
-	while (len >= (is_negative ? 1 : 0))
+	while (len >= is_negative)
 	{
 		str[len] = unbr % 10 + '0';
 		unbr /= 10;

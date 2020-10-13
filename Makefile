@@ -31,9 +31,7 @@ OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
-CFLAGS = -Wall -Wextra
-
-CFLAGS = -I include -I libft/includes
+CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes
 LDFLAGS = -L libft
 LDLIBS = -lft 
 

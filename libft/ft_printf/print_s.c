@@ -50,8 +50,12 @@ int			print_s(t_pl pl, va_list *ap)
 	if (!s)
 		s = "(null)";
 	len = ft_strlen(s);
-	len = (pl.precise != -1 && len > pl.precise) ? pl.precise : len;
-	size = (len > pl.min_w) ? len : pl.min_w;
+	if (pl.precise != -1 && len > pl.precise) 
+		len = pl.precise;
+	if (len > pl.min_w)
+		size = len;
+	else
+		size = pl.min_w;
 	if (!(ret = copy_to_ret(size, len, s, pl)))
 		return (0);
 	write(1, ret, size);

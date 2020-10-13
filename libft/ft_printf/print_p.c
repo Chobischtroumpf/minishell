@@ -49,7 +49,10 @@ int			print_p(t_pl pl, va_list *ap)
 		len = 0 + 2;
 	else
 		len = ft_strlen(ret) + 2;
-	size = (len > pl.min_w) ? len : pl.min_w;
+	if (len > pl.min_w)
+		size =  len ;
+	else
+		size = pl.min_w;
 	print_res(ret, pl, size - len);
 	free_all(ret);
 	return (size);
