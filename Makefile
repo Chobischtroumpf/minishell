@@ -1,70 +1,86 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
+#    Updated: 2020/01/27 08:43:46 by adorigo          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# ================================ VARIABLES ================================= #
+NAME = minishell
 
-NAME	= minishell
-CXX	= gcc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS = -Wall -Wextra -Werror -I./include -c
 
-SRCDIR	= srcs/
-INCDIR	= include/
-OBJDIR	= objs/
+SRC_PATH = srcs
+SRC_NAME =	cmd_add_rdir.c	\
+			cmd_parser_1.c	\
+			errors.c		\
+			cmd_parser_2.c	\
+			exec_builtin.c	\
+			exit.c			\
+			get_static.c	\
+			free.c			\
+			lexing.c		\
+			minishell.c		\
+			utils.c
 
-CXXFLAGS	+= -I $(INCDIR)
+OBJ_PATH = objs
+OBJ_NAME = $(SRC_NAME:.c=.o)
 
-SRCS	= 	$(SRCDIR)cmd_add_rdir.c $(SRCDIR)cmd_parser_1.c				\
-			$(SRCDIR)cmd_parser_2.c $(SRCDIR)errors.c $(SRCDIR)free.c		\
-			$(SRCDIR)exec_builtin.c $(SRCDIR)get_static.c $(SRCDIR)lexing.c	\
-			$(SRCDIR)minishell.c $(SRCDIR)utils.c
+CC = clang
+CFLAGS = -Wall -Wextra
 
-SRC		:= $(notdir $(SRCS)) # 					Files only
-OBJ		:= $(SRC:.c=.o)	#					Files only
-OBJS	:= $(addprefix $(OBJDIR), $(OBJ)) #		Full path
-CSRCS	:= $(addprefix ../, $(SRCS)) #			Compiler
+CFLAGS = -I include -I libft/includes
+LDFLAGS = -L libft
+LDLIBS = -lft 
 
-GR	= \033[32;1m #	Green
-RE	= \033[31;1m #	Red
-YE	= \033[33;1m #	Yellow
-CY	= \033[36;1m #	Cyan
-RC	= \033[0m #	Reset Colors
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-# ================================== RULES =================================== #
+all: libft $(NAME)
 
-all : $(NAME)
+$(NAME): $(OBJ) libft/libft.a
+	@$(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
+	@echo "Compilation of minishell:	\033[1;32mOK\033[m"
 
-#	linking
-$(NAME)	: $(OBJS)
-	@printf "$(YE)&&& Linking $(OBJ) to $(NAME)$(RC)"
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS) -I./libft/includes/ libft.a
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@mkdir -pv $(OBJ_PATH)
+	@$(CC) $(CFLAGS) -c $< $(CFLAGS) -o $@
 
-#	compiling
-$(OBJS) : $(SRCS)
-	@printf "$(GR)+++ Compiling $(SRC) to $(OBJ)$(RC)"
-	@mkdir -p $(OBJDIR)
-	@cp libft/libft.a .
-	@cd $(OBJDIR) && $(CXX) $(CXXFLAGS) -I ../$(INCDIR) -c $(CSRCS) -I../libft/includes/
+libft:
+	@make -C libft
 
-#	runnng
+clean:
+	@make -C libft clean
+	@rm -f $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
-run : $(NAME)
-	@echo "$(CY)>>> Running $(NAME)$(RC)"
-	./$(NAME)
-#	cleaning
-clean :
-	@echo "$(RE)--- Removing $(OBJ)$(RC)"
-	@rm -fd $(OBJS) $(OBJDIR)
+clean_libft:
+	@make -C libft clean
 
-fclean : clean
-	@echo "$(RE)--- Removing $(NAME)$(RC)"
+clean_minishell:
+	@rm -rf $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+
+fclean_libft:
+	@make -C libft fclean
+
+fclean_minishell:
+	@rm -rf $(OBJ_PATH)
 	@rm -f $(NAME)
 
-re : fclean all
+fclean: fclean_minishell fclean_libft
 
-debug :
-	@echo "SRCS $(SRCS)"
-	@echo "SRC $(SRC)"
-	@echo "OBJS $(OBJS)"
-	@echo "OBJ $(OBJ)"
-	@echo "CSRCS $(CSRCS)"
-	@echo "CFLAGS $(CFLAGS)"
+re: fclean all
 
-.PHONY	= all run clean fclean re debug
+re_minishell: fclean_minishell $(NAME)
+
+re_libft:
+	@make -C libft re
+
+bonus: all
+
+.PHONY: all clean fclean re libft clean_minishell clean_libft fclean_minishell fclean_libft re_minishell re_libft

@@ -44,9 +44,9 @@ int			ft_exec_exit(t_cmd *cmd)
 			return(too_many_arg(cmd->argv[0], 1));
 		}
 		ret = (char)ft_atoi(cmd->argv[1]);
-		free_all();
+		ft_free_cmd();
 		exit(ret);
 	}
-	free_all();
+	ft_free_cmd();
 	exit(EXIT_SUCCESS);
 }

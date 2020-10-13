@@ -21,7 +21,7 @@ t_cmd init_cmd()
 		// ft_free_all();
 		exit_error();
 	}
-	cmd->nbr_token = 0;
+	// cmd->nbr_token = 0;
 	cmd->argv = 0;
 	
 }

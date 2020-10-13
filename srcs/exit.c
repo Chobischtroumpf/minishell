@@ -82,8 +82,3 @@ void		ft_free_cmd(void)
 	}
 	get_minishell()->cmd = 0;
 }
-
-void	free_all(void)
-{
-	ft_free_cmd();
-}
