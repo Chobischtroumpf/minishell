@@ -59,26 +59,28 @@ static void	free_redir(t_cmd *cmd)
 
 void		ft_free_cmd(void)
 {
-	t_cmd	*cmd;
+	t_minishell *minishell;
 	t_cmd	*tmp;
 	int		i;
 
-	cmd = get_minishell()->cmd;
+	minishell = get_minishell();
 	free_line();
 	free_tokens();
-	while(cmd)
+	printf("cmd = %p\n", minishell->cmd);
+	printf("minishell = %p\n", minishell);
+	while(minishell->cmd)
 	{
-		tmp = cmd->next;
-		if(cmd->argv)
+		tmp = minishell->cmd->next;
+		if(minishell->cmd->argv)
 		{
 			i = 0;
-			while(cmd->argv[i])
-				free(cmd->argv[i++]);
-			free(cmd->argv);
+			while(minishell->cmd->argv[i])
+				free(minishell->cmd->argv[i++]);
+			free(minishell->cmd->argv);
 		}
-		free_redir(cmd);
-		free(cmd);
-		cmd = tmp;
+		free_redir(minishell->cmd);
+		free(minishell->cmd);
+		minishell->cmd = tmp;
 	}
 	get_minishell()->cmd = 0;
 }

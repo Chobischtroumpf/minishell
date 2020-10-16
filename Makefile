@@ -22,16 +22,17 @@ SRC_NAME =	cmd_add_rdir.c	\
 			exec_builtin.c	\
 			exit.c			\
 			get_static.c	\
-			free.c			\
 			lexing.c		\
 			minishell.c		\
+			bltin_echo.c	\
+			bltin_exit.c	\
 			utils.c
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes
+CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes 
 LDFLAGS = -L libft
 LDLIBS = -lft 
 

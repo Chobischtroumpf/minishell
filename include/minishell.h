@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
+# include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -58,10 +59,10 @@ typedef struct		s_minishell
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
 int					ft_exec_pwd(void);
-int 				ft_exec_echo(void);
+int					ft_exec_echo(t_cmd *cmd);
+int					ft_exec_exit(t_cmd *cmd);
 int					ft_exec_cmd(void);
 void 				*exit_error(void);
-void 				ft_free_all(void);
 int					ft_tokens_count(char *line);
 int					ft_check_separator(char *line, int i, int space);
 int					ft_brackets(char *line, int i);
@@ -76,6 +77,6 @@ t_cmd				*ft_last_cmd(t_cmd *cmd);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					too_many_args(char *cmd, int ret);
 int					numeric_arg_error(char *cmd,char *arg, int ret);
-int					ft_exec_exit(t_cmd *cmd);
+void				ft_free_cmd(void);
 
 #endif

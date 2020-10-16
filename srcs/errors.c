@@ -34,7 +34,7 @@ void	*exit_error(void)
 {
 	char *strerr;
 
-	ft_free_all();
+	ft_free_cmd();
 	strerr = strerror(errno);
 	ft_putstr_fd(strerr, 2);
 	exit(-1);

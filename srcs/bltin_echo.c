@@ -23,7 +23,13 @@ static void	print_arg(char **argv, int i, int cnt)
 	}
 }
 
-int			exec_echo(t_cmd *cmd)
+/*
+** ft_exec_echo is a function that takes the t_cmd chained-list as a parameter,
+** and will print all the args of echo, followed by a \n character.
+** if the second argv is the "-n" flag, it will instead print all the args,
+** except the first two, and put no newlines at the end.
+*/
+int			ft_exec_echo(t_cmd *cmd)
 {
 	int cnt;
 	cnt = count_arg(cmd->argv);

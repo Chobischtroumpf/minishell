@@ -69,6 +69,7 @@ int		main(void)
 	t_minishell	*minishell;
 	int			x;
 	char		*tmp;
+	t_cmd		*tmp2;
 
 	minishell = get_minishell();
 	signal(SIGINT, signal_handler);
@@ -99,8 +100,22 @@ int		main(void)
 			minishell->tokens[x] = NULL;
 			if (!ft_cmd_parse(minishell->tokens))
 				continue;
-			print_lst(minishell->cmd);
+			// print_lst(minishell->cmd);
+			tmp2 = minishell->cmd;
+			while(tmp2)
+			{
+				ft_exec_cmd();
+				ft_printf("minishell : %p\n", minishell);
+				ft_printf("cmd : %p\n", minishell->cmd);
+				ft_printf("line : %p\n", minishell->line);
+				ft_printf("tokens : %p\n", minishell->tokens);
+				ft_printf("cmd->argv : %p\n", minishell->cmd->argv);
+				ft_printf("cmd->next : %p\n", minishell->cmd->next);
+				tmp2 = tmp2->next;
+			}
 		}
+		ft_free_cmd();
 	}
 	ft_printf("\n");
+	// _get_summary();
 }
