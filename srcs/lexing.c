@@ -3,25 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/07/20 09:26:55 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:45:54 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_jump_spaces(char *line, int i, int jump)
-{
-	i += jump;
-	while (line[i] == ' ' || *line == '\t')
-	{
-		i++;
-		jump++;
-	}
-	return (jump);
-}
+/*
+**int			ft_jump_spaces(char *line, int i, int jump)
+**{
+**	i += jump;
+**	while (line[i] == ' ' || *line == '\t')
+**	{
+**		i++;
+**		jump++;
+**	}
+**	return (jump);
+**}
+*/
+
+/*
+** ft_check_sep will check what character line in position i is, in order to
+** know how many chars it will need to skip in order to get to the next token
+*/
 
 int			ft_check_sep(char *line, int i, int space)
 {
@@ -37,7 +44,15 @@ int			ft_check_sep(char *line, int i, int space)
 	if (space == 0)
 		return (jump);
 	else if (space == 1)
-		return (ft_jump_spaces(line, i, jump));
+	{
+		i += jump;
+		while (line[i] == ' ' || *line == '\t')
+		{
+			i++;
+			jump++;
+		}
+		return (jump);
+	}
 	return (0);
 }
 
@@ -51,6 +66,12 @@ static int	ft_is_backslash(char *line, int *i)
 		return (0);
 	return (1);
 }
+
+/*
+** ft_brackets will check if line at position i has a double bracket or single
+** bracket, and will make sure that it has an enclosing bracket somewhere at
+** the end of the line
+*/
 
 int			ft_brackets(char *line, int i)
 {
@@ -72,6 +93,11 @@ int			ft_brackets(char *line, int i)
 	}
 	return (i);
 }
+
+/*
+** ft_tokens_count will count how many tokens line has, a token being anything
+** that is not whitespace
+*/
 
 int			ft_tokens_count(char *line)
 {
@@ -100,6 +126,13 @@ int			ft_tokens_count(char *line)
 	}
 	return (count);
 }
+
+/*
+** the ft_tokens_split function take two arguments, char *line, and
+** int nbr_token nbr_token indicates the position of the token that needs to be
+** taken. The function will parse line, until it either finds the token number
+** nbr_token, or reaches the end of the line
+*/
 
 char		*ft_tokens_split(char *line, int nbr_token)
 {

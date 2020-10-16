@@ -3,26 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 10:47:56 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/09 11:11:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:47:18 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd init_cmd()
+t_cmd	init_cmd(void)
 {
 	t_cmd *cmd;
 
 	if (!(cmd = malloc(sizeof(t_cmd))))
 	{
-		// ft_free_all();
+		ft_free_cmd();
 		exit_error();
 	}
-	// cmd->nbr_token = 0;
-	cmd->argv = 0;
-	
 }
-

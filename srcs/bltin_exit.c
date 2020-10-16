@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/15 09:39:25 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 14:01:23 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int	ft_check_is_digit(char *str)
 	while (str && *str)
 	{
 		if (!ft_isdigit(*str))
-			return(0);
+			return (0);
 		str++;
 	}
-	return(1);
+	return (1);
 }
 
 int			ft_exec_exit(t_cmd *cmd)
@@ -41,7 +41,7 @@ int			ft_exec_exit(t_cmd *cmd)
 		if (cnt > 2)
 		{
 			ft_printf("exit\n");
-			return(too_many_args(cmd->argv[0], 1));
+			return (too_many_args(cmd->argv[0], 1));
 		}
 		ret = (char)ft_atoi(cmd->argv[1]);
 		ft_free_cmd();

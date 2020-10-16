@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_add_rdir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 15:35:09 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/14 09:57:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 14:10:44 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_rdir	*ft_new_rdir(char *file, int is_dbl)
 	t_rdir *new;
 
 	if (!(new = malloc(sizeof(t_rdir))))
-		return(exit_error());
+		return (exit_error());
 	new->file = ft_strdup(file);
 	new->std = -1;
 	new->is_dbl = is_dbl;
@@ -32,7 +32,6 @@ t_rdir			*ft_last_rdir(t_rdir *begin)
 	return (begin);
 }
 
-
 static t_rdir	*ft_add_rdir(t_rdir *begin, char *file, int is_dbl)
 {
 	t_rdir *last;
@@ -44,7 +43,7 @@ static t_rdir	*ft_add_rdir(t_rdir *begin, char *file, int is_dbl)
 	return (begin);
 }
 
-void			ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file)
+void			ft_add_redir_cmd(t_cmd *cmd, char *redir, char *file)
 {
 	t_cmd *last;
 

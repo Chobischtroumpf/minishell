@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/14 14:59:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:56:17 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ t_cmd			*ft_new_cmd(char *token)
 	new->in = NULL;
 	new->out = NULL;
 	new->next = NULL;
-	return(new);
+	return (new);
 }
 
 static void		ft_add_pipe_cmd(t_cmd *cmd)
 {
 	t_cmd *last;
-	
+
 	last = ft_last_cmd(cmd);
 	last->pipe = 1;
 }
@@ -47,7 +47,7 @@ t_cmd			*ft_add_cmd(t_cmd *cmd, char *token)
 	t_cmd	*tmp;
 
 	if (!cmd)
-		return(ft_new_cmd(token));
+		return (ft_new_cmd(token));
 	else
 	{
 		tmp = cmd;
@@ -55,7 +55,7 @@ t_cmd			*ft_add_cmd(t_cmd *cmd, char *token)
 			tmp = tmp->next;
 		tmp->next = ft_new_cmd(token);
 	}
-	return(cmd);
+	return (cmd);
 }
 
 static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
@@ -94,7 +94,7 @@ int				ft_cmd_parse(char **tokens)
 	new = 1;
 	while (tokens[i])
 	{
-		printf("i : %d\n", i);
+		printf("i : %d\n", i); //
 		if (new && !(new = 0))
 			minishell->cmd = ft_add_cmd(minishell->cmd, tokens[i]);
 		else if (!ft_strcmp(tokens[i], "|") && (new = 1))
@@ -107,5 +107,5 @@ int				ft_cmd_parse(char **tokens)
 			ft_add_argv_cmd(minishell->cmd, tokens[i]);
 		i++;
 	}
-	return(1);
+	return (1);
 }

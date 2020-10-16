@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/18 10:30:25 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:42:51 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 # define SEP_SPACE " \t<>|;"
 # define SEP "<>|;"
 # define SPACE " \t"
-# define PATH_MAX 1024
+# ifndef PATH_MAX
+#  define PATH_MAX 1024
+# endif
 // # define LINE_MAX 1024
 # define NO_EXCODE -1
 # define NO_STATUS -1
@@ -39,9 +41,9 @@ typedef struct		s_rdir
 typedef struct		s_cmd
 {
 	char			**argv;
-	int				pipe;
-	int				is_rdir;
-	int				has_path;
+	int				pipe : 1;
+	int				is_rdir : 1;
+	int				has_path : 1;
 	t_rdir			*in;
 	t_rdir			*out;
 	struct s_cmd	*next;

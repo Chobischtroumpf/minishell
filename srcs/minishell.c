@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 19:08:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:12:58 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,37 @@ void	signal_handler(int signbr)
 	}
 }
 
-void	print_lst(t_cmd *cmd)
-{
-	int i = 0;
-	t_cmd *tmp;
-	t_rdir *in;
-	t_rdir *out;
-
-	in = cmd->in;
-	out = cmd->out;
-	tmp = cmd;
-	while (tmp != NULL)
-	{
-		while(tmp->argv[i])
-			printf("%s\n", tmp->argv[i++]);
-		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
-		while (in != NULL)
-		{
-			printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
-			in = in->next;
-		}
-		while (out != NULL)
-		{
-			printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
-			out = out->next;
-		}
-		tmp = tmp->next;
-		i = 0;
-	}
-}
+/*
+**void	print_lst(t_cmd *cmd)
+**{
+**	int i = 0;
+**	t_cmd *tmp;
+**	t_rdir *in;
+**	t_rdir *out;
+**
+**	in = cmd->in;
+**	out = cmd->out;
+**	tmp = cmd;
+**	while (tmp != NULL)
+**	{
+**		while(tmp->argv[i])
+**			printf("%s\n", tmp->argv[i++]);
+**		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
+**		while (in != NULL)
+**		{
+**			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
+**			in = in->next;
+**		}
+**		while (out != NULL)
+**		{
+**			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
+**			out = out->next;
+**		}
+**		tmp = tmp->next;
+**		i = 0;
+**	}
+**}
+*/
 
 int		main(void)
 {
@@ -100,22 +102,20 @@ int		main(void)
 			minishell->tokens[x] = NULL;
 			if (!ft_cmd_parse(minishell->tokens))
 				continue;
-			// print_lst(minishell->cmd);
 			tmp2 = minishell->cmd;
-			while(tmp2)
+			while (tmp2)
 			{
 				ft_exec_cmd();
-				ft_printf("minishell : %p\n", minishell);
-				ft_printf("cmd : %p\n", minishell->cmd);
-				ft_printf("line : %p\n", minishell->line);
-				ft_printf("tokens : %p\n", minishell->tokens);
-				ft_printf("cmd->argv : %p\n", minishell->cmd->argv);
-				ft_printf("cmd->next : %p\n", minishell->cmd->next);
+				// ft_printf("minishell : %p\n", minishell);
+				// ft_printf("cmd : %p\n", minishell->cmd);
+				// ft_printf("line : %p\n", minishell->line);
+				// ft_printf("tokens : %p\n", minishell->tokens);
+				// ft_printf("cmd->argv : %p\n", minishell->cmd->argv);
+				// ft_printf("cmd->next : %p\n", minishell->cmd->next);
 				tmp2 = tmp2->next;
 			}
 		}
 		ft_free_cmd();
 	}
 	ft_printf("\n");
-	// _get_summary();
 }

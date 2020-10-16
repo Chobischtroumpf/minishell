@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/18 10:49:46 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 14:11:10 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static void	print_arg(char **argv, int i, int cnt)
 ** if the second argv is the "-n" flag, it will instead print all the args,
 ** except the first two, and put no newlines at the end.
 */
+
 int			ft_exec_echo(t_cmd *cmd)
 {
 	int cnt;
+
 	cnt = count_arg(cmd->argv);
 	if (cnt > 2 && !ft_strcmp(cmd->argv[1], "-n"))
 		print_arg(cmd->argv, 2, cnt);

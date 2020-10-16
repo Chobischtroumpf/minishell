@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/15 09:39:16 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/16 13:54:56 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		too_many_args(char *cmd, int ret)
 int		parse_error(char *error, int ret)
 {
 	ft_printf("minishell : parse error near '%s'\n", error);
-	return(ret);
+	return (ret);
 }
 
 void	*exit_error(void)
