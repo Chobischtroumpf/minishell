@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 13:54:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/19 16:23:24 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ int			ft_exec_cmd(void)
 	ret = 1;
 	i = -1;
 	builtin = get_built_in();
+	get_minishell()->executed = 1;
 	while (++i < 7)
 		if (!ft_strcmp(builtin[i], get_minishell()->cmd->argv[0]))
 		{
 			ret = ft_exec_builtin(i);
 			break ;
 		}
+	get_minishell()->executed = 0;
 	if (ret == 1)
 	{
 		ft_printf("minishell : command not found : %s\n",
