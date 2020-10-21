@@ -6,11 +6,15 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 14:04:52 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 16:04:03 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** executes the specified builtin command, depending on the bltin_pos variable's value
+*/
 
 static int	ft_exec_builtin(int bltin_pos)
 {
