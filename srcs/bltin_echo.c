@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 13:11:47 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 16:00:18 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			ft_exec_echo(t_cmd *cmd)
 {
 	int cnt;
 
-	cnt = count_arg(cmd->argv);
+	cnt = ft_count_arg(cmd->argv);
 	if (cnt > 2 && !ft_strcmp(cmd->argv[1], "-n"))
 		print_arg(cmd->argv, 2, cnt);
 	else

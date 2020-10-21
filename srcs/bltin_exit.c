@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 13:16:12 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 16:00:51 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ int			ft_exec_exit(t_cmd *cmd)
 	int		digit;
 	int		ret;
 
-	cnt = count_arg(cmd->argv);
+	cnt = ft_count_arg(cmd->argv);
 	digit = ft_check_is_digit(cmd->argv[1]);
 	if (cmd->argv[1])
 	{
 		if (!digit)
 		{
 			ft_printf("exit\n");
-			exit(numeric_arg_error(cmd->argv[0], cmd->argv[1], EXIT_FAILURE));
+			exit(ft_numeric_arg_error(cmd->argv[0], cmd->argv[1], EXIT_FAILURE));
 		}
 		if (cnt > 2)
 		{
 			ft_printf("exit\n");
-			return (too_many_args(cmd->argv[0], 1));
+			return (ft_too_many_args(cmd->argv[0], 1));
 		}
 		ret = (char)ft_atoi(cmd->argv[1]);
 		ft_free_cmd();

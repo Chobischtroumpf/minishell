@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/20 16:43:46 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 15:59:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void			ft_free_cmd(void)
 	minishell = get_minishell();
 	ft_free_line();
 	ft_free_tokens();
-	printf("cmd = %p\n", minishell->cmd);
-	printf("minishell = %p\n", minishell);
 	while (minishell->cmd)
 	{
 		tmp = minishell->cmd->next;

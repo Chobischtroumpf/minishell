@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 13:32:27 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 16:01:29 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int
 /*
 ** check_redir is a function that will iterate through the tokens, checking
 ** that there are no double redirections, or redirections followed by a pipe or
-** a semi-colon. in case of error, it will call the parse_error function, which
+** a semi-colon. in case of error, it will call the ft_parse_error function, which
 ** will print the token at fault
 */
 
@@ -45,24 +45,24 @@ static int
 		{
 			redi++;
 			if (redi == 2)
-				return (parse_error(tokens[i], 0));
+				return (ft_parse_error(tokens[i], 0));
 		}
 		else if (redi == 1 && (!ft_strcmp(tokens[i], ";")
 				|| !ft_strcmp(tokens[i], "|")))
-			return (parse_error(tokens[i], 0));
+			return (ft_parse_error(tokens[i], 0));
 		else
 			redi = 0;
 		i++;
 	}
 	if (i != 0 && is_redir(tokens[i - 1]))
-		return (parse_error("\\n", 0));
+		return (ft_parse_error("\\n", 0));
 	return (1);
 }
 
 /*
 ** check_pipe is a function that will iterate through each tokens, and check
 ** that tere are no double pipes, or pipes followed by either a redirection or
-** a semi-colon. in case of error, it will call the parse_error function, which
+** a semi-colon. in case of error, it will call the ft_parse_error function, which
 ** will print the token at fault
 */
 
@@ -79,20 +79,20 @@ static int
 		if (!ft_strcmp(tokens[i], "|"))
 		{
 			if (i == 0)
-				return (parse_error("|", 0));
+				return (ft_parse_error("|", 0));
 			pipe++;
 			if (pipe == 2)
-				return (parse_error("||", 0));
+				return (ft_parse_error("||", 0));
 		}
 		else if (pipe == 1 &&
 			(is_redir(tokens[i]) || !ft_strcmp(tokens[i], ";")))
-			return (parse_error(tokens[i], 0));
+			return (ft_parse_error(tokens[i], 0));
 		else
 			pipe = 0;
 		i++;
 	}
 	if (i != 0 && !ft_strcmp(tokens[i - 1], "|"))
-		return (parse_error("|", 0));
+		return (ft_parse_error("|", 0));
 	return (1);
 }
 
@@ -114,10 +114,10 @@ static int
 		if (!ft_strcmp(tokens[i], ";"))
 		{
 			if (i == 0)
-				return (parse_error(";", 0));
+				return (ft_parse_error(";", 0));
 			semi++;
 			if (semi == 2)
-				return (parse_error(";", 0));
+				return (ft_parse_error(";", 0));
 		}
 		else
 			semi = 0;
