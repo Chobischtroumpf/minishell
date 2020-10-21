@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/19 16:34:03 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/20 16:43:59 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		main(void)
 			tmp2 = minishell->cmd;
 			while (tmp2)
 			{
-				ft_check_dollar();
+				// ft_check_dollar();
 				ft_exec_cmd();
 				// ft_printf("minishell : %p\n", minishell);
 				// ft_printf("cmd : %p\n", minishell->cmd);

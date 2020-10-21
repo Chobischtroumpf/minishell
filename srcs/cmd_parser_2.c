@@ -6,11 +6,16 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 13:56:17 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 13:49:00 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**the ft_new_cmd function will create a new t_cmd linked-list, malloc it, and
+** initialize it
+*/
 
 t_cmd			*ft_new_cmd(char *token)
 {
@@ -34,6 +39,11 @@ t_cmd			*ft_new_cmd(char *token)
 	return (new);
 }
 
+/*
+** ft_add_pipe_cmd is a command that takes a t_cmd linked list as its first and
+** only argument, and sets the pipe variable of it's last occurence to one
+*/
+
 static void		ft_add_pipe_cmd(t_cmd *cmd)
 {
 	t_cmd *last;
@@ -41,6 +51,12 @@ static void		ft_add_pipe_cmd(t_cmd *cmd)
 	last = ft_last_cmd(cmd);
 	last->pipe = 1;
 }
+
+/*
+** the ft_add_cmd function take a t_cmd linked list and the tokens as its
+** arguments,and either adds a t_cmd element to the end of the linked-list or
+** creates a new linked list
+*/
 
 t_cmd			*ft_add_cmd(t_cmd *cmd, char *token)
 {
@@ -57,6 +73,11 @@ t_cmd			*ft_add_cmd(t_cmd *cmd, char *token)
 	}
 	return (cmd);
 }
+
+/*
+** ft_add_argv_cmd takes a t_cmd linked list and arg as arguments, and adds the
+** arg to the char** argument pointer on the last element of the linked-list
+*/
 
 static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 {
@@ -80,6 +101,11 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 	last->argv = new_arr;
 }
 
+/*
+** the ft_cmd_parse function is a function that iterates through the tokens,
+** and divides them into a t_cmd linked-list
+*/
+
 int				ft_cmd_parse(char **tokens)
 {
 	t_minishell	*minishell;
@@ -94,7 +120,6 @@ int				ft_cmd_parse(char **tokens)
 	new = 1;
 	while (tokens[i])
 	{
-		printf("i : %d\n", i); //
 		if (new && !(new = 0))
 			minishell->cmd = ft_add_cmd(minishell->cmd, tokens[i]);
 		else if (!ft_strcmp(tokens[i], "|") && (new = 1))

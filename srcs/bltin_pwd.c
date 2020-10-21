@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_static.c                                       :+:      :+:    :+:   */
+/*   bltin_pwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 12:17:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 14:03:12 by alessandro       ###   ########.fr       */
+/*   Created: 2020/10/21 14:05:18 by alessandro        #+#    #+#             */
+/*   Updated: 2020/10/21 14:05:33 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** declares the static structure minishell, and returns it's address
-*/
-
-t_minishell	*get_minishell(void)
+int			ft_exec_pwd(void)
 {
-	static t_minishell	minishell;
+	char cwd[PATH_MAX];
 
-	return (&minishell);
-}
-
-/*
-** returns a static tab with all the builtin commands
-*/
-
-char		**get_built_in(void)
-{
-	static char *built_in[8] = {
-		"echo",
-		"cd",
-		"pwd",
-		"export",
-		"unset",
-		"env",
-		"exit",
-		NULL
-	};
-
-	return (built_in);
+	if (!(getcwd(cwd, sizeof(cwd))))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
+		return (1);
+	}
+	ft_printf("%s\n", cwd);
+	return (0);
 }

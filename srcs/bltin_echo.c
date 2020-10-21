@@ -6,11 +6,16 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 14:11:10 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 13:11:47 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** the print_arg function iterates through the argv 2 dimensional table and
+** prints every line inside of it
+*/
 
 static void	print_arg(char **argv, int i, int cnt)
 {

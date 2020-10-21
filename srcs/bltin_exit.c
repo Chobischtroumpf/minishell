@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 14:01:23 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 13:16:12 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ static int	ft_check_is_digit(char *str)
 	}
 	return (1);
 }
+
+/*
+** ft_exec_exit takes a pointer to a t_cmd struct, checks if the argument
+** to the exit cmd is numeric or not, and if it has more than two args
+** if the argument is not numeric or there are too many arguments, the exit
+** command will still do it's job, ie exiting, but with an error return code
+*/
 
 int			ft_exec_exit(t_cmd *cmd)
 {

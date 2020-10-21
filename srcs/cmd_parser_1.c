@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/13 18:01:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/21 13:32:27 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ int
 		return (1);
 	return (0);
 }
+
+/*
+** check_redir is a function that will iterate through the tokens, checking
+** that there are no double redirections, or redirections followed by a pipe or
+** a semi-colon. in case of error, it will call the parse_error function, which
+** will print the token at fault
+*/
 
 static int
 	check_redir(char **tokens)
@@ -51,6 +58,13 @@ static int
 		return (parse_error("\\n", 0));
 	return (1);
 }
+
+/*
+** check_pipe is a function that will iterate through each tokens, and check
+** that tere are no double pipes, or pipes followed by either a redirection or
+** a semi-colon. in case of error, it will call the parse_error function, which
+** will print the token at fault
+*/
 
 static int
 	check_pipe(char **tokens)
@@ -81,6 +95,11 @@ static int
 		return (parse_error("|", 0));
 	return (1);
 }
+
+/*
+** the check_semi function check that there are no semi-colons at the begining
+** of the line, or two semi-colons following each others
+*/
 
 static int
 	check_semi(char **tokens)
