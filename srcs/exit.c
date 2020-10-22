@@ -6,11 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/10/20 16:43:07 by nathan           ###   ########.fr       */
-=======
-/*   Updated: 2020/10/21 16:09:57 by alessandro       ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2020/10/22 13:18:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +31,11 @@ static void		ft_free_tokens(void)
 		get_minishell()->tokens = 0;
 	}
 }
-
-<<<<<<< HEAD
-void			ft_free_line(void)
-=======
 /*
 ** the ft_free_line function is in charge to free the minishell->line variable
 */
 
 static void		ft_free_line(void)
->>>>>>> master
 {
 	if (get_minishell()->line)
 		free(get_minishell()->line);

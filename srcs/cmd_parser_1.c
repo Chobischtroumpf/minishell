@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 16:01:29 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/22 13:20:52 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int
-	is_redir(char *s)
+	ft_is_redir(char *s)
 {
 	if (!ft_strcmp(s, "<"))
 		return (1);
@@ -41,7 +41,7 @@ static int
 	i = 0;
 	while (tokens[i])
 	{
-		if (is_redir(tokens[i]))
+		if (ft_is_redir(tokens[i]))
 		{
 			redi++;
 			if (redi == 2)
@@ -54,7 +54,7 @@ static int
 			redi = 0;
 		i++;
 	}
-	if (i != 0 && is_redir(tokens[i - 1]))
+	if (i != 0 && ft_is_redir(tokens[i - 1]))
 		return (ft_parse_error("\\n", 0));
 	return (1);
 }
@@ -85,7 +85,7 @@ static int
 				return (ft_parse_error("||", 0));
 		}
 		else if (pipe == 1 &&
-			(is_redir(tokens[i]) || !ft_strcmp(tokens[i], ";")))
+			(ft_is_redir(tokens[i]) || !ft_strcmp(tokens[i], ";")))
 			return (ft_parse_error(tokens[i], 0));
 		else
 			pipe = 0;
