@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 09:45:12 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/21 15:55:57 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strnjoin(char const *s1, char const *s2, 
 															ssize_t r_size);
 int					ft_haschr(const char *s, int c);
+int					ft_hasnchar(const char *s, char *c);
+
 char				*ft_strnew(size_t size);
 int					ft_strlast(char const *str, char const *last);
 

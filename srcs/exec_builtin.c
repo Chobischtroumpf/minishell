@@ -6,26 +6,15 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/19 16:23:24 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/21 16:04:03 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_exec_pwd(void)
-{
-	char cwd[PATH_MAX];
-
-	if (!(getcwd(cwd, sizeof(cwd))))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		return (1);
-	}
-	ft_printf("%s\n", cwd);
-	return (0);
-}
+/*
+** executes the specified builtin command, depending on the bltin_pos variable's value
+*/
 
 static int	ft_exec_builtin(int bltin_pos)
 {
@@ -48,6 +37,11 @@ static int	ft_exec_builtin(int bltin_pos)
 		return (ft_exec_exit(minishell->cmd));
 	return (0);
 }
+
+/*
+** ft_exec_cmd is the command in charge of executing the different comands
+** found in the t_cmd struct
+*/
 
 int			ft_exec_cmd(void)
 {
