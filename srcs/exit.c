@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 16:09:57 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/22 13:18:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void		ft_free_tokens(void)
 		get_minishell()->tokens = 0;
 	}
 }
-
 /*
 ** the ft_free_line function is in charge to free the minishell->line variable
 */
