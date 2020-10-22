@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_static.c                                       :+:      :+:    :+:   */
+/*   ft_hasnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 12:17:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 14:03:12 by alessandro       ###   ########.fr       */
+/*   Created: 2020/10/21 15:54:30 by alessandro        #+#    #+#             */
+/*   Updated: 2020/10/21 15:54:49 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-/*
-** declares the static structure minishell, and returns it's address
-*/
-
-t_minishell	*get_minishell(void)
+int				ft_hasnchar(const char *s, char *c)
 {
-	static t_minishell	minishell;
+	int i;
+	int j;
 
-	return (&minishell);
-}
-
-/*
-** returns a static tab with all the builtin commands
-*/
-
-char		**get_built_in(void)
-{
-	static char *built_in[8] = {
-		"echo",
-		"cd",
-		"pwd",
-		"export",
-		"unset",
-		"env",
-		"exit",
-		NULL
-	};
-
-	return (built_in);
+	i = 0;
+	while (s[i])
+	{
+		j = 0;
+		while (c[j])
+		{
+			if (s[i] == c[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

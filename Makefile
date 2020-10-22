@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/22 12:23:12 by nathan           ###   ########.fr        #
+#    Updated: 2020/10/22 13:12:30 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_echo.c	\
 			bltin_exit.c	\
 			utils.c			\
-			env.c
+			env.c			\
+			bltin_pwd.c		
+
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)

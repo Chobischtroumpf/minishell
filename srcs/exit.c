@@ -6,11 +6,19 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/10/20 16:43:07 by nathan           ###   ########.fr       */
+=======
+/*   Updated: 2020/10/21 16:09:57 by alessandro       ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** the ft_free_tokens function is in charge to free the minishell->tokens variable
+*/
 
 static void		ft_free_tokens(void)
 {
@@ -28,12 +36,24 @@ static void		ft_free_tokens(void)
 	}
 }
 
+<<<<<<< HEAD
 void			ft_free_line(void)
+=======
+/*
+** the ft_free_line function is in charge to free the minishell->line variable
+*/
+
+static void		ft_free_line(void)
+>>>>>>> master
 {
 	if (get_minishell()->line)
 		free(get_minishell()->line);
 	get_minishell()->line = NULL;
 }
+
+/*
+** the ft_free_redir function is in charge to free the t_rdir linked-list inside each t_cmd element
+*/
 
 static void		ft_free_redir(t_cmd *cmd)
 {
@@ -57,6 +77,10 @@ static void		ft_free_redir(t_cmd *cmd)
 	}
 }
 
+/*
+** the ft_free_cmd function is in charge to free the t_cmd linked-list
+*/
+
 void			ft_free_cmd(void)
 {
 	t_minishell	*minishell;
@@ -66,8 +90,6 @@ void			ft_free_cmd(void)
 	minishell = get_minishell();
 	ft_free_line();
 	ft_free_tokens();
-	printf("cmd = %p\n", minishell->cmd);
-	printf("minishell = %p\n", minishell);
 	while (minishell->cmd)
 	{
 		tmp = minishell->cmd->next;

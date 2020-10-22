@@ -3,36 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/14 15:01:28 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/21 15:57:12 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				ft_hasnchar(const char *s, char *c)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (s[i])
-	{
-		j = 0;
-		while (c[j])
-		{
-			if (s[i] == c[j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int				count_arg(char **arg)
+int				ft_count_arg(char **arg)
 {
 	int i;
 

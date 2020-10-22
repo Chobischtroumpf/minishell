@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 12:50:31 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/22 13:10:41 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,21 @@ int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
 int					ft_exec_exit(t_cmd *cmd);
 int					ft_exec_cmd(void);
-void 				*exit_error(void);
+void 				*ft_exit_error(void);
 int					ft_tokens_count(char *line);
 int					ft_check_separator(char *line, int i, int space);
 int					ft_brackets(char *line, int i);
 char				*ft_tokens_split(char *line, int nbr_tokens);
 int					ft_hasnchar(const char *s, char *c);
-int					parse_error(char *error, int ret);
+int					ft_parse_error(char *error, int ret);
 int					ft_check_tokens(char **tokens);
 int					ft_cmd_parse(char **tokens);
-int					is_redir(char *s);
-int					count_arg(char **arr);
+int					ft_is_redir(char *s);
+int					ft_count_arg(char **arr);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
-int					too_many_args(char *cmd, int ret);
-int					numeric_arg_error(char *cmd,char *arg, int ret);
+int					ft_too_many_args(char *cmd, int ret);
+int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 void				ft_free_cmd(void);
 void				ft_init_env(char **envv);
 void				ft_print_env(t_env *env);

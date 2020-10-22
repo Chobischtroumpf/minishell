@@ -6,11 +6,17 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 12:42:20 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/22 13:10:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** signal_handler is the function called in case of a signal being received by
+** the program, the function tells the program what to do in case of a SIGINT or
+** SIGQUIT signal being received
+*/
 
 void	signal_handler(int signbr)
 {

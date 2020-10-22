@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct.c                                      :+:      :+:    :+:   */
+/*   bltin_pwd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/08 10:47:56 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 13:47:18 by alessandro       ###   ########.fr       */
+/*   Created: 2020/10/21 14:05:18 by alessandro        #+#    #+#             */
+/*   Updated: 2020/10/21 16:12:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	init_cmd(void)
-{
-	t_cmd *cmd;
+/*
+** ft_exec_pwd gets the current working directory, and prints it to stdout
+** in case of failure, it writes the reason of failure to stderr
+*/
 
-	if (!(cmd = malloc(sizeof(t_cmd))))
+int			ft_exec_pwd(void)
+{
+	char cwd[PATH_MAX];
+
+	if (!(getcwd(cwd, sizeof(cwd))))
 	{
-		ft_free_cmd();
-		exit_error();
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
+		return (EXIT_FAILURE);
 	}
+	ft_printf("%s\n", cwd);
+	return (EXIT_SUCCESS);
 }
