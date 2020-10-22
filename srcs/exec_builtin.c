@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/19 16:23:24 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/22 12:50:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static int	ft_exec_builtin(int bltin_pos)
 	// 	return (ft_exec_export());
 	// if (bltin_pos == 4)
 	// 	return (ft_exec_unset());
-	// if (bltin_pos == 5)
-	// 	return (ft_exec_env());
+	if (bltin_pos == 5)
+		return (ft_exec_env());
 	// if (bltin_pos == 6)
 		return (ft_exec_exit(minishell->cmd));
 	return (0);
