@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:10:41 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/23 00:48:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-typedef struct  s_env
-{
-	char **tab;
-}				t_env;
-
 typedef struct		s_minishell
 {
 	char			*line;
@@ -61,15 +56,23 @@ typedef struct		s_minishell
 	int				executed;
 	int				nbr_cmd;
 	t_cmd			*cmd;
+	t_list			*env;
 } 					t_minishell;
 
+typedef struct		s_env_var
+{
+	char	*key;
+	char	*value;
+}					t_env_var;
+
+
 t_minishell			*get_minishell(void);
-t_env				*ft_get_env(void);
 char				**get_built_in(void);
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
 int					ft_exec_exit(t_cmd *cmd);
 int					ft_exec_cmd(void);
+int					ft_exec_env();
 void 				*ft_exit_error(void);
 int					ft_tokens_count(char *line);
 int					ft_check_separator(char *line, int i, int space);
@@ -86,8 +89,6 @@ void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 void				ft_free_cmd(void);
-void				ft_init_env(char **envv);
-void				ft_print_env(t_env *env);
-int					ft_exec_env();
+void				ft_init_env(t_minishell *minishell, char **envv);
 
 #endif

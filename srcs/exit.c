@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:18:25 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/22 21:26:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,24 @@ static void		ft_free_line(void)
 	if (get_minishell()->line)
 		free(get_minishell()->line);
 	get_minishell()->line = NULL;
+}
+
+/*
+**	ft_free_env goes through the linked list containing the environnement 
+**	variables and frees every node
+*/
+
+
+void ft_free_env(t_list *env)
+{
+   t_list	*tmp;
+
+   while (env != NULL)
+    {
+       tmp = env;
+       env = env->next;
+       free(tmp);
+    }
 }
 
 /*
@@ -96,4 +114,5 @@ void			ft_free_cmd(void)
 		minishell->cmd = tmp;
 	}
 	get_minishell()->cmd = 0;
+	ft_free_env(minishell->env);
 }

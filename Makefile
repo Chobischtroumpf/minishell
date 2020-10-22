@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/22 13:12:30 by nathan           ###   ########.fr        #
+#    Updated: 2020/10/22 21:46:20 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,9 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 
 libft:
 	@make -C libft
+
+libft_bonus:
+	@make -C libft bonus
 
 clean:
 	@make -C libft clean

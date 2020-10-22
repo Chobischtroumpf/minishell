@@ -6,70 +6,81 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/22 12:50:59 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/23 00:49:15 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_get_env(void)
-{
-	static t_env env;
-
-	return (&env);
-}
-
-int		ft_env_size(char **envv)
-{
-	int i;
-
-	i = 0;
-	while (envv[i])
-		i++;
-	return (i);
-}
-
-void	ft_print_env(t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (env->tab[i])
-	{
-		ft_printf("%s\n", env->tab[i]);
-		i++;
-	}
-}
-
 int			ft_exec_env()
 {
-	t_env *env;
-
-	env = ft_get_env();
-	ft_print_env(env);
+	t_minishell	*minishell;
+	t_list		*tmp;
+	
+	minishell = get_minishell();
+	tmp =  minishell->env;
+	while (tmp)
+	{
+		printf("%s=%s\n", ((t_env_var*)(tmp->content))->key, ((t_env_var*)(tmp->content))->value);
+		tmp = tmp->next;
+	}
 	return (EXIT_SUCCESS);
 }
 
+void		ft_free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	array = NULL;
+}
+
+t_env_var	*new_env_var(char **key_value)
+{
+	t_env_var	*new_var;
+
+	if (!(new_var = malloc(sizeof(t_env_var))))
+		return (NULL);
+	new_var->key = ft_strdup(key_value[0]);
+	if (key_value[1])
+	{
+		new_var->value = ft_strdup(key_value[1]);
+		// Need to ft_strjoin in case the key_value array is bigger than 2 chars
+		// That can happen if a var value contains an "=" sign
+	}
+	else
+		new_var->value = "";
+	return (new_var);
+}
 
 /*
 ** Allocate memory for a **char and store the environement
 ** variables inside.
 */
 
-void	ft_init_env(char **envv)
+void		ft_init_env(t_minishell *minishell, char **envv)
 {
-	t_env	*env;
-	int		i;
+	int			i;
+	char		**key_value;
+	t_env_var	*new_node;
 
 	i = 0;
-	env = ft_get_env();
-	if (!(env->tab = (char **)malloc(sizeof(char *) * ft_env_size(envv) + 1)))
-		exit(0);
 	while (envv[i])
 	{
-		if (!(env->tab[i] = ft_strdup(envv[i])))
-			exit(0);
+		key_value = ft_split(envv[i], '=');
+		if (!(new_node = new_env_var(key_value)))
+		{
+			ft_free_array(key_value);
+		}
+		ft_lstadd_back(&minishell->env, ft_lstnew(new_node));
+		ft_free_array(key_value);
 		i++;
 	}
-	env->tab[i] = NULL;
 }
