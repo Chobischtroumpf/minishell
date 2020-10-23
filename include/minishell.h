@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:10:41 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/23 16:46:56 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,6 @@ typedef struct		s_minishell
 t_minishell			*get_minishell(void);
 t_env				*ft_get_env(void);
 char				**get_built_in(void);
-int					ft_exec_pwd(void);
-int					ft_exec_echo(t_cmd *cmd);
-int					ft_exec_exit(t_cmd *cmd);
-int					ft_exec_cmd(void);
 void 				*ft_exit_error(void);
 int					ft_tokens_count(char *line);
 int					ft_check_separator(char *line, int i, int space);
@@ -88,6 +84,12 @@ int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 void				ft_free_cmd(void);
 void				ft_init_env(char **envv);
 void				ft_print_env(t_env *env);
-int					ft_exec_env();
+int					ft_exec_cmd(void);
+int					ft_exec_env(void);
+int					ft_exec_pwd(void);
+void				ft_exec_extern(t_cmd *cmd);
+int					ft_exec_echo(t_cmd *cmd);
+int					ft_exec_exit(t_cmd *cmd);
+
 
 #endif

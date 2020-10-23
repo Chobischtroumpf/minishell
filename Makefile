@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
+#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/22 13:12:30 by nathan           ###   ########.fr        #
+#    Updated: 2020/10/23 16:51:53 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			cmd_parser_1.c	\
 			errors.c		\
 			cmd_parser_2.c	\
-			exec_builtin.c	\
+			exec_cmd.c		\
 			exit.c			\
 			get_static.c	\
 			lexing.c		\
@@ -28,7 +28,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_exit.c	\
 			utils.c			\
 			env.c			\
-			bltin_pwd.c		
+			bltin_pwd.c		\
+			external.c
 
 
 OBJ_PATH = objs
