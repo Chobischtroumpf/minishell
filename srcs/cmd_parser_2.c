@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 13:49:00 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/22 13:17:26 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_cmd			*ft_new_cmd(char *token)
 	t_cmd	*new;
 
 	if (!(new = malloc(sizeof(t_cmd))))
-		exit_error();
+		ft_exit_error();
 	if (!(new->argv = malloc(sizeof(char *) * 2)))
-		exit_error();
+		ft_exit_error();
 	new->argv[0] = ft_strdup(token);
 	new->argv[1] = NULL;
 	new->pipe = 0;
@@ -87,7 +87,7 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 	int		i;
 
 	last = ft_last_cmd(cmd);
-	cnt = count_arg(last->argv);
+	cnt = ft_count_arg(last->argv);
 	new_arr = malloc(sizeof(char*) * (cnt + 2));
 	i = 0;
 	while (i < cnt)
@@ -124,7 +124,7 @@ int				ft_cmd_parse(char **tokens)
 			minishell->cmd = ft_add_cmd(minishell->cmd, tokens[i]);
 		else if (!ft_strcmp(tokens[i], "|") && (new = 1))
 			ft_add_pipe_cmd(minishell->cmd);
-		else if (is_redir(tokens[i]) && (i++))
+		else if (ft_is_redir(tokens[i]) && (i++))
 			ft_add_redir_cmd(minishell->cmd, tokens[i - 1], tokens[i]);
 		else if (!ft_strcmp(tokens[i], ";") && (new = 1) && (i++))
 			continue;

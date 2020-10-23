@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 16:16:15 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/22 13:10:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,21 @@ void	signal_handler(int signbr)
 **}
 */
 
-int		main(void)
+int		main(int ac, char **av, char **envv)
 {
 	int			done;
 	int			nbr_tokens;
 	t_minishell	*minishell;
+	t_env		*env;
 	int			x;
 	char		*tmp;
 	t_cmd		*tmp2;
 
+	(void)ac;
+	(void)av;
 	minishell = get_minishell();
+	ft_init_env(envv);
+	env	= ft_get_env();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	done = 0;
@@ -111,7 +116,7 @@ int		main(void)
 			tmp2 = minishell->cmd;
 			while (tmp2)
 			{
-				// ft_check_dollar();
+				//ft_check_dollar();
 				ft_exec_cmd();
 				// ft_printf("minishell : %p\n", minishell);
 				// ft_printf("cmd : %p\n", minishell->cmd);

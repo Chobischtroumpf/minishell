@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/21 14:05:48 by alessandro       ###   ########.fr        #
+#    Updated: 2020/10/22 13:12:30 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,10 @@ SRC_NAME =	cmd_add_rdir.c	\
 			minishell.c		\
 			bltin_echo.c	\
 			bltin_exit.c	\
-			bltin_pwd.c		\
-			utils.c
+			utils.c			\
+			env.c			\
+			bltin_pwd.c		
+
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
