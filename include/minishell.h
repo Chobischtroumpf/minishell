@@ -6,14 +6,14 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/23 00:48:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/24 00:17:51 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-# include "wraloc.h"
+//# include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -72,7 +72,7 @@ int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
 int					ft_exec_exit(t_cmd *cmd);
 int					ft_exec_cmd(void);
-int					ft_exec_env();
+int					ft_exec_env(void);
 void 				*ft_exit_error(void);
 int					ft_tokens_count(char *line);
 int					ft_check_separator(char *line, int i, int space);
@@ -90,5 +90,8 @@ int					ft_too_many_args(char *cmd, int ret);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 void				ft_free_cmd(void);
 void				ft_init_env(t_minishell *minishell, char **envv);
+char				*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
+void				ft_free_env(void);
+char 				**env_to_array(void);
 
 #endif

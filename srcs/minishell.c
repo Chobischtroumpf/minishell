@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 21:47:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/24 00:22:44 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		main(int ac, char **av, char **envv)
 	ft_init_env(minishell, envv);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	done = 0;
+
 	while (done == 0)
 	{
 		x = -1;
