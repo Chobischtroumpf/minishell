@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 00:17:51 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/24 15:49:44 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-//# include "wraloc.h"
+# include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -49,6 +49,13 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct		s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct		s_minishell
 {
 	char			*line;
@@ -56,14 +63,9 @@ typedef struct		s_minishell
 	int				executed;
 	int				nbr_cmd;
 	t_cmd			*cmd;
-	t_list			*env;
+	t_env			*env;
 } 					t_minishell;
 
-typedef struct		s_env_var
-{
-	char	*key;
-	char	*value;
-}					t_env_var;
 
 
 t_minishell			*get_minishell(void);
@@ -93,5 +95,8 @@ void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
 void				ft_free_env(void);
 char 				**env_to_array(void);
+int					ft_exec_unset(t_cmd *cmd);
+void				ft_envadd_back(t_env **head, t_env *new);
+int					ft_envsize(t_env *env);
 
 #endif

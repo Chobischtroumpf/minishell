@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 22:30:41 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/24 00:27:57 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/24 15:30:17 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@
 int		ft_exec_env(void)
 {
 	t_minishell	*minishell;
-	t_list		*tmp;
-
+	t_env		*tmp;
 	minishell = get_minishell();
 	tmp = minishell->env;
 	while (tmp)
 	{
-		printf("%s=%s\n", ((t_env_var*)(tmp->content))->key,\
-							((t_env_var*)(tmp->content))->value);
+		ft_printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
