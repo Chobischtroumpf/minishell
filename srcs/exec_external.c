@@ -58,6 +58,7 @@ static void	exec_cmd(t_cmd *cmd)
 	if (!cmd->has_path && (path_array = path_array_creation()))
 	{
 		exec_with_path(cmd, path_array);
+		exit(ft_no_cmd_error(cmd->argv[0], 127));
 	}
 	else
 		execve(cmd->argv[0], cmd->argv, ft_get_env()->tab);

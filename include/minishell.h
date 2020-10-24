@@ -66,13 +66,11 @@ typedef struct		s_minishell
 t_minishell			*get_minishell(void);
 t_env				*ft_get_env(void);
 char				**get_built_in(void);
-void 				*ft_exit_error(void);
 int					ft_tokens_count(char *line);
 int					ft_check_separator(char *line, int i, int space);
 int					ft_brackets(char *line, int i);
 char				*ft_tokens_split(char *line, int nbr_tokens);
 int					ft_hasnchar(const char *s, char *c);
-int					ft_parse_error(char *error, int ret);
 int					ft_check_tokens(char **tokens);
 int					ft_cmd_parse(char **tokens);
 int					ft_is_redir(char *s);
@@ -84,6 +82,11 @@ int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 void				ft_free_cmd(void);
 void				ft_init_env(char **envv);
 void				ft_print_env(t_env *env);
+
+int					ft_no_cmd_error(char *cmd, int ret);
+int					ft_parse_error(char *error, int ret);
+void 				*ft_exit_error(void);
+
 int					ft_exec_cmd(void);
 int					ft_exec_env(void);
 int					ft_exec_pwd(void);

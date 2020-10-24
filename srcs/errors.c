@@ -12,6 +12,14 @@
 
 #include "minishell.h"
 
+int		ft_no_cmd_error(char *cmd, int ret)
+{
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd("\n", 2);
+	return (ret);
+}
+
 /*
 ** the numeric_arg_error function prints the numeric_arg_error to stderr
 */
