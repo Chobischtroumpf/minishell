@@ -44,13 +44,13 @@ static int	ft_exec_builtin(int bltin_pos)
 		return (ft_exec_echo(minishell->cmd));
 	// if (bltin_pos == 1)
 	// 	return (ft_exec_cd());
-	if (bltin_pos == 2)
+	else if (bltin_pos == 2)
 		return (ft_exec_pwd());
 	// if (bltin_pos == 3)
 	// 	return (ft_exec_export());
 	// if (bltin_pos == 4)
 	// 	return (ft_exec_unset());
-	if (bltin_pos == 5)
+	else if (bltin_pos == 5)
 		return (ft_exec_env());
 	// if (bltin_pos == 6)
 		return (ft_exec_exit(minishell->cmd));

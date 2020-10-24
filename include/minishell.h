@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-# include "wraloc.h"
+// # include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -32,8 +32,8 @@
 typedef struct		s_rdir
 {
 	char			*file;
-	int				fd;
-	int				is_dbl;
+	int				fd : 16;
+	int				is_dbl : 1;
 	int				std;
 	struct s_rdir	*next;
 }					t_rdir;
@@ -58,8 +58,8 @@ typedef struct		s_minishell
 {
 	char			*line;
 	char			**tokens;
-	int				executed;
-	int				nbr_cmd;
+	int				executed : 1;
+	int				nbr_cmd : 11;
 	t_cmd			*cmd;
 } 					t_minishell;
 

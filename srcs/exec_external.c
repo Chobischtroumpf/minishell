@@ -12,12 +12,59 @@
 
 #include "minishell.h"
 
-static void exec_cmd(t_cmd *cmd)
+static char **path_array_creation(void)
 {
-	execve(cmd->argv[0], cmd->argv, ft_get_env()->tab);
+	t_list	*env;
+	char *path_env;
+	char **path_array;
+
+	env = get_minishell()->env;
+	while (env)
+	{
+		if (!ft_strcmp(((t_env*)env->key), "PATH"))
+			path_array = ft_split(((t_env*)env->value), ":");
+		env->next;
+	}
+	if (!path_array)
+		return (0);
+	return (path_array);
 }
 
-void ft_exec_extern(t_cmd *cmd)
+static void	exec_with_path(t_cmd *cmd, char **path_array)
+{
+	char	*path_cmd;
+	char	*path_cmd2;
+	char	**arr_env;
+	int 	i;
+
+	i = 0;
+	arr_env = ;
+	while (path_array[i])
+	{
+		path_cmd = ft_strjoin(path_array[i], "/");
+		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
+		execve(path_cmd2, cmd->argv, arr_env);
+		ft_free_;
+		free(path_cmd);
+		free(path_cmd2);
+		i++;
+	}
+}
+
+static void	exec_cmd(t_cmd *cmd)
+{
+	char **path_array;
+
+	if (!cmd->has_path && (path_array = path_array_creation()))
+	{
+		exec_with_path(cmd, path_array);
+	}
+	else
+		execve(cmd->argv[0], cmd->argv, ft_get_env()->tab);
+		exit(0);
+}
+
+void		ft_exec_extern(t_cmd *cmd)
 {
 	int pid;
 	int status;
@@ -29,6 +76,7 @@ void ft_exec_extern(t_cmd *cmd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		exec_cmd(cmd);
+
 	}
 	else if (pid > 0)
 	{
