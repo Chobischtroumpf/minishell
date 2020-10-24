@@ -6,14 +6,14 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 15:49:44 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/24 17:17:08 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-# include "wraloc.h"
+// # include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -98,5 +98,6 @@ char 				**env_to_array(void);
 int					ft_exec_unset(t_cmd *cmd);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
+void				free_node(t_env *env);
 
 #endif

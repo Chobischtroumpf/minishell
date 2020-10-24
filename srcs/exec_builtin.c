@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 15:28:46 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/24 16:57:16 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static int	ft_exec_builtin(int bltin_pos)
 		return (ft_exec_pwd());
 	// if (bltin_pos == 3)
 	// 	return (ft_exec_export());
-	// if (bltin_pos == 4)
-	// 	return (ft_exec_unset(minishell->cmd));
+	if (bltin_pos == 4)
+		return (ft_exec_unset(minishell->cmd));
 	if (bltin_pos == 5)
 		return (ft_exec_env());
-	// if (bltin_pos == 6)
+	if (bltin_pos == 6)
 		return (ft_exec_exit(minishell->cmd));
 	return (0);
 }

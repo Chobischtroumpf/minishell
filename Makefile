@@ -6,7 +6,7 @@
 #    By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/24 14:39:19 by ncolin           ###   ########.fr        #
+#    Updated: 2020/10/24 17:15:20 by ncolin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			env.c			\
 			env2.c			\
 			bltin_pwd.c		\
-			bltin_env.c
+			bltin_env.c		\
+			bltin_unset.c
 
 
 OBJ_PATH = objs
