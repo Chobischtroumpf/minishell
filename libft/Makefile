@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/21 15:56:45 by alessandro       ###   ########.fr        #
+#    Updated: 2020/10/24 10:41:06 by ncolin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,14 +53,14 @@ $(NAME) : $(OBJECTS) $(OBJECTS_FT_PRINTF)
 $(OBJECTS) : $(SRCS)
 		gcc $(CFLAGS) $(SRCS)
 
-$(OBJECTS_FT_PRINTF) : $(SRCS_FT_PRINTF)
+$(OBJECTS_FT_PRINTF) : $(SRCS_FT_PRINTF) 
 		gcc $(CFLAGS) $(SRCS_FT_PRINTF)
 
 $(OBJECTS_B) : $(SRCS_B)
 		gcc $(CFLAGS) $(SRCS_B)
 
-bonus : fclean $(OBJECTS) $(OBJECTS_B)
-	@ar rcs libft.a $(OBJECTS) $(OBJECTS_B)
+bonus : fclean $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
+	@ar rcs libft.a $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 
 clean : 
 	rm -f $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)

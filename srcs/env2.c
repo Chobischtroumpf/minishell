@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bltin_env.c                                        :+:      :+:    :+:   */
+/*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 22:30:41 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/24 15:30:17 by ncolin           ###   ########.fr       */
+/*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
+/*   Updated: 2020/10/24 17:13:15 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**	ft_exec_env() mimics the env shell command. I goes through the env linked
-**	list and prints each env_var's key, an '=' sign and the env_var value.
-*/
 
-int		ft_exec_env(void)
+void	free_node(t_env *env)
 {
-	t_minishell	*minishell;
-	t_env		*tmp;
-	minishell = get_minishell();
-	tmp = minishell->env;
-	while (tmp)
-	{
-		ft_printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-	return (EXIT_SUCCESS);
+	free(env->key);
+	free(env->value);
+	free(env);
 }
+
+// int ft_find_by_key(t_minishell *minishell, char *key)
+// {
+// 	t_list *tmp;
+
+// 	tmp = minishell->env;
+// 	while (tmp)
+// 	{
+// 		if (!(ft_strcmp(((t_env*)(tmp->content))->key, key)))
+// 			return(1);
+// 		tmp = tmp->next;
+// 	}
+// 	return (0);
+// }

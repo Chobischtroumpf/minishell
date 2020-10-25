@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   external.c                                         :+:      :+:    :+:   */
+/*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/23 16:50:15 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/25 09:16:37 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	exec_with_path(t_cmd *cmd, char **path_array)
 		path_cmd = ft_strjoin(path_array[i], "/");
 		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
 		execve(path_cmd2, cmd->argv, arr_env);
-		ft_free_;
+		ft_free_array();
 		free(path_cmd);
 		free(path_cmd2);
 		i++;
@@ -61,7 +61,7 @@ static void	exec_cmd(t_cmd *cmd)
 		exit(ft_no_cmd_error(cmd->argv[0], 127));
 	}
 	else
-		execve(cmd->argv[0], cmd->argv, ft_get_env()->tab);
+		execve(cmd->argv[0], cmd->argv, );
 		exit(0);
 }
 

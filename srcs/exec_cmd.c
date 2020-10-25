@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 09:06:42 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 09:14:44 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ static int	ft_exec_builtin(int bltin_pos)
 		return (ft_exec_pwd());
 	// if (bltin_pos == 3)
 	// 	return (ft_exec_export());
-	// if (bltin_pos == 4)
-	// 	return (ft_exec_unset());
-	else if (bltin_pos == 5)
+	if (bltin_pos == 4)
+		return (ft_exec_unset(minishell->cmd));
+	if (bltin_pos == 5)
 		return (ft_exec_env());
-	// if (bltin_pos == 6)
+	if (bltin_pos == 6)
 		return (ft_exec_exit(minishell->cmd));
 	return (0);
 }

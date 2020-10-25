@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 00:22:44 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/24 14:34:54 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@ int		main(int ac, char **av, char **envv)
 	(void)ac;
 	(void)av;
 	minishell = get_minishell();
+	
 	ft_init_env(minishell, envv);
+	
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-
+	done = 0;
 	while (done == 0)
 	{
 		x = -1;

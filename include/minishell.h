@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
 /*   Updated: 2020/10/25 09:06:43 by adorigo          ###   ########.fr       */
+=======
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
+/*   Updated: 2020/10/24 17:17:08 by ncolin           ###   ########.fr       */
+>>>>>>> origin/env
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +56,13 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct		s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct		s_minishell
 {
 	char			*line;
@@ -56,14 +70,9 @@ typedef struct		s_minishell
 	int				executed : 1;
 	unsigned int	nbr_cmd : 11;
 	t_cmd			*cmd;
-	t_list			*env;
+	t_env			*env;
 } 					t_minishell;
 
-typedef struct		s_env_var
-{
-	char	*key;
-	char	*value;
-}					t_env_var;
 
 
 t_minishell			*get_minishell(void);
@@ -92,5 +101,9 @@ void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
 void				ft_free_env(void);
 char 				**env_to_array(void);
+int					ft_exec_unset(t_cmd *cmd);
+void				ft_envadd_back(t_env **head, t_env *new);
+int					ft_envsize(t_env *env);
+void				free_node(t_env *env);
 
 #endif
