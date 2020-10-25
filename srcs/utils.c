@@ -6,14 +6,14 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 15:27:38 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/25 12:03:44 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Joins *char 's1' and *char 's2' with a character 'del' between the two. 
+**	Joins *char 's1' and *char 's2' with a character 'del' between the two.
 */
 
 char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
@@ -37,7 +37,7 @@ char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
 	return (str);
 }
 
-int				ft_count_arg(char **arg)
+int		ft_count_arg(char **arg)
 {
 	int i;
 
@@ -47,7 +47,7 @@ int				ft_count_arg(char **arg)
 	return (i);
 }
 
-t_cmd			*ft_last_cmd(t_cmd *cmd)
+t_cmd	*ft_last_cmd(t_cmd *cmd)
 {
 	t_cmd	*last;
 
