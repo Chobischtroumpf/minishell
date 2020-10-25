@@ -6,14 +6,14 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 14:32:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 15:27:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-// # include "wraloc.h"
+# include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -23,9 +23,9 @@
 # define SEP "<>|;"
 # define SPACE " \t"
 # ifndef PATH_MAX
-#  define PATH_MAX 1024
+#  define PATH_MAX 4096
 # endif
-// # define LINE_MAX 1024
+# define LINE_MAX 1024
 # define NO_EXCODE -1
 # define NO_STATUS -1
 

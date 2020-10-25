@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 12:15:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 15:24:11 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,12 @@ int		main(int ac, char **av, char **envv)
 	{
 		x = -1;
 		ft_putstr("\033[32mminishell\033[0m$ ");
-		if (!get_next_line(1, &(minishell->line)))
+		if (!get_next_line(1, &tmp))
 			break ;
-		minishell->line = ft_strtrim(minishell->line, " \t\n\v\f\r");
+		// ft_printf("%p\n", minishell->line);
+		minishell->line = ft_strtrim(tmp, " \t\n\v\f\r");
+		free(tmp);
+		// ft_printf("%p\n", minishell->line);
 		if (ft_strncmp(minishell->line, "\0", 1))
 		{
 			if ((nbr_tokens = ft_tokens_count(minishell->line)) == -1)
