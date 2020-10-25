@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/21 16:00:51 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/24 00:29:32 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int			ft_exec_exit(t_cmd *cmd)
 		exit(ret);
 	}
 	ft_free_cmd();
+	ft_free_env();
 	exit(EXIT_SUCCESS);
 }

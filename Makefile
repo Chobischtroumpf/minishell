@@ -3,33 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/23 16:51:53 by alessandro       ###   ########.fr        #
+#    Updated: 2020/10/25 09:06:41 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -I./include -c
+CFLAGS = -Wall -Wextra -Werror -I./include -c -g
 
 SRC_PATH = srcs
 SRC_NAME =	cmd_add_rdir.c	\
 			cmd_parser_1.c	\
-			errors.c		\
 			cmd_parser_2.c	\
-			exec_cmd.c		\
-			exit.c			\
 			get_static.c	\
 			lexing.c		\
 			minishell.c		\
-			bltin_echo.c	\
-			bltin_exit.c	\
 			utils.c			\
 			env.c			\
+			exec_cmd.c		\
+			bltin_echo.c	\
+			bltin_exit.c	\
 			bltin_pwd.c		\
-			external.c
+			bltin_env.c		\
+			external.c		\
+			errors.c		\
+			exit.c
 
 
 OBJ_PATH = objs
@@ -55,6 +56,9 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 
 libft:
 	@make -C libft
+
+libft_bonus:
+	@make -C libft bonus
 
 clean:
 	@make -C libft clean
