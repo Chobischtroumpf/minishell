@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/25 09:59:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 12:15:59 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_envadd_back(t_env **head, t_env *new)
 	}
 }
 
-int	ft_envsize(t_env *env)
+int		ft_envsize(t_env *env)
 {
 	int cnt;
 
@@ -45,7 +45,7 @@ int	ft_envsize(t_env *env)
 **	variables and frees every node.
 */
 
-void		ft_free_env(void)
+void	ft_free_env(void)
 {
 	t_minishell	*minishell;
 	t_env		*tmp;
@@ -67,7 +67,7 @@ void		ft_free_env(void)
 **	frees the **char itself
 */
 
-void		ft_free_array(char **array)
+void	ft_free_array(char **array)
 {
 	int i;
 
@@ -87,7 +87,7 @@ void		ft_free_array(char **array)
 ** variables inside.
 */
 
-void		ft_init_env(t_minishell *minishell, char **envv)
+void	ft_init_env(t_minishell *minishell, char **envv)
 {
 	int			i;
 	int			j;
@@ -116,35 +116,9 @@ void		ft_init_env(t_minishell *minishell, char **envv)
 		}
 		else
 			new_node->value = ft_strdup("");
-		new_node->next =  NULL;
+		new_node->next = NULL;
 		ft_envadd_back(&minishell->env, new_node);
 		ft_free_array(key_value);
 		i++;
 	}
-}
-
-/*
-**	Converts the linked_list storing the environement variables to a **char.
-*/
-
-char		**env_to_array(void)
-{
-	t_minishell	*minishell;
-	t_env		*tmp;
-	char		**array;
-	int			i;
-
-	minishell = get_minishell();
-	if (!(array = (char **)malloc(sizeof(char*) * ft_envsize(minishell->env) + 1)))
-		return (0);
-	tmp = minishell->env;
-	i = 0;
-	while (tmp)
-	{
-		array[i] = ft_strjoin_delimiter(tmp->key, tmp->value, '=');
-		tmp = tmp->next;
-		i++;
-	}
-	array[i] = NULL;
-	return (array);
 }

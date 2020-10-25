@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:20:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 12:16:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void				free_node(t_env *env);
 void				ft_free_array(char **array);
 void				ft_exec_extern(t_cmd *cmd);
 int					ft_no_cmd_error(char *cmd, int ret);
+int					ft_no_file_error(char *cmd, char *file, int ret);
 
 
 #endif

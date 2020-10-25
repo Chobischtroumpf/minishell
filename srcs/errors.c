@@ -6,14 +6,13 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:49:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 12:16:22 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int
-	no_file_error(char *cmd, char *file, int ret)
+int		ft_no_file_error(char *cmd, char *file, int ret)
 {
 	ft_putstr_fd("minishell", 2);
 	if (cmd)
