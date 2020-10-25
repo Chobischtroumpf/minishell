@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:25:09 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 15:46:31 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static int	ft_exec_builtin(int bltin_pos)
 	// 	return (ft_exec_cd());
 	else if (bltin_pos == 2)
 		return (ft_exec_pwd());
-	// if (bltin_pos == 3)
-	// 	return (ft_exec_export());
+	if (bltin_pos == 3)
+		return (ft_exec_export(minishell->cmd));
 	if (bltin_pos == 4)
 		return (ft_exec_unset(minishell->cmd));
 	if (bltin_pos == 5)

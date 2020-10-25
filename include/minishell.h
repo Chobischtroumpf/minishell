@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 14:32:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 16:51:07 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_count_arg(char **arr);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
-char				*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
+char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
 char 				**env_to_array(void);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
@@ -94,6 +94,7 @@ int					ft_exec_exit(t_cmd *cmd);
 int					ft_exec_cmd(void);
 int					ft_exec_env(void);
 int					ft_exec_unset(t_cmd *cmd);
+int					ft_exec_export(t_cmd *cmd);
 void				ft_exec_extern(t_cmd *cmd);
 
 void				ft_free_cmd(void);

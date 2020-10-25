@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 12:15:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 16:50:55 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Joins *char 's1' and *char 's2' with a character 'del' between the two.
 */
 
-char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
+char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
 {
 	char	*str;
 	int		total;
@@ -34,6 +34,7 @@ char	*ft_strjoin_delimiter(char const *s1, char const *s2, char del)
 	while (*s2)
 		str[i++] = *s2++;
 	str[i] = '\0';
+	free(s1);
 	return (str);
 }
 
