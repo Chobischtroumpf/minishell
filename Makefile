@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/24 17:15:20 by ncolin           ###   ########.fr        #
+#    Updated: 2020/10/25 09:31:01 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,21 +15,22 @@ NAME = minishell
 SRC_PATH = srcs
 SRC_NAME =	cmd_add_rdir.c	\
 			cmd_parser_1.c	\
-			errors.c		\
 			cmd_parser_2.c	\
-			exec_builtin.c	\
-			exit.c			\
 			get_static.c	\
 			lexing.c		\
 			minishell.c		\
-			bltin_echo.c	\
-			bltin_exit.c	\
 			utils.c			\
 			env.c			\
 			env2.c			\
+			exec_cmd.c		\
+			bltin_echo.c	\
+			bltin_exit.c	\
 			bltin_pwd.c		\
 			bltin_env.c		\
-			bltin_unset.c
+			bltin_unset.c	\
+			exec_external.c	\
+			errors.c		\
+			exit.c
 
 
 OBJ_PATH = objs

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:20:52 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 10:30:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int
 /*
 ** check_redir is a function that will iterate through the tokens, checking
 ** that there are no double redirections, or redirections followed by a pipe or
-** a semi-colon. in case of error, it will call the ft_parse_error function, which
-** will print the token at fault
+** a semi-colon. in case of error, it will call the ft_parse_error function,
+** which will print the token at fault
 */
 
 static int
@@ -62,8 +62,8 @@ static int
 /*
 ** check_pipe is a function that will iterate through each tokens, and check
 ** that tere are no double pipes, or pipes followed by either a redirection or
-** a semi-colon. in case of error, it will call the ft_parse_error function, which
-** will print the token at fault
+** a semi-colon. in case of error, it will call the ft_parse_error function,
+** which will print the token at fault
 */
 
 static int

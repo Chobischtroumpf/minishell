@@ -1,19 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_builtin.c                                     :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 16:57:16 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/25 10:25:09 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** executes the specified builtin command, depending on the bltin_pos variable's value
+** is_builtin is a function that checks whether the command currently being
+** executed is built into minishell, if it is, it returns the position in the
+** array where it is located
+*/
+
+static int	is_built_in(char *command)
+{
+	char		**builtin;
+	int			i;
+
+	i = 0;
+	builtin = get_built_in();
+	while (builtin[i])
+	{
+		if (!ft_strcmp(command, builtin[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+/*
+** executes the specified builtin command, depending on the bltin_pos
+** variable's value
 */
 
 static int	ft_exec_builtin(int bltin_pos)
@@ -25,7 +48,7 @@ static int	ft_exec_builtin(int bltin_pos)
 		return (ft_exec_echo(minishell->cmd));
 	// if (bltin_pos == 1)
 	// 	return (ft_exec_cd());
-	if (bltin_pos == 2)
+	else if (bltin_pos == 2)
 		return (ft_exec_pwd());
 	// if (bltin_pos == 3)
 	// 	return (ft_exec_export());
@@ -45,27 +68,20 @@ static int	ft_exec_builtin(int bltin_pos)
 
 int			ft_exec_cmd(void)
 {
-	char	**builtin;
-	int		i;
-	int		ret;
+	int			btin_nb;
+	t_cmd		*cmd;
 
-	ret = 1;
-	i = -1;
-	builtin = get_built_in();
 	get_minishell()->executed = 1;
-	while (++i < 7)
-		if (!ft_strcmp(builtin[i], get_minishell()->cmd->argv[0]))
-		{
-			ret = ft_exec_builtin(i);
-			break ;
-		}
-	get_minishell()->executed = 0;
-	if (ret == 1)
+	cmd = get_minishell()->cmd;
+	while (cmd)
 	{
-		ft_printf("minishell : command not found : %s\n",
-						get_minishell()->cmd->argv[0]);
-		return (0);
+		//check pipe
+		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
+			ft_exec_builtin(btin_nb);
+		else
+			ft_exec_extern(cmd);
+		cmd = cmd->next;
 	}
-	else
-		return (ret);
+	get_minishell()->executed = 0;
+	return (1);
 }

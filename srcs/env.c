@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/25 12:05:53 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/25 12:15:59 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_init_env(t_minishell *minishell, char **envv)
 	t_env		*new_node;
 
 	i = 0;
-	while (envv[i] && i < 3)
+	while (envv[i])
 	{
 		key_value = ft_split(envv[i], '=');
 		if (!(new_node = (t_env *)malloc(sizeof(t_env))))
