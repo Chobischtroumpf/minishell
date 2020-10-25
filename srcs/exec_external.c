@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/25 10:28:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 10:50:03 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	exec_cmd(t_cmd *cmd)
 	else
 	{
 		execve(cmd->argv[0], cmd->argv, env_array);
-		exit(0);
+		exit(ft_no_file_error(cmd->argv[0], NULL, 127));
 	}
 }
 

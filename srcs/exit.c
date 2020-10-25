@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:29:47 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 10:35:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			ft_free_cmd(void)
 	minishell = get_minishell();
 	ft_free_line();
 	ft_free_tokens();
-	ft_free_env();
+
 	while (minishell->cmd)
 	{
 		tmp = minishell->cmd->next;

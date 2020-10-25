@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:13:09 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 10:42:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,13 @@ int		main(int ac, char **av, char **envv)
 			tmp2 = minishell->cmd;
 			while (tmp2)
 			{
-				//ft_check_dollar();
 				ft_exec_cmd();
-				// ft_printf("minishell : %p\n", minishell);
-				// ft_printf("cmd : %p\n", minishell->cmd);
-				// ft_printf("line : %p\n", minishell->line);
-				// ft_printf("tokens : %p\n", minishell->tokens);
-				// ft_printf("cmd->argv : %p\n", minishell->cmd->argv);
-				// ft_printf("cmd->next : %p\n", minishell->cmd->next);
 				tmp2 = tmp2->next;
 			}
 		}
 		ft_free_cmd();
 	}
 	ft_free_cmd();
+	ft_free_env();
 	ft_printf("\n");
 }
