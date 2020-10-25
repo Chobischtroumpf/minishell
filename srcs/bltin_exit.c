@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:31:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 16:11:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ int			ft_exec_exit(t_cmd *cmd)
 		}
 		ret = (char)ft_atoi(cmd->argv[1]);
 		ft_free_cmd();
+		ft_free_env();
+		ft_printf("\nexit\n");
 		exit(ret);
 	}
 	ft_free_cmd();
 	ft_free_env();
+	ft_printf("exit\n");
 	exit(EXIT_SUCCESS);
 }

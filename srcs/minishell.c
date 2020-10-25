@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 15:24:11 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 16:37:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@
 ** SIGQUIT signal being received
 */
 
-void	signal_handler(int signbr)
+void		signal_handler(int signbr)
 {
 	if (signbr == SIGINT)
 	{
 		ft_putstr("\n");
 		if (get_minishell()->executed == 1)
 			get_minishell()->executed = 0;
-		else
-			ft_putstr("\033[32mminishell\033[0m$ ");
 	}
 	else if (signbr == SIGQUIT)
 	{
@@ -36,6 +34,30 @@ void	signal_handler(int signbr)
 			get_minishell()->executed = 0;
 		}
 	}
+}
+
+static int	lexing(t_minishell *minishell)
+{
+	int			nbr_tokens;
+	char		*tmp;
+	int			x;
+
+	x = 0;
+	if ((nbr_tokens = ft_tokens_count(minishell->line)) == -1)
+	{
+		ft_printf("you need to close the brackets\n");
+		return (0);
+	}
+	if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
+		exit(ft_free_cmd() && 0);
+	while (++x < nbr_tokens)
+	{
+		tmp = ft_tokens_split(minishell->line, x + 1);
+		minishell->tokens[x] = ft_strtrim(tmp, " \t\n\v\f\r");
+		free(tmp);
+	}
+	minishell->tokens[x] = NULL;
+	return (1);
 }
 
 /*
@@ -70,50 +92,25 @@ void	signal_handler(int signbr)
 **}
 */
 
-int		main(int ac, char **av, char **envv)
+void	main_execution(void)
 {
-	int			done;
-	int			nbr_tokens;
-	t_minishell	*minishell;
-	int			x;
 	char		*tmp;
 	t_cmd		*tmp2;
+	t_minishell	*minishell;
 
-	(void)ac;
-	(void)av;
 	minishell = get_minishell();
-	
-	ft_init_env(minishell, envv);
-	
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
-	done = 0;
-	while (done == 0)
+	while (1)
 	{
-		x = -1;
+		ft_free_cmd();
 		ft_putstr("\033[32mminishell\033[0m$ ");
 		if (!get_next_line(1, &tmp))
 			break ;
-		// ft_printf("%p\n", minishell->line);
 		minishell->line = ft_strtrim(tmp, " \t\n\v\f\r");
 		free(tmp);
-		// ft_printf("%p\n", minishell->line);
 		if (ft_strncmp(minishell->line, "\0", 1))
 		{
-			if ((nbr_tokens = ft_tokens_count(minishell->line)) == -1)
-			{
-				ft_printf("you need to close the brackets\n");
+			if (lexing(minishell))
 				continue;
-			}
-			if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
-				return (0);
-			while (++x < nbr_tokens)
-			{
-				tmp = ft_tokens_split(minishell->line, x + 1);
-				minishell->tokens[x] = ft_strtrim(tmp, " \t\n\v\f\r");
-				free(tmp);
-			}
-			minishell->tokens[x] = NULL;
 			if (!ft_cmd_parse(minishell->tokens))
 				continue;
 			tmp2 = minishell->cmd;
@@ -123,9 +120,21 @@ int		main(int ac, char **av, char **envv)
 				tmp2 = tmp2->next;
 			}
 		}
-		ft_free_cmd();
 	}
+}
+
+int			main(int ac, char **av, char **envv)
+{
+	t_minishell	*minishell;
+
+	(void)ac;
+	(void)av;
+	minishell = get_minishell();
+	ft_init_env(minishell, envv);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
+	main_execution();
 	ft_free_cmd();
 	ft_free_env();
-	ft_printf("\n");
+	ft_printf("exit\n");
 }

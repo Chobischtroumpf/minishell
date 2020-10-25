@@ -6,14 +6,14 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 15:27:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 16:07:45 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-# include "wraloc.h"
+// # include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -25,7 +25,7 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
-# define LINE_MAX 1024
+// # define LINE_MAX 1024
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -96,7 +96,7 @@ int					ft_exec_env(void);
 int					ft_exec_unset(t_cmd *cmd);
 void				ft_exec_extern(t_cmd *cmd);
 
-void				ft_free_cmd(void);
+int					ft_free_cmd(void);
 void				ft_free_env(void);
 void				free_node(t_env *env);
 void				ft_free_array(char **array);
