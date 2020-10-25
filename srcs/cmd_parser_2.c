@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:17:26 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 14:29:37 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** initialize it
 */
 
-t_cmd			*ft_new_cmd(char *token)
+static t_cmd	*ft_new_cmd(char *token)
 {
 	t_cmd	*new;
 
@@ -58,7 +58,7 @@ static void		ft_add_pipe_cmd(t_cmd *cmd)
 ** creates a new linked list
 */
 
-t_cmd			*ft_add_cmd(t_cmd *cmd, char *token)
+static t_cmd	*ft_add_cmd(t_cmd *cmd, char *token)
 {
 	t_cmd	*tmp;
 

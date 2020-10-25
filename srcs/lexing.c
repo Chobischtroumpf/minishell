@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/16 13:45:54 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/25 14:16:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**int			ft_jump_spaces(char *line, int i, int jump)
-**{
-**	i += jump;
-**	while (line[i] == ' ' || *line == '\t')
-**	{
-**		i++;
-**		jump++;
-**	}
-**	return (jump);
-**}
-*/
 
 /*
 ** ft_check_sep will check what character line in position i is, in order to

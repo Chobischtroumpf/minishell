@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_add_rdir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 15:35:09 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:16:28 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 14:31:12 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_rdir	*ft_new_rdir(char *file, int is_dbl)
 ** return it
 */
 
-t_rdir			*ft_last_rdir(t_rdir *begin)
+static t_rdir	*ft_last_rdir(t_rdir *begin)
 {
 	while (begin->next)
 		begin = begin->next;
