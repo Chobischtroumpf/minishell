@@ -3,16 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
+#    By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/22 13:12:30 by nathan           ###   ########.fr        #
+#    Updated: 2020/10/24 17:15:20 by ncolin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-
-CFLAGS = -Wall -Wextra -Werror -I./include -c
 
 SRC_PATH = srcs
 SRC_NAME =	cmd_add_rdir.c	\
@@ -28,7 +26,10 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_exit.c	\
 			utils.c			\
 			env.c			\
-			bltin_pwd.c		
+			env2.c			\
+			bltin_pwd.c		\
+			bltin_env.c		\
+			bltin_unset.c
 
 
 OBJ_PATH = objs
@@ -42,7 +43,7 @@ LDLIBS = -lft
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-all: libft $(NAME)
+all: libft_bonus $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@$(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
@@ -54,6 +55,9 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 
 libft:
 	@make -C libft
+
+libft_bonus:
+	@make -C libft bonus
 
 clean:
 	@make -C libft clean

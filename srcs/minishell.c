@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/22 13:10:21 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 10:34:37 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		main(int ac, char **av, char **envv)
 	int			done;
 	int			nbr_tokens;
 	t_minishell	*minishell;
-	t_env		*env;
 	int			x;
 	char		*tmp;
 	t_cmd		*tmp2;
@@ -83,8 +82,9 @@ int		main(int ac, char **av, char **envv)
 	(void)ac;
 	(void)av;
 	minishell = get_minishell();
-	ft_init_env(envv);
-	env	= ft_get_env();
+	
+	ft_init_env(minishell, envv);
+	
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	done = 0;

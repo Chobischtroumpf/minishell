@@ -3,73 +3,122 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/22 12:50:59 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 12:05:53 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_get_env(void)
+void	ft_envadd_back(t_env **head, t_env *new)
 {
-	static t_env env;
+	t_env	*ptr;
 
-	return (&env);
-}
-
-int		ft_env_size(char **envv)
-{
-	int i;
-
-	i = 0;
-	while (envv[i])
-		i++;
-	return (i);
-}
-
-void	ft_print_env(t_env *env)
-{
-	int i;
-
-	i = 0;
-	while (env->tab[i])
+	if (!*head)
+		*head = new;
+	else
 	{
-		ft_printf("%s\n", env->tab[i]);
-		i++;
+		ptr = *head;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = new;
 	}
 }
 
-int			ft_exec_env()
+int		ft_envsize(t_env *env)
 {
-	t_env *env;
+	int cnt;
 
-	env = ft_get_env();
-	ft_print_env(env);
-	return (EXIT_SUCCESS);
+	cnt = 0;
+	while (env)
+	{
+		cnt++;
+		env = env->next;
+	}
+	return (cnt);
 }
 
+/*
+**	ft_free_env goes through the linked list containing the environnement
+**	variables and frees every node.
+*/
+
+void	ft_free_env(void)
+{
+	t_minishell	*minishell;
+	t_env		*tmp;
+
+	minishell = get_minishell();
+	tmp = minishell->env;
+	while (minishell->env != NULL)
+	{
+		tmp = minishell->env;
+		minishell->env = minishell->env->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
+}
+
+/*
+**	ft_free_array() frees every *char in a **char and then
+**	frees the **char itself
+*/
+
+void	ft_free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	array = NULL;
+}
 
 /*
 ** Allocate memory for a **char and store the environement
 ** variables inside.
 */
 
-void	ft_init_env(char **envv)
+void	ft_init_env(t_minishell *minishell, char **envv)
 {
-	t_env	*env;
-	int		i;
+	int			i;
+	int			j;
+	char		**key_value;
+	char		*tmp;
+	t_env		*new_node;
 
 	i = 0;
-	env = ft_get_env();
-	if (!(env->tab = (char **)malloc(sizeof(char *) * ft_env_size(envv) + 1)))
-		exit(0);
-	while (envv[i])
+	while (envv[i] && i < 3)
 	{
-		if (!(env->tab[i] = ft_strdup(envv[i])))
+		key_value = ft_split(envv[i], '=');
+		if (!(new_node = (t_env *)malloc(sizeof(t_env))))
 			exit(0);
+		new_node->key = ft_strdup(key_value[0]);
+		if (key_value[1])
+		{
+			tmp = ft_strdup(key_value[1]);
+			j = 2;
+			while (key_value[j])
+			{
+				tmp = ft_strjoin_delimiter(tmp, key_value[j], '=');
+				j++;
+			}
+			new_node->value = ft_strdup(tmp);
+			free(tmp);
+		}
+		else
+			new_node->value = ft_strdup("");
+		new_node->next = NULL;
+		ft_envadd_back(&minishell->env, new_node);
+		ft_free_array(key_value);
 		i++;
 	}
-	env->tab[i] = NULL;
 }
