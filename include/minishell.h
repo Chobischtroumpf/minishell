@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/23 16:46:56 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/24 15:51:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_minishell
 	char			*line;
 	char			**tokens;
 	int				executed : 1;
-	int				nbr_cmd : 11;
+	unsigned int	nbr_cmd : 11;
 	t_cmd			*cmd;
 } 					t_minishell;
 
