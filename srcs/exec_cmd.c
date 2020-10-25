@@ -6,33 +6,37 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 09:14:44 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/25 10:25:09 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**is_builtin
+** is_builtin is a function that checks whether the command currently being
+** executed is built into minishell, if it is, it returns the position in the
+** array where it is located
 */
+
 static int	is_built_in(char *command)
 {
-	char **builtin;
-	int i;
+	char		**builtin;
+	int			i;
 
 	i = 0;
 	builtin = get_built_in();
 	while (builtin[i])
 	{
 		if (!ft_strcmp(command, builtin[i]))
-			return(i);
-		i++;;
+			return (i);
+		i++;
 	}
 	return (-1);
 }
 
 /*
-** executes the specified builtin command, depending on the bltin_pos variable's value
+** executes the specified builtin command, depending on the bltin_pos
+** variable's value
 */
 
 static int	ft_exec_builtin(int bltin_pos)
@@ -64,8 +68,8 @@ static int	ft_exec_builtin(int bltin_pos)
 
 int			ft_exec_cmd(void)
 {
-	int		btin_nb;
-	t_cmd	*cmd;
+	int			btin_nb;
+	t_cmd		*cmd;
 
 	get_minishell()->executed = 1;
 	cmd = get_minishell()->cmd;

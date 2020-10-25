@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/23 18:31:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 10:29:47 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** the ft_free_tokens function is in charge to free the minishell->tokens variable
+** the ft_free_tokens function is in charge to free the minishell->tokens
+** variable
 */
 
 static void		ft_free_tokens(void)
@@ -31,6 +32,7 @@ static void		ft_free_tokens(void)
 		get_minishell()->tokens = 0;
 	}
 }
+
 /*
 ** the ft_free_line function is in charge to free the minishell->line variable
 */
@@ -43,7 +45,8 @@ static void		ft_free_line(void)
 }
 
 /*
-** the ft_free_redir function is in charge to free the t_rdir linked-list inside each t_cmd element
+** the ft_free_redir function is in charge to free the t_rdir linked-list
+** inside each t_cmd element
 */
 
 static void		ft_free_redir(t_cmd *cmd)
@@ -81,6 +84,7 @@ void			ft_free_cmd(void)
 	minishell = get_minishell();
 	ft_free_line();
 	ft_free_tokens();
+	ft_free_env();
 	while (minishell->cmd)
 	{
 		tmp = minishell->cmd->next;

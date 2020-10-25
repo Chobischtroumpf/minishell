@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/25 09:15:35 by adorigo          ###   ########.fr        #
+#    Updated: 2020/10/25 09:31:01 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_pwd.c		\
 			bltin_env.c		\
 			bltin_unset.c	\
-			external.c		\
+			exec_external.c	\
 			errors.c		\
 			exit.c
 

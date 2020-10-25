@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 09:06:43 by adorigo          ###   ########.fr       */
-=======
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 17:17:08 by ncolin           ###   ########.fr       */
->>>>>>> origin/env
+/*   Updated: 2020/10/25 10:20:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +89,7 @@ t_cmd				*ft_last_cmd(t_cmd *cmd);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
+int					ft_parse_error(char *error, int ret);
 void				ft_free_cmd(void);
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char const *s1, char const *s2, char del);
@@ -105,5 +99,9 @@ int					ft_exec_unset(t_cmd *cmd);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
 void				free_node(t_env *env);
+void				ft_free_array(char **array);
+void				ft_exec_extern(t_cmd *cmd);
+int					ft_no_cmd_error(char *cmd, int ret);
+
 
 #endif

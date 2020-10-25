@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/24 00:29:32 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/25 10:31:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			ft_exec_exit(t_cmd *cmd)
 		if (!digit)
 		{
 			ft_printf("exit\n");
-			exit(ft_numeric_arg_error(cmd->argv[0], cmd->argv[1], EXIT_FAILURE));
+			exit(ft_numeric_arg_error(cmd->argv[0], cmd->argv[1], 1));
 		}
 		if (cnt > 2)
 		{
