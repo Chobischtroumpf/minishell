@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 16:07:45 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/27 11:55:58 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef struct		s_minishell
 
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
+
+
+int 				ft_line_handle(void);
 
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);

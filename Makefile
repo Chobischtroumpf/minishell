@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/25 09:31:01 by adorigo          ###   ########.fr        #
+#    Updated: 2020/10/27 12:03:02 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_unset.c	\
 			exec_external.c	\
 			errors.c		\
+			line_handle		\
 			exit.c
 
 

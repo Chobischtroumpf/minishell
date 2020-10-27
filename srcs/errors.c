@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 12:16:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/27 12:00:08 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	*ft_exit_error(void)
 	char *strerr;
 
 	ft_free_cmd();
+	ft_free_env();
 	strerr = strerror(errno);
 	ft_putstr_fd(strerr, 2);
 	exit(-1);
