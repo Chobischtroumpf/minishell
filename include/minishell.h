@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 16:51:07 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/27 17:02:13 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ int					ft_count_arg(char **arr);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
-char 				**env_to_array(void);
+char 				**ft_env_to_array(void);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
+t_env 				*ft_find_by_key(t_minishell *minishell, char *key);
 
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
@@ -108,6 +109,7 @@ int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
+int					ft_invalid_identifier(char *cmd, char *arg);
 
 
 #endif

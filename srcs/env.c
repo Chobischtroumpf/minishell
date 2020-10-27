@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/25 16:31:30 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/27 22:34:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	ft_envadd_back adds the node 't_env *new' to the end of the linked list
+**	that starts at 't_env **head'
+*/
 
 void	ft_envadd_back(t_env **head, t_env *new)
 {
@@ -26,6 +31,10 @@ void	ft_envadd_back(t_env **head, t_env *new)
 		ptr->next = new;
 	}
 }
+
+/*
+**	ft_envsize returns the number of nodes in the given linked list
+*/
 
 int		ft_envsize(t_env *env)
 {
@@ -90,30 +99,18 @@ void	ft_free_array(char **array)
 void	ft_init_env(t_minishell *minishell, char **envv)
 {
 	int			i;
-	int			j;
 	char		**key_value;
-	char		*tmp;
 	t_env		*new_node;
 
 	i = 0;
 	while (envv[i])
 	{
-		key_value = ft_split(envv[i], '=');
+		key_value = ft_split_once(envv[i], '=');
 		if (!(new_node = (t_env *)malloc(sizeof(t_env))))
 			exit(0);
 		new_node->key = ft_strdup(key_value[0]);
 		if (key_value[1])
-		{
-			tmp = ft_strdup(key_value[1]);
-			j = 2;
-			while (key_value[j])
-			{
-				tmp = ft_strjoin_delimiter(tmp, key_value[j], '=');
-				j++;
-			}
-			new_node->value = ft_strdup(tmp);
-			free(tmp);
-		}
+			new_node->value = ft_strdup(key_value[1]);
 		else
 			new_node->value = ft_strdup("");
 		new_node->next = NULL;
