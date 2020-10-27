@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 15:52:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/27 14:38:59 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,13 @@ int			ft_free_cmd(void)
 	}
 	get_minishell()->cmd = 0;
 	return(0);
+}
+
+
+void			ft_eof_exit(void)
+{
+	ft_putstr("exit\n");
+	ft_free_cmd();
+	ft_free_env();
+	exit(0);
 }

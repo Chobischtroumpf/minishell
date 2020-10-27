@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/27 12:00:20 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/27 17:14:19 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,74 @@ static int	lexing(t_minishell *minishell)
 	return (1);
 }
 
-int ft_line_handle(void)
+static int	ft_was_eof(void)
 {
-	int			ret;
+	t_minishell *minishell;
+	char		*old_line;
 	char		*line;
-	t_cmd		*tmp2;
-	t_minishell	*minishell;
 
 	minishell = get_minishell();
-	if ((ret = get_next_line(1, &line)) < 0)
+	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
 		ft_exit_error();
-	minishell->line = ft_strtrim(line, " \t\n\v\f\r");
+	if (minishell->was_eof)
+		old_line = minishell->line;
+	else
+		old_line = "";
+	if (!(minishell->line = ft_strjoin(old_line, line)))
+		ft_exit_error();
+	if (minishell->was_eof)
+		free(old_line);
 	free(line);
-	if (ret == 0 && ft_strlen(minishell->line))
+	if (minishell->gnl_ret > 0)
+		minishell->was_eof = 0;
+	else if (minishell->gnl_ret == 0)
 	{
 		ft_putstr("  \b\b");
 		return (0);
 	}
-	else if (ret == 0 && !ft_strlen(minishell->line))
+	return (1);
+}
+
+static int	ft_current_line(void)
+{
+	char		*line;
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
+	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
+		ft_exit_error();
+	minishell->line = ft_strtrim(line, " \t\n\v\f\r");
+	free(line);
+	if (minishell->gnl_ret == 0 && ft_strlen(minishell->line))
+	{
+		minishell->was_eof = 1;
+		ft_putstr("  \b\b");
+		return (0);
+	}
+	else if (minishell->gnl_ret == 0 && !ft_strlen(minishell->line))
 	{
 		ft_putstr("  \b\b");
-		ft_exit_error();
+		ft_eof_exit();
 	}
-	if (ret == 1 && ft_strncmp(minishell->line, "\0", 1))
+	return (1);
+}
+
+int			ft_line_handle(void)
+{
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
+	if (minishell->was_eof)
 	{
-		if (!lexing(minishell))
+		if (!(ft_was_eof()))
 			return (0);
-		if (!ft_cmd_parse(minishell->tokens))
-			return (0);
-		tmp2 = minishell->cmd;
-		// print_lst();
-		while (tmp2)
-		{
-			ft_exec_cmd();
-			tmp2 = tmp2->next;
-		}
 	}
-	return(1);
+	else
+	{
+		if (!(ft_current_line()))
+			return (0);
+	}
+	if (!lexing(minishell))
+		ft_exit_error();
+	return (1);
 }

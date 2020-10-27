@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 11:55:58 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/27 16:41:12 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct		s_minishell
 	char			**tokens;
 	int				executed : 1;
 	unsigned int	nbr_cmd : 11;
+	int				was_eof : 1;
+	int				gnl_ret : 2;
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
@@ -103,6 +105,8 @@ int					ft_free_cmd(void);
 void				ft_free_env(void);
 void				free_node(t_env *env);
 void				ft_free_array(char **array);
+void				ft_eof_exit(void);
+
 
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
