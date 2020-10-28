@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:35:51 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/27 14:38:59 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void		ft_free_redir(t_cmd *cmd)
 ** the ft_free_cmd function is in charge to free the t_cmd linked-list
 */
 
-void			ft_free_cmd(void)
+int			ft_free_cmd(void)
 {
 	t_minishell	*minishell;
 	t_cmd		*tmp;
@@ -100,4 +100,14 @@ void			ft_free_cmd(void)
 		minishell->cmd = tmp;
 	}
 	get_minishell()->cmd = 0;
+	return(0);
+}
+
+
+void			ft_eof_exit(void)
+{
+	ft_putstr("exit\n");
+	ft_free_cmd();
+	ft_free_env();
+	exit(0);
 }
