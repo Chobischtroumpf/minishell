@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 14:21:16 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 16:38:03 by nathan           ###   ########.fr       */
+/*   Created: 2020/10/27 21:56:36 by nathan            #+#    #+#             */
+/*   Updated: 2020/10/27 21:59:57 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	size_t	len;
-	size_t	len2;
-	int		result;
+	char		*dest;
 
-	len = ft_strlen(s1) + 1;
-	len2 = ft_strlen(s2) + 1;
-	if (len >= len2)
-		len = len2;
-	result = ft_memcmp(s1, s2, len);
-	return (result);
+	if (s1 && s2)
+	{
+		if (!(dest = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1)))
+			return (NULL);
+		ft_strcpy(dest, s1);
+		ft_strcat(dest, s2);
+		free(s1);
+		return (dest);
+	}
+	else
+		return (NULL);
 }

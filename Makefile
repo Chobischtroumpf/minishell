@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#    By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/25 09:31:01 by adorigo          ###   ########.fr        #
+#    Updated: 2020/10/25 15:47:32 by ncolin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_unset.c	\
 			exec_external.c	\
 			errors.c		\
-			exit.c
+			exit.c			\
+			bltin_export.c
 
 
 OBJ_PATH = objs
