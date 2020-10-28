@@ -6,19 +6,21 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/27 17:14:19 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/28 13:46:11 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	lexing(t_minishell *minishell)
+int			ft_lexing(void)
 {
+	t_minishell	*minishell;
 	int			nbr_tokens;
 	char		*tmp;
 	int			x;
 
 	x = -1;
+	minishell = get_minishell();
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) == -1)
 	{
 		ft_printf("you need to close the brackets\n");
@@ -103,7 +105,7 @@ int			ft_line_handle(void)
 		if (!(ft_current_line()))
 			return (0);
 	}
-	if (!lexing(minishell))
+	if (!ft_lexing())
 		ft_exit_error();
 	return (1);
 }

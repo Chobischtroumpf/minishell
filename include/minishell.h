@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/28 13:29:42 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/28 13:45:30 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char				**get_built_in(void);
 
 int 				ft_line_handle(void);
 
+int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
 char				*ft_tokens_split(char *line, int nbr_tokens);
