@@ -6,27 +6,11 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/28 13:57:25 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/28 14:56:04 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_print_array(char **array)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-	{
-		printf("%s\n",array[i]);
-		// array[i] = NULL;
-		i++;
-	}
-	// free(array);
-	// array = NULL;
-}
-
 
 static char	**path_array_creation(void)
 {
@@ -41,7 +25,7 @@ static char	**path_array_creation(void)
 		env = env->next;
 	}
 	if (!path_array)
-		return (0);
+		ft_exit_error();
 	return (path_array);
 }
 
@@ -71,15 +55,13 @@ static void	exec_cmd(t_cmd *cmd)
 	env_array = ft_env_to_array();
 	if (!cmd->has_path && (path_array = path_array_creation()))
 	{
-		ft_print_array(path_array);
 		exec_with_path(cmd, path_array, env_array);
 		ft_free_array(env_array);
-		ft_free_array(path_array);
 		exit(ft_no_cmd_error(cmd->argv[0], 127));
+		ft_free_array(path_array);
 	}
 	else
 	{
-		printf("%d\n", cmd->has_path);
 		execve(cmd->argv[0], cmd->argv, env_array);
 		exit(ft_no_file_error(cmd->argv[0], NULL, 127));
 	}

@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/28 13:20:42 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/28 14:48:41 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_envsize(t_env *env)
 {
 	int cnt;
 
-	cnt = 0;
+	cnt = 1;
 	while (env)
 	{
 		cnt++;
