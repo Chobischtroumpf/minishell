@@ -6,7 +6,7 @@
 #    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/27 12:12:23 by alessandro       ###   ########.fr        #
+#    Updated: 2020/10/28 13:21:48 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_pwd.c		\
 			bltin_env.c		\
 			bltin_unset.c	\
+			bltin_export.c	\
 			exec_external.c	\
 			errors.c		\
 			line_handle.c	\

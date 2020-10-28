@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/25 15:05:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/28 13:20:43 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	exec_cmd(t_cmd *cmd)
 	char	**path_array;
 	char	**env_array;
 
-	env_array = env_to_array();
+	env_array = ft_env_to_array();
 	if (!cmd->has_path && (path_array = path_array_creation()))
 	{
 		exec_with_path(cmd, path_array, env_array);
