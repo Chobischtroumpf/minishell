@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_get_exit_code(int status, int excode);
+void	ft_get_exit_code(int status, int excode)
 {
 	if (excode == -1)
 	{
@@ -23,5 +23,4 @@ void	ft_get_exit_code(int status, int excode);
 	}
 	else
 		get_minishell()->excode = excode;
-	
 }
