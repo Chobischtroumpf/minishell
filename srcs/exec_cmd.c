@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/29 12:48:20 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/01 16:10:36 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	int			ret;
 
 	ret = -1;
-	open_redirection(cmd);
 	if (bltin_pos == 0)
 		ret = ft_exec_echo(cmd);
 	// if (bltin_pos == 1)
@@ -59,7 +58,6 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 		ret = ft_exec_env();
 	else if (bltin_pos == 6)
 		ret = ft_exec_exit(cmd);
-	close_redirection(cmd);
 	return (ret);
 }
 
@@ -115,10 +113,12 @@ int			ft_exec_cmd(void)
 		//check pipe
 		check_in(cmd->in);
 		check_out(cmd->out);
+		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 			ft_exec_builtin(btin_nb, cmd);
 		else
 			ft_exec_extern(cmd);
+		close_redirection(cmd);		
 		cmd = cmd->next;
 	}
 	get_minishell()->executed = 0;
