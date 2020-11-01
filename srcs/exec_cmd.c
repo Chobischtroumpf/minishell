@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 15:46:31 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/10/29 12:48:20 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,63 @@ static int	is_built_in(char *command)
 ** variable's value
 */
 
-static int	ft_exec_builtin(int bltin_pos)
+static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 {
-	t_minishell *minishell;
+	int			ret;
 
-	minishell = get_minishell();
+	ret = -1;
+	open_redirection(cmd);
 	if (bltin_pos == 0)
-		return (ft_exec_echo(minishell->cmd));
+		ret = ft_exec_echo(cmd);
 	// if (bltin_pos == 1)
-	// 	return (ft_exec_cd());
+	// 	ret = ft_exec_cd();
 	else if (bltin_pos == 2)
-		return (ft_exec_pwd());
-	if (bltin_pos == 3)
-		return (ft_exec_export(minishell->cmd));
-	if (bltin_pos == 4)
-		return (ft_exec_unset(minishell->cmd));
-	if (bltin_pos == 5)
-		return (ft_exec_env());
-	if (bltin_pos == 6)
-		return (ft_exec_exit(minishell->cmd));
-	return (0);
+		ret = ft_exec_pwd();
+	else if (bltin_pos == 3)
+		ret = ft_exec_export(cmd);
+	else if (bltin_pos == 4)
+		ret = ft_exec_unset(cmd);
+	else if (bltin_pos == 5)
+		ret = ft_exec_env();
+	else if (bltin_pos == 6)
+		ret = ft_exec_exit(cmd);
+	close_redirection(cmd);
+	return (ret);
+}
+
+static int	check_in(t_rdir *in)
+{
+
+	while (in)
+	{
+		if ((in->fd = open(in->file, O_RDONLY)) < 0)
+			return (ft_no_file_error(NULL, in->file, 0));
+		if (in->next)
+			close(in->fd);
+		in = in->next;
+	}
+	return (1);
+}
+
+// check_out and check_in will need to be modified so that the $ symbol is checked in filenames as well
+
+static int check_out(t_rdir *out)
+{
+	while (out)
+	{
+		if (out->is_dbl)
+			out->fd = open(out->file, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR
+				| S_IRGRP | S_IWGRP | S_IWUSR);
+		else
+			out->fd = open(out->file, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR
+				| S_IRGRP | S_IWGRP | S_IWUSR);
+		if (out->fd < 0)
+			return (0);
+		if (out->next)
+			close(out->fd);
+		out = out->next;
+	}
+	return (1);
 }
 
 /*
@@ -76,8 +113,10 @@ int			ft_exec_cmd(void)
 	while (cmd)
 	{
 		//check pipe
+		check_in(cmd->in);
+		check_out(cmd->out);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
-			ft_exec_builtin(btin_nb);
+			ft_exec_builtin(btin_nb, cmd);
 		else
 			ft_exec_extern(cmd);
 		cmd = cmd->next;

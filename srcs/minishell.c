@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/28 14:52:08 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/29 15:10:13 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	prompt_msg(void)
 {
 	if (get_minishell()->was_eof == 0)
-		ft_putstr("\033[32mMINISHELL\033[0m$ ");
+		ft_putstr("\033[32mminishell\033[0m$ ");
 }
 
 /*
@@ -51,45 +51,45 @@ void		signal_handler(int signbr)
 }
 
 /*
-** void		print_lst()
-** {
-** 	int i = 0;
-** 	t_minishell *minish;
-** 	t_cmd *tmp;
-** 	t_rdir *in;
-** 	t_rdir *out;
-**
-** 	minish = get_minishell();
-** 	in = minish->cmd->in;
-** 	out = minish->cmd->out;
-**	tmp = minish->cmd;
-**
-**	ft_printf("line : %s\n", minish->line);
-**	while (minish->tokens[i])
-**	{
-**		printf("token: %s\n", minish->tokens[i]);
-**		i++;
-**	}
-**	i = 0;
-**	while (tmp != NULL)
-**	{
-**		while(tmp->argv[i])
-**			printf("%s\n", tmp->argv[i++]);
-**		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
-**		while (in != NULL)
-**		{
-**			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
-**			in = in->next;
-**		}
-**		while (out != NULL)
-**		{
-**			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
-**			out = out->next;
-**		}
-**		tmp = tmp->next;
-**		i = 0;
-**	}
-**}
+void		print_lst()
+{
+	int i = 0;
+	t_minishell *minish;
+	t_cmd *tmp;
+	t_rdir *in;
+	t_rdir *out;
+
+	minish = get_minishell();
+	in = minish->cmd->in;
+	out = minish->cmd->out;
+	tmp = minish->cmd;
+
+	ft_printf("line : %s\n", minish->line);
+	while (minish->tokens[i])
+	{
+		printf("token: %s\n", minish->tokens[i]);
+		i++;
+	}
+	i = 0;
+	while (tmp != NULL)
+	{
+		while(tmp->argv[i])
+			printf("%s\n", tmp->argv[i++]);
+		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
+		while (in != NULL)
+		{
+			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
+			in = in->next;
+		}
+		while (out != NULL)
+		{
+			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
+			out = out->next;
+		}
+		tmp = tmp->next;
+		i = 0;
+	}
+}
 */
 
 void		main_execution(void)

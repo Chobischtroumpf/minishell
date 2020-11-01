@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/28 13:45:30 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/29 12:10:33 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
 int					ft_is_redir(char *s);
+t_rdir				*ft_last_rdir(t_rdir *begin);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_count_arg(char **arr);
-
+void				open_redirection(t_cmd *cmd);
+void				close_redirection(t_cmd *cmd);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
