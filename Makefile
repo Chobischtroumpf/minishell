@@ -32,6 +32,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			exec_external.c	\
 			errors.c		\
 			line_handle.c	\
+			quit.c			\
 			exit.c
 
 
