@@ -64,7 +64,7 @@ typedef struct		s_minishell
 	unsigned int	nbr_cmd : 11;
 	int				was_eof : 1;
 	int				gnl_ret : 2;
-	int				excode : 
+	int				excode : 9;
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
