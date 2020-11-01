@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/28 13:45:30 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/01 15:21:22 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct		s_minishell
 	unsigned int	nbr_cmd : 11;
 	int				was_eof : 1;
 	int				gnl_ret : 2;
+	int				excode : 
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
@@ -111,6 +112,7 @@ void				ft_free_env(void);
 void				free_node(t_env *env);
 void				ft_free_array(char **array);
 void				ft_eof_exit(void);
+void				ft_get_exit_code(int status, int excode);
 
 
 int					ft_too_many_args(char *cmd, int ret);
@@ -120,6 +122,5 @@ int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
 int					ft_invalid_identifier(char *cmd, char *arg);
-
 
 #endif
