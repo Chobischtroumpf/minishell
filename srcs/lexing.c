@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 14:16:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/10/29 15:08:43 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int			ft_check_sep(char *line, int i, int space)
 {
 	int jump;
 
-	if (line[i] == ' ' || line[i] == '\t' || line[i] == '>' || line[i] == '<'
+	if (line[i] == '>' && line[i + 1] == '>')
+		jump = 2;
+	else if (line[i] == ' ' || line[i] == '\t' || line[i] == '>' || line[i] == '<'
 		|| line[i] == '|' || line[i] == ';')
 		jump = 1;
-	else if (line[i] == '>' && line[i + 1] == '>')
-		jump = 2;
 	else
 		return (0);
 	if (space == 0)
