@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/28 14:56:04 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/01 14:54:22 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void		ft_exec_extern(t_cmd *cmd)
 	else if (pid > 0)
 	{
 		wait(&status);
+		ft_get_exit_code(status, NO_EXCODE);
 	}
 }

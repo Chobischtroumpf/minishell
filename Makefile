@@ -33,6 +33,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			errors.c		\
 			line_handle.c	\
 			redirections.c	\
+			quit.c			\
 			exit.c
 
 

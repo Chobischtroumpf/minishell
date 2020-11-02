@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/28 13:20:42 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/01 14:11:11 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int		ft_no_file_error(char *cmd, char *file, int ret)
 
 int		ft_no_cmd_error(char *cmd, int ret)
 {
-	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd("\n", 2);
+	ft_putstr_fd(": command not found\n", 2);
 	return (ret);
 }
 
