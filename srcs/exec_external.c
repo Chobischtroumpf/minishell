@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/27 16:32:46 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/28 14:56:04 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**path_array_creation(void)
 		env = env->next;
 	}
 	if (!path_array)
-		return (0);
+		ft_exit_error();
 	return (path_array);
 }
 
@@ -56,7 +56,9 @@ static void	exec_cmd(t_cmd *cmd)
 	if (!cmd->has_path && (path_array = path_array_creation()))
 	{
 		exec_with_path(cmd, path_array, env_array);
+		ft_free_array(env_array);
 		exit(ft_no_cmd_error(cmd->argv[0], 127));
+		ft_free_array(path_array);
 	}
 	else
 	{

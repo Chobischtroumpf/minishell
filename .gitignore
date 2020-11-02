@@ -1,2 +1,5 @@
 .vscode
 objs/*
+libft/*.o
+minishell
+minishell_test/**
