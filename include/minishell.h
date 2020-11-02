@@ -6,14 +6,14 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/02 09:04:03 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/02 10:08:27 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-// # include "wraloc.h"
+# include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -64,6 +64,7 @@ typedef struct		s_minishell
 	unsigned int	nbr_cmd : 11;
 	int				was_eof : 1;
 	int				gnl_ret : 2;
+	int				excode : 9;
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
@@ -85,9 +86,11 @@ int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
 int					ft_is_redir(char *s);
+t_rdir				*ft_last_rdir(t_rdir *begin);
 void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_count_arg(char **arr);
-
+void				open_redirection(t_cmd *cmd);
+void				close_redirection(t_cmd *cmd);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
@@ -111,6 +114,7 @@ void				ft_free_env(void);
 void				free_node(t_env *env);
 void				ft_free_array(char **array);
 void				ft_eof_exit(void);
+void				ft_get_exit_code(int status, int excode);
 
 
 int					ft_too_many_args(char *cmd, int ret);
@@ -120,6 +124,5 @@ int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
 int					ft_invalid_identifier(char *cmd, char *arg);
-
 
 #endif

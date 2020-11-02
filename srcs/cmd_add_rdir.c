@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 15:35:09 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 11:55:29 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/10/29 11:20:19 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_rdir	*ft_new_rdir(char *file, int is_dbl)
 ** return it
 */
 
-static t_rdir	*ft_last_rdir(t_rdir *begin)
+t_rdir	*ft_last_rdir(t_rdir *begin)
 {
 	while (begin->next)
 		begin = begin->next;
