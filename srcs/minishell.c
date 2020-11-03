@@ -28,6 +28,11 @@ void		signal_handler(int signbr)
 {
 	if (signbr == SIGINT)
 	{
+		if (get_minishell()->was_eof = 1)
+		{
+			get_minishell()->was_eof = 0;
+			free(get_minishell()->line);
+		}
 		if (get_minishell()->executed == 1)
 		{
 			ft_putstr("\n");
@@ -35,8 +40,7 @@ void		signal_handler(int signbr)
 		}
 		else
 		{
-			ft_putstr("\b\b  \b\b\n");
-			get_minishell()->was_eof = 0;
+			ft_putstr("\n");
 			prompt_msg();
 		}
 	}
@@ -121,6 +125,7 @@ int			main(int ac, char **av, char **envv)
 	ft_init_env(minishell, envv);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	ft_shlvl();
 	if (ac == 1)
 		main_execution();
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
@@ -132,4 +137,5 @@ int			main(int ac, char **av, char **envv)
 	}
 	ft_free_cmd();
 	ft_free_env();
+	return (0);
 }
