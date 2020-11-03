@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/01 15:21:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/03 15:18:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct		s_minishell
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
 
-
+void			    ft_shlvl(void);
 int 				ft_line_handle(void);
 
 int					ft_lexing(void);
@@ -97,8 +97,8 @@ char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
 char 				**ft_env_to_array(void);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
-t_env 				*ft_find_by_key(t_minishell *minishell, char *key);
-void				ft_add_env(t_minishell *minishell, char **keyvalue);
+t_env 				*ft_find_by_key(char *key);
+void				ft_add_env(char **keyvalue);
 
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);

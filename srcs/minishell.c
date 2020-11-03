@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/29 15:10:13 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/03 16:04:42 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,31 @@ static void	prompt_msg(void)
 
 void		signal_handler(int signbr)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
 	if (signbr == SIGINT)
 	{
-		if (get_minishell()->was_eof = 1)
+		if (minishell->executed == 1)
 		{
-			get_minishell()->was_eof = 0;
-			free(get_minishell()->line);
-		}
-		if (get_minishell()->executed == 1)
-		{
+			minishell->executed = 0;
 			ft_putstr("\n");
-			get_minishell()->executed = 0;
 		}
-		else
+		if (minishell->was_eof == 1)
 		{
+			minishell->was_eof = 0;
 			ft_putstr("\n");
-			prompt_msg();
 		}
 	}
 	else if (signbr == SIGQUIT)
 	{
-		if (get_minishell()->executed == 1)
+		if (minishell->executed == 1)
 		{
 			ft_putstr("Quit (core dumped)\n");
-			get_minishell()->executed = 0;
+			minishell->executed = 0;
 		}
+		else
+			ft_putstr("  \b\b");
 	}
 }
 

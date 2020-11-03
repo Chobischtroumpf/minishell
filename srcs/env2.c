@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/28 14:48:47 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/03 15:15:30 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**ft_env_to_array(void)
 	return (array);
 }
 
-void	ft_add_env(t_minishell *minishell, char **keyvalue)
+void	ft_add_env(char **keyvalue)
 {
 	t_env *new_node;
 
@@ -55,14 +55,14 @@ void	ft_add_env(t_minishell *minishell, char **keyvalue)
 	new_node->key = ft_strdup(keyvalue[0]);
 	new_node->value = ft_strdup(keyvalue[1]);
 	new_node->next = NULL;
-	ft_envadd_back(&minishell->env, new_node);
+	ft_envadd_back(&get_minishell()->env, new_node);
 }
 
-t_env	*ft_find_by_key(t_minishell *minishell, char *key)
+t_env	*ft_find_by_key(char *key)
 {
 	t_env *tmp;
 
-	tmp = minishell->env;
+	tmp = get_minishell()->env;
 	while (tmp)
 	{
 		if (!(ft_strcmp(tmp->key, key)))
