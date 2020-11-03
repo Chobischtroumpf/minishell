@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/02 10:00:19 by nathan           ###   ########.fr       */
-=======
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/01 16:10:36 by adorigo          ###   ########.fr       */
->>>>>>> 00168c717a3a237bf235071502e83af1430f17ef
+/*   Updated: 2020/11/03 11:22:27 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +63,6 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 
 static int	check_in(t_rdir *in)
 {
-
 	while (in)
 	{
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
@@ -117,6 +109,7 @@ int			ft_exec_cmd(void)
 	cmd = get_minishell()->cmd;
 	while (cmd)
 	{
+		check_dollar(cmd);
 		//check pipe
 		check_in(cmd->in);
 		check_out(cmd->out);

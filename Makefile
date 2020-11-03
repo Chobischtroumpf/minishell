@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/29 12:11:03 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/02 13:12:48 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
-			exit.c
+			exit.c			\
+			dollar.c
 
 
 OBJ_PATH = objs
