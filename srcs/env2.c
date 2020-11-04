@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/03 15:15:30 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/04 14:22:10 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,20 @@ t_env	*ft_find_by_key(char *key)
 	{
 		if (!(ft_strcmp(tmp->key, key)))
 			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+char	*ft_find_by_key2(char *key)
+{
+	t_env *tmp;
+
+	tmp = get_minishell()->env;
+	while (tmp)
+	{
+		if (!(ft_strcmp(tmp->key, key)))
+			return (tmp->value);
 		tmp = tmp->next;
 	}
 	return (NULL);

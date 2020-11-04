@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/03 15:18:26 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/04 14:22:59 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char 				**ft_env_to_array(void);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(char *key);
+char				*ft_find_by_key2(char *key);
 void				ft_add_env(char **keyvalue);
 
 int					ft_exec_pwd(void);
