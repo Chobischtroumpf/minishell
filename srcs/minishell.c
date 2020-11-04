@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/29 15:10:13 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/04 10:38:16 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void		signal_handler(int signbr)
 			ft_putstr("Quit (core dumped)\n");
 			get_minishell()->executed = 0;
 		}
+		else
+		{
+			ft_putstr("\b\b  \b\b");
+		}
+		
 	}
 }
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/01 15:21:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/04 10:03:05 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-# include "wraloc.h"
+// # include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -63,6 +63,7 @@ typedef struct		s_minishell
 	int				executed : 1;
 	unsigned int	nbr_cmd : 11;
 	int				was_eof : 1;
+	int				backslash : 1;
 	int				gnl_ret : 2;
 	int				excode : 9;
 	t_cmd			*cmd;
