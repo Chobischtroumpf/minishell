@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/04 14:22:59 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/04 17:23:08 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // # include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
 
@@ -75,6 +76,8 @@ t_minishell			*get_minishell(void);
 char				**get_built_in(void);
 
 void			    ft_shlvl(void);
+unsigned int		ft_atoi_pos(const char *str);
+void				ft_error_shlvl(int shlvl);
 int 				ft_line_handle(void);
 
 int					ft_lexing(void);

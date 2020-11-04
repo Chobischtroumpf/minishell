@@ -6,7 +6,7 @@
 #    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/04 15:05:34 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/04 17:15:36 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes
 LDFLAGS = -L libft
 LDLIBS = -lft 
 

@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/28 14:41:50 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/04 17:22:46 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Joins *char 's1' and *char 's2' with a character 'del' between the two.
 */
 
-char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
+char			*ft_strjoin_delimiter(char *s1, char *s2, char del)
 {
 	char	*str;
 	char	*to_free;
@@ -39,7 +39,7 @@ char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
 	return (str);
 }
 
-int		ft_count_arg(char **arg)
+int				ft_count_arg(char **arg)
 {
 	int		i;
 
@@ -49,7 +49,7 @@ int		ft_count_arg(char **arg)
 	return (i);
 }
 
-t_cmd	*ft_last_cmd(t_cmd *cmd)
+t_cmd			*ft_last_cmd(t_cmd *cmd)
 {
 	t_cmd	*last;
 
@@ -57,4 +57,45 @@ t_cmd	*ft_last_cmd(t_cmd *cmd)
 	while (last->next)
 		last = last->next;
 	return (last);
+}
+
+
+static int		checker(const char **str)
+{
+	int is_negative;
+
+	is_negative = 0;
+	if (**str == '-' || **str == '+')
+	{
+		if (**str == '-')
+			is_negative = 1;
+		(*str)++;
+	}
+	return (is_negative);
+}
+
+unsigned int	ft_atoi_pos(const char *str)
+{
+	unsigned long long	nb;
+	int					i;
+	int					is_negative;
+
+	if ((is_negative = checker(&str)) == 1)
+		return (-1);
+	i = 0;
+	nb = 0;
+	if (ft_strlen(str) > 19)
+		return(0);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (nb >= (unsigned long long)INT_MAX - 1 &&
+			nb <= (unsigned long long)LONG_MAX)
+			return (-1);
+		if (nb > (unsigned long long)LONG_MAX)
+			return (0);
+		nb *= 10;
+		nb += str[i] - '0';
+		i++;
+	}
+	return(nb);	
 }
