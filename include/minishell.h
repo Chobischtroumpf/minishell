@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/02 13:13:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:31:14 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
 char				*ft_tokens_split(char *line, int nbr_tokens);
 int					ft_brackets(char *line, int i);
+int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
 t_cmd				*ft_last_cmd(t_cmd *cmd);

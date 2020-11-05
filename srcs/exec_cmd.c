@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/04 10:04:04 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:46:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int			ft_exec_cmd(void)
 	while (cmd)
 	{
 		check_dollar(cmd);
+		//rm ' ' && " "
 		//check pipe
 		check_in(cmd->in);
 		check_out(cmd->out);

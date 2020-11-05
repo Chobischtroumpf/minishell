@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/04 15:07:11 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:46:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ char	*replace_false_dollar(char *arg, int i)
 	char	*suffix;
 	int		j;
 
-	prefix = ft_substr(arg, 0, i);
 	tmp = ft_substr(arg, i, ft_strlen(arg) - i);
 	j = 0;
 	while (tmp[++j])
 		if (tmp[j] == '$')
 			break ;
+	prefix = ft_substr(arg, 0, i);
 	suffix = ft_substr(tmp, j, ft_strlen(tmp) - j);
 	arg = ft_strjoin_free(prefix, suffix);
 	free(tmp);
@@ -72,7 +72,9 @@ char	*dollar_to_env(char *arg)
 	t_env	*tmp;
 	char	*key;
 	char	*value;
+	char	*str;
 	int		i;
+	int		j;
 
 	tmp = get_minishell()->env;
 	while (tmp)
@@ -82,22 +84,23 @@ char	*dollar_to_env(char *arg)
 		value = ft_strdup(tmp->value);
 		while (arg[i])
 		{
-//skip ''
+			i = skip_quotes(arg, i);
 			if (!ft_strncmp((arg + i), "$$", 2))
 				arg = replace_by_env(arg, "42", "TEMP_PID", i);
-			else if (!ft_strncmp((arg + i), "$?", 2))
-				arg = replace_by_env(arg, "42", ft_itoa(get_minishell()->excode), i);
-			else if (!ft_strncmp((arg + i), key, ft_strlen(key)))
+			if (!ft_strncmp((arg + i), "$?", 2))
+				arg = replace_by_env(arg, "42", \
+				ft_itoa(get_minishell()->excode), i);
+			if (!ft_strncmp((arg + i), key, ft_strlen(key)))
+				arg = replace_by_env(arg, key, value, i);
+			else if (arg[i] == '$')
 			{
-				if (arg[i + ft_strlen(key)] != '$' && arg[i + ft_strlen(key)] != '\0')
-					i++;
-				else
-					arg = replace_by_env(arg, key, value, i);
-			}
-			if (arg[i] == '$')
-			{
-				arg = replace_false_dollar(arg, i);
-				i--;
+				j = 1;
+				while (arg[i + j] && arg[i + j] != '$')
+					j++;
+				str = ft_substr(arg, i + 1, j - 1);
+				if (!ft_find_by_key(get_minishell(), str))
+					arg = replace_false_dollar(arg, i);
+				break ;
 			}
 			i++;
 		}
@@ -117,8 +120,8 @@ void	check_dollar(t_cmd *cmd)
 	args = cmd->argv;
 	while (args[i])
 	{
-		args[i] = dollar_to_env(args[i]);
+		while (has_dollar(args[i]))
+			args[i] = dollar_to_env(args[i]);
 		i++;
 	}
-	//remove_single_quote
 }
