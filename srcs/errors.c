@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/04 17:02:26 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/05 12:51:58 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		ft_invalid_identifier(char *cmd, char *arg)
 	return (0);
 }
 
-void	ft_error_shlvl(int shlvl)
+long	ft_error_shlvl(long shlvl)
 {
 	char	*shlvl_str;
 
@@ -112,4 +112,5 @@ void	ft_error_shlvl(int shlvl)
 	ft_putstr_fd(shlvl_str, 2);
 	ft_putstr_fd(") too high, resetting to 1\n", 2);
 	free(shlvl_str);
+	return((long)1);
 }

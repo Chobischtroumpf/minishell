@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/04 17:23:08 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/05 12:52:49 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ t_minishell			*get_minishell(void);
 char				**get_built_in(void);
 
 void			    ft_shlvl(void);
-unsigned int		ft_atoi_pos(const char *str);
-void				ft_error_shlvl(int shlvl);
+long				ft_atoi_pos(const char *str);
+long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
 int					ft_lexing(void);
@@ -103,6 +103,7 @@ int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(char *key);
 char				*ft_find_by_key2(char *key);
 void				ft_add_env(char **keyvalue);
+void				ft_remove_env(t_env *env_list, char *key);
 
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
