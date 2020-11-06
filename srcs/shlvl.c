@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/06 09:46:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 13:16:02 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int			is_numeric(char *str)
 void		ft_shlvl(void)
 {
 	char			*shlvl_str;
+	char			*tmp;
 	long			shlvl;
 
-	shlvl_str = ft_find_by_key2("SHLVL");
+	tmp = ft_find_by_key2("SHLVL");
 	if (!shlvl_str || is_numeric(shlvl_str))
 		shlvl = 1;
 	else
