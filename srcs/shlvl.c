@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/05 17:09:32 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 09:46:34 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	ft_exec_export_shlvl(char *shlvl)
 	ft_free_array(argv);
 	free(cmd);
 }
+
 int			is_numeric(char *str)
 {
 	int	i;
@@ -39,7 +40,7 @@ int			is_numeric(char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return(1);
+			return (1);
 		i++;
 	}
 	return (0);
@@ -60,8 +61,7 @@ void		ft_shlvl(void)
 			shlvl_str = ft_itoa(shlvl + 1);
 		else if (shlvl >= 999)
 			shlvl_str = ft_strdup(ft_itoa(ft_error_shlvl(shlvl + 1)));
-		printf("shlvl_str = %s\n",shlvl_str);
-		ft_exec_export_shlvl(shlvl_str);
-		free(shlvl_str);
 	}
+	ft_exec_export_shlvl(shlvl_str);
+	free(shlvl_str);
 }

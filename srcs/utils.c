@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/05 17:01:11 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 09:48:58 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ t_cmd			*ft_last_cmd(t_cmd *cmd)
 static long		check_lvlneg(unsigned long nbr, int is_neg)
 {
 	if (!is_neg)
-		return(nbr);
+		return (nbr);
 	else
-		return(LONG_MAX - nbr + 1);
+		return (LONG_MAX - nbr + 1);
 }
 
 static int		checker(const char *str)
@@ -87,7 +87,7 @@ static int		check_sign(char c)
 	return (0);
 }
 
-long	ft_atoi_pos(const char *str)
+long			ft_atoi_pos(const char *str)
 {
 	unsigned long	nb;
 	int				i;
@@ -99,19 +99,19 @@ long	ft_atoi_pos(const char *str)
 	i = is_sign;
 	nb = 0;
 	if (ft_strlen(str) > (size_t)(19 + is_sign))
-		return(0);
+		return (0);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (nb > (unsigned long long)LONG_MAX)
-			return((long)0);
+			return ((long)0);
 		nb *= 10;
 		nb += str[i] - '0';
 		i++;
 	}
 	if (nb > (unsigned long long)LONG_MAX)
-			return((long)0);
+		return ((long)0);
 	if (nb >= (unsigned long long)INT_MAX - 1 &&
 		nb <= (unsigned long long)LONG_MAX)
 		return (check_lvlneg(nb, is_negative));
-	return((long)nb);	
+	return ((long)nb);
 }
