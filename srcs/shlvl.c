@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/06 13:16:02 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 13:36:29 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		ft_shlvl(void)
 	long			shlvl;
 
 	tmp = ft_find_by_key2("SHLVL");
+	shlvl_str = ft_strtrim(tmp, SPACE);
 	if (!shlvl_str || is_numeric(shlvl_str))
 		shlvl = 1;
 	else
