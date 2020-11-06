@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 09:13:20 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 11:16:57 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ t_cmd	*ft_last_cmd(t_cmd *cmd)
 }
 
 int		ft_skip_quotes(char *str, int i)
-{
+{	
 	if (str[i] == '\'')
-		while (str[i] != '\'')
+		while (str[i++] != '\'')
 			;
 	return (i);
 }
