@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/05 18:31:14 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 08:32:02 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(t_minishell *minishell, char *key);
 void				ft_add_env(t_minishell *minishell, char **keyvalue);
+void				ft_remove_env(t_env **env_list, char *key);
 
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
@@ -120,6 +121,7 @@ void				ft_get_exit_code(int status, int excode);
 
 
 int					ft_too_many_args(char *cmd, int ret);
+int					ft_skip_quotes(char *str, int i);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);

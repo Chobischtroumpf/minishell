@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/05 18:46:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 08:32:44 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*dollar_to_env(char *arg)
 		value = ft_strdup(tmp->value);
 		while (arg[i])
 		{
-			i = skip_quotes(arg, i);
+			i = ft_skip_quotes(arg, i);
 			if (!ft_strncmp((arg + i), "$$", 2))
 				arg = replace_by_env(arg, "42", "TEMP_PID", i);
 			if (!ft_strncmp((arg + i), "$?", 2))

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/28 13:29:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 08:30:48 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,15 @@ void	ft_process_args(char **keyvalue)
 			ft_add_env(get_minishell(), keyvalue);
 	}
 	else
-		ft_add_env(get_minishell(), keyvalue);
+	{
+		if (ft_find_by_key(get_minishell(), keyvalue[0]))
+		{
+			ft_remove_env(&get_minishell()->env, keyvalue[0]);
+			ft_add_env(get_minishell(), keyvalue);
+		}
+		else
+			ft_add_env(get_minishell(), keyvalue);
+	}
 }
 
 int		ft_export_no_arg(t_minishell *minishell)
