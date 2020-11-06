@@ -6,29 +6,29 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/28 13:29:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 10:15:30 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_append_env(t_minishell *minishell, char **keyvalue)
+void ft_append_env(t_minishell *minishell, char **keyvalue)
 {
-	t_env	*tmp;
-	char	*new;
+	t_env *tmp;
+	char *new;
 
 	tmp = ft_find_by_key(minishell, keyvalue[0]);
-	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
-								ft_strlen(keyvalue[1] + 1))))
+	if (!(new = (char *)malloc(ft_strlen(tmp->value) +
+							   ft_strlen(keyvalue[1] + 1))))
 		exit(0);
 	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
 }
 
-int		ft_valid_key(char *arg)
+int ft_valid_key(char *arg)
 {
-	int		i;
-	char	*special_chars;
-	int		eq_found;
+	int i;
+	char *special_chars;
+	int eq_found;
 
 	eq_found = 0;
 	i = 0;
@@ -50,9 +50,9 @@ int		ft_valid_key(char *arg)
 	return (0);
 }
 
-void	ft_process_args(char **keyvalue)
+void ft_process_args(char **keyvalue)
 {
-	char	*tmp;
+	char *tmp;
 
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
@@ -65,12 +65,20 @@ void	ft_process_args(char **keyvalue)
 			ft_add_env(get_minishell(), keyvalue);
 	}
 	else
-		ft_add_env(get_minishell(), keyvalue);
+	{
+		if (ft_find_by_key(get_minishell(), keyvalue[0]))
+		{
+			ft_remove_env(&get_minishell()->env, keyvalue[0]);
+			ft_add_env(get_minishell(), keyvalue);
+		}
+		else
+			ft_add_env(get_minishell(), keyvalue);
+	}
 }
 
-int		ft_export_no_arg(t_minishell *minishell)
+int ft_export_no_arg(t_minishell *minishell)
 {
-	t_env	*tmp;
+	t_env *tmp;
 
 	tmp = minishell->env;
 	while (tmp)
@@ -81,11 +89,11 @@ int		ft_export_no_arg(t_minishell *minishell)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_exec_export(t_cmd *cmd)
+int ft_exec_export(t_cmd *cmd)
 {
-	char		**key_value;
-	char		**args;
-	int			i;
+	char **key_value;
+	char **args;
+	int i;
 
 	args = cmd->argv;
 	i = 1;
@@ -96,7 +104,7 @@ int		ft_exec_export(t_cmd *cmd)
 		if (!ft_strchr(args[i], '='))
 		{
 			i++;
-			continue ;
+			continue;
 		}
 		if (ft_valid_key(args[i]))
 		{
