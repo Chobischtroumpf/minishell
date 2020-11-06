@@ -49,9 +49,11 @@ int			is_numeric(char *str)
 void		ft_shlvl(void)
 {
 	char			*shlvl_str;
+	char			*tmp;
 	long			shlvl;
 
-	shlvl_str = ft_find_by_key2("SHLVL");
+	tmp = ft_find_by_key2("SHLVL");
+	shlvl_str = ft_strtrim(tmp, SPACE);
 	if (!shlvl_str || is_numeric(shlvl_str))
 		shlvl_str =	ft_strdup("1");
 	else
