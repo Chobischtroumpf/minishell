@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/03 15:16:57 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 10:42:00 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_append_env(char **keyvalue)
 {
-	t_env	*tmp;
-	char	*new;
+	t_env *tmp;
+	char *new;
 
 	tmp = ft_find_by_key(keyvalue[0]);
 	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
@@ -24,11 +24,11 @@ void	ft_append_env(char **keyvalue)
 	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
 }
 
-int		ft_valid_key(char *arg)
+int ft_valid_key(char *arg)
 {
-	int		i;
-	char	*special_chars;
-	int		eq_found;
+	int i;
+	char *special_chars;
+	int eq_found;
 
 	eq_found = 0;
 	i = 0;
@@ -50,9 +50,9 @@ int		ft_valid_key(char *arg)
 	return (0);
 }
 
-void	ft_process_args(char **keyvalue)
+void ft_process_args(char **keyvalue)
 {
-	char	*tmp;
+	char *tmp;
 
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
@@ -61,14 +61,24 @@ void	ft_process_args(char **keyvalue)
 		free(tmp);
 		if (ft_find_by_key(keyvalue[0]))
 			ft_append_env(keyvalue);
+		else
+			ft_add_env(keyvalue);
 	}
 	else
-		ft_add_env(keyvalue);
+	{
+		if (ft_find_by_key(keyvalue[0]))
+		{
+			ft_remove_env(get_minishell()->env, keyvalue[0]);
+			ft_add_env(keyvalue);
+		}
+		else
+			ft_add_env(keyvalue);
+	}
 }
 
-int		ft_export_no_arg(t_minishell *minishell)
+int ft_export_no_arg(t_minishell *minishell)
 {
-	t_env	*tmp;
+	t_env *tmp;
 
 	tmp = minishell->env;
 	while (tmp)
@@ -79,11 +89,11 @@ int		ft_export_no_arg(t_minishell *minishell)
 	return (EXIT_SUCCESS);
 }
 
-int		ft_exec_export(t_cmd *cmd)
+int ft_exec_export(t_cmd *cmd)
 {
-	char		**key_value;
-	char		**args;
-	int			i;
+	char **key_value;
+	char **args;
+	int i;
 
 	args = cmd->argv;
 	i = 1;
@@ -94,7 +104,7 @@ int		ft_exec_export(t_cmd *cmd)
 		if (!ft_strchr(args[i], '='))
 		{
 			i++;
-			continue ;
+			continue;
 		}
 		if (ft_valid_key(args[i]))
 		{
