@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/06 10:42:00 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 11:02:27 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void ft_process_args(char **keyvalue)
 	{
 		if (ft_find_by_key(keyvalue[0]))
 		{
-			ft_remove_env(get_minishell()->env, keyvalue[0]);
+			ft_remove_env(&get_minishell()->env, keyvalue[0]);
 			ft_add_env(keyvalue);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/05 12:15:42 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 11:04:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ char	*ft_get_env_value(t_env *env_list, char *key)
 	return (NULL);
 }
 
-void	ft_remove_env(t_env *env_list, char *key)
+void	ft_remove_env(t_env **env_list, char *key)
 {
 	t_env	*current;
 	t_env	*next;
 
-	if (!env_list)
+	if (!(*env_list))
 		return ;
-	while (env_list && is_env(env_list, key) == 0)
+	while (*env_list && is_env(*env_list, key) == 0)
 	{
-		next = env_list->next;
-		free_node(env_list);
-		env_list = next;
+		next = (*env_list)->next;
+		free_node(*env_list);
+		*env_list = next;
 	}
-	if (!env_list)
+	if (!(*env_list))
 		return ;
-	current = env_list;
+	current = *env_list;
 	while (current && current->next)
 	{
 		if (is_env(current->next, key) == 0)
@@ -76,7 +76,7 @@ int		ft_exec_unset(t_cmd *cmd)
 	{
 		value = ft_get_env_value(minishell->env, args[i]);
 		if (value)
-			ft_remove_env(minishell->env, args[i]);
+			ft_remove_env(&minishell->env, args[i]);
 		i++;
 	}
 	return (EXIT_SUCCESS);
