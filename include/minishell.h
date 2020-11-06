@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 10:21:07 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 11:03:53 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // # include "wraloc.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
 
@@ -74,7 +75,9 @@ typedef struct		s_minishell
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
 
-
+void			    ft_shlvl(void);
+long				ft_atoi_pos(const char *str);
+long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
 int					ft_lexing(void);
@@ -97,8 +100,9 @@ char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
 char 				**ft_env_to_array(void);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
-t_env 				*ft_find_by_key(t_minishell *minishell, char *key);
-void				ft_add_env(t_minishell *minishell, char **keyvalue);
+t_env 				*ft_find_by_key(char *key);
+char				*ft_find_by_key2(char *key);
+void				ft_add_env(char **keyvalue);
 void				ft_remove_env(t_env **env_list, char *key);
 
 int					ft_exec_pwd(void);

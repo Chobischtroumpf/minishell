@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/06 10:15:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/06 11:02:27 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_append_env(t_minishell *minishell, char **keyvalue)
+void	ft_append_env(char **keyvalue)
 {
 	t_env *tmp;
 	char *new;
 
-	tmp = ft_find_by_key(minishell, keyvalue[0]);
-	if (!(new = (char *)malloc(ft_strlen(tmp->value) +
-							   ft_strlen(keyvalue[1] + 1))))
+	tmp = ft_find_by_key(keyvalue[0]);
+	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
+								ft_strlen(keyvalue[1] + 1))))
 		exit(0);
 	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
 }
@@ -59,20 +59,20 @@ void ft_process_args(char **keyvalue)
 		tmp = keyvalue[0];
 		keyvalue[0] = ft_strndup(keyvalue[0], ft_strlen(keyvalue[0]) - 1);
 		free(tmp);
-		if (ft_find_by_key(get_minishell(), keyvalue[0]))
-			ft_append_env(get_minishell(), keyvalue);
+		if (ft_find_by_key(keyvalue[0]))
+			ft_append_env(keyvalue);
 		else
-			ft_add_env(get_minishell(), keyvalue);
+			ft_add_env(keyvalue);
 	}
 	else
 	{
-		if (ft_find_by_key(get_minishell(), keyvalue[0]))
+		if (ft_find_by_key(keyvalue[0]))
 		{
 			ft_remove_env(&get_minishell()->env, keyvalue[0]);
-			ft_add_env(get_minishell(), keyvalue);
+			ft_add_env(keyvalue);
 		}
 		else
-			ft_add_env(get_minishell(), keyvalue);
+			ft_add_env(keyvalue);
 	}
 }
 

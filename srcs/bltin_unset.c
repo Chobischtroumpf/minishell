@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/25 12:02:49 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/11/06 11:04:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_remove_env(t_env **env_list, char *key)
 	t_env	*current;
 	t_env	*next;
 
-	if (!*env_list)
+	if (!(*env_list))
 		return ;
 	while (*env_list && is_env(*env_list, key) == 0)
 	{
@@ -46,7 +46,7 @@ void	ft_remove_env(t_env **env_list, char *key)
 		free_node(*env_list);
 		*env_list = next;
 	}
-	if (!*env_list)
+	if (!(*env_list))
 		return ;
 	current = *env_list;
 	while (current && current->next)

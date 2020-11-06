@@ -87,6 +87,8 @@ static int	ft_current_line(void)
 		ft_putstr("  \b\b");
 		ft_eof_exit();
 	}
+	else if (!ft_strlen(minishell->line))
+		return(0);
 	return (1);
 }
 

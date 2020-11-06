@@ -6,7 +6,7 @@
 #    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/29 12:11:03 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/06 09:38:22 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
+			shlvl.c			\
 			exit.c
 
 
@@ -41,7 +42,7 @@ OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes 
+CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes
 LDFLAGS = -L libft
 LDLIBS = -lft 
 

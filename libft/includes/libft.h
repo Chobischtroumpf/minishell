@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 21:59:34 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/05 12:50:22 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # endif
 
 int					ft_atoi(const char *str);
-char				*ft_itoa(int n);
+char				*ft_itoa(long n);
 char				*ft_itoa_base(long nbr, char *base, int b_len);
 char				*ft_utoa_base(unsigned int n, char *base, int b_len);
 void				*ft_memcpy(void *dst, const void *src, size_t n);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:09:03 by adorigo           #+#    #+#             */
-/*   Updated: 2019/10/28 13:56:00 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/05 12:31:41 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static int		count_len(int nbr)
 	return (count);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long n)
 {
 	char			*str;
 	int				len;
 	int				is_negative;
-	unsigned int	unbr;
+	unsigned long	unbr;
 
 	len = count_len(n);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
