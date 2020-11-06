@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/04 14:22:10 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/06 16:53:31 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ void	ft_add_env(char **keyvalue)
 		exit(0);
 	new_node->key = ft_strdup(keyvalue[0]);
 	new_node->value = ft_strdup(keyvalue[1]);
+	new_node->next = NULL;
+	ft_envadd_back(&get_minishell()->env, new_node);
+}
+
+void	ft_add_env2(char *key, char *value)
+{
+	t_env *new_node;
+
+	if (!(new_node = (t_env *)malloc(sizeof(t_env))))
+		exit(0);
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
 	new_node->next = NULL;
 	ft_envadd_back(&get_minishell()->env, new_node);
 }
