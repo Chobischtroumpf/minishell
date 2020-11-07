@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 11:52:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/06 17:11:45 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void		signal_handler(int signbr)
 	}
 }
 
-/*
 void		print_lst()
 {
 	int i = 0;
@@ -94,7 +93,7 @@ void		print_lst()
 		i = 0;
 	}
 }
-*/
+
 
 void		main_execution(void)
 {

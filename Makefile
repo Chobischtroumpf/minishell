@@ -6,7 +6,7 @@
 #    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/06 09:38:22 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/06 17:13:31 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			redirections.c	\
 			quit.c			\
 			shlvl.c			\
+			brackets.c		\
 			exit.c
 
 
