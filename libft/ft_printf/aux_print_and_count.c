@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:49:20 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:49:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:13:33 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,18 @@ int		print_and_count(t_pl pl, va_list *ap)
 	return (0);
 }
 
-int get_p_len(int len, t_pl pl)
+int		get_p_len(int len, t_pl pl)
 {
 	if (len > pl.precise)
 		return (len);
 	else
 		return (pl.precise);
+}
+
+int		ft_get_plen(char *ret, t_pl pl, int sign)
+{
+	if (pl.precise == 0 && *ret == '0')
+		return (0);
+	else
+		return (get_p_len(ft_strlen(ret) - sign, pl));
 }

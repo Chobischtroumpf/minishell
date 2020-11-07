@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 17:13:18 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:47:49 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			ft_exec_cmd(void)
 	while (cmd)
 	{
 		//check pipe
-		ft_bracket_removal(cmd);
+		ft_bracket_removal(&cmd);
 		check_in(cmd->in);
 		check_out(cmd->out);
 		open_redirection(cmd);

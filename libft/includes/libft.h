@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/07 12:00:39 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 15:35:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char				*ft_split_first(char const *s, char c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
-char				*ft_strnjoin(char const *s1, char const *s2, 
+char				*ft_strnjoin(char const *s1, char const *s2,
 															ssize_t r_size);
 void				*ft_realloc(void *ptr, size_t size);
 
@@ -94,7 +94,6 @@ char				*ft_strdup(const char *src);
 char				*ft_strndup(const char *src, size_t n);
 int					get_next_line(int fd, char **line);
 int					ft_printf(const char *form, ...);
-
 
 typedef struct		s_list
 {

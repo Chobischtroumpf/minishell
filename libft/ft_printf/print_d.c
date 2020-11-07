@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:50:51 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:50:53 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:14:00 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ static int	print_with_fminus(char *ret, t_pl pl, int sign)
 	char	*begin;
 
 	begin = ret;
-	if (pl.precise == 0 && *ret == '0')
-		p_len = 0;
-	else
-		p_len = get_p_len(ft_strlen(ret) - sign, pl);
+	p_len = ft_get_plen(ret, pl, sign);
 	if (p_len + sign > pl.min_w)
 		size = p_len + sign;
 	else
@@ -103,7 +100,7 @@ int			print_d(t_pl pl, va_list *ap)
 
 	sign = 0;
 	d = va_arg(*ap, int);
-	if (d < 0) 
+	if (d < 0)
 		sign = 1;
 	if (!(ret = ft_itoa_base(d, "0123456789", 10)))
 		return (0);

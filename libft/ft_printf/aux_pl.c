@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:47:50 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:48:10 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:35:47 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static void	get_zpad_minus(t_pl *pl, char **form, int *digit)
 	}
 }
 
-static void	get_min_w(t_pl *pl, char **form, va_list *ap)
+static void	get_min_w(t_pl *pl, char **form, va_list *ap, int digit)
 {
-	int	digit;
-
 	get_zpad_minus(pl, form, &digit);
 	while (**form != '.' && !check_conversion(**form))
 	{
@@ -88,10 +86,12 @@ static void	get_precision(t_pl *pl, char **form, va_list *ap)
 int			make_pl(t_pl *pl, char *form, va_list *ap)
 {
 	char	*begin;
+	int		digit;
 
+	digit = 0;
 	begin = form;
 	init_pl(pl);
-	get_min_w(pl, &form, ap);
+	get_min_w(pl, &form, ap, digit);
 	if (*form == '.')
 		get_precision(pl, &form, ap);
 	pl->convert = *form++;
