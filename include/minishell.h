@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 16:53:51 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/07 16:34:46 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
+int					ft_file_not_found(char *str);
 int					ft_invalid_identifier(char *cmd, char *arg);
 
 #endif
