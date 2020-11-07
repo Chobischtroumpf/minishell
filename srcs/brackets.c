@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/07 16:47:16 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 17:13:49 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ int	ft_bracket_removal(t_cmd **cmd)
 					// free(tmp2);
 				}
 			}
-			else if (!new_argv[i] && (*cmd)->argv[i][j + 1] == '\0')
+			else if (tmp && (*cmd)->argv[i][j + 1] == '\0')
 			{
 				if (!(tmp = ft_strdup((*cmd)->argv[i])))
 					return (-1);
 			}
 			j++;
 		}
-		new_argv[i] = tmp;
-		// free(tmp);
+		new_argv[i] = ft_strdup(tmp);
+		if (tmp)
+			free(tmp);
 		i++;
 	}
 	new_argv[i] = NULL;
