@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/07 16:35:44 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/09 11:54:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,4 @@ long	ft_error_shlvl(long shlvl)
 	ft_putstr_fd(") too high, resetting to 1\n", 2);
 	free(shlvl_str);
 	return((long)1);
-}
-
-int	ft_file_not_found(char *str)
-{
-	ft_putstr_fd("cd: no such file or directory: ",2);
-	ft_putstr_fd(str,2);
-	ft_putstr_fd("\n",2);
-	return (EXIT_FAILURE);
 }

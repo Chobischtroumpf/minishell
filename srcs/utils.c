@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 09:48:58 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/09 11:57:02 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,11 @@ long			ft_atoi_pos(const char *str)
 		nb <= (unsigned long long)LONG_MAX)
 		return (check_lvlneg(nb, is_negative));
 	return ((long)nb);
+}
+
+void			ft_free_node(t_env *env)
+{
+	free(env->key);
+	free(env->value);
+	//free(env);
 }

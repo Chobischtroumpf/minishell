@@ -6,18 +6,11 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/06 16:53:31 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/09 11:54:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_node(t_env *env)
-{
-	free(env->key);
-	free(env->value);
-	//free(env);
-}
 
 /*
 **	Converts the linked_list storing the environement variables to a **char.

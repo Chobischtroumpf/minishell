@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/06 13:34:52 by nathan           ###   ########.fr        #
+#    Updated: 2020/11/09 10:44:03 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_cd.c 		\
 			exec_external.c	\
 			errors.c		\
+			errors2.c		\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/07 16:34:46 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/09 11:47:01 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
 
 # define SEP_SPACE " \t<>|;"
 # define SEP "<>|;"
@@ -118,7 +119,7 @@ void				ft_exec_extern(t_cmd *cmd);
 
 int					ft_free_cmd(void);
 void				ft_free_env(void);
-void				free_node(t_env *env);
+void				ft_free_node(t_env *env);
 void				ft_free_array(char **array);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
@@ -130,7 +131,15 @@ int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
-int					ft_file_not_found(char *str);
 int					ft_invalid_identifier(char *cmd, char *arg);
+void				ft_err_file_not_found(char *arg);
+void				ft_err_no_access(char *arg);
+void				ft_err_not_dir(char *arg);
+void				ft_err_file_too_long(char *arg);
+void				ft_err_loop(char *arg);
+
+
+
+
 
 #endif
