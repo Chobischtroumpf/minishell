@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/04 14:22:10 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/10 09:30:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+**	Free the given node's value, key and pointer
+*/
+
 void	free_node(t_env *env)
 {
 	free(env->key);
 	free(env->value);
-	//free(env);
+	free(env);
 }
 
 /*
@@ -46,6 +50,11 @@ char	**ft_env_to_array(void)
 	return (array);
 }
 
+/*
+**	Ft_add_env mallocs a new node initialize its values with the keyvalue 
+**	**char passed as argument. It then adds it to the end of the env_list.
+*/
+
 void	ft_add_env(char **keyvalue)
 {
 	t_env *new_node;
@@ -57,6 +66,11 @@ void	ft_add_env(char **keyvalue)
 	new_node->next = NULL;
 	ft_envadd_back(&get_minishell()->env, new_node);
 }
+
+/*
+**	Given the 'key' *char, ft_find_by_key will return a pointer to the node
+**	containing that key. Returns NULL if nothing is found.
+*/
 
 t_env	*ft_find_by_key(char *key)
 {
@@ -71,6 +85,11 @@ t_env	*ft_find_by_key(char *key)
 	}
 	return (NULL);
 }
+
+/*
+**	Given the 'key' *char, ft_find_by_key will return the 'value' char of the
+**	node containing that key. Returns NULL if nothing is found.
+*/
 
 char	*ft_find_by_key2(char *key)
 {
