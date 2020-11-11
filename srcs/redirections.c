@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 11:08:26 by alessandro        #+#    #+#             */
-/*   Updated: 2020/10/29 12:11:42 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/09 11:57:56 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	close_redirection(t_cmd *cmd)
 		last = ft_last_rdir(cmd->out);
 		dup2(last->std, 1);
 		close(last->std);
-	}	
+	}
 }

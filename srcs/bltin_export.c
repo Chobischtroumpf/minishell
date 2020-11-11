@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/10 08:54:03 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:27:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 void	ft_append_env(char **keyvalue)
 {
-	t_env *tmp;
-	char *new;
+	t_env	*tmp;
+	char	*new;
 
 	tmp = ft_find_by_key(keyvalue[0]);
 	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
@@ -34,12 +34,14 @@ void	ft_append_env(char **keyvalue)
 **	valid.(Wont start with a digit, '+' ot '=' sign and be only alphanum chars) 
 */
 
-int		ft_valid_key(char *arg)
+int		ft_valid_key(char *str)
 {
-	int i;
-	char *special_chars;
-	int eq_found;
+	int		i;
+	char	*special_chars;
+	char	*arg;
+	int		eq_found;
 
+	arg = ft_strjoin(str, "=");
 	eq_found = 0;
 	i = 0;
 	special_chars = "\'\"+=";
@@ -79,6 +81,7 @@ void	ft_process_args(char **keyvalue)
 	{
 		tmp = keyvalue[0];
 		keyvalue[0] = ft_strndup(keyvalue[0], ft_strlen(keyvalue[0]) - 1);
+		// keyvalue[1] = remove_quotes(keyvalue[1]);
 		free(tmp);
 		if (ft_find_by_key(keyvalue[0]))
 			ft_append_env(keyvalue);
@@ -95,6 +98,7 @@ void	ft_process_args(char **keyvalue)
 		else
 			ft_add_env(keyvalue);
 	}
+	ft_free_array(keyvalue);
 }
 
 /*
@@ -110,7 +114,7 @@ int		ft_export_no_arg(t_minishell *minishell)
 	tmp = minishell->env;
 	while (tmp)
 	{
-		ft_printf("declare -x %s=%s\n", tmp->key, tmp->value);
+		ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
@@ -124,9 +128,9 @@ int		ft_export_no_arg(t_minishell *minishell)
 
 int		ft_exec_export(t_cmd *cmd)
 {
-	char **key_value;
-	char **args;
-	int i;
+	char	**key_value;
+	char	**args;
+	int		i;
 
 	args = cmd->argv;
 	i = 1;
@@ -139,11 +143,10 @@ int		ft_exec_export(t_cmd *cmd)
 			i++;
 			continue;
 		}
-		if (ft_valid_key(args[i]))
+		key_value = ft_split_once(args[i], '=');
+		if (ft_valid_key(key_value[0]))
 		{
-			key_value = ft_split_once(args[i], '=');
 			ft_process_args(key_value);
-			ft_free_array(key_value);
 		}
 		else
 			ft_invalid_identifier("export", args[i]);

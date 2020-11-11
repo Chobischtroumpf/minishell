@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/10 09:19:25 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:26:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_remove_env(t_env **env_list, char *key)
 	while (*env_list && ft_is_key(*env_list, key) == 0)
 	{
 		next = (*env_list)->next;
-		free_node(*env_list);
+		ft_free_node(*env_list);
 		*env_list = next;
 	}
 	if (!(*env_list))
@@ -69,7 +69,7 @@ void	ft_remove_env(t_env **env_list, char *key)
 		if (ft_is_key(current->next, key) == 0)
 		{
 			next = current->next->next;
-			free_node(current->next);
+			ft_free_node(current->next);
 			current->next = next;
 		}
 		else

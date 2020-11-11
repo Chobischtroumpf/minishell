@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/05 12:51:58 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/09 11:54:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int		ft_numeric_arg_error(char *cmd, char *arg, int ret)
 
 int		ft_too_many_args(char *cmd, int ret)
 {
-	ft_putstr_fd("minishell: too many arguments: %s\n", 2);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": too many arguments\n", 2);
 	return (ret);
 }
 

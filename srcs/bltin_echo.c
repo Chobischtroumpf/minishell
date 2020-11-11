@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/01 14:09:25 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/09 11:42:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int			ft_exec_echo(t_cmd *cmd)
 	int cnt;
 
 	cnt = ft_count_arg(cmd->argv);
-
 	if (cnt >= 2 && !ft_strcmp(cmd->argv[1], "-n"))
 	{
 		if (cnt > 2)
