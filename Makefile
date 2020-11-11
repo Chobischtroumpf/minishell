@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/07 16:38:19 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/11 15:25:52 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes
-LDFLAGS = -L libft -fsanitize=address
+LDFLAGS = -L libft
 LDLIBS = -lft 
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
