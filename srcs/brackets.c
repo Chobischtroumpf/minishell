@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/11 15:42:05 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/11 17:51:34 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,22 @@ int	ft_bracket_removal(t_cmd **cmd)
 			{
 				if (tmp == NULL)
 					tmp = ft_strndup((*cmd)->argv[i], j);
-				else
-				{
-					j = ft_brackets((*cmd)->argv[i], j);
-					printf("start = %lu\n lenght = %ld\n", (ft_strlen((*cmd)->argv[i]) - j - 1),  j - (ft_strlen((*cmd)->argv[i]) - j - 1));
-					tmp2 = ft_substr((*cmd)->argv[i], ft_strlen((*cmd)->argv[i]) - j - 1, j - (ft_strlen((*cmd)->argv[i]) - j - 1));
-					// printf("tmp = %s | tmp2 = %s\n", tmp, tmp2);
-					if (!(tmp = (char *)ft_realloc(tmp, sizeof(char) *
-						(ft_strlen(tmp) + ft_strlen(tmp2)))))
-						return (-1);
-					tmp = ft_strcat(tmp, tmp2);
-					// free(tmp2);
-				}
+				printf("%d\n", j);
+				j = ft_brackets((*cmd)->argv[i], j);
+				printf("%d\n", j);
+				printf("start = %lu\n lenght = %ld\n", j - (ft_strlen((*cmd)->argv[i]) - j), (ft_strlen((*cmd)->argv[i]) - j));
+				tmp2 = ft_substr((*cmd)->argv[i], j - ft_strlen((*cmd)->argv[i]) - j, (ft_strlen((*cmd)->argv[i]) - j));
+				printf("tmp = %s | tmp2 = %s\n", tmp, tmp2);
+				printf("len tmp = %zu\nlen tmp2 = %zu\n",ft_strlen(tmp), ft_strlen(tmp2));
+				tmp = ft_strjoin_free(tmp, tmp2);
+				free(tmp2);
 			}
 			j++;
 		}
 		if (!tmp)
 			new_argv[i] = ft_strdup((*cmd)->argv[i]);
+		else
+			new_argv[i] = ft_strdup(tmp);
 		if (tmp)
 			free(tmp);
 		i++;
