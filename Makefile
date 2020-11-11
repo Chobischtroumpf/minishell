@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/09 10:44:03 by nathan           ###   ########.fr        #
+#    Updated: 2020/11/11 16:06:33 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ SRC_NAME =	cmd_add_rdir.c	\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
-			shlvl.c			\
-			exit.c
+			exit.c			\
+			dollar.c		\
+			shlvl.c			
 
 
 OBJ_PATH = objs

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/09 11:57:02 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:05:53 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ t_cmd			*ft_last_cmd(t_cmd *cmd)
 	while (last->next)
 		last = last->next;
 	return (last);
+}
+
+int		ft_skip_quotes(char *str, int i)
+{	
+	if (str[i] == '\'')
+		while (str[i++] != '\'')
+			;
+	return (i);
 }
 
 static long		check_lvlneg(unsigned long nbr, int is_neg)
@@ -120,5 +128,5 @@ void			ft_free_node(t_env *env)
 {
 	free(env->key);
 	free(env->value);
-	//free(env);
+	free(env);
 }
