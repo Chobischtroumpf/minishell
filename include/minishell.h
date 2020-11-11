@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 15:48:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:05:23 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
 
 # define SEP_SPACE " \t<>|;"
 # define SEP "<>|;"
@@ -105,8 +106,10 @@ int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(char *key);
 char				*ft_find_by_key2(char *key);
 void				ft_add_env(char **keyvalue);
+void				ft_add_env2(char *key, char *value);
 void				ft_remove_env(t_env **env_list, char *key);
 
+int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
 int					ft_exec_exit(t_cmd *cmd);
@@ -118,7 +121,7 @@ void				ft_exec_extern(t_cmd *cmd);
 
 int					ft_free_cmd(void);
 void				ft_free_env(void);
-void				free_node(t_env *env);
+void				ft_free_node(t_env *env);
 void				ft_free_array(char **array);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
@@ -132,5 +135,14 @@ int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
 int					ft_invalid_identifier(char *cmd, char *arg);
+void				ft_err_file_not_found(char *arg);
+void				ft_err_no_access(char *arg);
+void				ft_err_not_dir(char *arg);
+void				ft_err_file_too_long(char *arg);
+void				ft_err_loop(char *arg);
+
+
+
+
 
 #endif

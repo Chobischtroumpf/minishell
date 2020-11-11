@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 15:52:34 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:05:53 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,11 @@ long			ft_atoi_pos(const char *str)
 		nb <= (unsigned long long)LONG_MAX)
 		return (check_lvlneg(nb, is_negative));
 	return ((long)nb);
+}
+
+void			ft_free_node(t_env *env)
+{
+	free(env->key);
+	free(env->value);
+	free(env);
 }

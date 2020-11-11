@@ -6,18 +6,11 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 15:52:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:05:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_node(t_env *env)
-{
-	free(env->key);
-	free(env->value);
-	free(env);
-}
 
 /*
 **	Converts the linked_list storing the environement variables to a **char.
@@ -54,6 +47,18 @@ void	ft_add_env(char **keyvalue)
 		exit(0);
 	new_node->key = ft_strdup(keyvalue[0]);
 	new_node->value = ft_strdup(keyvalue[1]);
+	new_node->next = NULL;
+	ft_envadd_back(&get_minishell()->env, new_node);
+}
+
+void	ft_add_env2(char *key, char *value)
+{
+	t_env *new_node;
+
+	if (!(new_node = (t_env *)malloc(sizeof(t_env))))
+		exit(0);
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
 	new_node->next = NULL;
 	ft_envadd_back(&get_minishell()->env, new_node);
 }

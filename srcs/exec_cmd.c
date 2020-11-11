@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 15:52:44 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:05:22 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	ret = -1;
 	if (bltin_pos == 0)
 		ret = ft_exec_echo(cmd);
-	// if (bltin_pos == 1)
-	// 	ret = ft_exec_cd();
+	if (bltin_pos == 1)
+		ret = ft_exec_cd(cmd);
 	else if (bltin_pos == 2)
 		ret = ft_exec_pwd();
 	else if (bltin_pos == 3)

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 15:54:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:05:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_append_env(char **keyvalue)
 {
-	t_env *tmp;
-	char *new;
+	t_env	*tmp;
+	char	*new;
 
 	tmp = ft_find_by_key(keyvalue[0]);
 	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
@@ -52,7 +52,7 @@ int		ft_valid_key(char *str)
 	return (0);
 }
 
-void ft_process_args(char **keyvalue)
+void	ft_process_args(char **keyvalue)
 {
 	char *tmp;
 
@@ -77,9 +77,10 @@ void ft_process_args(char **keyvalue)
 		else
 			ft_add_env(keyvalue);
 	}
+	ft_free_array(keyvalue);
 }
 
-int ft_export_no_arg(t_minishell *minishell)
+int		ft_export_no_arg(t_minishell *minishell)
 {
 	t_env *tmp;
 
@@ -92,11 +93,11 @@ int ft_export_no_arg(t_minishell *minishell)
 	return (EXIT_SUCCESS);
 }
 
-int ft_exec_export(t_cmd *cmd)
+int		ft_exec_export(t_cmd *cmd)
 {
-	char **key_value;
-	char **args;
-	int i;
+	char	**key_value;
+	char	**args;
+	int		i;
 
 	args = cmd->argv;
 	i = 1;
@@ -113,7 +114,6 @@ int ft_exec_export(t_cmd *cmd)
 		if (ft_valid_key(key_value[0]))
 		{
 			ft_process_args(key_value);
-			ft_free_array(key_value);
 		}
 		else
 			ft_invalid_identifier("export", args[i]);
