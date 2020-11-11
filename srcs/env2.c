@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/02 10:13:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 15:52:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**ft_env_to_array(void)
 	return (array);
 }
 
-void	ft_add_env(t_minishell *minishell, char **keyvalue)
+void	ft_add_env(char **keyvalue)
 {
 	t_env *new_node;
 
@@ -55,18 +55,32 @@ void	ft_add_env(t_minishell *minishell, char **keyvalue)
 	new_node->key = ft_strdup(keyvalue[0]);
 	new_node->value = ft_strdup(keyvalue[1]);
 	new_node->next = NULL;
-	ft_envadd_back(&minishell->env, new_node);
+	ft_envadd_back(&get_minishell()->env, new_node);
 }
 
-t_env	*ft_find_by_key(t_minishell *minishell, char *key)
+t_env	*ft_find_by_key(char *key)
 {
 	t_env *tmp;
 
-	tmp = minishell->env;
+	tmp = get_minishell()->env;
 	while (tmp)
 	{
 		if (!(ft_strcmp(tmp->key, key)))
 			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+char	*ft_find_by_key2(char *key)
+{
+	t_env *tmp;
+
+	tmp = get_minishell()->env;
+	while (tmp)
+	{
+		if (!(ft_strcmp(tmp->key, key)))
+			return (tmp->value);
 		tmp = tmp->next;
 	}
 	return (NULL);

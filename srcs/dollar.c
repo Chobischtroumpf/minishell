@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/06 10:04:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 15:55:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*dollar_to_env(char *arg)
 				while (arg[i + j] && arg[i + j] != '$')
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
-				if (!ft_find_by_key(get_minishell(), str))
+				if (!ft_find_by_key(str))
 					arg = replace_false_dollar(arg, i);
 				break ;
 			}

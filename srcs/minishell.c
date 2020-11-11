@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/02 10:09:21 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 15:52:45 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,31 @@ static void	prompt_msg(void)
 
 void		signal_handler(int signbr)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
 	if (signbr == SIGINT)
 	{
-		if (get_minishell()->executed == 1)
+		if (minishell->executed == 1)
 		{
+			minishell->executed = 0;
 			ft_putstr("\n");
-			get_minishell()->executed = 0;
 		}
-		else
+		if (minishell->was_eof == 1)
 		{
-			ft_putstr("\b\b  \b\b\n");
-			get_minishell()->was_eof = 0;
-			prompt_msg();
+			minishell->was_eof = 0;
+			ft_putstr("\n");
 		}
 	}
 	else if (signbr == SIGQUIT)
 	{
-		if (get_minishell()->executed == 1)
+		if (minishell->executed == 1)
 		{
 			ft_putstr("Quit (core dumped)\n");
-			get_minishell()->executed = 0;
+			minishell->executed = 0;
 		}
+		else
+			ft_putstr("  \b\b");
 	}
 }
 
@@ -121,6 +125,7 @@ int			main(int ac, char **av, char **envv)
 	ft_init_env(minishell, envv);
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	ft_shlvl();
 	if (ac == 1)
 		main_execution();
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
@@ -132,4 +137,5 @@ int			main(int ac, char **av, char **envv)
 	}
 	ft_free_cmd();
 	ft_free_env();
+	return (0);
 }

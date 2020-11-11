@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/01 14:11:11 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/05 12:51:58 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,17 @@ int		ft_invalid_identifier(char *cmd, char *arg)
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	return (0);
+}
+
+long	ft_error_shlvl(long shlvl)
+{
+	char	*shlvl_str;
+
+	if (!(shlvl_str = ft_itoa(shlvl)))
+		ft_exit_error();
+	ft_putstr_fd("minishell: warning: shell level (", 2);
+	ft_putstr_fd(shlvl_str, 2);
+	ft_putstr_fd(") too high, resetting to 1\n", 2);
+	free(shlvl_str);
+	return((long)1);
 }
