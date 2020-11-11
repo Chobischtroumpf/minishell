@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/07 17:13:49 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/08 14:40:03 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_bracket_removal(t_cmd **cmd)
 	int		j;
 
 	i = 0;
+	tmp = NULL;
 	while((*cmd)->argv[i])
 		i++;
 	if (!(new_argv = malloc(sizeof(char *) * i + 1)))
@@ -33,32 +34,36 @@ int	ft_bracket_removal(t_cmd **cmd)
 		{
 			if ((*cmd)->argv[i][j] == '\"' || (*cmd)->argv[i][j] == '\'')
 			{
-				if (!tmp)
-					tmp = ft_strndup((*cmd)->argv[i], j - 1);
+				if (tmp == NULL)
+					tmp = ft_strndup((*cmd)->argv[i], j);
 				else
 				{
 					j = ft_brackets((*cmd)->argv[i], j);
-					tmp2 = ft_substr((*cmd)->argv[i], j - (ft_strlen((*cmd)->argv[i]) - j), ft_strlen((*cmd)->argv[i]) - j);
+					printf("%lu\n", (ft_strlen((*cmd)->argv[i]) - j - 1));
+					// tmp2 = ft_substr((*cmd)->argv[i], ft_strlen((*cmd)->argv[i]) - j - 1, j - (ft_strlen((*cmd)->argv[i]) - j - 1));
+					// printf("tmp = %s | tmp2 = %s\n", tmp, tmp2);
 					if (!(tmp = (char *)ft_realloc(tmp, sizeof(char) *
 						(ft_strlen(tmp) + ft_strlen(tmp2)))))
 						return (-1);
 					tmp = ft_strcat(tmp, tmp2);
-					// free(tmp2);
+					free(tmp2);
 				}
-			}
-			else if (tmp && (*cmd)->argv[i][j + 1] == '\0')
-			{
-				if (!(tmp = ft_strdup((*cmd)->argv[i])))
-					return (-1);
 			}
 			j++;
 		}
-		new_argv[i] = ft_strdup(tmp);
+		if (!tmp)
+			new_argv[i] = ft_strdup((*cmd)->argv[i]);
 		if (tmp)
 			free(tmp);
 		i++;
 	}
 	new_argv[i] = NULL;
+	int z = 0;
+	while (new_argv[z])
+	{
+		printf("new_argv = %s\n", new_argv[z]);
+		z++;
+	}
 	ft_free_array((*cmd)->argv);
 	(*cmd)->argv = new_argv;
 	return (1);
