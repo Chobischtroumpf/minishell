@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 16:05:21 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:28:44 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ char	**ft_env_to_array(void)
 	return (array);
 }
 
+/*
+**	Ft_add_env mallocs a new node initialize its values with the keyvalue 
+**	**char passed as argument. It then adds it to the end of the env_list.
+*/
+
 void	ft_add_env(char **keyvalue)
 {
 	t_env *new_node;
@@ -63,6 +68,11 @@ void	ft_add_env2(char *key, char *value)
 	ft_envadd_back(&get_minishell()->env, new_node);
 }
 
+/*
+**	Given the 'key' *char, ft_find_by_key will return a pointer to the node
+**	containing that key. Returns NULL if nothing is found.
+*/
+
 t_env	*ft_find_by_key(char *key)
 {
 	t_env *tmp;
@@ -76,6 +86,11 @@ t_env	*ft_find_by_key(char *key)
 	}
 	return (NULL);
 }
+
+/*
+**	Given the 'key' *char, ft_find_by_key will return the 'value' char of the
+**	node containing that key. Returns NULL if nothing is found.
+*/
 
 char	*ft_find_by_key2(char *key)
 {

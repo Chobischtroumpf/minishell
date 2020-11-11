@@ -6,18 +6,28 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/10 08:21:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:26:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_env(t_env *env, char *str)
+/*
+**	Compares the given string to the key of the given env node. 
+**	Returns 0 if equal, 1 otherwise.
+*/
+
+int		ft_is_key(t_env *env, char *str)
 {
 	if (ft_strcmp(env->key, str))
 		return (1);
 	return (0);
 }
+
+/*
+**	Given a certain key, will go through the envlist and return the
+**	corresponding value. If the key isn't found, returns NULL.
+*/
 
 char	*ft_get_env_value(t_env *env_list, char *key)
 {
@@ -33,6 +43,11 @@ char	*ft_get_env_value(t_env *env_list, char *key)
 	return (NULL);
 }
 
+/*
+**	Ft_remove_env will look through the env_list for 'key', deleted the node
+**	and re-link the list.
+*/
+
 void	ft_remove_env(t_env **env_list, char *key)
 {
 	t_env	*current;
@@ -40,7 +55,7 @@ void	ft_remove_env(t_env **env_list, char *key)
 
 	if (!(*env_list))
 		return ;
-	while (*env_list && is_env(*env_list, key) == 0)
+	while (*env_list && ft_is_key(*env_list, key) == 0)
 	{
 		next = (*env_list)->next;
 		ft_free_node(*env_list);
@@ -51,7 +66,7 @@ void	ft_remove_env(t_env **env_list, char *key)
 	current = *env_list;
 	while (current && current->next)
 	{
-		if (is_env(current->next, key) == 0)
+		if (ft_is_key(current->next, key) == 0)
 		{
 			next = current->next->next;
 			ft_free_node(current->next);
@@ -61,6 +76,12 @@ void	ft_remove_env(t_env **env_list, char *key)
 			current = current->next;
 	}
 }
+
+/*
+**	Ft_exec_unset is the main function of the minishell unset command.
+**	It verifies if the key(s) passed as argument(s) exist in the envlist
+**	and removes them appropriatly.
+*/
 
 int		ft_exec_unset(t_cmd *cmd)
 {

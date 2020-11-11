@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/28 14:48:41 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/10 09:20:57 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_envadd_back(t_env **head, t_env *new)
 }
 
 /*
-**	ft_envsize returns the number of nodes in the given linked list
+**	Ft_envsize returns the number of nodes in the given linked list.
 */
 
 int		ft_envsize(t_env *env)

@@ -6,11 +6,16 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 16:05:10 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/11 16:27:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	Ft_append_env receives a keyvalue pair,retrieves the corresponding node 
+**	from the env_list and appends the 'value' string. 
+*/
 
 void	ft_append_env(char **keyvalue)
 {
@@ -23,6 +28,11 @@ void	ft_append_env(char **keyvalue)
 		exit(0);
 	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
 }
+
+/*
+**	Ft_valid_key will make sure that the given key to the export command is
+**	valid.(Wont start with a digit, '+' ot '=' sign and be only alphanum chars) 
+*/
 
 int		ft_valid_key(char *str)
 {
@@ -52,6 +62,17 @@ int		ft_valid_key(char *str)
 	return (0);
 }
 
+/*
+**	Ft_process_args will process the 'keyvalue' **char passed as argument.
+**
+**	If a '+' sign is found at the end of the 'key' string it means that
+**	the existing value of that key should be appended - not replaced - by 
+**	the new value (if not existing, a new node is created).
+**
+**	If the assignement is done with a single '=' sign, a new node is created.
+**	In the case the node already existed, it is first deleted, then recreated. 
+*/
+
 void	ft_process_args(char **keyvalue)
 {
 	char *tmp;
@@ -80,6 +101,12 @@ void	ft_process_args(char **keyvalue)
 	ft_free_array(keyvalue);
 }
 
+/*
+**	ft_export_no_arg occurs when the export command is called without any
+**	argument. It will print each element of the env_list preceded by
+**	"declare-x".
+*/
+
 int		ft_export_no_arg(t_minishell *minishell)
 {
 	t_env *tmp;
@@ -92,6 +119,12 @@ int		ft_export_no_arg(t_minishell *minishell)
 	}
 	return (EXIT_SUCCESS);
 }
+
+/*
+**	Ft_exec_export is the main function to handle the export command of the
+**	minishell. If performs a series of checks to determine if the export
+**	arguments are existing/valid. Returns (0) on complition.
+*/
 
 int		ft_exec_export(t_cmd *cmd)
 {
