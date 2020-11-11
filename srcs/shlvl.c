@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/06 11:52:24 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/09 11:50:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		ft_shlvl(void)
 	tmp = ft_find_by_key2("SHLVL");
 	shlvl_str = ft_strtrim(tmp, SPACE);
 	if (!shlvl_str || is_numeric(shlvl_str))
-		shlvl_str =	ft_strdup("1");
+		shlvl_str = ft_strdup("1");
 	else
 	{
 		shlvl = ft_atoi_pos(shlvl_str);

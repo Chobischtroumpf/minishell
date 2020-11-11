@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/07 16:47:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/11 16:30:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
 
 # define SEP_SPACE " \t<>|;"
 # define SEP "<>|;"
@@ -80,12 +81,14 @@ long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
+void				check_dollar(t_cmd *cmd);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
 char				*ft_tokens_split(char *line, int nbr_tokens);
 int					ft_brackets(char *line, int i);
 int					ft_bracket_removal(t_cmd **cmd);
+int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
@@ -104,8 +107,10 @@ int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(char *key);
 char				*ft_find_by_key2(char *key);
 void				ft_add_env(char **keyvalue);
+void				ft_add_env2(char *key, char *value);
 void				ft_remove_env(t_env **env_list, char *key);
 
+int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
 int					ft_exec_exit(t_cmd *cmd);
@@ -117,18 +122,24 @@ void				ft_exec_extern(t_cmd *cmd);
 
 int					ft_free_cmd(void);
 void				ft_free_env(void);
-void				free_node(t_env *env);
+void				ft_free_node(t_env *env);
 void				ft_free_array(char **array);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 
 
 int					ft_too_many_args(char *cmd, int ret);
+int					ft_skip_quotes(char *str, int i);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
 int					ft_invalid_identifier(char *cmd, char *arg);
+void				ft_err_file_not_found(char *arg);
+void				ft_err_no_access(char *arg);
+void				ft_err_not_dir(char *arg);
+void				ft_err_file_too_long(char *arg);
+void				ft_err_loop(char *arg);
 
 #endif

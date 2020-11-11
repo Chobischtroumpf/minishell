@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/11 15:25:52 by adorigo          ###   ########.fr        #
+#    Updated: 2020/11/11 16:31:04 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,17 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_env.c		\
 			bltin_unset.c	\
 			bltin_export.c	\
+			bltin_cd.c 		\
 			exec_external.c	\
 			errors.c		\
+			errors2.c		\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
-			shlvl.c			\
+			exit.c			\
+			dollar.c		\
 			brackets.c		\
-			exit.c
+			shlvl.c			
 
 
 OBJ_PATH = objs

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/08 11:50:09 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/11 16:27:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	ret = -1;
 	if (bltin_pos == 0)
 		ret = ft_exec_echo(cmd);
-	// if (bltin_pos == 1)
-	// 	ret = ft_exec_cd();
+	if (bltin_pos == 1)
+		ret = ft_exec_cd(cmd);
 	else if (bltin_pos == 2)
 		ret = ft_exec_pwd();
 	else if (bltin_pos == 3)
@@ -63,7 +63,6 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 
 static int	check_in(t_rdir *in)
 {
-
 	while (in)
 	{
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
@@ -110,6 +109,8 @@ int			ft_exec_cmd(void)
 	cmd = get_minishell()->cmd;
 	while (cmd)
 	{
+		check_dollar(cmd);
+		//rm ' ' && " "
 		//check pipe
 		ft_bracket_removal(&cmd);
 		check_in(cmd->in);
