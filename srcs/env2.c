@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/04 14:22:10 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/11 15:52:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_node(t_env *env)
 {
 	free(env->key);
 	free(env->value);
-	//free(env);
+	free(env);
 }
 
 /*

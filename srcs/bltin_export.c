@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/06 11:02:27 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/11 15:54:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ void	ft_append_env(char **keyvalue)
 	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
 }
 
-int ft_valid_key(char *arg)
+int		ft_valid_key(char *str)
 {
-	int i;
-	char *special_chars;
-	int eq_found;
+	int		i;
+	char	*special_chars;
+	char	*arg;
+	int		eq_found;
 
+	arg = ft_strjoin(str, "=");
 	eq_found = 0;
 	i = 0;
 	special_chars = "\'\"+=";
@@ -58,6 +60,7 @@ void ft_process_args(char **keyvalue)
 	{
 		tmp = keyvalue[0];
 		keyvalue[0] = ft_strndup(keyvalue[0], ft_strlen(keyvalue[0]) - 1);
+		// keyvalue[1] = remove_quotes(keyvalue[1]);
 		free(tmp);
 		if (ft_find_by_key(keyvalue[0]))
 			ft_append_env(keyvalue);
@@ -83,7 +86,7 @@ int ft_export_no_arg(t_minishell *minishell)
 	tmp = minishell->env;
 	while (tmp)
 	{
-		ft_printf("declare -x %s=%s\n", tmp->key, tmp->value);
+		ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
@@ -106,9 +109,9 @@ int ft_exec_export(t_cmd *cmd)
 			i++;
 			continue;
 		}
-		if (ft_valid_key(args[i]))
+		key_value = ft_split_once(args[i], '=');
+		if (ft_valid_key(key_value[0]))
 		{
-			key_value = ft_split_once(args[i], '=');
 			ft_process_args(key_value);
 			ft_free_array(key_value);
 		}

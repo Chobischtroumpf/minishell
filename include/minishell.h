@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 11:03:53 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/11 15:48:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
+void				check_dollar(t_cmd *cmd);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
 char				*ft_tokens_split(char *line, int nbr_tokens);
 int					ft_brackets(char *line, int i);
+int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
 t_cmd				*ft_last_cmd(t_cmd *cmd);
@@ -123,6 +125,7 @@ void				ft_get_exit_code(int status, int excode);
 
 
 int					ft_too_many_args(char *cmd, int ret);
+int					ft_skip_quotes(char *str, int i);
 int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);

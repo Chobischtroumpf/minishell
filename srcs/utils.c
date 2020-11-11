@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 09:48:58 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/11 15:52:34 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ t_cmd			*ft_last_cmd(t_cmd *cmd)
 	while (last->next)
 		last = last->next;
 	return (last);
+}
+
+int		ft_skip_quotes(char *str, int i)
+{	
+	if (str[i] == '\'')
+		while (str[i++] != '\'')
+			;
+	return (i);
 }
 
 static long		check_lvlneg(unsigned long nbr, int is_neg)
