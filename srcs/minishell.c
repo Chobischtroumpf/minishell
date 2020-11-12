@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 16:28:00 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/12 15:44:54 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,10 @@ int			main(int ac, char **av, char **envv)
 	{
 		minishell->line = ft_strdup(av[2]);
 		ft_lexing();
-		ft_cmd_parse(minishell->tokens);
-		ft_exec_cmd();
+		if (!(ft_cmd_parse(minishell->tokens)))
+			return ((int)ft_exit_error());
+		if (!(ft_exec_cmd()))
+			return ((int)ft_exit_error());
 	}
 	ft_free_cmd();
 	ft_free_env();

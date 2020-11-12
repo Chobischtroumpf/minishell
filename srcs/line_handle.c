@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/09 11:55:29 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/12 15:45:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ int			ft_lexing(void)
 
 	x = -1;
 	minishell = get_minishell();
-	if ((nbr_tokens = ft_tokens_count(minishell->line)) == -1)
-	{
-		ft_printf("you need to close the brackets\n");
-		return (0);
-	}
+	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
+		ft_eof_error_exit(nbr_tokens);
 	if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
 		exit(ft_free_cmd() && 0);
 	while (++x < nbr_tokens)

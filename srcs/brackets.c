@@ -6,22 +6,68 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/12 10:04:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/12 16:27:53 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_bracket_removal(t_cmd **cmd)
+int			ft_backslash_counter(char *str, int i)
+{
+    int counter;
+
+    counter = 0;
+    i--;
+    while(i >= 0 && str[i] == '\\')
+    {
+        counter++;
+        i--;
+    }
+    return (counter);
+}
+
+int			quote_removal(char *c)
+{
+	if (*c == '"' || *c == '\'')
+	{
+		*c = 3;
+		return(1);
+	}
+	return(0);
+}
+static char	*arg_cleaner(char *arg)
+{
+	int		j;
+	int		previous_j;
+	char	*new_arg;
+
+	j = 0;
+	while(arg[j])
+	{
+		if (arg[j] == '\"' || arg[j] == '\'')
+		{
+			if (!(ft_backslash_counter(arg, j) % 2))
+			{
+				previous_j = j;
+				j = ft_brackets(arg, j);
+				quote_removal(&(arg[previous_j]));
+				quote_removal(&(arg[j]));
+			}
+		}
+		j++;
+	}
+	if (!(new_arg = ft_strtrim_integral(arg, 3)))
+		return ((char*)ft_exit_error());
+	return(new_arg);
+}
+
+
+int			ft_bracket_removal(t_cmd **cmd)
 {
 	char	**new_argv;
-	char	*tmp;
-	char	*tmp2;
 	int		i;
-	int		j;
 
 	i = 0;
-	tmp = NULL;
 	while((*cmd)->argv[i])
 		i++;
 	if (!(new_argv = malloc(sizeof(char *) * i + 1)))
@@ -29,40 +75,14 @@ int	ft_bracket_removal(t_cmd **cmd)
 	i = 0;
 	while((*cmd)->argv[i])
 	{
-		j = 0;
-		while((*cmd)->argv[i][j])
+		if (!(new_argv[i] = arg_cleaner((*cmd)->argv[i])))
 		{
-			if ((*cmd)->argv[i][j] == '\"' || (*cmd)->argv[i][j] == '\'')
-			{
-				if (tmp == NULL)
-					tmp = ft_strndup((*cmd)->argv[i], j);
-				// printf("%d\n", j);
-				j = ft_brackets((*cmd)->argv[i], j);
-				// printf("%d\n", j);
-				// printf("start = %lu\n lenght = %ld\n", j - (ft_strlen((*cmd)->argv[i]) - j), (ft_strlen((*cmd)->argv[i]) - j));
-				tmp2 = ft_substr((*cmd)->argv[i], j - ft_strlen((*cmd)->argv[i]) - j, (ft_strlen((*cmd)->argv[i]) - j));
-				// printf("tmp = %s | tmp2 = %s\n", tmp, tmp2);
-				// printf("len tmp = %zu\nlen tmp2 = %zu\n",ft_strlen(tmp), ft_strlen(tmp2));
-				tmp = ft_strjoin_free(tmp, tmp2);
-				free(tmp2);
-			}
-			j++;
+			ft_free_array(new_argv);
+			return ((int)ft_exit_error());
 		}
-		if (!tmp)
-			new_argv[i] = ft_strdup((*cmd)->argv[i]);
-		else
-			new_argv[i] = ft_strdup(tmp);
-		if (tmp)
-			free(tmp);
 		i++;
 	}
 	new_argv[i] = NULL;
-	// int z = 0;
-	// while (new_argv[z])
-	// {
-	// 	printf("new_argv = %s\n", new_argv[z]);
-	// 	z++;
-	// }
 	ft_free_array((*cmd)->argv);
 	(*cmd)->argv = new_argv;
 	return (1);

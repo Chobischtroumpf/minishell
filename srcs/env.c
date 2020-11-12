@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/28 14:48:41 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/12 11:50:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_free_env(void)
 **	frees the **char itself
 */
 
-void	ft_free_array(char **array)
+int	ft_free_array(char **array)
 {
 	int i;
 
@@ -89,6 +89,7 @@ void	ft_free_array(char **array)
 	}
 	free(array);
 	array = NULL;
+	return (0);
 }
 
 /*

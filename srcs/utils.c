@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 16:05:53 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:43:14 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,25 @@ void			ft_free_node(t_env *env)
 	free(env->key);
 	free(env->value);
 	free(env);
+}
+
+char		*ft_strtrim_integral(char const *s1, char const set)
+{
+	char	**tab;
+	char	*str_finale;
+	int		i;
+
+	i = 0;
+	tab = ft_split(s1, set);
+	str_finale = ft_strdup("");
+	while (tab[i])
+	{
+		if (!(str_finale = ft_strjoin_free(str_finale, tab[i])))
+		{
+			ft_free_array(tab);
+			return (NULL);
+		}		
+		i++;
+	}
+	return (str_finale);
 }
