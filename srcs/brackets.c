@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/12 16:27:53 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/12 17:14:07 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			ft_bracket_removal(t_cmd **cmd)
 	i = 0;
 	while((*cmd)->argv[i])
 		i++;
-	if (!(new_argv = malloc(sizeof(char *) * i + 1)))
+	if (!(new_argv = malloc(sizeof(char *) * (i + 1))))
 		return(-1);
 	i = 0;
 	while((*cmd)->argv[i])
