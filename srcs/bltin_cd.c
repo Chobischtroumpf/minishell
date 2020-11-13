@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/09 11:51:17 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 23:32:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,30 @@ int		ft_exec_cd(t_cmd *cmd)
 {
 	char	*home;
 	int		ret;
+	
 
-	ret = 0;
+	ret = 1;
 	if (!(home = ft_strdup(ft_find_by_key2("HOME"))))
 		ft_putstr_fd("minishell: cd: HOME not set", 2);
 	else if (ft_array_size(cmd->argv) > 2)
 		return (ft_too_many_args("cd", 1));
 	else if (ft_array_size(cmd->argv) == 1)
-		ret = ft_chdir_err(chdir(home), "home");
+	{
+		if (!ft_strncmp(home, "", ft_strlen(home)))
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		else
+			ret = ft_chdir_err(chdir(home), "home");
+	}
+	else if (!(ft_strncmp(cmd->argv[1], "", ft_strlen(cmd->argv[1]))))
+		ret = ft_chdir_err(chdir("."), cmd->argv[1]);
 	else if (!(ft_strncmp(cmd->argv[1], "~", ft_strlen(cmd->argv[1]))))
 		ret = ft_chdir_err(chdir(home), cmd->argv[1]);
 	else if (!(ft_strncmp(cmd->argv[1], "-", ft_strlen(cmd->argv[1]))))
 		ret = ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")), cmd->argv[1]);
 	else if ((ft_array_size(cmd->argv) == 2))
 		ret = ft_chdir_err(chdir(cmd->argv[1]), cmd->argv[1]);
-	update_pwd();
+	if(!ret)
+		update_pwd();
 	free(home);
 	return (ret);
 }
