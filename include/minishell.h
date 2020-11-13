@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 16:05:23 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 10:31:32 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct		s_minishell
 	unsigned int	nbr_cmd : 11;
 	int				was_eof : 1;
 	int				gnl_ret : 2;
-	int				excode : 9;
+	int				excode;
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
@@ -86,7 +86,10 @@ int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
 char				*ft_tokens_split(char *line, int nbr_tokens);
+char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
+int					ft_backslash_counter(char *str, int i);
+int					ft_bracket_removal(t_cmd **cmd);
 int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
@@ -119,10 +122,12 @@ int					ft_exec_unset(t_cmd *cmd);
 int					ft_exec_export(t_cmd *cmd);
 void				ft_exec_extern(t_cmd *cmd);
 
-int					ft_free_cmd(void);
+int					ft_free_minishell(void);
 void				ft_free_env(void);
 void				ft_free_node(t_env *env);
-void				ft_free_array(char **array);
+int					ft_free_array(char **array);
+void				ft_free_redir(t_cmd *cmd);
+void				ft_free_cmd(t_cmd *cmd);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 
@@ -140,9 +145,6 @@ void				ft_err_no_access(char *arg);
 void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
-
-
-
-
+void				ft_eof_error_exit(int nbr_tokens);
 
 #endif

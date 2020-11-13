@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 15:52:45 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 10:43:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void		signal_handler(int signbr)
 	}
 }
 
-/*
 void		print_lst()
 {
 	int i = 0;
@@ -94,7 +93,7 @@ void		print_lst()
 		i = 0;
 	}
 }
-*/
+
 
 void		main_execution(void)
 {
@@ -108,11 +107,11 @@ void		main_execution(void)
 			continue;
 		if (!ft_cmd_parse(minishell->tokens))
 		{
-			ft_free_cmd();
+			ft_free_minishell();
 			continue;
 		}
 		ft_exec_cmd();
-		ft_free_cmd();
+		ft_free_minishell();
 	}
 	ft_printf("exit\n");
 }
@@ -132,10 +131,12 @@ int			main(int ac, char **av, char **envv)
 	{
 		minishell->line = ft_strdup(av[2]);
 		ft_lexing();
-		ft_cmd_parse(minishell->tokens);
-		ft_exec_cmd();
+		if (!(ft_cmd_parse(minishell->tokens)))
+			return ((int)ft_exit_error());
+		if (!(ft_exec_cmd()))
+			return ((int)ft_exit_error());
 	}
-	ft_free_cmd();
+	ft_free_minishell();
 	ft_free_env();
 	return (0);
 }

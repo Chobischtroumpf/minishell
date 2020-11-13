@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 16:03:16 by adorigo           #+#    #+#             */
-/*   Updated: 2020/05/14 10:26:44 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/11 15:04:01 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 char	*ft_strndup(const char *s1, size_t size)
 {
-	char	*new_str;
-	char	*new_cpy;
+	char	*new;
+	int		i;
 
-	if (!(new_str = (char *)malloc(sizeof(char) * (size + 1))))
+	if (!(new = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
-	new_cpy = new_str;
-	while (*s1 && size--)
-		*new_cpy++ = *s1++;
-	*new_cpy = '\0';
-	return (new_str);
+	i = 0;
+	while ((unsigned long)i < size && s1[i])
+	{
+		new[i] = s1[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }
+

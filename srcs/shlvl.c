@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/09 11:50:11 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 11:20:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void		ft_shlvl(void)
 	else
 	{
 		shlvl = ft_atoi_pos(shlvl_str);
+		free(shlvl_str);
 		if (shlvl < 999)
 			shlvl_str = ft_itoa(shlvl + 1);
 		else if (shlvl >= 999)
@@ -66,4 +67,5 @@ void		ft_shlvl(void)
 	}
 	ft_exec_export_shlvl(shlvl_str);
 	free(shlvl_str);
+	// free(tmp);
 }

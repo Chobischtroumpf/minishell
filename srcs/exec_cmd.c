@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 16:05:22 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 11:29:40 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,16 @@ int			ft_exec_cmd(void)
 		check_dollar(cmd);
 		//rm ' ' && " "
 		//check pipe
+		ft_bracket_removal(&cmd);
 		check_in(cmd->in);
 		check_out(cmd->out);
 		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
-			ft_exec_builtin(btin_nb, cmd);
+			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
 		else
 			ft_exec_extern(cmd);
-		close_redirection(cmd);		
+		close_redirection(cmd);
+		// printf("excode = %d\n", get_minishell()->excode);
 		cmd = cmd->next;
 	}
 	get_minishell()->executed = 0;

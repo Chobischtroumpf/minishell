@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/06 09:49:35 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/12 13:40:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			ft_brackets(char *line, int i)
 		while (line[i] != '\'' && line[i])
 			i++;
 		if (line[i] == '\0')
-			return (-1);
+			return (-2);
 	}
 	return (i);
 }
@@ -100,8 +100,8 @@ int			ft_tokens_count(char *line)
 			count++;
 			while (!ft_haschr(SEP_SPACE, line[i]) && line[i])
 			{
-				if ((i = ft_brackets(line, i)) == -1)
-					return (-1);
+				if ((i = ft_brackets(line, i)) < 0)
+					return (i);
 				if (line[i] == '\\' && !line[i + 1])
 					return (-1);
 				i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 16:27:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 14:05:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		ft_valid_key(char *str)
 			eq_found++;
 		i++;
 	}
+	free(arg);
 	if (eq_found)
 		return (1);
 	return (0);
@@ -149,7 +150,7 @@ int		ft_exec_export(t_cmd *cmd)
 			ft_process_args(key_value);
 		}
 		else
-			ft_invalid_identifier("export", args[i]);
+			return(ft_invalid_identifier("export", args[i]));
 		i++;
 	}
 	return (EXIT_SUCCESS);

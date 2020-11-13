@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 21:56:36 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/12 12:17:38 by adorigo          ###   ########.fr       */
+/*   Created: 2020/11/13 10:27:20 by adorigo           #+#    #+#             */
+/*   Updated: 2020/11/13 10:31:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+void	ft_free_cmd(t_cmd *cmd)
 {
-	char		*dest;
+	t_cmd	*tmp;
+	int		i;
 
-	if (s1 && s2)
+	while (cmd)
 	{
-		if (!(dest = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1)))
-			return (NULL);
-		ft_strcpy(dest, s1);
-		ft_strcat(dest, s2);
-		
-		free(s1);
-		return (dest);
+		tmp = cmd->next;
+		if (cmd->argv)
+		{
+			i = 0;
+			while (cmd->argv[i])
+				free(cmd->argv[i++]);
+			free(cmd->argv);
+		}
+		ft_free_redir(cmd);
+		free(cmd);
+		cmd = tmp;
 	}
-	else
-		return (NULL);
 }

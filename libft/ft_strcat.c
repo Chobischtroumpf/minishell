@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 10:17:15 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 21:43:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/08 10:06:50 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ char	*ft_strcat(char *s1, const char *s2)
 	i = ft_strlen(s1);
 	while ((s1[i] = *s2++))
 		i++;
+	s1[i] = '\0';
 	return (s1);
 }

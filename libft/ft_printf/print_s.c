@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:54:51 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:54:53 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:03:39 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			print_s(t_pl pl, va_list *ap)
 	if (!s)
 		s = "(null)";
 	len = ft_strlen(s);
-	if (pl.precise != -1 && len > pl.precise) 
+	if (pl.precise != -1 && len > pl.precise)
 		len = pl.precise;
 	if (len > pl.min_w)
 		size = len;

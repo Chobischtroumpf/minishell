@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/11 15:55:24 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/12 12:29:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*dollar_to_env(char *arg)
 			else if (arg[i] == '$')
 			{
 				j = 1;
-				while (arg[i + j] && arg[i + j] != '$')
+				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\"'", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
 				if (!ft_find_by_key(str))
