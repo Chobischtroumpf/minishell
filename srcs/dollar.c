@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/13 15:08:02 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/13 16:31:15 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*replace_false_dollar(char *arg, int i)
 			break ;
 	prefix = ft_substr(arg, 0, i);
 	suffix = ft_substr(tmp, j, ft_strlen(tmp) - j);
+	free(arg);
 	arg = ft_strjoin_free(prefix, suffix);
 	free(tmp);
 	free(suffix);
@@ -62,6 +63,7 @@ char	*replace_by_env(char *arg, char *key, char *value, int i)
 	prefix = ft_substr(arg, 0, i);
 	suffix = ft_substr(arg, suffix_start, ft_strlen(arg) - suffix_start);
 	prefix = ft_strjoin_free(prefix, value);
+	free(arg);
 	arg = ft_strjoin_free(prefix, suffix);
 	free(suffix);
 	return (arg);
