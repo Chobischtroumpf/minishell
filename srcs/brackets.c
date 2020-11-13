@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/13 16:03:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 16:15:49 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char		*ft_backslash_remover(char *arg)
 	char	*new_arg;
 
 	i = 0;
+	new_arg = NULL;
 	while (arg[i])
 	{
 		if (arg[i] == '\'')
@@ -63,6 +64,8 @@ char		*ft_backslash_remover(char *arg)
 		}
 		i++;
 	}
+	if (!new_arg)
+		new_arg = ft_strdup(arg);
 	return(new_arg);
 }
 
@@ -118,7 +121,7 @@ int			ft_bracket_removal(t_cmd **cmd)
 			return ((int)ft_exit_error());
 		}
 		printf("after\n");
-		// free(tmp);
+		free(tmp);
 		i++;
 	}
 	new_argv[i] = NULL;
