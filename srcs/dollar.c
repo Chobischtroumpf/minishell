@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/12 12:29:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 15:08:02 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	*dollar_to_env(char *arg)
 				str = ft_substr(arg, i + 1, j - 1);
 				if (!ft_find_by_key(str))
 					arg = replace_false_dollar(arg, i);
+				free(str);
 				break ;
 			}
 			i++;
