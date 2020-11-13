@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/13 11:16:27 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 14:59:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_current_line(void)
 	minishell = get_minishell();
 	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
 		ft_exit_error();
-	minishell->line = ft_strtrim(line, " \t\n\v\f\r");
+	minishell->line = ft_strtrim(line, SPACE);
 	free(line);
 	if (minishell->gnl_ret == 0 && ft_strlen(minishell->line))
 	{

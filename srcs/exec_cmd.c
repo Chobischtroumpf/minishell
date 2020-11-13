@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 11:29:40 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 14:52:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,13 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 
 static int	check_in(t_rdir *in)
 {
+	char	*tmp;
+
 	while (in)
 	{
+		tmp = ft_arg_cleaner(in->file);
+		free(in->file);
+		in->file = tmp;
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
 			return (ft_no_file_error(NULL, in->file, 0));
 		if (in->next)
@@ -78,8 +83,13 @@ static int	check_in(t_rdir *in)
 
 static int check_out(t_rdir *out)
 {
+	char	*tmp;
+
 	while (out)
 	{
+		tmp = ft_arg_cleaner(out->file);
+		free(out->file);
+		out->file = tmp;
 		if (out->is_dbl)
 			out->fd = open(out->file, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR
 				| S_IRGRP | S_IWGRP | S_IWUSR);
