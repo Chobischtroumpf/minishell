@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 21:56:36 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/12 12:17:38 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 15:55:20 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 			return (NULL);
 		ft_strcpy(dest, s1);
 		ft_strcat(dest, s2);
-		
 		free(s1);
 		return (dest);
 	}
