@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/11 16:31:04 by adorigo          ###   ########.fr        #
+#    Updated: 2020/11/13 10:30:28 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			exit.c			\
 			dollar.c		\
 			brackets.c		\
+			free.c			\
 			shlvl.c			
 
 

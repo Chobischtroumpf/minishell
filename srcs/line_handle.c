@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/12 15:45:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 11:16:27 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			ft_lexing(void)
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
 		ft_eof_error_exit(nbr_tokens);
 	if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
-		exit(ft_free_cmd() && 0);
+		exit(ft_free_minishell() && 0);
 	while (++x < nbr_tokens)
 	{
 		tmp = ft_tokens_split(minishell->line, x + 1);
@@ -104,7 +104,8 @@ int			ft_line_handle(void)
 		if (!(ft_current_line()))
 			return (0);
 	}
-	if (!ft_lexing())
-		ft_exit_error();
+	if (minishell->line)
+		if (!ft_lexing())
+			ft_exit_error();
 	return (1);
 }

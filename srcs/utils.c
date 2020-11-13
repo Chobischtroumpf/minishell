@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/12 16:43:14 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 09:54:05 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ char		*ft_strtrim_integral(char const *s1, char const set)
 		}		
 		i++;
 	}
+	ft_free_array(tab);
 	return (str_finale);
 }

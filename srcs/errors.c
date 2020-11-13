@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/12 16:47:05 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 10:44:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	*ft_exit_error(void)
 {
 	char *strerr;
 
-	ft_free_cmd();
+	ft_free_minishell();
 	ft_free_env();
 	strerr = strerror(errno);
 	ft_putstr_fd(strerr, 2);
@@ -124,7 +124,6 @@ void	ft_eof_error_exit(int nbr_tokens)
 		else if (nbr_tokens == -2)
 			ft_putstr_fd("'", 2);
 		ft_putstr_fd("'\n", 2);
-		ft_free_cmd();
-		ft_free_env();
+		ft_free_minishell();
 		exit(2);
 }

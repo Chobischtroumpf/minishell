@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/12 16:50:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 10:31:32 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,12 @@ int					ft_exec_unset(t_cmd *cmd);
 int					ft_exec_export(t_cmd *cmd);
 void				ft_exec_extern(t_cmd *cmd);
 
-int					ft_free_cmd(void);
+int					ft_free_minishell(void);
 void				ft_free_env(void);
 void				ft_free_node(t_env *env);
 int					ft_free_array(char **array);
+void				ft_free_redir(t_cmd *cmd);
+void				ft_free_cmd(t_cmd *cmd);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 

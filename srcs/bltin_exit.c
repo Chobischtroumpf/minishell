@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 16:11:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 10:32:06 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ int			ft_exec_exit(t_cmd *cmd)
 			return (ft_too_many_args(cmd->argv[0], 1));
 		}
 		ret = (char)ft_atoi(cmd->argv[1]);
-		ft_free_cmd();
-		ft_free_env();
+		ft_free_minishell();
 		ft_printf("\nexit\n");
 		exit(ret);
 	}
-	ft_free_cmd();
-	ft_free_env();
+	ft_free_minishell();
 	ft_printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
