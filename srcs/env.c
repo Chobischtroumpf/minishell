@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/12 11:50:30 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 14:05:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_envadd_back(t_env **head, t_env *new)
 }
 
 /*
-**	ft_envsize returns the number of nodes in the given linked list
+**	Ft_envsize returns the number of nodes in the given linked list.
 */
 
 int		ft_envsize(t_env *env)
