@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 10:44:38 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 11:31:17 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ void	ft_eof_error_exit(int nbr_tokens)
 			ft_putstr_fd("'", 2);
 		ft_putstr_fd("'\n", 2);
 		ft_free_minishell();
+		ft_free_env();
 		exit(2);
 }

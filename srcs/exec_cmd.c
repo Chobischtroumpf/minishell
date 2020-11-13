@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/12 17:01:51 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 11:29:40 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int			ft_exec_cmd(void)
 		else
 			ft_exec_extern(cmd);
 		close_redirection(cmd);
-		printf("excode = %d\n", get_minishell()->excode);
+		// printf("excode = %d\n", get_minishell()->excode);
 		cmd = cmd->next;
 	}
 	get_minishell()->executed = 0;
