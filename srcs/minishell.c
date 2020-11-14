@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 10:43:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/13 23:06:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,25 @@ void		main_execution(void)
 	ft_printf("exit\n");
 }
 
+void	ft_init_pwd(void)
+{
+	char cwd[PATH_MAX];
+
+	if(!ft_find_by_key2("PWD"))
+		ft_add_env2("PWD", getcwd(cwd, sizeof(cwd)));
+	if(!ft_find_by_key2("OLDPWD"))
+		ft_add_env2("OLDPWD","");
+	if(!ft_find_by_key2("HOME"))
+		ft_add_env2("HOME","");
+}
+
 int			main(int ac, char **av, char **envv)
 {
 	t_minishell	*minishell;
 
 	minishell = get_minishell();
 	ft_init_env(minishell, envv);
+	ft_init_pwd();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	ft_shlvl();
