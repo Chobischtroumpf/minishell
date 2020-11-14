@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/13 16:15:49 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/14 10:08:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,67 +30,71 @@ int			quote_removal(char *c)
 {
 	if (*c == '"' || *c == '\'')
 	{
-		*c = 3;
+		*c = 2;
 		return(1);
 	}
 	return(0);
 }
 
-char		*ft_backslash_remover(char *arg)
+char		*ft_backslash_remover(char *arg, int *i, int *nbr_bkslsh)
 {
-	int		i;
-	int		nbr_bkslsh;
 	char	*new_arg;
+	// int		nbr_bkslsh;
+	// char	c;
 
-	i = 0;
+
 	new_arg = NULL;
-	while (arg[i])
+	if (arg[*i] == '\\' && (*nbr_bkslsh = 1))
 	{
-		if (arg[i] == '\'')
-			i = ft_brackets(arg, i);
-		if (arg[i] == '\\' && (nbr_bkslsh = 1))
+		while (arg[*i] == '\\')
 		{
-			while (arg[i] == '\\')
-			{
-				if (nbr_bkslsh % 2)
-					arg[i++] = 3;
-				nbr_bkslsh += 1;
-			}
-			if (!(new_arg = ft_strtrim_integral(arg, (char)3)))
-			{
-				// printf("failed\n");
-				return (NULL);
-			}
+			if (*nbr_bkslsh % 2)
+				arg[*i] = 2;
+			*nbr_bkslsh += 1;
+			(*i)++;
 		}
-		i++;
+		if (!(new_arg = ft_strtrim_integral(arg, (char)2)))
+			return (NULL);
 	}
 	if (!new_arg)
 		new_arg = ft_strdup(arg);
+	free(arg);
 	return(new_arg);
 }
 
 char		*ft_arg_cleaner(char *arg)
 {
 	int		j;
-	int		previous_j;
+	int		end_quote;
+	int		nbr_bckslsh;
 	char	*new_arg;
+	char	*arg_cpy;
 
 	j = 0;
-	while(arg[j])
+	arg_cpy = strdup(arg);
+	while(arg_cpy[j])
 	{
-		if (arg[j] == '\"' || arg[j] == '\'')
+
+		arg_cpy = ft_backslash_remover(arg_cpy, &j, &nbr_bckslsh);
+		if (arg_cpy[j] == '\"' && !(nbr_bckslsh % 2))
 		{
-			if (!(ft_backslash_counter(arg, j) % 2))
+			end_quote = ft_brackets(arg_cpy, j);
+			quote_removal(&arg_cpy[j]);
+			while(j < end_quote)
 			{
-				previous_j = j;
-				j = ft_brackets(arg, j);
-				quote_removal(&(arg[previous_j]));
-				quote_removal(&(arg[j]));
+				nbr_bckslsh = 0;
+				while (arg_cpy[++j] == '\\')
+				{
+					nbr_bckslsh += 1;
+					if (nbr_bckslsh % 2)
+						arg[j] = 2;
+				}
 			}
 		}
+		else if (arg_cpy[j] == '\'' && (nbr_bckslsh))
 		j++;
 	}
-	if (!(new_arg = ft_strtrim_integral(arg, (char)3)))
+	if (!(new_arg = ft_strtrim_integral(arg_cpy, (char)2)))
 		return ((char*)ft_exit_error());
 	return(new_arg);
 }
@@ -98,7 +102,6 @@ char		*ft_arg_cleaner(char *arg)
 int			ft_bracket_removal(t_cmd **cmd)
 {
 	char	**new_argv;
-	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -109,19 +112,11 @@ int			ft_bracket_removal(t_cmd **cmd)
 	i = 0;
 	while((*cmd)->argv[i])
 	{
-		if (!(tmp = ft_arg_cleaner((*cmd)->argv[i])))
+		if (!(new_argv[i] = ft_arg_cleaner((*cmd)->argv[i])))
 		{
 			ft_free_array(new_argv);
 			return ((int)ft_exit_error());
 		}
-		printf("before backslash_remover\n");
-		if (!(new_argv[i] = ft_backslash_remover(tmp)))
-		{
-			ft_free_array(new_argv);
-			return ((int)ft_exit_error());
-		}
-		printf("after\n");
-		free(tmp);
 		i++;
 	}
 	new_argv[i] = NULL;
