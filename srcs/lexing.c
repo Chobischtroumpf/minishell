@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/12 13:40:30 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 12:32:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,6 @@ int			ft_check_sep(char *line, int i, int space)
 	return (0);
 }
 
-static int	ft_is_backslash(char *line, int *i)
-{
-	if (!line[*i])
-		return (0);
-	if (line[*i] == '\\')
-		++*i;
-	else if (line[*i] == '\"')
-		return (0);
-	return (1);
-}
-
 /*
 ** ft_brackets will check if line at position i has a double bracket or single
 ** bracket, and will make sure that it has an enclosing bracket somewhere at
@@ -62,20 +51,29 @@ static int	ft_is_backslash(char *line, int *i)
 
 int			ft_brackets(char *line, int i)
 {
-	if (line[i] == '\"' && (i == 0 || line[i - 1] != '\\'))
+	int		nbr_backslash;
+
+	nbr_backslash = ft_backslash_counter(line, i - 1);
+	if (line[i] == '"' && !nbr_backslash)
 	{
-		i++;
-		while (ft_is_backslash(line, &i))
+		while (line[i])
+		{
 			i++;
-		if (line[i] == '\0')
+			if (line[i] == '"' && !ft_backslash_counter(line, i - 1))
+				break;
+		}
+		if (!line[i])
 			return (-1);
 	}
-	else if (line[i] == '\'')
+	else if (line[i] == '\'' && !nbr_backslash)
 	{
-		i++;
-		while (line[i] != '\'' && line[i])
+		while (line[i])
+		{
 			i++;
-		if (line[i] == '\0')
+			if (line[i] == '\'')
+				break;
+		}
+		if (!line[i])
 			return (-2);
 	}
 	return (i);
@@ -102,7 +100,7 @@ int			ft_tokens_count(char *line)
 			{
 				if ((i = ft_brackets(line, i)) < 0)
 					return (i);
-				if (line[i] == '\\' && !line[i + 1])
+				if (!line[i + 1] && ft_backslash_counter(line, i))
 					return (-1);
 				i++;
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/13 23:32:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/15 10:56:42 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		ft_exec_cd(t_cmd *cmd)
 {
 	char	*home;
 	int		ret;
-	
 
 	ret = 1;
 	if (!(home = ft_strdup(ft_find_by_key2("HOME"))))
@@ -78,7 +77,7 @@ int		ft_exec_cd(t_cmd *cmd)
 		ret = ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")), cmd->argv[1]);
 	else if ((ft_array_size(cmd->argv) == 2))
 		ret = ft_chdir_err(chdir(cmd->argv[1]), cmd->argv[1]);
-	if(!ret)
+	if (!ret)
 		update_pwd();
 	free(home);
 	return (ret);

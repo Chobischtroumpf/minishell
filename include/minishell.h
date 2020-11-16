@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 14:32:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:27:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
 int					ft_bracket_removal(t_cmd **cmd);
+int					ft_isascii_except(int c);
+char				*ft_arg_cleaner(char *arg);
 int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
@@ -145,6 +147,6 @@ void				ft_err_no_access(char *arg);
 void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
-void				ft_eof_error_exit(int nbr_tokens);
+void				ft_eof_error(int nbr_tokens);
 
 #endif
