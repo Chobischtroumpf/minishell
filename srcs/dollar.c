@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/16 15:27:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:51:49 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*dollar_to_env(char *arg)
 		{
 			i = ft_skip_quotes(arg, i);
 			if (!ft_strncmp((arg + i), "$$", 2))
-				if(!ft_backslash_counter(arg, i - 1))
+				if (!ft_backslash_counter(arg, i - 1))
 					arg = replace_by_env(arg, "42", "TEMP_PID", i);
 			if (!ft_strncmp((arg + i), "$?", 2))
 				arg = replace_by_env(arg, "42", \

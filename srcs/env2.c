@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 16:28:44 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:59:24 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_env_to_array(void)
 }
 
 /*
-**	Ft_add_env mallocs a new node initialize its values with the keyvalue 
+**	Ft_add_env mallocs a new node initialize its values with the keyvalue
 **	**char passed as argument. It then adds it to the end of the env_list.
 */
 

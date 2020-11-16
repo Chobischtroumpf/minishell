@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/13 11:20:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:48:29 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,4 @@ void		ft_shlvl(void)
 	}
 	ft_exec_export_shlvl(shlvl_str);
 	free(shlvl_str);
-	// free(tmp);
 }

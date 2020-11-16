@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 16:03:16 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/11 15:04:01 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/16 15:58:27 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ char	*ft_strndup(const char *s1, size_t size)
 	new[i] = '\0';
 	return (new);
 }
-

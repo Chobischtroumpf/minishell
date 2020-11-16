@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 12:32:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:53:07 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,24 @@ int			ft_check_sep(char *line, int i, int space)
 
 int			ft_brackets(char *line, int i)
 {
-	int		nbr_backslash;
-
-	nbr_backslash = ft_backslash_counter(line, i - 1);
-	if (line[i] == '"' && !nbr_backslash)
+	if (line[i] == '"' && !ft_backslash_counter(line, i - 1))
 	{
 		while (line[i])
 		{
 			i++;
 			if (line[i] == '"' && !ft_backslash_counter(line, i - 1))
-				break;
+				break ;
 		}
 		if (!line[i])
 			return (-1);
 	}
-	else if (line[i] == '\'' && !nbr_backslash)
+	else if (line[i] == '\'' && !ft_backslash_counter(line, i - 1))
 	{
 		while (line[i])
 		{
 			i++;
 			if (line[i] == '\'')
-				break;
+				break ;
 		}
 		if (!line[i])
 			return (-2);

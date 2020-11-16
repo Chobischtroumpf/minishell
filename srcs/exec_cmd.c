@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 12:32:35 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:59:04 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ static int	check_in(t_rdir *in)
 	}
 	return (1);
 }
-
-// check_out and check_in will need to be modified so that the $ symbol is checked in filenames as well
 
 static int	check_out(t_rdir *out)
 {

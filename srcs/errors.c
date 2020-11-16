@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:27:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:59:45 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ long	ft_error_shlvl(long shlvl)
 	ft_putstr_fd(shlvl_str, 2);
 	ft_putstr_fd(") too high, resetting to 1\n", 2);
 	free(shlvl_str);
-	return((long)1);
+	return ((long)1);
 }
 
 void	ft_eof_error(int nbr_tokens)

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/15 10:53:53 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:50:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** variable
 */
 
-static void		ft_free_tokens(void)
+static void	ft_free_tokens(void)
 {
 	char	**tokens;
 	int		i;
@@ -37,7 +37,7 @@ static void		ft_free_tokens(void)
 ** the ft_free_line function is in charge to free the minishell->line variable
 */
 
-static void		ft_free_line(void)
+static void	ft_free_line(void)
 {
 	if (get_minishell()->line)
 		free(get_minishell()->line);
@@ -102,7 +102,7 @@ int			ft_free_minishell(void)
 	return (0);
 }
 
-void			ft_eof_exit(void)
+void		ft_eof_exit(void)
 {
 	ft_free_minishell();
 	ft_free_env();

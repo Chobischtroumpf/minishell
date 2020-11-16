@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/15 10:46:42 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:47:03 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	ft_process_args(char **keyvalue)
 	{
 		tmp = keyvalue[0];
 		keyvalue[0] = ft_strndup(keyvalue[0], ft_strlen(keyvalue[0]) - 1);
-		// keyvalue[1] = remove_quotes(keyvalue[1]);
 		free(tmp);
 		if (ft_find_by_key(keyvalue[0]))
 			ft_append_env(keyvalue);
