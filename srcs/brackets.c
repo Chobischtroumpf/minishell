@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/16 15:07:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:40:45 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,11 @@ char		*ft_arg_cleaner(char *arg)
 			while(previous_j < j)
 			{
 				nbr_bckslsh = 0;
-					printf("inside first while\n");
-				while (arg[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
+				while (arg_cpy[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
 				{
-					printf("here\n");
 					nbr_bckslsh += 1;
-					printf("nbr_bckslash = %d\n", nbr_bckslsh);
 					if (nbr_bckslsh % 2)
-						arg[previous_j] = 2;
+						arg_cpy[previous_j] = 2;
 					previous_j++;
 				}
 				previous_j++;
@@ -93,6 +90,7 @@ char		*ft_arg_cleaner(char *arg)
 	}
 	if (!(new_arg = ft_strtrim_integral(arg_cpy, (char)2)))
 		return ((char*)ft_exit_error());
+	free(arg_cpy);
 	return(new_arg);
 }
 

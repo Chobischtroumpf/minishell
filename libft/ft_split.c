@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:02:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 16:46:11 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:336 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 static int		ft_nbw(const char *str, char c)
 {
 	int word;
+	int	i;
 
 	word = 0;
-	if (*str && *str != c)
+	i = 0;
+	if (str[i] && str[i] != c)
 	{
-		str++;
+		i++;
 		word++;
 	}
-	while (*str)
+	while (str[i])
 	{
-		while (*str == c)
+		while (str[i] == c)
 		{
-			str++;
-			if (*str != c && *str)
+			i++;
+			if (str[i] && str[i] != c)
 				word++;
 		}
-		str++;
+		i++;
 	}
 	return (word);
 }
