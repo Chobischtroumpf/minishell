@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/14 16:00:01 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 15:07:17 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char		*ft_backslash_remover(char *arg, int *i, int *nbr_bkslsh)
 		*nbr_bkslsh = 1;
 		while (arg[*i] == '\\')
 		{
-			if (!(*nbr_bkslsh % 2))
+			if (*nbr_bkslsh % 2)
 				arg[*i] = 2;
 			*nbr_bkslsh += 1;
 			(*i)++;
@@ -64,18 +64,22 @@ char		*ft_arg_cleaner(char *arg)
 		{
 			previous_j = j;
 			j = ft_brackets(arg_cpy, j);
-			// printf("%d\n", j);
 			quote_removal(&arg_cpy[previous_j]);
 			quote_removal(&arg_cpy[j]);
 			while(previous_j < j)
 			{
 				nbr_bckslsh = 0;
-				while (arg_cpy[++previous_j] == '\\')
+					printf("inside first while\n");
+				while (arg[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
 				{
+					printf("here\n");
 					nbr_bckslsh += 1;
+					printf("nbr_bckslash = %d\n", nbr_bckslsh);
 					if (nbr_bckslsh % 2)
-						arg[j] = 2;
+						arg[previous_j] = 2;
+					previous_j++;
 				}
+				previous_j++;
 			}
 		}
 		else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))

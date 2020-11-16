@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/25 10:30:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 13:34:44 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int
 		i++;
 	}
 	if (i != 0 && ft_is_redir(tokens[i - 1]))
-		return (ft_parse_error("\\n", 0));
+		return (ft_parse_error("newline", 0));
 	return (1);
 }
 

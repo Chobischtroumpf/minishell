@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/13 16:31:15 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:58:48 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int		has_dollar(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (i > 0 && str[i] == '$' && str[i - 1] != '\\')
 			return (1);
-		else if (str[i] == '\'')
+		else if (str[i] == '$')
+			return (1);
+		else if (str[i] == '\'' && !ft_backslash_counter(str, i - 1))
 		{
 			i++;
 			while (str[i] != '\'')
@@ -44,6 +46,11 @@ char	*replace_false_dollar(char *arg, int i)
 	while (tmp[++j])
 		if (tmp[j] == '$')
 			break ;
+	if (j > 0 && tmp[j] == '$' && tmp[j - 1] == '\\')
+	{
+		free(tmp);
+		return (arg);
+	}
 	prefix = ft_substr(arg, 0, i);
 	suffix = ft_substr(tmp, j, ft_strlen(tmp) - j);
 	free(arg);
@@ -86,9 +93,10 @@ char	*dollar_to_env(char *arg)
 		value = ft_strdup(tmp->value);
 		while (arg[i])
 		{
-			i = ft_skip_quotes(arg, i);
+			//i = ft_skip_quotes(arg, i);
 			if (!ft_strncmp((arg + i), "$$", 2))
-				arg = replace_by_env(arg, "42", "TEMP_PID", i);
+				if(!ft_backslash_counter(arg, i - 1))
+					arg = replace_by_env(arg, "42", "TEMP_PID", i);
 			if (!ft_strncmp((arg + i), "$?", 2))
 				arg = replace_by_env(arg, "42", \
 				ft_itoa(get_minishell()->excode), i);

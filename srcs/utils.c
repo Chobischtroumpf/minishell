@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 11:17:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 14:59:02 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,4 +165,11 @@ int			ft_backslash_counter(char *str, int i)
 		i--;
 	}
 	return (counter % 2);
+}
+
+int	ft_isascii_except(int c)
+{
+	if (c >= ' ' && c <= '~' && c != '$')
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 11:32:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 13:34:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int		ft_too_many_args(char *cmd, int ret)
 
 int		ft_parse_error(char *error, int ret)
 {
-	ft_putstr_fd("minishell: parse error near", 2);
+	ft_putstr_fd("minishell: parse error near unexpected token `", 2);
 	ft_putstr_fd(error, 2);
-	ft_putstr_fd("\n", 2);
+	ft_putstr_fd("'\n", 2);
 	return (ret);
 }
 
