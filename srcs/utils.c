@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 16:49:31 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/16 11:17:03 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_cmd			*ft_last_cmd(t_cmd *cmd)
 }
 
 int		ft_skip_quotes(char *str, int i)
-{	
+{
 	if (str[i] == '\'')
 		while (str[i++] != '\'')
 			;
@@ -146,9 +146,23 @@ char		*ft_strtrim_integral(char const *s1, char const set)
 		{
 			ft_free_array(tab);
 			return (NULL);
-		}		
+		}
 		i++;
 	}
 	ft_free_array(tab);
 	return (str_finale);
+}
+
+int			ft_backslash_counter(char *str, int i)
+{
+	int counter;
+
+	counter = 0;
+	while (i >= 0 && str[i] == '\\')
+	{
+		// printf("%d\n", i);
+		counter++;
+		i--;
+	}
+	return (counter % 2);
 }

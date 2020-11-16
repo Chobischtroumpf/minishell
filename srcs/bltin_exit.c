@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 10:32:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/15 10:52:06 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,16 @@ int			ft_exec_exit(t_cmd *cmd)
 	{
 		if (!digit)
 		{
-			ft_printf("exit\n");
-			exit(ft_numeric_arg_error(cmd->argv[0], cmd->argv[1], 1));
+			exit(ft_numeric_arg_error(cmd->argv[0], cmd->argv[1], 255));
 		}
 		if (cnt > 2)
 		{
-			ft_printf("exit\n");
-			return (ft_too_many_args(cmd->argv[0], 1));
+			exit(ft_too_many_args(cmd->argv[0], 1));
 		}
 		ret = (char)ft_atoi(cmd->argv[1]);
 		ft_free_minishell();
-		ft_printf("\nexit\n");
 		exit(ret);
 	}
 	ft_free_minishell();
-	ft_printf("exit\n");
 	exit(EXIT_SUCCESS);
 }

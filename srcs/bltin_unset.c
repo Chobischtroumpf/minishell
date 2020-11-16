@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/11 16:26:25 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/15 10:52:48 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-**	Compares the given string to the key of the given env node. 
+**	Compares the given string to the key of the given env node.
 **	Returns 0 if equal, 1 otherwise.
 */
 

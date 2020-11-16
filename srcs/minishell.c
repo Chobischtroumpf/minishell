@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 23:06:29 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/15 10:49:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		signal_handler(int signbr)
 	}
 }
 
-void		print_lst()
+void		print_lst(void)
 {
 	int i = 0;
 	t_minishell *minish;
@@ -94,7 +94,6 @@ void		print_lst()
 	}
 }
 
-
 void		main_execution(void)
 {
 	t_minishell *minishell;
@@ -116,16 +115,16 @@ void		main_execution(void)
 	ft_printf("exit\n");
 }
 
-void	ft_init_pwd(void)
+void		ft_init_pwd(void)
 {
-	char cwd[PATH_MAX];
+	char		cwd[PATH_MAX];
 
-	if(!ft_find_by_key2("PWD"))
+	if (!ft_find_by_key2("PWD"))
 		ft_add_env2("PWD", getcwd(cwd, sizeof(cwd)));
-	if(!ft_find_by_key2("OLDPWD"))
-		ft_add_env2("OLDPWD","");
-	if(!ft_find_by_key2("HOME"))
-		ft_add_env2("HOME","");
+	if (!ft_find_by_key2("OLDPWD"))
+		ft_add_env2("OLDPWD", "");
+	if (!ft_find_by_key2("HOME"))
+		ft_add_env2("HOME", "");
 }
 
 int			main(int ac, char **av, char **envv)
