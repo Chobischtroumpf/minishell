@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/16 15:57:28 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/17 12:21:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ int			quote_removal(char *c)
 	return (0);
 }
 
-char		*ft_backslash_remover(char *arg, int *i, int *nbr_bkslsh)
+char		*ft_backslash_remover(char *arg, int i, int *nbr_bkslsh)
 {
 	char	*new_arg;
 
 	new_arg = NULL;
-	if (arg[*i] == '\\')
+	if (arg[i] == '\\')
 	{
 		*nbr_bkslsh = 1;
-		while (arg[*i] == '\\')
+		while (arg[i] == '\\')
 		{
 			if (*nbr_bkslsh % 2)
-				arg[*i] = 2;
+				arg[i] = 2;
 			*nbr_bkslsh += 1;
-			(*i)++;
+			i++;
 		}
 		if (!(new_arg = ft_strtrim_integral(arg, (char)2)))
 			return (NULL);
@@ -56,10 +56,10 @@ char		*ft_arg_cleaner(char *arg)
 
 	j = 0;
 	arg_cpy = strdup(arg);
-	nbr_bckslsh = 0;
 	while (arg_cpy[j])
 	{
-		arg_cpy = ft_backslash_remover(arg_cpy, &j, &nbr_bckslsh);
+		nbr_bckslsh = 0;
+		arg_cpy = ft_backslash_remover(arg_cpy, j, &nbr_bckslsh);
 		if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
 		{
 			previous_j = j;
