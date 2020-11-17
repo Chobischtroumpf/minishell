@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/16 12:32:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/17 12:32:44 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int			ft_lexing(void)
 	while (++x < nbr_tokens)
 	{
 		tmp = ft_tokens_split(minishell->line, x + 1);
-		minishell->tokens[x] = ft_strtrim(tmp, " \t\n\v\f\r");
+		// printf("token = |%s|\n\n", tmp);
+		minishell->tokens[x] = ft_strdup(tmp);
 		free(tmp);
 	}
 	minishell->tokens[x] = NULL;

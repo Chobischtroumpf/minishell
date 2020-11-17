@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:47:51 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 16:37:36 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int			ft_backslash_counter(char *str, int i)
 
 int	ft_isascii_except(int c)
 {
-	if (c >= ' ' && c <= '~' && c != '$' && c != '"')
+	if (c >= ' ' && c <= '~' && c != '$' && c != '"' && c != '\\')
 		return (0);
 	return (1);
 }

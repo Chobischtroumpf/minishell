@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:27:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/16 16:48:10 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <signal.h>
 # include <errno.h>
 
-# define SEP_SPACE " \t<>|;"
+# define SEP_SPACE " 	<>|;"
 # define SEP "<>|;"
 # define SPACE " \t"
 # ifndef PATH_MAX
