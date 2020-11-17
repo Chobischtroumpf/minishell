@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:45:57 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:47:21 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:12:49 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				print_u(t_pl pl, va_list *ap);
 int				print_x(t_pl pl, va_list *ap);
 int				print_percent(t_pl pl, va_list *ap);
 int				get_p_len(int len, t_pl pl);
+int				ft_get_plen(char *ret, t_pl pl, int sign);
 char			*sp_malloc(int size);
 void			free_all(void *ptr);
 

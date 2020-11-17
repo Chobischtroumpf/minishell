@@ -3,33 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/27 22:33:44 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:47:03 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_append_env(t_minishell *minishell, char **keyvalue)
+/*
+**	Ft_append_env receives a keyvalue pair,retrieves the corresponding node
+**	from the env_list and appends the 'value' string.
+*/
+
+void	ft_append_env(char **keyvalue)
 {
 	t_env	*tmp;
 	char	*new;
 
-	tmp = ft_find_by_key(minishell, keyvalue[0]);
+	tmp = ft_find_by_key(keyvalue[0]);
 	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
 								ft_strlen(keyvalue[1] + 1))))
 		exit(0);
 	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
 }
 
-int		ft_valid_key(char *arg)
+/*
+**	Ft_valid_key will make sure that the given key to the export command is
+**	valid.(Wont start with a digit, '+' ot '=' sign and be only alphanum chars)
+*/
+
+int		ft_valid_key(char *str)
 {
 	int		i;
 	char	*special_chars;
+	char	*arg;
 	int		eq_found;
 
+	arg = ft_strjoin(str, "=");
 	eq_found = 0;
 	i = 0;
 	special_chars = "\'\"+=";
@@ -45,45 +57,80 @@ int		ft_valid_key(char *arg)
 			eq_found++;
 		i++;
 	}
+	free(arg);
 	if (eq_found)
 		return (1);
 	return (0);
 }
 
+/*
+**	Ft_process_args will process the 'keyvalue' **char passed as argument.
+**
+**	If a '+' sign is found at the end of the 'key' string it means that
+**	the existing value of that key should be appended - not replaced - by
+**	the new value (if not existing, a new node is created).
+**
+**	If the assignement is done with a single '=' sign, a new node is created.
+**	In the case the node already existed, it is first deleted, then recreated.
+*/
+
 void	ft_process_args(char **keyvalue)
 {
-	char	*tmp;
+	char *tmp;
 
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
 		tmp = keyvalue[0];
 		keyvalue[0] = ft_strndup(keyvalue[0], ft_strlen(keyvalue[0]) - 1);
 		free(tmp);
-		if (ft_find_by_key(get_minishell(), keyvalue[0]))
-			ft_append_env(get_minishell(), keyvalue);
+		if (ft_find_by_key(keyvalue[0]))
+			ft_append_env(keyvalue);
+		else
+			ft_add_env(keyvalue);
 	}
 	else
-		ft_add_env(get_minishell(), keyvalue);
+	{
+		if (ft_find_by_key(keyvalue[0]))
+		{
+			ft_remove_env(&get_minishell()->env, keyvalue[0]);
+			ft_add_env(keyvalue);
+		}
+		else
+			ft_add_env(keyvalue);
+	}
+	ft_free_array(keyvalue);
 }
+
+/*
+**	ft_export_no_arg occurs when the export command is called without any
+**	argument. It will print each element of the env_list preceded by
+**	"declare-x".
+*/
 
 int		ft_export_no_arg(t_minishell *minishell)
 {
-	t_env	*tmp;
+	t_env *tmp;
 
 	tmp = minishell->env;
 	while (tmp)
 	{
-		ft_printf("declare -x %s=%s\n", tmp->key, tmp->value);
+		ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 	return (EXIT_SUCCESS);
 }
 
+/*
+**	Ft_exec_export is the main function to handle the export command of the
+**	minishell. If performs a series of checks to determine if the export
+**	arguments are existing/valid. Returns (0) on complition.
+*/
+
 int		ft_exec_export(t_cmd *cmd)
 {
-	char		**key_value;
-	char		**args;
-	int			i;
+	char	**key_value;
+	char	**args;
+	int		i;
 
 	args = cmd->argv;
 	i = 1;
@@ -94,16 +141,15 @@ int		ft_exec_export(t_cmd *cmd)
 		if (!ft_strchr(args[i], '='))
 		{
 			i++;
-			continue ;
+			continue;
 		}
-		if (ft_valid_key(args[i]))
+		key_value = ft_split_once(args[i], '=');
+		if (ft_valid_key(key_value[0]))
 		{
-			key_value = ft_split_once(args[i], '=');
 			ft_process_args(key_value);
-			ft_free_array(key_value);
 		}
 		else
-			ft_invalid_identifier("export", args[i]);
+			return (ft_invalid_identifier("export", args[i]));
 		i++;
 	}
 	return (EXIT_SUCCESS);

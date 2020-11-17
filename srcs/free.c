@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 16:03:16 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:58:27 by adorigo          ###   ########.fr       */
+/*   Created: 2020/11/13 10:27:20 by adorigo           #+#    #+#             */
+/*   Updated: 2020/11/15 10:53:10 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strndup(const char *s1, size_t size)
+void	ft_free_cmd(t_cmd *cmd)
 {
-	char	*new;
+	t_cmd	*tmp;
 	int		i;
 
-	if (!(new = malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	i = 0;
-	while ((unsigned long)i < size && s1[i])
+	while (cmd)
 	{
-		new[i] = s1[i];
-		i++;
+		tmp = cmd->next;
+		if (cmd->argv)
+		{
+			i = 0;
+			while (cmd->argv[i])
+				free(cmd->argv[i++]);
+			free(cmd->argv);
+		}
+		ft_free_redir(cmd);
+		free(cmd);
+		cmd = tmp;
 	}
-	new[i] = '\0';
-	return (new);
 }

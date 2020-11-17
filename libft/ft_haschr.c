@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_haschr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 20:05:45 by adorigo           #+#    #+#             */
-/*   Updated: 2020/03/26 10:41:51 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/07 15:34:35 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_haschr(const char *s, int c)
+int	ft_haschr(const char *s, int c)
 {
 	int i;
 

@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2020/10/28 14:48:47 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/16 15:59:24 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_node(t_env *env)
-{
-	free(env->key);
-	free(env->value);
-	//free(env);
-}
 
 /*
 **	Converts the linked_list storing the environement variables to a **char.
@@ -46,7 +39,12 @@ char	**ft_env_to_array(void)
 	return (array);
 }
 
-void	ft_add_env(t_minishell *minishell, char **keyvalue)
+/*
+**	Ft_add_env mallocs a new node initialize its values with the keyvalue
+**	**char passed as argument. It then adds it to the end of the env_list.
+*/
+
+void	ft_add_env(char **keyvalue)
 {
 	t_env *new_node;
 
@@ -55,18 +53,54 @@ void	ft_add_env(t_minishell *minishell, char **keyvalue)
 	new_node->key = ft_strdup(keyvalue[0]);
 	new_node->value = ft_strdup(keyvalue[1]);
 	new_node->next = NULL;
-	ft_envadd_back(&minishell->env, new_node);
+	ft_envadd_back(&get_minishell()->env, new_node);
 }
 
-t_env	*ft_find_by_key(t_minishell *minishell, char *key)
+void	ft_add_env2(char *key, char *value)
+{
+	t_env *new_node;
+
+	if (!(new_node = (t_env *)malloc(sizeof(t_env))))
+		exit(0);
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
+	new_node->next = NULL;
+	ft_envadd_back(&get_minishell()->env, new_node);
+}
+
+/*
+**	Given the 'key' *char, ft_find_by_key will return a pointer to the node
+**	containing that key. Returns NULL if nothing is found.
+*/
+
+t_env	*ft_find_by_key(char *key)
 {
 	t_env *tmp;
 
-	tmp = minishell->env;
+	tmp = get_minishell()->env;
 	while (tmp)
 	{
 		if (!(ft_strcmp(tmp->key, key)))
 			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+/*
+**	Given the 'key' *char, ft_find_by_key will return the 'value' char of the
+**	node containing that key. Returns NULL if nothing is found.
+*/
+
+char	*ft_find_by_key2(char *key)
+{
+	t_env *tmp;
+
+	tmp = get_minishell()->env;
+	while (tmp)
+	{
+		if (!(ft_strcmp(tmp->key, key)))
+			return (tmp->value);
 		tmp = tmp->next;
 	}
 	return (NULL);

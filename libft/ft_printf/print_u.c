@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:56:14 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:56:16 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:05:39 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	set_size(t_pl pl, int *p_len, int len, char *ret)
 	if (pl.precise == 0 && *ret == '0')
 		*p_len = 0;
 	else
-		*p_len = get_p_len(len, pl);;
+		*p_len = get_p_len(len, pl);
 	if (*p_len > pl.min_w)
 		return (*p_len);
 	else

@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 17:53:18 by alessandro        #+#    #+#             */
-/*   Updated: 2019/12/05 17:53:32 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/07 16:16:57 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			print_p(t_pl pl, va_list *ap)
 	else
 		len = ft_strlen(ret) + 2;
 	if (len > pl.min_w)
-		size =  len ;
+		size = len;
 	else
 		size = pl.min_w;
 	print_res(ret, pl, size - len);

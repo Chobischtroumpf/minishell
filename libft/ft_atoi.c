@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 09:15:01 by adorigo           #+#    #+#             */
-/*   Updated: 2019/10/14 10:06:16 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/07 15:37:24 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ int			ft_atoi(const char *str)
 	if (is_negative)
 		return (-nb);
 	else
-		return(nb);	
+		return (nb);
 }

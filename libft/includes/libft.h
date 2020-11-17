@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 21:59:34 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/07 15:35:26 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # endif
 
 int					ft_atoi(const char *str);
-char				*ft_itoa(int n);
+char				*ft_itoa(long n);
 char				*ft_itoa_base(long nbr, char *base, int b_len);
 char				*ft_utoa_base(unsigned int n, char *base, int b_len);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -56,11 +56,14 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_numlen(int n, int minus);
 char				**ft_split(char const *s, char c);
 char				**ft_split_once(char const *s, char c);
+char				*ft_split_first(char const *s, char c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
-char				*ft_strnjoin(char const *s1, char const *s2, 
+char				*ft_strnjoin(char const *s1, char const *s2,
 															ssize_t r_size);
+void				*ft_realloc(void *ptr, size_t size);
+
 int					ft_haschr(const char *s, int c);
 int					ft_hasnchar(const char *s, char *c);
 
@@ -91,7 +94,6 @@ char				*ft_strdup(const char *src);
 char				*ft_strndup(const char *src, size_t n);
 int					get_next_line(int fd, char **line);
 int					ft_printf(const char *form, ...);
-
 
 typedef struct		s_list
 {

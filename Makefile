@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/10/29 12:11:03 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/15 13:28:29 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,20 +29,26 @@ SRC_NAME =	cmd_add_rdir.c	\
 			bltin_env.c		\
 			bltin_unset.c	\
 			bltin_export.c	\
+			bltin_cd.c 		\
 			exec_external.c	\
 			errors.c		\
+			errors2.c		\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
-			exit.c
+			exit.c			\
+			dollar.c		\
+			brackets.c		\
+			free.c			\
+			shlvl.c			
 
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I include -I libft/includes 
-LDFLAGS = -L libft
+CFLAGS = -Wall -Wextra -Werror -g -I include -I libft/includes
+LDFLAGS = -L libft #-fsanitize=address
 LDLIBS = -lft 
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))

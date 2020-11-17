@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_once.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 14:13:00 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/27 14:20:42 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/07 16:04:52 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char			**ft_split_once(char const *s, char c)
 	i = 0;
 	if (!s || (!(spt = (char **)malloc(sizeof(char *) * 3))))
 		return (NULL);
-
 	if (!(spt[0] = (char *)malloc(sizeof(char) * (ft_ln(s, c) + 1))))
 		return (is_free(spt));
 	while (*s && *s != c)
@@ -58,7 +57,7 @@ char			**ft_split_once(char const *s, char c)
 	i = 0;
 	if (!(spt[1] = (char *)malloc(sizeof(char) * (ft_strlen(s)) + 1)))
 		return (is_free(spt));
-	while(*++s)
+	while (*++s)
 		spt[1][i++] = (char)*s;
 	spt[1][i] = '\0';
 	spt[2] = NULL;

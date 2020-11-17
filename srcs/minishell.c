@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/04 10:38:16 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/17 14:47:24 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,35 @@ static void	prompt_msg(void)
 
 void		signal_handler(int signbr)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell();
 	if (signbr == SIGINT)
 	{
-		if (get_minishell()->executed == 1)
+		if (minishell->executed == 1)
 		{
+			minishell->executed = 0;
 			ft_putstr("\n");
-			get_minishell()->executed = 0;
 		}
-		else
+		if (minishell->was_eof == 1)
 		{
-			ft_putstr("\b\b  \b\b\n");
-			get_minishell()->was_eof = 0;
-			prompt_msg();
+			minishell->was_eof = 0;
+			ft_putstr("\n");
 		}
 	}
 	else if (signbr == SIGQUIT)
 	{
-		if (get_minishell()->executed == 1)
+		if (minishell->executed == 1)
 		{
 			ft_putstr("Quit (core dumped)\n");
-			get_minishell()->executed = 0;
+			minishell->executed = 0;
 		}
 		else
-		{
-			ft_putstr("\b\b  \b\b");
-		}
-		
+			ft_putstr("  \b\b");
 	}
 }
 
-/*
-void		print_lst()
+void		print_lst(void)
 {
 	int i = 0;
 	t_minishell *minish;
@@ -95,7 +93,6 @@ void		print_lst()
 		i = 0;
 	}
 }
-*/
 
 void		main_execution(void)
 {
@@ -109,13 +106,25 @@ void		main_execution(void)
 			continue;
 		if (!ft_cmd_parse(minishell->tokens))
 		{
-			ft_free_cmd();
+			ft_free_minishell();
 			continue;
 		}
 		ft_exec_cmd();
-		ft_free_cmd();
+		ft_free_minishell();
 	}
 	ft_printf("exit\n");
+}
+
+void		ft_init_pwd(void)
+{
+	char		cwd[PATH_MAX];
+
+	if (!ft_find_by_key2("PWD"))
+		ft_add_env2("PWD", getcwd(cwd, sizeof(cwd)));
+	if (!ft_find_by_key2("OLDPWD"))
+		ft_add_env2("OLDPWD", "");
+	if (!ft_find_by_key2("HOME"))
+		ft_add_env2("HOME", "");
 }
 
 int			main(int ac, char **av, char **envv)
@@ -124,17 +133,22 @@ int			main(int ac, char **av, char **envv)
 
 	minishell = get_minishell();
 	ft_init_env(minishell, envv);
+	ft_init_pwd();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	ft_shlvl();
 	if (ac == 1)
 		main_execution();
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
 	{
 		minishell->line = ft_strdup(av[2]);
 		ft_lexing();
-		ft_cmd_parse(minishell->tokens);
-		ft_exec_cmd();
+		if (!(ft_cmd_parse(minishell->tokens)))
+			return ((int)ft_exit_error());
+		if (!(ft_exec_cmd()))
+			return ((int)ft_exit_error());
 	}
-	ft_free_cmd();
+	ft_free_minishell();
 	ft_free_env();
+	return (0);
 }
