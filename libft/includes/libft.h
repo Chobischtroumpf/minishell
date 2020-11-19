@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/07 15:35:26 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/11/18 10:53:10 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # endif
 
 int					ft_atoi(const char *str);
+long				ft_atol(const char *str);
 char				*ft_itoa(long n);
 char				*ft_itoa_base(long nbr, char *base, int b_len);
 char				*ft_utoa_base(unsigned int n, char *base, int b_len);

@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 09:15:01 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/18 10:45:52 by adorigo          ###   ########.fr       */
+/*   Created: 2020/11/18 10:46:26 by adorigo           #+#    #+#             */
+/*   Updated: 2020/11/18 12:18:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define MIN_INT -2147483648
-#define MAX_INT 2147483647
 
 static int	checker(const char **str)
 {
@@ -31,9 +29,9 @@ static int	checker(const char **str)
 	return (is_negative);
 }
 
-int			ft_atoi(const char *str)
+long		ft_atol(const char *str)
 {
-	long			nb;
+	unsigned long	nb;
 	int				i;
 	int				is_negative;
 
@@ -42,9 +40,9 @@ int			ft_atoi(const char *str)
 	nb = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (!is_negative && nb > (unsigned int)MAX_INT)
-			return (-1);
-		else if (nb > (unsigned int)MIN_INT)
+		if (!is_negative && nb > (unsigned long)LONG_MAX )
+			return (1);
+		else if (nb > (unsigned long)LONG_MIN)
 			return (0);
 		nb *= 10;
 		nb += str[i] - '0';
