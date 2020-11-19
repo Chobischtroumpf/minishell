@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/18 16:02:43 by adorigo          ###   ########.fr        #
+#    Updated: 2020/11/19 11:40:39 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g -I include -I libft/includes
-LDFLAGS = -L libft -fsanitize=address
+LDFLAGS = -L libft #-fsanitize=address
 LDLIBS = -lft 
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))

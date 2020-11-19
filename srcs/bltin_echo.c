@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/19 11:00:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 12:07:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,29 @@ static void	print_arg(char **argv, int i, int cnt)
 	}
 }
 
-static int	check_flag(int *i, int cnt, char **arg)
-{
-	int		ret;
-	int		n_flag;
-	int		j;
+// static int	check_flag(int *i, int cnt, char **arg)
+// {
+// 	int		ret;
+// 	int		n_flag;
+// 	int		j;
 
-	n_flag = 0;
-	while (*i < cnt)
-	{
-		if ((ret = ft_strncmp(arg[*i], "-n", 2)) == 0)
-		{
-			j = 2;
-			while (arg[*i][j] && arg[*i][j] == 'n')
-				j++;
-		}
-		if (arg[*i][j] || ret != 0)
-			break ;
-		else
-			n_flag = 1;
-		(*i)++;
-	}
-	return (n_flag);
-}
+// 	n_flag = 0;
+// 	while (*i < cnt)
+// 	{
+// 		if ((ret = ft_strncmp(arg[*i], "-n", 2)) == 0)
+// 		{
+// 			j = 2;
+// 			while (arg[*i][j] && arg[*i][j] == 'n')
+// 				j++;
+// 		}
+// 		if (arg[*i][j] || ret != 0)
+// 			break ;
+// 		else
+// 			n_flag = 1;
+// 		(*i)++;
+// 	}
+// 	return (n_flag);
+// }
 
 /*
 ** ft_exec_echo is a function that takes the t_cmd chained-list as a parameter,
@@ -63,11 +63,29 @@ int			ft_exec_echo(t_cmd *cmd)
 {
 	int cnt;
 	int	i;
+	int	j;
 	int	n_flag;
+	int	ret;
 
 	i = 1;
+	n_flag = 0;
 	cnt = ft_count_arg(cmd->argv);
-	n_flag = check_flag(&i, cnt, cmd->argv);
+	// n_flag = check_flag(&i, cnt, cmd->argv);
+	while (i < cnt)
+	{
+		ret = ft_strncmp(cmd->argv[i], "-n", 2);
+		if (ret == 0)
+		{
+			j = 2;
+			// while (cmd->argv[i][j] && cmd->argv[i][j] == 'n')
+			// 	j++;
+		}
+		if (!cmd->argv[i] || cmd->argv[i][j] || ret != 0)
+			break ;
+		else
+			n_flag = 1;
+		(i)++;
+	}
 	if (n_flag)
 		print_arg(cmd->argv, i, cnt);
 	else
