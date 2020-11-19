@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 16:48:10 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 14:56:52 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,6 @@ void				ft_err_no_access(char *arg);
 void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
-void				ft_eof_error(int nbr_tokens);
-
+int					ft_eof_error(int nbr_tokens, int ret);
+ 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:59:45 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 14:58:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ long	ft_error_shlvl(long shlvl)
 	return ((long)1);
 }
 
-void	ft_eof_error(int nbr_tokens)
+int		ft_eof_error(int nbr_tokens, int ret)
 {
 	ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
 	if (nbr_tokens == -1)
@@ -126,6 +126,5 @@ void	ft_eof_error(int nbr_tokens)
 		ft_putstr_fd("'", 2);
 	ft_putstr_fd("'\n", 2);
 	ft_free_minishell();
-	// ft_free_env();
-	// exit(2);
+	return(ret);
 }

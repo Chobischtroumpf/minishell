@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/09 11:42:29 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/19 14:07:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ static void	print_arg(char **argv, int i, int cnt)
 	}
 }
 
+static int	check_flag(int *i, int cnt, char **arg)
+{
+	int		ret;
+	int		n_flag;
+	int		j;
+
+	n_flag = 0;
+	while (*i < cnt)
+	{
+		if ((ret = ft_strncmp(arg[*i], "-n", 2)) == 0)
+		{
+			j = 2;
+			while (arg[*i][j] && arg[*i][j] == 'n')
+				j++;
+		}
+		if (!arg[*i] || ret != 0)
+			break ;
+		else
+			n_flag = 1;
+		(*i)++;
+	}
+	return (n_flag);
+}
+
 /*
 ** ft_exec_echo is a function that takes the t_cmd chained-list as a parameter,
 ** and will print all the args of echo, followed by a \n character.
@@ -38,13 +62,14 @@ static void	print_arg(char **argv, int i, int cnt)
 int			ft_exec_echo(t_cmd *cmd)
 {
 	int cnt;
+	int	i;
+	int	n_flag;
 
+	i = 1;
 	cnt = ft_count_arg(cmd->argv);
-	if (cnt >= 2 && !ft_strcmp(cmd->argv[1], "-n"))
-	{
-		if (cnt > 2)
-			print_arg(cmd->argv, 2, cnt);
-	}
+	n_flag = check_flag(&i, cnt, cmd->argv);
+	if (n_flag)
+		print_arg(cmd->argv, i, cnt);
 	else
 	{
 		print_arg(cmd->argv, 1, cnt);
