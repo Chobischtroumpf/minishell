@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/19 18:44:10 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/19 18:50:17 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ int		has_dollar(char *arg)
 {
 	int i;
 	char *str;
+	char *tmp;
 
 	i = 0;
 	if (ft_strchr(arg, '$'))
-		str = remove_char(arg, '\"');
+	{
+		tmp = remove_char(arg, '\"');
+		str = ft_strtrim(tmp, " ");
+		free(tmp);
+	}
 	else
 		str = ft_strdup(arg);
 	while (str[i])
 	{
 		if (i > 0 && str[i] == '$' && str[i - 1] != '\\' && str[i + 1])
 			return (free_str_ret(str));
-		else if (str[i] == '$' && str[i + 1])
+		else if (str[i] == '$' && str[i + 1] && str[i - 1] != '\\')
 			return (free_str_ret(str));
 		else if (str[i] == '\'' && !ft_backslash_counter(str, i - 1))
 		{
