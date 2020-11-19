@@ -3,26 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/16 15:51:49 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 18:44:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		has_dollar(char *str)
+int		has_dollar(char *arg)
 {
 	int i;
+	char *str;
 
 	i = 0;
+	if (ft_strchr(arg, '$'))
+		str = remove_char(arg, '\"');
+	else
+		str = ft_strdup(arg);
 	while (str[i])
 	{
-		if (i > 0 && str[i] == '$' && str[i - 1] != '\\')
-			return (1);
-		else if (str[i] == '$')
-			return (1);
+		if (i > 0 && str[i] == '$' && str[i - 1] != '\\' && str[i + 1])
+			return (free_str_ret(str));
+		else if (str[i] == '$' && str[i + 1])
+			return (free_str_ret(str));
 		else if (str[i] == '\'' && !ft_backslash_counter(str, i - 1))
 		{
 			i++;
@@ -31,6 +36,7 @@ int		has_dollar(char *str)
 		}
 		i++;
 	}
+	free(str);
 	return (0);
 }
 
@@ -104,11 +110,12 @@ char	*dollar_to_env(char *arg)
 				arg = replace_by_env(arg, key, value, i);
 			else if (arg[i] == '$')
 			{
+				// printf("ARG = %s\n", arg);
 				j = 1;
 				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\"'", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
-				if (!ft_find_by_key(str))
+				if (!ft_find_by_key(str) && arg[i + 1])
 					arg = replace_false_dollar(arg, i);
 				free(str);
 				break ;
