@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/19 18:25:07 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/19 19:24:48 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ char		*ft_strtrim_integral(char const *s1, char const set)
 	int		i;
 
 	i = 0;
+
 	tab = ft_split(s1, set);
 	str_finale = ft_strdup("");
 	while (tab[i])

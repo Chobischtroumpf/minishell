@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/19 16:04:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 21:41:59 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,6 @@ void		ft_init_pwd(void)
 
 	if (!ft_find_by_key2("PWD"))
 		ft_add_env2("PWD", getcwd(cwd, sizeof(cwd)));
-	if (!ft_find_by_key2("OLDPWD"))
-		ft_add_env2("OLDPWD", "");
-	if (!ft_find_by_key2("HOME"))
-		ft_add_env2("HOME", "");
 }
 
 int			main(int ac, char **av, char **envv)
