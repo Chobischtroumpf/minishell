@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/15 10:56:42 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 21:42:47 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,22 @@ int		ft_chdir_err(int err_code, char *arg)
 	return (-err_code);
 }
 
+void init_home(void)
+{
+	if (!ft_find_by_key2("OLDPWD"))
+		ft_add_env2("OLDPWD", "");
+	if (!ft_find_by_key2("HOME"))
+		ft_add_env2("HOME", "");
+}
+
+
 int		ft_exec_cd(t_cmd *cmd)
 {
 	char	*home;
 	int		ret;
 
 	ret = 1;
+	init_home();
 	if (!(home = ft_strdup(ft_find_by_key2("HOME"))))
 		ft_putstr_fd("minishell: cd: HOME not set", 2);
 	else if (ft_array_size(cmd->argv) > 2)

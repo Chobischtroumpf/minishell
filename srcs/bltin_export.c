@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/16 15:47:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/19 22:01:31 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_valid_key(char *str)
 	arg = ft_strjoin(str, "=");
 	eq_found = 0;
 	i = 0;
-	special_chars = "\'\"+=";
+	special_chars = "+=_";
 	if (ft_isdigit(arg[0]) || arg[0] == '=' || arg[0] == '+')
 		return (0);
 	while (arg[i])
