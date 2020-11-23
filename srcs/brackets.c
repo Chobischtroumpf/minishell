@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/19 19:22:13 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/23 16:07:37 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ char		*ft_backslash_remover(char *arg, int i, int *nbr_bkslsh)
 	new_arg = NULL;
 	if (arg[i] == '\\')
 	{
-		*nbr_bkslsh = 1;
 		while (arg[i] == '\\')
 		{
+			*nbr_bkslsh += 1;
 			if (*nbr_bkslsh % 2)
 				arg[i] = 2;
-			*nbr_bkslsh += 1;
 			i++;
 		}
 		if (!(new_arg = ft_strtrim_integral(arg, (char)2)))
