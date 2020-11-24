@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/19 21:41:59 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/24 16:48:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,23 @@ int			main(int ac, char **av, char **envv)
 		main_execution();
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
 	{
-		minishell->line = ft_strdup(av[2]);
-		if (!ft_lexing())
-			exit(minishell->excode);
-		if (!(ft_cmd_parse(minishell->tokens)))
-			return ((int)ft_exit_error());
-		if (!(ft_exec_cmd()))
-			return ((int)ft_exit_error());
+		while (1)
+		{
+			minishell->line = ft_strdup(av[2]);
+			if (!ft_lexing())
+				exit(minishell->excode);
+			if (!(ft_cmd_parse(minishell->tokens)))
+			{
+				ft_get_exit_code(NO_STATUS, 2);
+				break ;
+			}
+			if (!(ft_exec_cmd()))
+			{
+				ft_get_exit_code(NO_STATUS, 2);
+				break ;
+			}
+			break ;
+		}
 	}
 	ft_free_minishell();
 	ft_free_env();
