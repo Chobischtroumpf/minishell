@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/19 22:01:31 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/23 16:44:29 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_valid_key(char *str)
 		return (0);
 	while (arg[i])
 	{
-		if (!ft_isalnum(arg[i]) && !strchr(special_chars, arg[i]))
+		if (!ft_isalnum(arg[i]) && !ft_strchr(special_chars, arg[i]))
 			return (0);
 		if (!eq_found && arg[i] == '+' && arg[i + 1] != '=')
 			return (0);
@@ -131,26 +131,28 @@ int		ft_exec_export(t_cmd *cmd)
 	char	**key_value;
 	char	**args;
 	int		i;
+	int		ret;
 
 	args = cmd->argv;
-	i = 1;
-	if (!args[i])
+	ret = 0;
+	i = 0;
+	if (!args[1])
 		return (ft_export_no_arg(get_minishell()));
-	while (args[i])
+	while (args[++i])
 	{
 		if (!ft_strchr(args[i], '='))
 		{
-			i++;
-			continue;
+			if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
+				ret = ft_invalid_identifier("export", args[i]);
+			continue ;
 		}
 		key_value = ft_split_once(args[i], '=');
 		if (ft_valid_key(key_value[0]))
-		{
 			ft_process_args(key_value);
-		}
 		else
 			return (ft_invalid_identifier("export", args[i]));
-		i++;
 	}
+	if (ret)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
