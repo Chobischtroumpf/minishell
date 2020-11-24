@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/19 21:42:47 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/23 22:52:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	update_pwd(void)
 	char pwd[PATH_MAX];
 	char *oldpwd;
 
-	oldpwd = ft_strdup(ft_find_by_key2("PWD"));
+	if (ft_find_by_key2("PWD"))
+		oldpwd = ft_strdup(ft_find_by_key2("PWD"));
+	else
+		oldpwd = ft_strdup("");
 	getcwd(pwd, sizeof(pwd));
 	ft_remove_env(&get_minishell()->env, "PWD");
 	ft_remove_env(&get_minishell()->env, "OLDPWD");
 	ft_add_env2("OLDPWD", oldpwd);
-	ft_add_env2("PWD", pwd);
+	ft_add_env2("PWD", pwd); 
 	free(oldpwd);
 }
 
