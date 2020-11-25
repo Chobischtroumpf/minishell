@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/25 13:54:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:43:59 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*replace_false_dollar(char *arg, int i)
 	int		j;
 
 	tmp = ft_substr(arg, i, ft_strlen(arg) - i);
+	// printf("subs %s\n", tmp);
 	j = 0;
 	while (tmp[++j])
 		if (tmp[j] == '$')
@@ -63,7 +64,9 @@ char	*replace_false_dollar(char *arg, int i)
 		return (arg);
 	}
 	prefix = ft_substr(arg, 0, i);
+	// printf("prefix %s\n", prefix);
 	suffix = ft_substr(tmp, j, ft_strlen(tmp) - j);
+	// printf("suffix %s\n", suffix);
 	free(arg);
 	arg = ft_strjoin_free(prefix, suffix);
 	free(tmp);
@@ -105,6 +108,7 @@ char	*dollar_to_env(char *arg)
 		while (arg[i])
 		{
 			i = ft_skip_quotes(arg, i);
+			// printf("%s %d\n", arg, i);
 			if (!ft_strncmp((arg + i), "$$", 2))
 				if (!ft_backslash_counter(arg, i - 1))
 					arg = replace_by_env(arg, "42", "TEMP_PID", i);
@@ -115,9 +119,8 @@ char	*dollar_to_env(char *arg)
 				arg = replace_by_env(arg, key, value, i);
 			else if (arg[i] == '$')
 			{
-				// printf("ARG = %s\n", arg);
 				j = 1;
-				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\"'", arg[i + j]))
+				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\",\']", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
 				if (!ft_find_by_key(str) && arg[i + 1])
@@ -142,7 +145,7 @@ void printoutarray(char **pointertoarray)
 		count++;
 	for(int i = 0; i < count; i++)
 	{
-		printf("ARGS[%i] |%s| \n",i, pointertoarray[i]);
+		printf("ARGS[%i] >%s< \n",i, pointertoarray[i]);
 	}
 }
 
@@ -174,6 +177,8 @@ char	**ft_gros_bordel(char **args, int i)
 		i++;
 		j++;
 	}
+	ft_free_array(splitted);
+	// ft_free_array(args);
 	new_args[j] = NULL;
 	// printf("\n-----ARGS AFTER GROS BORDEL-----\n\n");
 	// printoutarray(new_args);
@@ -190,9 +195,13 @@ int 	ft_is_split(char * str)
 	while (str[i])
 	{
 		if (ft_isspace(str[i]))
+		{
+			free(tmp);
 			return (1);
+		}
 		i++;
 	}
+	free(tmp);
 	return (0);
 }
 
