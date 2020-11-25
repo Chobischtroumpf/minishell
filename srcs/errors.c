@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/24 21:30:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/25 14:24:06 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,10 @@ long	ft_error_shlvl(long shlvl)
 {
 	char	*shlvl_str;
 
+	// printf("shlvl in error = %d\n", shlvl);
 	if (!(shlvl_str = ft_itoa(shlvl)))
 		ft_exit_error();
+	// printf("shlvl_str in error = %s\n", shlvl_str);
 	ft_putstr_fd("minishell: warning: shell level (", 2);
 	ft_putstr_fd(shlvl_str, 2);
 	ft_putstr_fd(") too high, resetting to 1\n", 2);
