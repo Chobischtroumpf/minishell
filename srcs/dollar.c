@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/25 13:50:09 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:54:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,91 @@ char	*dollar_to_env(char *arg)
 	return (arg);
 }
 
+void printoutarray(char **pointertoarray)
+{
+	int count;
+	count = 0;
+	while (pointertoarray[count])
+		count++;
+	for(int i = 0; i < count; i++)
+	{
+		printf("ARGS[%i] |%s| \n",i, pointertoarray[i]);
+	}
+}
+
+char	**ft_gros_bordel(char **args, int i)
+{
+	char **splitted;
+	char **new_args;
+	int j;
+	
+	j = 0;
+	splitted = ft_split(args[i],' ');
+	new_args = malloc(sizeof(char*) * (ft_count_arg(args) + ft_count_arg(splitted) + 2));
+	while (j < i)
+	{
+		new_args[j] = ft_strdup(args[j]);
+		j++;
+	}
+	int k = 0;
+	while (splitted[k])
+	{
+		new_args[j] = ft_strdup(splitted[k]);
+		j++;
+		k++;
+	}
+	i++;
+	while (args[i])
+	{
+		new_args[j] = ft_strdup(args[i]);
+		i++;
+		j++;
+	}
+	new_args[j] = NULL;
+	// printf("\n-----ARGS AFTER GROS BORDEL-----\n\n");
+	// printoutarray(new_args);
+	return (new_args);
+}
+
+int 	ft_is_split(char * str)
+{
+	char *tmp;
+	int i;
+
+	tmp = ft_strtrim(str, " ");
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	check_dollar(t_cmd *cmd)
 {
 	char	**args;
 	int		i;
 
 	i = 0;
+	
 	args = cmd->argv;
+	// printf("-----ARGS BEFORE DOLLAR REMOVAL-----\n\n");
+	// printoutarray(args);
 	while (args[i])
 	{
 		while (has_dollar(args[i]))
+		{
 			args[i] = dollar_to_env(args[i]);
+			if (ft_is_split(args[i]))
+			{
+				// printf("need to be splitted\n");
+				cmd->argv = ft_gros_bordel(args, i);
+			}
+		}
 		i++;
 	}
+	// printf("\n-----ARGS AFTER DOLLAR REMOVAL-----\n\n");
+	// printoutarray(args);
 }

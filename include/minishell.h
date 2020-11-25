@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/24 22:15:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:54:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
+
+void 				printoutarray(char **pointertoarray);
 void				check_dollar(t_cmd *cmd);
 char				*remove_char(char *str, char c);
 int					free_str_ret(char *str);
