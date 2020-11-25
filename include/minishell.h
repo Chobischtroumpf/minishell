@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/23 21:53:04 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/24 22:15:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,14 @@ void				close_redirection(t_cmd *cmd);
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
 char 				**ft_env_to_array(void);
+int					ft_valid_key(char *str);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(char *key);
 char				*ft_find_by_key2(char *key);
 void				ft_add_env(char **keyvalue);
 void				ft_add_env2(char *key, char *value);
-void				ft_remove_env(t_env **env_list, char *key);
+int					ft_remove_env(t_env **env_list, char *key);
 
 int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
