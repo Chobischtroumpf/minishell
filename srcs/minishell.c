@@ -109,6 +109,7 @@ void		main_execution(void)
 			ft_free_minishell();
 			continue;
 		}
+		// print_lst();
 		ft_exec_cmd();
 		ft_free_minishell();
 	}

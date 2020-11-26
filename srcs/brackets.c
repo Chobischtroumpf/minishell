@@ -22,7 +22,7 @@ int			quote_removal(char *c)
 	return (0);
 }
 
-char		*ft_backslash_remover(char *arg, int i, int *nbr_bkslsh)
+char		*ft_bckslsh_outside_quotes(char *arg, int i, int *nbr_bkslsh)
 {
 	char	*new_arg;
 
@@ -45,6 +45,38 @@ char		*ft_backslash_remover(char *arg, int i, int *nbr_bkslsh)
 	return (new_arg);
 }
 
+char	*ft_backslash_remover(int *j, int nbr_bckslsh, char *arg_cpy)
+{
+	int	previous_j;
+
+	if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
+	{
+		previous_j = j;
+		j = ft_brackets(arg_cpy, j);
+		quote_removal(&arg_cpy[previous_j]);
+		quote_removal(&arg_cpy[j]);
+		while (previous_j < j)
+		{
+			nbr_bckslsh = 0;
+			while (arg_cpy[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
+			{
+				nbr_bckslsh += 1;
+				if (nbr_bckslsh % 2)
+					arg_cpy[previous_j] = 2;
+				previous_j++;
+			}
+			previous_j++;
+		}
+	}
+	else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))
+	{
+		previous_j = j;
+		j = ft_brackets(arg_cpy, j);
+		quote_removal(&arg_cpy[j]);
+		quote_removal(&arg_cpy[previous_j]);
+	}
+}
+
 char		*ft_arg_cleaner(char *arg)
 {
 	int		j;
@@ -58,32 +90,10 @@ char		*ft_arg_cleaner(char *arg)
 	while (arg_cpy[j])
 	{
 		nbr_bckslsh = 0;
-		arg_cpy = ft_backslash_remover(arg_cpy, j, &nbr_bckslsh);
-		if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
+		arg_cpy = ft_bckslsh_outside_quotes(arg_cpy, j, &nbr_bckslsh);
+		if ((arg_cpy[j] == '"' || arg_cpy[j] == '\'') && !(nbr_bckslsh % 2))
 		{
-			previous_j = j;
-			j = ft_brackets(arg_cpy, j);
-			quote_removal(&arg_cpy[previous_j]);
-			quote_removal(&arg_cpy[j]);
-			while (previous_j < j)
-			{
-				nbr_bckslsh = 0;
-				while (arg_cpy[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
-				{
-					nbr_bckslsh += 1;
-					if (nbr_bckslsh % 2)
-						arg_cpy[previous_j] = 2;
-					previous_j++;
-				}
-				previous_j++;
-			}
-		}
-		else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))
-		{
-			previous_j = j;
-			j = ft_brackets(arg_cpy, j);
-			quote_removal(&arg_cpy[j]);
-			quote_removal(&arg_cpy[previous_j]);
+
 		}
 		j++;
 	}
