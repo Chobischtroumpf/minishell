@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/24 21:55:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:49:30 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,29 @@ int		ft_valid_key(char *str)
 	return (0);
 }
 
+char	 *ft_double_backslash(char *value)
+{
+	char **tmp;
+	char *tmp2;
+	int i;
+
+	i = 0;
+	tmp2 = "";
+	tmp = ft_split_total(value, '\\');
+	while (tmp[i])
+	{	
+		if (ft_haschr(tmp[i], '\\'))
+			tmp2 = ft_strjoin_delimiter(tmp2, tmp[i], '\\');//need to free
+		else
+			tmp2 = ft_strjoin(tmp2, tmp[i]);//need to free
+		i++;
+	}
+	ft_free_array(tmp);
+	// free(value);
+	// printf("%s\n", tmp2);
+	return (tmp2);
+}
+
 /*
 **	Ft_process_args will process the 'keyvalue' **char passed as argument.
 **
@@ -78,6 +101,8 @@ void	ft_process_args(char **keyvalue)
 {
 	char *tmp;
 
+	if (ft_haschr(keyvalue[1], '\\'))
+		keyvalue[1] = ft_double_backslash(keyvalue[1]);
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
 		tmp = keyvalue[0];
@@ -90,6 +115,7 @@ void	ft_process_args(char **keyvalue)
 	}
 	else
 	{
+
 		if (ft_find_by_key(keyvalue[0]))
 		{
 			ft_remove_env(&get_minishell()->env, keyvalue[0]);

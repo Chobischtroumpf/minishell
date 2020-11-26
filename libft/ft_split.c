@@ -12,82 +12,85 @@
 
 #include "libft.h"
 
-static int		ft_nbw(const char *str, char c)
+static int			is_sep(char c, char sep)
 {
-	int word;
-	int	i;
-
-	word = 0;
-	i = 0;
-	if (str[i] && str[i] != c)
-	{
-		i++;
-		word++;
-	}
-	while (str[i])
-	{
-		while (str[i] == c)
-		{
-			i++;
-			if (str[i] && str[i] != c)
-				word++;
-		}
-		i++;
-	}
-	return (word);
+	if (c == sep)
+		return (1);
+	return (0);
 }
 
-static int		ft_ln(const char *str, char c)
+static int			count_words(char const *str, char sep)
 {
+	int i;
 	int count;
 
+	i = 0;
 	count = 0;
-	while (*str != c && *str)
+	while (str[i])
 	{
-		count++;
-		str++;
+		if ((!is_sep(str[i], sep) && is_sep(str[i - 1], sep)) || i == 0)
+			count++;
+		i++;
 	}
 	return (count);
 }
 
-static void		*is_free(char **spt)
+static char			*malloc_word(char const *str, char sep)
 {
-	int	i;
+	char	*word;
+	int		word_len;
+	int		i;
 
+	word_len = 0;
 	i = 0;
-	while (spt[i])
+	while (str[word_len] && !is_sep(str[word_len], sep))
+		word_len++;
+	if (!(word = (char *)malloc(sizeof(char) * (word_len + 1))))
+		return (0);
+	while (str[i] && !is_sep(str[i], sep))
 	{
-		free(spt[i++]);
+		word[i] = str[i];
+		i++;
 	}
-	free(spt);
+	word[i] = '\0';
+	return (word);
+}
+
+static void			*free_tab(char **tab, int i)
+{
+	while (i >= 0)
+	{
+		if (tab[i])
+			free(tab[i]);
+		i--;
+	}
+	free(tab);
 	return (NULL);
 }
 
-char			**ft_split(char const *s, char c)
+char				**ft_split(char const *str, char sep)
 {
-	int		j;
+	char	**tab;
 	int		i;
-	char	**spt;
 
-	j = 0;
+	if (!str)
+		return (0);
+	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(str, sep) + 1))))
+		return (0);
 	i = 0;
-	if (!s || (!(spt = (char **)malloc(sizeof(char *) * (ft_nbw(s, c) + 1)))))
-		return (NULL);
-	while (*s)
+	while (*str)
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s != c && *s)
+		while (*str && is_sep(*str, sep))
+			str++;
+		if (*str && !is_sep(*str, sep))
 		{
-			if (!(spt[j] = (char *)malloc(sizeof(char) * (ft_ln(s, c) + 1))))
-				return (is_free(spt));
-			while (*s && *s != c)
-				spt[j][i++] = (char)*s++;
-			spt[j][i] = '\0';
-			j++;
-			i = 0;
+			if (!(tab[i] = malloc_word(str, sep)))
+				return (free_tab(tab, i));
+			i++;
+			while (*str && !is_sep(*str, sep))
+				str++;
 		}
 	}
-	spt[j] = NULL;
-	return (spt);
+	tab[i] = NULL;
+	return (tab);
 }

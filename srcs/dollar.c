@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/25 15:43:59 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/25 22:39:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char	*dollar_to_env(char *arg)
 			else if (arg[i] == '$')
 			{
 				j = 1;
-				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\",\']", arg[i + j]))
+				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \\\t<>|;\",\']", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
 				if (!ft_find_by_key(str) && arg[i + 1])
