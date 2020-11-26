@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/26 22:49:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/26 22:58:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		ft_valid_key(char *str)
 	return (0);
 }
 
-char	 *ft_double_backslash(char *value)
+char	*ft_double_backslash(char *value)
 {
 	char **tmp;
 	char *tmp2;
@@ -75,7 +75,9 @@ char	 *ft_double_backslash(char *value)
 	while (tmp[i])
 	{	
 		if (ft_haschr(tmp[i], '\\'))
+		{	
 			tmp2 = ft_strjoin_delimiter(tmp2, tmp[i], '\\');//need to free
+		}
 		else
 			tmp2 = ft_strjoin(tmp2, tmp[i]);//need to free
 		i++;

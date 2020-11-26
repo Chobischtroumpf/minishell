@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/23 22:52:12 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/26 23:57:37 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_chdir_err(int err_code, char *arg)
 	return (-err_code);
 }
 
-void init_home(void)
+void	init_home(void)
 {
 	if (!ft_find_by_key2("OLDPWD"))
 		ft_add_env2("OLDPWD", "");
