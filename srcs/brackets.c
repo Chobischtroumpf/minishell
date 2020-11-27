@@ -12,29 +12,6 @@
 
 #include "minishell.h"
 
-char		*char_swap(int nbr_bckslsh, int previous_j, int j, char *arg)
-{
-	char	*arg_cpy;
-
-	if (!(arg_cpy = ft_strdup(arg)))
-		return (NULL);
-	while (previous_j < j)
-	{
-		nbr_bckslsh = 0;
-		while (arg_cpy[previous_j] == '\\' &&
-			ft_isascii_except(arg_cpy[previous_j + 1]))
-		{
-			nbr_bckslsh += 1;
-			if (nbr_bckslsh % 2)
-				arg_cpy[previous_j] = 2;
-			previous_j++;
-		}
-		previous_j++;
-	}
-	free(arg);
-	return (arg_cpy);
-}
-
 char		*ft_bckslsh_outside_quotes(char *arg, int i, int *nbr_bkslsh)
 {
 	char	*new_arg;
@@ -59,30 +36,53 @@ char		*ft_bckslsh_outside_quotes(char *arg, int i, int *nbr_bkslsh)
 	return (new_arg);
 }
 
-char		*ft_backslash_remover(int j, int nbr_bckslsh, char *arg)
+char		*char_swap(int nbr_bckslsh, int previous_j, int j, char *arg)
+{
+	char	*arg_cpy;
+
+	if (!(arg_cpy = ft_strdup(arg)))
+		return (NULL);
+	if (arg[j] == '"')
+		while (previous_j < j)
+		{
+			nbr_bckslsh = 0;
+			while (arg_cpy[previous_j] == '\\' &&
+				ft_isascii_except(arg_cpy[previous_j + 1]))
+			{
+				nbr_bckslsh += 1;
+				if (nbr_bckslsh % 2)
+					arg_cpy[previous_j] = 2;
+				previous_j++;
+			}
+			previous_j++;
+		}
+	else if (arg[j] == '\'')
+
+	free(arg);
+	return (arg_cpy);
+}
+
+char		*ft_backslash_remover(int *j, int nbr_bckslsh, char *arg)
 {
 	int		previous_j;
 	char	*arg_cpy;
 
 	if (!(arg_cpy = ft_strdup(arg)))
 		return (NULL);
-	if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
+	if (arg_cpy[*j] == '"' && !(nbr_bckslsh % 2))
 	{
-		previous_j = j;
-		j = ft_brackets(arg_cpy, j);
+		previous_j = *j;
+		*j = ft_brackets(arg_cpy, *j);
 		arg_cpy[previous_j] = 2;
-		arg_cpy[j] = 2;
-		if (!(arg_cpy = char_swap(nbr_bckslsh, previous_j, j, arg_cpy)))
-		{
-			free(arg);
+		arg_cpy[*j] = 2;
+		if (!(arg_cpy = char_swap(nbr_bckslsh, previous_j, *j, arg_cpy)))
 			return (NULL);
-		}
 	}
-	else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))
+	else if (arg_cpy[*j] == '\'' && !(nbr_bckslsh % 2))
 	{
-		previous_j = j;
-		j = ft_brackets(arg_cpy, j);
-		arg_cpy[j] = 2;
+		previous_j = *j;
+		*j = ft_brackets(arg_cpy, *j);
+		arg_cpy[*j] = 2;
 		arg_cpy[previous_j] = 2;
 	}
 	free(arg);
@@ -105,7 +105,7 @@ char		*ft_arg_cleaner(char *arg)
 		if (!(arg_cpy = ft_bckslsh_outside_quotes(arg_cpy, j, &nbr_bckslsh)))
 			return (NULL);
 		if ((arg_cpy[j] == '"' || arg_cpy[j] == '\'') && !(nbr_bckslsh % 2))
-			if (!(arg_cpy = ft_backslash_remover(j, nbr_bckslsh, arg_cpy)))
+			if (!(arg_cpy = ft_backslash_remover(&j, nbr_bckslsh, arg_cpy)))
 				return (NULL);
 		j++;
 	}
