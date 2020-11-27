@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/27 11:29:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 14:35:37 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,6 @@ int		ft_valid_key(char *str)
 	return (0);
 }
 
-char	*ft_double_backslash(char *value)
-{
-	char	**tmp;
-	char	*tmp2;
-	int		i;
-
-	i = 0;
-	tmp2 = "";
-	tmp = ft_split_total(value, '\\');
-	while (tmp[i])
-	{
-		if (ft_haschr(tmp[i], '\\'))
-			tmp2 = ft_strjoin_delimiter_free(tmp2, tmp[i], '\\');
-		else
-			tmp2 = ft_strjoin_free(tmp2, tmp[i]);
-		i++;
-	}
-	ft_free_array(tmp);
-	return (tmp2);
-}
-
 /*
 **	Ft_process_args will process the 'keyvalue' **char passed as argument.
 **
@@ -82,8 +61,6 @@ void	ft_process_args(char **keyvalue)
 {
 	char *tmp;
 
-	if (ft_haschr(keyvalue[1], '\\'))
-		keyvalue[1] = ft_double_backslash(keyvalue[1]);
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
 		tmp = keyvalue[0];
@@ -135,27 +112,30 @@ int		ft_export_no_arg(t_minishell *minishell)
 int		ft_exec_export(t_cmd *cmd)
 {
 	char	**key_value;
+	char 	**args;
 	int		i;
 	int		ret;
 
+	args = cmd->argv;
 	ret = 0;
 	i = 0;
-	if (!cmd->argv[1])
+	if (!args[1])
 		return (ft_export_no_arg(get_minishell()));
-	while (cmd->argv[++i])
+	while (args[++i])
 	{
-		if (!ft_strchr(cmd->argv[i], '='))
+		if (!ft_strchr(args[i], '='))
 		{
-			if (ft_hasnchar(cmd->argv[i], "+=;|&$\"\\' ") || !ft_strlen(cmd->argv[i]))
-				ret = ft_invalid_identifier("export", cmd->argv[i]);
+			if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
+				ret = ft_invalid_identifier("export", args[i]);
 			continue ;
 		}
-		key_value = ft_split_once(cmd->argv[i], '=');
+		key_value = ft_split_once(args[i], '=');
 		if (ft_valid_key(key_value[0]))
 			ft_process_args(key_value);
 		else
-			return (ft_invalid_identifier("export", cmd->argv[i]));
+			return (ft_invalid_identifier("export", args[i]));
 	}
+	free(args);
 	if (ret)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

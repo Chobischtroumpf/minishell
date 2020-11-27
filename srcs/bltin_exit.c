@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/18 13:17:29 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/27 13:36:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int			ft_exec_exit(t_cmd *cmd)
 	cnt = ft_count_arg(cmd->argv);
 	if (cmd->argv[1])
 	{
-		
 		digit = ft_atol_check(cmd->argv[1]);
 		if (!digit)
 			exit(ft_numeric_arg_error(cmd->argv[0], cmd->argv[1], 255));
