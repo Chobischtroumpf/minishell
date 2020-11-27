@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:59:04 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/25 14:50:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,11 @@ int			ft_exec_cmd(void)
 	{
 		check_dollar(cmd);
 		//check pipe
+		// printf("\n-----ARGS AFTER DOLLAR-----\n\n");
+		// printoutarray(cmd->argv);
 		ft_bracket_removal(&cmd);
+		// printf("\n-----ARGS AFTER BRACKETS-----\n\n");
+		// printoutarray(cmd->argv);
 		check_in(cmd->in);
 		check_out(cmd->out);
 		open_redirection(cmd);

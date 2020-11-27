@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/24 22:15:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 11:54:37 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,13 @@ long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
+
+void 				printoutarray(char **pointertoarray);
 void				check_dollar(t_cmd *cmd);
+int					has_dollar(char *arg);
+char				*dollar_to_env(char *arg);
 char				*remove_char(char *str, char c);
-int					free_str_ret(char *str);
+int					free_str_ret(char *str, int ret);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
@@ -107,7 +111,9 @@ void				close_redirection(t_cmd *cmd);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
+char				*ft_strjoin_delimiter_free(char *s1, char *s2, char del);
 char 				**ft_env_to_array(void);
+void				ft_append_env(char **keyvalue);
 int					ft_valid_key(char *str);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);

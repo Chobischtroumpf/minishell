@@ -4,3 +4,4 @@ libft/*.o
 libft/libft.a
 minishell
 minishell_test/**
+*.code-workspace
