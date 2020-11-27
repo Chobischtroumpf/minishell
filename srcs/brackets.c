@@ -6,20 +6,33 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/23 16:07:37 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/27 01:30:31 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			quote_removal(char *c)
+char		*char_swap(int nbr_bckslsh, int previous_j, int j, char *arg)
 {
-	if (*c == '"' || *c == '\'')
+	char	*arg_cpy;
+
+	if (!(arg_cpy = ft_strdup(arg)))
+		return ((char *)ft_exit_error());
+	while (previous_j < j)
 	{
-		*c = 2;
-		return (1);
+		nbr_bckslsh = 0;
+		while (arg_cpy[previous_j] == '\\' &&
+			ft_isascii_except(arg_cpy[previous_j + 1]))
+		{
+			nbr_bckslsh += 1;
+			if (nbr_bckslsh % 2)
+				arg_cpy[previous_j] = 2;
+			previous_j++;
+		}
+		previous_j++;
 	}
-	return (0);
+	free(arg);
+	return (arg_cpy);
 }
 
 char		*ft_bckslsh_outside_quotes(char *arg, int i, int *nbr_bkslsh)
@@ -40,47 +53,40 @@ char		*ft_bckslsh_outside_quotes(char *arg, int i, int *nbr_bkslsh)
 			return (NULL);
 	}
 	if (!new_arg)
-		new_arg = ft_strdup(arg);
+		if (!(new_arg = ft_strdup(arg)))
+			return ((char*)ft_exit_error());
 	free(arg);
 	return (new_arg);
 }
 
-char	*ft_backslash_remover(int *j, int nbr_bckslsh, char *arg_cpy)
+char		*ft_backslash_remover(int j, int nbr_bckslsh, char *arg)
 {
-	int	previous_j;
+	int		previous_j;
+	char	*arg_cpy;
 
+	arg_cpy = ft_strdup(arg);
 	if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
 	{
 		previous_j = j;
 		j = ft_brackets(arg_cpy, j);
-		quote_removal(&arg_cpy[previous_j]);
-		quote_removal(&arg_cpy[j]);
-		while (previous_j < j)
-		{
-			nbr_bckslsh = 0;
-			while (arg_cpy[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
-			{
-				nbr_bckslsh += 1;
-				if (nbr_bckslsh % 2)
-					arg_cpy[previous_j] = 2;
-				previous_j++;
-			}
-			previous_j++;
-		}
+		arg_cpy[previous_j] = 2;
+		arg_cpy[j] = 2;
+		arg_cpy = char_swap(nbr_bckslsh, previous_j, j, arg_cpy);
 	}
 	else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))
 	{
 		previous_j = j;
 		j = ft_brackets(arg_cpy, j);
-		quote_removal(&arg_cpy[j]);
-		quote_removal(&arg_cpy[previous_j]);
+		arg_cpy[j] = 2;
+		arg_cpy[previous_j] = 2;
 	}
+	free(arg);
+	return (arg_cpy);
 }
 
 char		*ft_arg_cleaner(char *arg)
 {
 	int		j;
-	int		previous_j;
 	int		nbr_bckslsh;
 	char	*new_arg;
 	char	*arg_cpy;
@@ -92,9 +98,7 @@ char		*ft_arg_cleaner(char *arg)
 		nbr_bckslsh = 0;
 		arg_cpy = ft_bckslsh_outside_quotes(arg_cpy, j, &nbr_bckslsh);
 		if ((arg_cpy[j] == '"' || arg_cpy[j] == '\'') && !(nbr_bckslsh % 2))
-		{
-
-		}
+			arg_cpy = ft_backslash_remover(j, nbr_bckslsh, arg_cpy);
 		j++;
 	}
 	if (!(new_arg = ft_strtrim_integral(arg_cpy, (char)2)))

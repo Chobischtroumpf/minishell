@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/18 11:30:09 by adorigo          ###   ########.fr        #
+#    Updated: 2020/11/27 00:40:17 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ $(OBJECTS_FT_PRINTF) : $(SRCS_FT_PRINTF)
 $(OBJECTS_B) : $(SRCS_B)
 		clang $(CFLAGS) $(SRCS_B)
 
-bonus : fclean $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
+bonus : $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 	@ar rcs libft.a $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 
 clean : 
