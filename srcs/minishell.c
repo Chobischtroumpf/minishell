@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/24 16:48:19 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/27 13:38:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ void		signal_handler(int signbr)
 
 void		print_lst(void)
 {
-	int i = 0;
-	t_minishell *minish;
-	t_cmd *tmp;
-	t_rdir *in;
-	t_rdir *out;
+	int			i;
+	t_minishell	*minish;
+	t_cmd		*tmp;
+	t_rdir		*in;
+	t_rdir		*out;
 
+	i = 0;
 	minish = get_minishell();
 	in = minish->cmd->in;
 	out = minish->cmd->out;
 	tmp = minish->cmd;
-
 	ft_printf("line : %s\n", minish->line);
 	while (minish->tokens[i])
 	{
@@ -76,7 +76,7 @@ void		print_lst(void)
 	i = 0;
 	while (tmp != NULL)
 	{
-		while(tmp->argv[i])
+		while (tmp->argv[i])
 			printf("%s\n", tmp->argv[i++]);
 		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
 		while (in != NULL)

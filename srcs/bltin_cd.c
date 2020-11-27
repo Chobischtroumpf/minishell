@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/26 23:57:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 11:48:30 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	update_pwd(void)
 	ft_remove_env(&get_minishell()->env, "PWD");
 	ft_remove_env(&get_minishell()->env, "OLDPWD");
 	ft_add_env2("OLDPWD", oldpwd);
-	ft_add_env2("PWD", pwd); 
+	ft_add_env2("PWD", pwd);
 	free(oldpwd);
 }
 
@@ -62,7 +62,6 @@ void	init_home(void)
 	if (!ft_find_by_key2("HOME"))
 		ft_add_env2("HOME", "");
 }
-
 
 int		ft_exec_cd(t_cmd *cmd)
 {
