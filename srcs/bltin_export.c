@@ -6,28 +6,11 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/26 22:58:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 11:29:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**	Ft_append_env receives a keyvalue pair,retrieves the corresponding node
-**	from the env_list and appends the 'value' string.
-*/
-
-void	ft_append_env(char **keyvalue)
-{
-	t_env	*tmp;
-	char	*new;
-
-	tmp = ft_find_by_key(keyvalue[0]);
-	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
-								ft_strlen(keyvalue[1] + 1))))
-		exit(0);
-	tmp->value = ft_strjoin_free(tmp->value, keyvalue[1]);
-}
 
 /*
 **	Ft_valid_key will make sure that the given key to the export command is
@@ -65,26 +48,22 @@ int		ft_valid_key(char *str)
 
 char	*ft_double_backslash(char *value)
 {
-	char **tmp;
-	char *tmp2;
-	int i;
+	char	**tmp;
+	char	*tmp2;
+	int		i;
 
 	i = 0;
 	tmp2 = "";
 	tmp = ft_split_total(value, '\\');
 	while (tmp[i])
-	{	
+	{
 		if (ft_haschr(tmp[i], '\\'))
-		{	
-			tmp2 = ft_strjoin_delimiter(tmp2, tmp[i], '\\');//need to free
-		}
+			tmp2 = ft_strjoin_delimiter_free(tmp2, tmp[i], '\\');
 		else
-			tmp2 = ft_strjoin(tmp2, tmp[i]);//need to free
+			tmp2 = ft_strjoin_free(tmp2, tmp[i]);
 		i++;
 	}
 	ft_free_array(tmp);
-	// free(value);
-	// printf("%s\n", tmp2);
 	return (tmp2);
 }
 
@@ -117,7 +96,6 @@ void	ft_process_args(char **keyvalue)
 	}
 	else
 	{
-
 		if (ft_find_by_key(keyvalue[0]))
 		{
 			ft_remove_env(&get_minishell()->env, keyvalue[0]);
@@ -157,28 +135,26 @@ int		ft_export_no_arg(t_minishell *minishell)
 int		ft_exec_export(t_cmd *cmd)
 {
 	char	**key_value;
-	char	**args;
 	int		i;
 	int		ret;
 
-	args = cmd->argv;
 	ret = 0;
 	i = 0;
-	if (!args[1])
+	if (!cmd->argv[1])
 		return (ft_export_no_arg(get_minishell()));
-	while (args[++i])
+	while (cmd->argv[++i])
 	{
-		if (!ft_strchr(args[i], '='))
+		if (!ft_strchr(cmd->argv[i], '='))
 		{
-			if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
-				ret = ft_invalid_identifier("export", args[i]);
+			if (ft_hasnchar(cmd->argv[i], "+=;|&$\"\\' ") || !ft_strlen(cmd->argv[i]))
+				ret = ft_invalid_identifier("export", cmd->argv[i]);
 			continue ;
 		}
-		key_value = ft_split_once(args[i], '=');
+		key_value = ft_split_once(cmd->argv[i], '=');
 		if (ft_valid_key(key_value[0]))
 			ft_process_args(key_value);
 		else
-			return (ft_invalid_identifier("export", args[i]));
+			return (ft_invalid_identifier("export", cmd->argv[i]));
 	}
 	if (ret)
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/26 23:52:22 by nathan           ###   ########.fr        #
+#    Updated: 2020/11/27 11:53:10 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			quit.c			\
 			exit.c			\
 			dollar.c		\
+			dollar2.c		\
 			brackets.c		\
 			free.c			\
 			shlvl.c			

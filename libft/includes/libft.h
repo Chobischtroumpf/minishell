@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/26 21:40:17 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 11:35:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char				*ft_split_first(char const *s, char c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
+char				*ft_strjoin_delimiter_free(char *s1, char *s2, char del);
 char				*ft_strnjoin(char const *s1, char const *s2,
 															ssize_t r_size);
 void				*ft_realloc(void *ptr, size_t size);
