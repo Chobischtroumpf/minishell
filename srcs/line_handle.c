@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/19 19:29:39 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 12:01:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			ft_lexing(void)
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
 	{
 		ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2));
-		return(0);
+		return (0);
 	}
 	if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
 		exit(ft_free_minishell() && 0);
