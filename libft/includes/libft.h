@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/18 10:53:10 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/26 21:40:17 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_numlen(int n, int minus);
 char				**ft_split(char const *s, char c);
+char				**ft_split_total(char const *str, char sep);
 char				**ft_split_once(char const *s, char c);
 char				*ft_split_first(char const *s, char c);
 char				*ft_strtrim(char const *s1, char const *set);
