@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/27 13:36:42 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/25 14:50:16 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int		ft_atol_check(const char *str)
 		else if (nb > (unsigned long)LONG_MIN)
 			return (0);
 		nb *= 10;
+		if (nb > LONG_MAX && (nb +str_cpy[i] - '0') < INT_MAX)
+			return (0);
 		nb += str_cpy[i] - '0';
 		i++;
 	}
