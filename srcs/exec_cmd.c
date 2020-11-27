@@ -125,7 +125,7 @@ int			ft_exec_cmd(void)
 		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
-		else
+		else if (cmd->argv[0])
 			ft_exec_extern(cmd);
 		close_redirection(cmd);
 		cmd = cmd->next;

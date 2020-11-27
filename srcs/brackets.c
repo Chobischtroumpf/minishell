@@ -17,7 +17,7 @@ char		*char_swap(int nbr_bckslsh, int previous_j, int j, char *arg)
 	char	*arg_cpy;
 
 	if (!(arg_cpy = ft_strdup(arg)))
-		return ((char *)ft_exit_error());
+		return (NULL);
 	while (previous_j < j)
 	{
 		nbr_bckslsh = 0;
@@ -54,7 +54,7 @@ char		*ft_bckslsh_outside_quotes(char *arg, int i, int *nbr_bkslsh)
 	}
 	if (!new_arg)
 		if (!(new_arg = ft_strdup(arg)))
-			return ((char*)ft_exit_error());
+			return (NULL);
 	free(arg);
 	return (new_arg);
 }
@@ -64,14 +64,19 @@ char		*ft_backslash_remover(int j, int nbr_bckslsh, char *arg)
 	int		previous_j;
 	char	*arg_cpy;
 
-	arg_cpy = ft_strdup(arg);
+	if (!(arg_cpy = ft_strdup(arg)))
+		return (NULL);
 	if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
 	{
 		previous_j = j;
 		j = ft_brackets(arg_cpy, j);
 		arg_cpy[previous_j] = 2;
 		arg_cpy[j] = 2;
-		arg_cpy = char_swap(nbr_bckslsh, previous_j, j, arg_cpy);
+		if (!(arg_cpy = char_swap(nbr_bckslsh, previous_j, j, arg_cpy)))
+		{
+			free(arg);
+			return (NULL);
+		}
 	}
 	else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))
 	{
@@ -92,17 +97,20 @@ char		*ft_arg_cleaner(char *arg)
 	char	*arg_cpy;
 
 	j = 0;
-	arg_cpy = strdup(arg);
+	if (!(arg_cpy = strdup(arg)))
+		return (NULL);
 	while (arg_cpy[j])
 	{
 		nbr_bckslsh = 0;
-		arg_cpy = ft_bckslsh_outside_quotes(arg_cpy, j, &nbr_bckslsh);
+		if (!(arg_cpy = ft_bckslsh_outside_quotes(arg_cpy, j, &nbr_bckslsh)))
+			return (NULL);
 		if ((arg_cpy[j] == '"' || arg_cpy[j] == '\'') && !(nbr_bckslsh % 2))
-			arg_cpy = ft_backslash_remover(j, nbr_bckslsh, arg_cpy);
+			if (!(arg_cpy = ft_backslash_remover(j, nbr_bckslsh, arg_cpy)))
+				return (NULL);
 		j++;
 	}
 	if (!(new_arg = ft_strtrim_integral(arg_cpy, (char)2)))
-		return ((char*)ft_exit_error());
+		return (NULL);
 	free(arg_cpy);
 	return (new_arg);
 }

@@ -14,14 +14,16 @@
 
 int		ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	len;
-	size_t	len2;
-	int		result;
-
-	len = ft_strlen(s1) + 1;
-	len2 = ft_strlen(s2) + 1;
-	if (len >= len2)
-		len = len2;
-	result = ft_memcmp(s1, s2, len);
-	return (result);
+	if (!s1 && !s2)
+		return (0);
+	else if (!s1 && s2)
+		return (0 - (int)*s2);
+	else if (s1 && !s2)
+		return ((int)*s1);
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
 }
