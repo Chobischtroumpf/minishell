@@ -119,7 +119,7 @@ int			ft_exec_cmd(void)
 	{
 		check_dollar(cmd);
 		//check pipe
-		// ft_dollar_quote(&cmd);
+		ft_dollar_quote(cmd);
 		check_in(cmd->in);
 		check_out(cmd->out);
 		open_redirection(cmd);

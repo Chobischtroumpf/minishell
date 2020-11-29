@@ -27,6 +27,7 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
+# define LINE_MAX 100024
 // # define LINE_MAX 1024
 # define NO_EXCODE -1
 # define NO_STATUS -1

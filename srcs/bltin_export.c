@@ -135,7 +135,6 @@ int		ft_exec_export(t_cmd *cmd)
 		else
 			return (ft_invalid_identifier("export", args[i]));
 	}
-	free(args);
 	if (ret)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
