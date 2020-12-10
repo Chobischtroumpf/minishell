@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/10 15:45:27 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:59:20 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int			ft_bracket_removal(t_cmd **cmd)
 		if (!(new_argv[i] = ft_arg_cleaner((*cmd)->argv[i])))
 		{
 			ft_free_array(new_argv);
-			return (0 || ft_exit_error());
+			return (0 && ft_exit_error());
 		}
 		i++;
 	}

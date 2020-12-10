@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/27 14:35:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 15:04:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ int		ft_exec_export(t_cmd *cmd)
 		else
 			return (ft_invalid_identifier("export", args[i]));
 	}
-	free(args);
 	if (ret)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
