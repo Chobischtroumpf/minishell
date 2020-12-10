@@ -6,13 +6,51 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/27 01:30:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/30 11:10:44 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*check_quote(char **token, int i)
+static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
+{
+	int ret;
+
+	ret = 0;
+	if (tokken[0] == '\\' && quote)
+	{
+		ret = 1;
+		if (ft_haschr("$'\"\\", tokken[1]))
+			buffer[++*j] = *(++tokken);
+		else
+		{
+			buffer[++*j] = *tokken;
+			buffer[++*j] = *(++tokken);
+		}
+	}
+	else if (tokken[0] == '\\')
+	{
+		ret = 1;
+		buffer[++*j] = *(++tokken);
+	}
+	else
+		buffer[++*j] = *tokken;
+	return (ret);
+}
+
+static int	check_single_quote(char *token, char *buffer, int *j)
+{
+	int	i;
+
+	i = 1;
+	buffer[++*j] = *(token++);
+	while(*(token) != '\'' && i++)
+		buffer[++*j] = *(token++);
+	buffer[++*j] = *(token);
+	return (i);
+}
+
+static char	*check_quote(char *token, int i)
 {
 	char	buffer[LINE_MAX];
 	int		j;
@@ -22,30 +60,35 @@ static char	*check_quote(char **token, int i)
 	while (token[++i])
 	{
 		if (token[i] == '\'')
-			while(token[++i] != '\'')
-				buffer[++j] = token[i];
+			i += check_single_quote(&token[i], buffer, &j);
 		else if (token[i] == '"')
-			while (token[++i] != '"')
+		{
+			// buffer[++j] = token[i++];
+			while (token[i] != '"')
 				if (token[i] == '$')
 					i += 1;
 				else
-					i += check_backslash();			
+					i += backslash_checker(&token[i], buffer, &j, 1);
+			buffer[++j] = token[i];
+		}
 		else
 		{
 			if (token[i] == '$')
 				i += 1;
 			else
-				i += check_backslash(buffer, &token[i], j, 1);
+				i += backslash_checker(&token[i], buffer, &j, 1);
 		}
-		buffer[++j] = '\0';
-		return (ft_strdup(buffer));
 	}
+	buffer[++j] = '\0';
+	return (ft_strdup(buffer));
 }
 
 int			ft_dollar_quotes(t_cmd *cmd)
 {
 	char	*old_arg;
 	int		i;
+
+	i = -1;
 	while (cmd->argv[++i])
 	{
 		old_arg = cmd->argv[i];
@@ -53,4 +96,5 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		//split d'arg de nathan, faire gaffe a incrementer i pour ne pas repasser dessus avec le checkeur
 		free(old_arg);
 	}
+	return (1);
 }

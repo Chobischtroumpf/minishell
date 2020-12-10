@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/27 11:54:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/30 01:16:29 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
-# define LINE_MAX 100024
-// # define LINE_MAX 1024
+# ifdef LINE_MAX
+#  undef LINE_MAX
+#  define LINE_MAX 100024
+# endif
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -96,9 +98,8 @@ char				*ft_tokens_split(char *line, int nbr_tokens);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
-int					ft_bracket_removal(t_cmd **cmd);
+int					ft_dollar_quotes(t_cmd *cmd);
 int					ft_isascii_except(int c);
-char				*ft_arg_cleaner(char *arg);
 int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);

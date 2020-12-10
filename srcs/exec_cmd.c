@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/25 14:50:24 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/30 01:14:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int			ft_exec_cmd(void)
 	{
 		check_dollar(cmd);
 		//check pipe
-		ft_dollar_quote(cmd);
+		ft_dollar_quotes(cmd);
 		check_in(cmd->in);
 		check_out(cmd->out);
 		open_redirection(cmd);
