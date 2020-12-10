@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/07 11:27:37 by alessandro       ###   ########.fr        #
+#    Updated: 2020/11/27 11:33:11 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,9 @@ SRCS = ft_memset.c ft_strlast.c ft_memcpy.c ft_memccpy.c ft_memmove.c	\
 		ft_putstr.c ft_putnbr.c ft_isspace.c ft_numlen.c ft_strcat.c	\
 		ft_strcpy.c ft_strncat.c ft_strncpy.c ft_strndup.c ft_strstr.c	\
 		ft_strtrim.c ft_utoa_base.c ft_itoa_base.c ft_itoa.c ft_bzero.c	\
-		get_next_line.c ft_haschr.c ft_printf.c ft_hasnchar.c			\
-		ft_split_once.c	ft_strjoin_free.c ft_realloc.c
+		get_next_line.c ft_haschr.c ft_printf.c ft_hasnchar.c ft_atol.c	\
+		ft_split_once.c	ft_strjoin_free.c ft_realloc.c ft_split_total.c	\
+		ft_strjoin_delimiter.c ft_strjoin_delimiter_free.c
 
 SRCS_B = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c 	\
 		ft_lstadd_back_bonus.c ft_lstlast_bonus.c ft_lstdelone_bonus.c 	\
@@ -52,13 +53,13 @@ $(NAME) : $(OBJECTS) $(OBJECTS_FT_PRINTF)
 		@ar rcs $(NAME) $(OBJECTS) $(OBJECTS_FT_PRINTF)
 
 $(OBJECTS) : $(SRCS)
-		gcc $(CFLAGS) $(SRCS)
+		clang $(CFLAGS) $(SRCS)
 
 $(OBJECTS_FT_PRINTF) : $(SRCS_FT_PRINTF) 
-		gcc $(CFLAGS) $(SRCS_FT_PRINTF)
+		clang $(CFLAGS) $(SRCS_FT_PRINTF)
 
 $(OBJECTS_B) : $(SRCS_B)
-		gcc $(CFLAGS) $(SRCS_B)
+		clang $(CFLAGS) $(SRCS_B)
 
 bonus : fclean $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 	@ar rcs libft.a $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)

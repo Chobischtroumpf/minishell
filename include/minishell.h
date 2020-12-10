@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/10 14:35:35 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:45:21 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
+
+void 				printoutarray(char **pointertoarray);
 void				check_dollar(t_cmd *cmd);
+int					has_dollar(char *arg);
+char				*dollar_to_env(char *arg);
+char				*remove_char(char *str, char c);
+int					free_str_ret(char *str, int ret);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
@@ -107,14 +113,17 @@ void				close_redirection(t_cmd *cmd);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
+char				*ft_strjoin_delimiter_free(char *s1, char *s2, char del);
 char 				**ft_env_to_array(void);
+void				ft_append_env(char **keyvalue);
+int					ft_valid_key(char *str);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
 t_env 				*ft_find_by_key(char *key);
 char				*ft_find_by_key2(char *key);
 void				ft_add_env(char **keyvalue);
 void				ft_add_env2(char *key, char *value);
-void				ft_remove_env(t_env **env_list, char *key);
+int					ft_remove_env(t_env **env_list, char *key);
 
 int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
@@ -149,6 +158,6 @@ void				ft_err_no_access(char *arg);
 void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
-void				ft_eof_error(int nbr_tokens);
-
+int					ft_eof_error(int nbr_tokens, int ret);
+ 
 #endif

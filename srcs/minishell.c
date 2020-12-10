@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/10 15:42:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:46:05 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ void		signal_handler(int signbr)
 
 void		print_lst(void)
 {
-	int i = 0;
-	t_minishell *minish;
-	// t_cmd *tmp;
-	// t_rdir *in;
-	// t_rdir *out;
+	int			i;
+	t_minishell	*minish;
+	t_cmd		*tmp;
+	t_rdir		*in;
+	t_rdir		*out;
 
+	i = 0;
 	minish = get_minishell();
-	// in = minish->cmd->in;
-	// out = minish->cmd->out;
-	// tmp = minish->cmd;
-
+	in = minish->cmd->in;
+	out = minish->cmd->out;
+	tmp = minish->cmd;
 	ft_printf("line : %s\n", minish->line);
 	while (minish->tokens[i])
 	{
@@ -80,24 +80,24 @@ void		print_lst(void)
 		i++;
 	}
 	i = 0;
-	// while (tmp != NULL)
-	// {
-		// while(tmp->argv[i])
-			// printf("%s\n", tmp->argv[i++]);
-		// printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
-		// while (in != NULL)
-		// {
-		// 	ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
-		// 	in = in->next;
-		// }
-		// while (out != NULL)
-		// {
-		// 	ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
-		// 	out = out->next;
-		// }
-		// tmp = tmp->next;
-		// i = 0;
-	// }
+	while (tmp != NULL)
+	{
+		while (tmp->argv[i])
+			printf("%s\n", tmp->argv[i++]);
+		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
+		while (in != NULL)
+		{
+			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
+			in = in->next;
+		}
+		while (out != NULL)
+		{
+			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
+			out = out->next;
+		}
+		tmp = tmp->next;
+		i = 0;
+	}
 }
 
 void		main_execution(void)
@@ -127,10 +127,6 @@ void		ft_init_pwd(void)
 
 	if (!ft_find_by_key2("PWD"))
 		ft_add_env2("PWD", getcwd(cwd, sizeof(cwd)));
-	if (!ft_find_by_key2("OLDPWD"))
-		ft_add_env2("OLDPWD", "");
-	if (!ft_find_by_key2("HOME"))
-		ft_add_env2("HOME", "");
 }
 
 int			main(int ac, char **av, char **envv)
@@ -156,5 +152,5 @@ int			main(int ac, char **av, char **envv)
 	}
 	ft_free_minishell();
 	ft_free_env();
-	return (0);
+	return (minishell->excode);
 }

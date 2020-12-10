@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
+#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/11/15 13:28:29 by adorigo          ###   ########.fr        #
+#    Updated: 2020/11/27 11:53:10 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			lexing.c		\
 			minishell.c		\
 			utils.c			\
+			utils2.c		\
+			utils3.c		\
 			env.c			\
 			env2.c			\
 			exec_cmd.c		\
@@ -33,11 +35,13 @@ SRC_NAME =	cmd_add_rdir.c	\
 			exec_external.c	\
 			errors.c		\
 			errors2.c		\
+			errors3.c		\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
 			exit.c			\
 			dollar.c		\
+			dollar2.c		\
 			brackets.c		\
 			free.c			\
 			shlvl.c			

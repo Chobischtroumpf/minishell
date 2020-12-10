@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/10 11:08:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:45:27 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ char		*ft_backslash_remover(char *arg, int i, int *nbr_bkslsh)
 	new_arg = NULL;
 	if (arg[i] == '\\')
 	{
-		*nbr_bkslsh = 1;
 		while (arg[i] == '\\')
 		{
+			*nbr_bkslsh += 1;
 			if (*nbr_bkslsh % 2)
 				arg[i] = 2;
-			*nbr_bkslsh += 1;
 			i++;
 		}
 		if (!(new_arg = ft_strtrim_integral(arg, (char)2)))

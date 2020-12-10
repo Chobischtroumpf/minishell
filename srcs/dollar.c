@@ -3,26 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/16 15:51:49 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/27 11:51:22 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		has_dollar(char *str)
+int		has_dollar(char *arg)
 {
-	int i;
+	int		i;
+	char	*str;
+	char	*tmp;
 
 	i = 0;
+	if (ft_strchr(arg, '$'))
+	{
+		tmp = remove_char(arg, '\"');
+		str = ft_strtrim(tmp, " ");
+		free(tmp);
+	}
+	else
+		str = ft_strdup(arg);
 	while (str[i])
 	{
-		if (i > 0 && str[i] == '$' && str[i - 1] != '\\')
-			return (1);
-		else if (str[i] == '$')
-			return (1);
+		if (i > 0 && str[i] == '$' && str[i - 1] != '\\' && str[i + 1])
+			return (free_str_ret(str, 1));
+		else if (str[i] == '$' && str[i + 1] && str[i - 1] != '\\')
+			return (free_str_ret(str, 1));
 		else if (str[i] == '\'' && !ft_backslash_counter(str, i - 1))
 		{
 			i++;
@@ -31,6 +41,7 @@ int		has_dollar(char *str)
 		}
 		i++;
 	}
+	free(str);
 	return (0);
 }
 
@@ -105,10 +116,10 @@ char	*dollar_to_env(char *arg)
 			else if (arg[i] == '$')
 			{
 				j = 1;
-				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\"'", arg[i + j]))
+				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \\\t<>|;\",\']", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
-				if (!ft_find_by_key(str))
+				if (!ft_find_by_key(str) && arg[i + 1])
 					arg = replace_false_dollar(arg, i);
 				free(str);
 				break ;
@@ -120,19 +131,4 @@ char	*dollar_to_env(char *arg)
 		tmp = tmp->next;
 	}
 	return (arg);
-}
-
-void	check_dollar(t_cmd *cmd)
-{
-	char	**args;
-	int		i;
-
-	i = 0;
-	args = cmd->argv;
-	while (args[i])
-	{
-		while (has_dollar(args[i]))
-			args[i] = dollar_to_env(args[i]);
-		i++;
-	}
 }

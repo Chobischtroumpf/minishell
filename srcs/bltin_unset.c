@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/15 10:52:48 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/11/27 12:02:46 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,20 @@ char	*ft_get_env_value(t_env *env_list, char *key)
 **	and re-link the list.
 */
 
-void	ft_remove_env(t_env **env_list, char *key)
+int		ft_remove_env(t_env **env_list, char *key)
 {
 	t_env	*current;
 	t_env	*next;
 
-	if (!(*env_list))
-		return ;
 	while (*env_list && ft_is_key(*env_list, key) == 0)
 	{
 		next = (*env_list)->next;
 		ft_free_node(*env_list);
 		*env_list = next;
+		return (0);
 	}
 	if (!(*env_list))
-		return ;
+		return (0);
 	current = *env_list;
 	while (current && current->next)
 	{
@@ -75,6 +74,27 @@ void	ft_remove_env(t_env **env_list, char *key)
 		else
 			current = current->next;
 	}
+	return (0);
+}
+
+int		ft_valid_key2(char *str)
+{
+	char	*tmp;
+	int		i;
+
+	tmp = str;
+	i = 0;
+	if (!tmp[i])
+		return (0);
+	while (tmp[i])
+	{
+		if (!ft_isalnum(tmp[i]))
+			return (0);
+		if (ft_isspace(tmp[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 /*
@@ -85,20 +105,28 @@ void	ft_remove_env(t_env **env_list, char *key)
 
 int		ft_exec_unset(t_cmd *cmd)
 {
-	static t_minishell	*minishell;
 	char				**args;
 	int					i;
 	char				*value;
+	int					ret;
+	int					fail;
 
-	minishell = get_minishell();
 	args = cmd->argv;
 	i = 1;
+	ret = 1;
+	fail = 0;
+	value = NULL;
 	while (args[i])
 	{
-		value = ft_get_env_value(minishell->env, args[i]);
+		if (ft_valid_key2(args[i]))
+			value = ft_get_env_value(get_minishell()->env, args[i]);
+		else
+			fail = ft_invalid_identifier("unset", args[i]);
 		if (value)
-			ft_remove_env(&minishell->env, args[i]);
+			ret &= ft_remove_env(&get_minishell()->env, args[i]);
 		i++;
 	}
+	if ((ret || fail) && i > 1)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
