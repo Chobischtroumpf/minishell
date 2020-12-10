@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/17 12:32:44 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:44:35 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int			ft_lexing(void)
 	while (++x < nbr_tokens)
 	{
 		tmp = ft_tokens_split(minishell->line, x + 1);
-		// printf("token = |%s|\n\n", tmp);
 		minishell->tokens[x] = ft_strdup(tmp);
 		free(tmp);
 	}
@@ -39,25 +38,26 @@ int			ft_lexing(void)
 static int	ft_was_eof(void)
 {
 	t_minishell *minishell;
-	char		*old_line;
 	char		*line;
 
+	printf("was_eof\n");
 	minishell = get_minishell();
 	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
 		ft_exit_error();
 	if (minishell->was_eof)
-		old_line = minishell->line;
+		minishell->old_line = minishell->line;
 	else
-		old_line = "";
-	if (!(minishell->line = ft_strjoin(old_line, line)))
+		minishell->old_line = "";
+	if (!(minishell->line = ft_strjoin(minishell->old_line, line)))
 		ft_exit_error();
 	if (minishell->was_eof)
-		free(old_line);
+		free(minishell->old_line);
 	free(line);
 	if (minishell->gnl_ret > 0)
 		minishell->was_eof = 0;
 	else if (minishell->gnl_ret == 0)
 	{
+		printf("here line : %s\n", minishell->line);
 		ft_putstr("  \b\b");
 		return (0);
 	}
@@ -69,6 +69,7 @@ static int	ft_current_line(void)
 	char		*line;
 	t_minishell	*minishell;
 
+	printf("here\n");
 	minishell = get_minishell();
 	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
 		ft_exit_error();

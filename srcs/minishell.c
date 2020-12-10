@@ -6,11 +6,14 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/17 14:47:24 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 15:42:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		print_lst(void);
+
 
 static void	prompt_msg(void)
 {
@@ -31,16 +34,19 @@ void		signal_handler(int signbr)
 	minishell = get_minishell();
 	if (signbr == SIGINT)
 	{
+		ft_putstr("\n");
 		if (minishell->executed == 1)
-		{
 			minishell->executed = 0;
-			ft_putstr("\n");
-		}
 		if (minishell->was_eof == 1)
 		{
 			minishell->was_eof = 0;
-			ft_putstr("\n");
+			// printf("minishell->line: %s\n", minishell->old_line);
+			// if (minishell->old_line)
+				// free(minishell->old_line);
 		}
+		// printf("minishell->line: %s\n", minishell->line);
+		// free(minishell->line);
+		prompt_msg();
 	}
 	else if (signbr == SIGQUIT)
 	{
@@ -58,14 +64,14 @@ void		print_lst(void)
 {
 	int i = 0;
 	t_minishell *minish;
-	t_cmd *tmp;
-	t_rdir *in;
-	t_rdir *out;
+	// t_cmd *tmp;
+	// t_rdir *in;
+	// t_rdir *out;
 
 	minish = get_minishell();
-	in = minish->cmd->in;
-	out = minish->cmd->out;
-	tmp = minish->cmd;
+	// in = minish->cmd->in;
+	// out = minish->cmd->out;
+	// tmp = minish->cmd;
 
 	ft_printf("line : %s\n", minish->line);
 	while (minish->tokens[i])
@@ -74,24 +80,24 @@ void		print_lst(void)
 		i++;
 	}
 	i = 0;
-	while (tmp != NULL)
-	{
-		while(tmp->argv[i])
-			printf("%s\n", tmp->argv[i++]);
-		printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
-		while (in != NULL)
-		{
-			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
-			in = in->next;
-		}
-		while (out != NULL)
-		{
-			ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
-			out = out->next;
-		}
-		tmp = tmp->next;
-		i = 0;
-	}
+	// while (tmp != NULL)
+	// {
+		// while(tmp->argv[i])
+			// printf("%s\n", tmp->argv[i++]);
+		// printf("has_path :%d\nis_dir :%d\nis_pipe :%d\n", tmp->has_path, tmp->is_rdir, tmp->pipe);
+		// while (in != NULL)
+		// {
+		// 	ft_printf("fd : %d\nfile : %s\ndbl : %d\n", in->fd, in->file, in->is_dbl);
+		// 	in = in->next;
+		// }
+		// while (out != NULL)
+		// {
+		// 	ft_printf("fd : %d\nfile : %s\ndbl : %d\n", out->fd, out->file, out->is_dbl);
+		// 	out = out->next;
+		// }
+		// tmp = tmp->next;
+		// i = 0;
+	// }
 }
 
 void		main_execution(void)
@@ -144,9 +150,9 @@ int			main(int ac, char **av, char **envv)
 		minishell->line = ft_strdup(av[2]);
 		ft_lexing();
 		if (!(ft_cmd_parse(minishell->tokens)))
-			return ((int)ft_exit_error());
+			return (1 || ft_exit_error());
 		if (!(ft_exec_cmd()))
-			return ((int)ft_exit_error());
+			return (1 || ft_exit_error());
 	}
 	ft_free_minishell();
 	ft_free_env();

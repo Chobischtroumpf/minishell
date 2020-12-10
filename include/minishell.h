@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/17 14:47:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 14:35:35 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct		s_env
 typedef struct		s_minishell
 {
 	char			*line;
+	char			*old_line;
 	char			**tokens;
 	int				executed : 1;
 	unsigned int	nbr_cmd : 11;
