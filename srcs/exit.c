@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:50:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 16:37:27 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static void	ft_free_line(void)
 {
 	if (get_minishell()->line)
 		free(get_minishell()->line);
+	if (get_minishell()->old_line)
+		free(get_minishell()->old_line);
 	get_minishell()->line = NULL;
+	get_minishell()->old_line = NULL;
 }
 
 /*

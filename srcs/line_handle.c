@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/10 15:45:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 17:07:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ static int	ft_was_eof(void)
 	t_minishell *minishell;
 	char		*line;
 
-	printf("was_eof\n");
+	// printf("was_eof\n");
 	minishell = get_minishell();
 	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
 		ft_exit_error();
+	// printf("temp line: %s\n", line);
+	printf("gnl_ret was_eof: %d\n", minishell->gnl_ret);
 	if (minishell->was_eof)
 		minishell->old_line = minishell->line;
 	else
@@ -63,7 +65,7 @@ static int	ft_was_eof(void)
 		minishell->was_eof = 0;
 	else if (minishell->gnl_ret == 0)
 	{
-		printf("here line : %s\n", minishell->line);
+		// printf("here line : %s\n", minishell->line);
 		ft_putstr("  \b\b");
 		return (0);
 	}
@@ -75,10 +77,11 @@ static int	ft_current_line(void)
 	char		*line;
 	t_minishell	*minishell;
 
-	printf("here\n");
+	// printf("here\n");
 	minishell = get_minishell();
 	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
 		ft_exit_error();
+	printf("gnl_ret current_line: %d\n", minishell->gnl_ret);
 	minishell->line = ft_strtrim(line, SPACE);
 	free(line);
 	if (minishell->gnl_ret == 0 && ft_strlen(minishell->line))

@@ -3,81 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:54:16 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/07 15:35:39 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/10 16:53:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strchr_pos(const char *s, int c)
+static char		*ft_strnewone(void)
 {
-	int pos;
+	char *ret;
 
-	pos = 0;
-	while (s && s[pos])
-	{
-		if (s[pos] == c)
-			return (pos);
-		pos++;
-	}
-	if (s && s[pos] == c)
-		return (pos);
-	return (-1);
-}
-
-static char	*ft_strjoin_to_eol(char *s1, char *buf)
-{
-	char	*tab;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (s1 && s1[i] && s1[i] != '\n')
-		i++;
-	while (buf && buf[j] && buf[j] != '\n')
-		j++;
-	if (!(tab = malloc(i + j + 1)))
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1 && s1[j])
-		tab[i++] = s1[j++];
-	while (buf && *buf && *buf != '\n')
-		tab[i++] = *buf++;
-	tab[i] = 0;
-	free(s1);
-	return (tab);
-}
-
-int			get_next_line(int fd, char **line)
-{
-	static char		buf[FOPEN_MAX][BUFFER_SIZE + 1];
-	int				ret;
-	int				i;
-
-	if (BUFFER_SIZE < 1 || fd < 0 || fd >= FOPEN_MAX || !line
-					|| !(*line = ft_strjoin_to_eol(NULL, buf[fd])))
-		return (-1);
-	ret = 1;
-	while (ft_strchr_pos(buf[fd], '\n') == -1 && ret)
-	{
-		ret = read(fd, buf[fd], BUFFER_SIZE);
-		if (ret == -1)
-			return (-1);
-		buf[fd][ret] = '\0';
-		if (!(*line = ft_strjoin_to_eol(*line, buf[fd])))
-			return (-1);
-	}
-	i = 0;
-	ret = ft_strchr_pos(buf[fd], '\n') + 1;
-	if (buf[fd][0] == 0)
+	if (!(ret = (char *)malloc(sizeof(char))))
 		return (0);
-	while (buf[fd][ret] != '\0' && ret)
-		buf[fd][i++] = buf[fd][ret++];
-	buf[fd][i] = '\0';
-	return (1);
+	ret[0] = '\0';
+	return (ret);
+}
+
+static int		extract(char **line, char **cache, int idx)
+{
+	char	*tmp;
+	int		ret;
+
+	if (idx >= 0)
+	{
+		if (!(*line = ft_substr(*cache, 0, idx)))
+			return (ft_strfree(cache, -1));
+		if (!(tmp = ft_substr(*cache, idx + 1, ft_strlen(*cache) - idx - 1)))
+			return (ft_strfree(cache, -1));
+		ret = 1;
+	}
+	else
+	{
+		if (!(*line = ft_substr(*cache, 0, ft_strlen(*cache))))
+			return (ft_strfree(cache, -1));
+		tmp = 0;
+		ret = 0;
+	}
+	ft_strfree(cache, 0);
+	*cache = tmp;
+	return (ret);
+}
+
+int				get_next_line(int fd, char **line)
+{
+	ssize_t		r_size;
+	char		buff[BUFFER_SIZE + 1];
+	static char	*cache;
+	char		*tmp;
+
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+		return (ft_strfree(&cache, -1));
+	while ((r_size = read(fd, buff, BUFFER_SIZE)) > 0)
+	{
+		buff[r_size] = '\0';
+		if (!(tmp = ft_strnjoin(cache, buff, r_size)))
+			return (ft_strfree(&cache, -1));
+		ft_strfree(&cache, 0);
+		cache = tmp;
+		if (ft_strnbr(cache) != -1)
+			break ;
+	}
+	if (r_size < 0)
+		return (ft_strfree(&cache, -1));
+	if (r_size == 0 && (!cache || *cache == '\0')
+		&& (*line = ft_strnewone()))
+		return (ft_strfree(&cache, 0));
+	return (extract(line, &cache, ft_strnbr(cache)));
 }

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/10 15:45:21 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 16:35:54 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void				ft_add_env(char **keyvalue);
 void				ft_add_env2(char *key, char *value);
 int					ft_remove_env(t_env **env_list, char *key);
 
+void				main_execution(void);
 int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);

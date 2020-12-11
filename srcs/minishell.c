@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/10 15:46:05 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/10 17:04:40 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,9 @@ void		signal_handler(int signbr)
 		if (minishell->executed == 1)
 			minishell->executed = 0;
 		if (minishell->was_eof == 1)
-		{
 			minishell->was_eof = 0;
-			// printf("minishell->line: %s\n", minishell->old_line);
-			// if (minishell->old_line)
-				// free(minishell->old_line);
-		}
-		// printf("minishell->line: %s\n", minishell->line);
-		// free(minishell->line);
-		prompt_msg();
+		ft_free_minishell();
+		main_execution();
 	}
 	else if (signbr == SIGQUIT)
 	{
@@ -108,8 +102,10 @@ void		main_execution(void)
 	while (1)
 	{
 		prompt_msg();
+		// printf("\nline before: %s\nold_line before: %s\n", minishell->line, minishell->old_line);
 		if (!ft_line_handle())
 			continue;
+		// printf("\nline after: %s\nold_line after: %s\n", minishell->line, minishell->old_line);
 		if (!ft_cmd_parse(minishell->tokens))
 		{
 			ft_free_minishell();
