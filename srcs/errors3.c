@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:51:38 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/26 23:53:23 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/13 16:17:05 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,12 @@ int		ft_eof_error(int nbr_tokens, int ret)
 		ft_putstr_fd("'", 2);
 	ft_putstr_fd("'\n", 2);
 	ft_free_minishell();
+	return (ret);
+}
+
+int		ft_err_read_error(char *arg, int ret)
+{
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("\n", 2);
 	return (ret);
 }

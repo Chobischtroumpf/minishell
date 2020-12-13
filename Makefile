@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
+#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/12/10 15:56:32 by adorigo          ###   ########.fr        #
+#    Updated: 2020/12/13 11:47:21 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			utils.c			\
 			utils2.c		\
 			utils3.c		\
+			utils4.c		\
 			env.c			\
 			env2.c			\
 			exec_cmd.c		\
@@ -58,7 +59,7 @@ LDLIBS = -lft
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-all: libft_bonus $(NAME)
+all: libft $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@$(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@

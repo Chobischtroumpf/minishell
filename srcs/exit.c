@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 09:51:12 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/10 16:37:27 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/13 16:17:59 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,11 @@ static void	ft_free_tokens(void)
 ** the ft_free_line function is in charge to free the minishell->line variable
 */
 
-static void	ft_free_line(void)
+void		ft_free_line(void)
 {
 	if (get_minishell()->line)
 		free(get_minishell()->line);
-	if (get_minishell()->old_line)
-		free(get_minishell()->old_line);
 	get_minishell()->line = NULL;
-	get_minishell()->old_line = NULL;
 }
 
 /*

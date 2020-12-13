@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_total.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:02:52 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/26 22:51:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/13 14:15:44 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-static int count_words(char const *str, char sep)
+static int	count_words(char const *str, char sep)
 {
 	int i;
 	int count;
@@ -31,11 +31,11 @@ static int count_words(char const *str, char sep)
 	return (count);
 }
 
-static char *malloc_word(char const *str, char sep)
+static char	*malloc_word(char const *str, char sep)
 {
-	char *word;
-	int word_len;
-	int i;
+	char	*word;
+	int		word_len;
+	int		i;
 
 	word_len = 0;
 	i = 0;
@@ -52,7 +52,7 @@ static char *malloc_word(char const *str, char sep)
 	return (word);
 }
 
-static void *free_tab(char **tab, int i)
+static void	*free_tab(char **tab, int i)
 {
 	while (i >= 0)
 	{
@@ -64,10 +64,10 @@ static void *free_tab(char **tab, int i)
 	return (NULL);
 }
 
-char **ft_split_total(char const *str, char sep)
+char		**ft_split_total(char const *str, char sep)
 {
-	char **tab;
-	int i;
+	char	**tab;
+	int		i;
 
 	if (!str)
 		return (0);

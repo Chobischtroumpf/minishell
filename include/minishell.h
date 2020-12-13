@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/10 16:35:54 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/13 13:27:32 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 typedef struct		s_rdir
 {
 	char			*file;
-	int				fd : 16;
+	int				fd;
 	int				is_dbl : 1;
 	int				std;
 	struct s_rdir	*next;
@@ -61,7 +61,6 @@ typedef struct		s_env
 typedef struct		s_minishell
 {
 	char			*line;
-	char			*old_line;
 	char			**tokens;
 	int				executed : 1;
 	unsigned int	nbr_cmd : 11;
@@ -73,8 +72,6 @@ typedef struct		s_minishell
 	t_env			*env;
 } 					t_minishell;
 
-
-
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
 
@@ -82,7 +79,6 @@ void			    ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
-
 
 void 				printoutarray(char **pointertoarray);
 void				check_dollar(t_cmd *cmd);
@@ -110,6 +106,8 @@ void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_count_arg(char **arr);
 void				open_redirection(t_cmd *cmd);
 void				close_redirection(t_cmd *cmd);
+int					get_next_char(int fd, char *cptr);
+char				*ft_chardup(char c);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
@@ -142,13 +140,14 @@ void				ft_free_node(t_env *env);
 int					ft_free_array(char **array);
 void				ft_free_redir(t_cmd *cmd);
 void				ft_free_cmd(t_cmd *cmd);
+void				ft_free_line(void);
+void				ft_free_all(void);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 
-
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_skip_quotes(char *str, int i);
-int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
+void				ft_numeric_arg_error(char *cmd,char *arg);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
@@ -160,5 +159,6 @@ void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
 int					ft_eof_error(int nbr_tokens, int ret);
+int					ft_err_read_error(char *arg, int  ret);
  
 #endif

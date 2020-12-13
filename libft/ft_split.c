@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:02:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/16 15:336 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/13 14:06:59 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int			count_words(char const *str, char sep)
 	count = 0;
 	while (str[i])
 	{
-		if ((!is_sep(str[i], sep) && is_sep(str[i - 1], sep)) || i == 0)
+		if (!is_sep(str[i], sep) && (i == 0 || is_sep(str[i - 1], sep)))
 			count++;
 		i++;
 	}
