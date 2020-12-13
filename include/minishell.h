@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/30 01:16:29 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/11 17:22:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int 				ft_line_handle(void);
 
 
 void 				printoutarray(char **pointertoarray);
+int					process_dollar(char *token, char *buffer, int *j);
 void				check_dollar(t_cmd *cmd);
 int					has_dollar(char *arg);
 char				*dollar_to_env(char *arg);

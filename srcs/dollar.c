@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/27 11:51:22 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/11 17:50:58 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,12 @@ char	*dollar_to_env(char *arg)
 		tmp = tmp->next;
 	}
 	return (arg);
+}
+
+int		process_dollar(char *token, char *buffer, int *j)
+{ 
+	printf("token : %s\n", token);
+	printf("buffer : %s\n", buffer);
+	printf("J : %d\n", *j);
+	return (0);
 }

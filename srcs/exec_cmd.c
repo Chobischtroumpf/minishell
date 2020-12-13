@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/30 01:14:30 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/11 17:23:45 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			ft_exec_cmd(void)
 	cmd = get_minishell()->cmd;
 	while (cmd)
 	{
-		check_dollar(cmd);
+		// check_dollar(cmd);
 		//check pipe
 		ft_dollar_quotes(cmd);
 		check_in(cmd->in);
