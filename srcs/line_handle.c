@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/11/27 12:01:11 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/13 16:23:34 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			ft_lexing(void)
 		return (0);
 	}
 	if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
-		exit(ft_free_minishell() && 0);
+		ft_exit_error();
 	while (++x < nbr_tokens)
 	{
 		tmp = ft_tokens_split(minishell->line, x + 1);
@@ -41,77 +41,47 @@ int			ft_lexing(void)
 	return (1);
 }
 
-static int	ft_was_eof(void)
+int			get_next_char(int fd, char *cptr)
 {
-	t_minishell *minishell;
-	char		*old_line;
-	char		*line;
+	static char	buf;
+	int			ret;
 
-	minishell = get_minishell();
-	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
-		ft_exit_error();
-	if (minishell->was_eof)
-		old_line = minishell->line;
+	buf = 0;
+	if (fd < 0 || fd > FOPEN_MAX || !cptr)
+		return (-1);
+	ret = read(fd, &buf, 1);
+	if (ret == -1)
+		ft_err_read_error("read failed", -1);
 	else
-		old_line = "";
-	if (!(minishell->line = ft_strjoin(old_line, line)))
-		ft_exit_error();
-	if (minishell->was_eof)
-		free(old_line);
-	free(line);
-	if (minishell->gnl_ret > 0)
-		minishell->was_eof = 0;
-	else if (minishell->gnl_ret == 0)
-	{
-		ft_putstr("  \b\b");
-		return (0);
-	}
-	return (1);
-}
-
-static int	ft_current_line(void)
-{
-	char		*line;
-	t_minishell	*minishell;
-
-	minishell = get_minishell();
-	if ((minishell->gnl_ret = get_next_line(1, &line)) < 0)
-		ft_exit_error();
-	minishell->line = ft_strtrim(line, SPACE);
-	free(line);
-	if (minishell->gnl_ret == 0 && ft_strlen(minishell->line))
-	{
-		minishell->was_eof = 1;
-		ft_putstr("  \b\b");
-		return (0);
-	}
-	else if (minishell->gnl_ret == 0 && !ft_strlen(minishell->line))
-	{
-		ft_putstr("  \b\b");
-		ft_eof_exit();
-	}
-	else if (!ft_strlen(minishell->line))
-		return (0);
-	return (1);
+		*cptr = buf;
+	return (ret);
 }
 
 int			ft_line_handle(void)
 {
-	t_minishell	*minishell;
+	t_minishell	*minish;
+	int			ret;
+	char		c;
 
-	minishell = get_minishell();
-	if (minishell->was_eof)
+	minish = get_minishell();
+	while ((ret = get_next_char(STDIN_FILENO, &c)) == 1)
 	{
-		if (!(ft_was_eof()))
-			return (0);
+		if (c == '\n')
+			break ;
+		minish->line = ft_strjoin_doublefree(minish->line, ft_chardup(c));
 	}
-	else
+	if (ret == -1)
+		ft_exit_error();
+	if (ret == 1)
 	{
-		if (!(ft_current_line()))
+		if (!minish->line || !ft_lexing())
 			return (0);
+		free(minish->line);
+		minish->line = NULL;
 	}
-	if (minishell->line)
-		if (!ft_lexing())
-			return (0);
-	return (1);
+	else if (ret == 0 && (minish->was_eof = 1))
+		if (!minish->line || !(minish->line)[0])
+			ft_eof_exit();
+	minish->was_eof = 0;
+	return (ret);
 }
