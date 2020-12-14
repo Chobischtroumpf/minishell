@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/14 12:52:32 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/14 13:10:46 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,17 @@ int 	check_part_cases(char *token, char *buffer, int *j)
 int		check_env(char *token, char *buffer, int *j)
 {
 	int len;
-	
+	char *value;
 	len = ft_strlen(token);
 	printf("token : %s\n", token);
 	printf("buffer : %s\nj : %d\n", buffer, *j);
 	while (len--)
 	{
-		if ()
+		if ((value = ft_find_by_key2(ft_substr(token,1 , len))))
+		{
+			add_str_to_buffer(buffer, value, j);
+			return (ft_strlen(token));
+		}
 	}
 	return 0;
 }
