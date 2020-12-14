@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/14 12:19:16 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/14 17:24:04 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*check_quote(char *token, int i)
 			while (token[i] != '"')
 			{
 				if (token[i] == '$')
-					i += process_dollar(&token[i], buffer, &j);//replacer l'env, virer les guillemets, placer un délimiteur pour le split, renvoyer la longueur de l'env
+					i += process_dollar(&token[i], buffer, &j, 1);//replacer l'env, virer les guillemets, placer un délimiteur pour le split, renvoyer la longueur de l'env
 				else
 					i += backslash_checker(&token[i], buffer, &j, 1);
 				i++;
@@ -76,7 +76,7 @@ static char	*check_quote(char *token, int i)
 		{
 			i--;
 			if (token[i] == '$')
-				i += 1;
+				i += process_dollar(&token[i], buffer, &j, 0);
 			else
 				i += backslash_checker(&token[i], buffer, &j, 1);
 		}
@@ -85,17 +85,23 @@ static char	*check_quote(char *token, int i)
 	return (ft_strdup(buffer));
 }
 
-int			ft_dollar_quotes(t_cmd *cmd)
+int		ft_dollar_quotes(t_cmd *cmd)
 {
 	char	*old_arg;
 	int		i;
+	int		splits;
 
 	i = -1;
 	while (cmd->argv[++i])
 	{
 		old_arg = cmd->argv[i];
 		cmd->argv[i] = check_quote(cmd->argv[i], -1);
-		//split d'arg de nathan, faire gaffe a incrementer i pour ne pas repasser dessus avec le checkeur
+		splits = ft_is_split(cmd->argv[i]);
+		if (splits)
+		{
+			cmd->argv = ft_split_args(cmd->argv, i);
+			i += splits;
+		}
 		free(old_arg);
 	}
 	return (1);

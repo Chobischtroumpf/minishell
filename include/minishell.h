@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/11 17:22:04 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/14 17:02:43 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,12 @@ void			    ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
+int					ft_is_split(char *str);
+char				**ft_split_args(char **args, int i);
 
 
 void 				printoutarray(char **pointertoarray);
-int					process_dollar(char *token, char *buffer, int *j);
+int					process_dollar(char *token, char *buffer, int *j, int quote);
 void				check_dollar(t_cmd *cmd);
 int					has_dollar(char *arg);
 char				*dollar_to_env(char *arg);

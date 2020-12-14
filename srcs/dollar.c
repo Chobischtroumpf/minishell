@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/14 13:10:46 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/14 17:26:26 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,6 @@ int		has_dollar(char *arg)
 	}
 	free(str);
 	return (0);
-}
-
-char	*replace_false_dollar(char *arg, int i)
-{
-	char	*tmp;
-	char	*prefix;
-	char	*suffix;
-	int		j;
-
-	tmp = ft_substr(arg, i, ft_strlen(arg) - i);
-	j = 0;
-	while (tmp[++j])
-		if (tmp[j] == '$')
-			break ;
-	if (j > 0 && tmp[j] == '$' && tmp[j - 1] == '\\')
-	{
-		free(tmp);
-		return (arg);
-	}
-	prefix = ft_substr(arg, 0, i);
-	suffix = ft_substr(tmp, j, ft_strlen(tmp) - j);
-	free(arg);
-	arg = ft_strjoin_free(prefix, suffix);
-	free(tmp);
-	free(suffix);
-	return (arg);
 }
 
 char	*replace_by_env(char *arg, char *key, char *value, int i)
@@ -119,8 +93,8 @@ char	*dollar_to_env(char *arg)
 				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \\\t<>|;\",\']", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
-				if (!ft_find_by_key(str) && arg[i + 1])
-					arg = replace_false_dollar(arg, i);
+				// if (!ft_find_by_key(str) && arg[i + 1])
+				// 	arg = replace_false_dollar(arg, i);
 				free(str);
 				break ;
 			}
@@ -163,30 +137,53 @@ int		check_env(char *token, char *buffer, int *j)
 	int len;
 	char *value;
 	len = ft_strlen(token);
-	printf("token : %s\n", token);
-	printf("buffer : %s\nj : %d\n", buffer, *j);
 	while (len--)
 	{
-		if ((value = ft_find_by_key2(ft_substr(token,1 , len))))
+		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("|,_", token[len]) || !token[len + 1]))
 		{
 			add_str_to_buffer(buffer, value, j);
-			return (ft_strlen(token));
+			return (len);
 		}
 	}
 	return 0;
 }
 
-int		process_dollar(char *token, char *buffer, int *j)
-{	
-	int ret;
-	char *token2;
+int 	replace_false_dollar(char *token, char *buffer, int *j)
+{
+	int i;
+	int count;
 	
-	token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
+	i = 1;
+	count =0;
+	while (token[i] && !ft_haschr("|", token[i]))
+	{
+		i++;
+		count++;
+	}
+	if (token[i] != '$' && token[i]!= '|')
+		while (token[i])
+			buffer[++*j] = token[i++];
+	return (count);
+}
+
+
+int		process_dollar(char *token, char *buffer, int *j, int quote)
+{	
+	int		ret;
+	char	*token2;
+	
+	ret = 0;
+	if (quote)
+		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
+	else
+		token2 = ft_strdup(token);
 
 	if ((ret = check_part_cases(token2, buffer, j)))// handles $$ and $?
-		return (ret);
+		return(free_str_ret(token2, ret));
 	else if ((ret = check_env(token2, buffer, j))) // is it in env ?
-		return (ret);
-	// not existent()
+		return(free_str_ret(token2, ret));
+	else if ((ret = replace_false_dollar(token2, buffer, j))) // if not in env, get rid off the false key
+		return(free_str_ret(token2, ret));
+	free(token2);
 	return (ret);
 }
