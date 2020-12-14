@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 11:43:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/14 11:58:11 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void		main_execution(void)
 		prompt_msg();
 		if (!ft_line_handle())
 			continue ;
+		minishell->was_eof = 0;
 		if (!ft_cmd_parse(minishell->tokens))
 		{
 			ft_free_minishell();

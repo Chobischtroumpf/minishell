@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/13 16:23:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/14 11:57:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ int			ft_line_handle(void)
 	else if (ret == 0 && (minish->was_eof = 1))
 		if (!minish->line || !(minish->line)[0])
 			ft_eof_exit();
-	minish->was_eof = 0;
 	return (ret);
 }
