@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 11:46:43 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/14 11:43:17 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,28 @@ static void	prompt_msg(void)
 
 void		signal_handler(int signbr)
 {
-	t_minishell	*minishell;
-
-	minishell = get_minishell();
 	if (signbr == SIGINT)
 	{
-		minishell->executed = 0;
-		minishell->was_eof = 0;
-		ft_putchar('\n');
-		prompt_msg();
-		free(minishell->line);
-		minishell->line = NULL;
+			ft_putchar('\n');
+		if (get_minishell()->executed == 1)
+		{
+			get_minishell()->executed = 0;
+		}
+		else
+		{
+			get_minishell()->was_eof = 0;
+			prompt_msg();
+			free(get_minishell()->line);
+			get_minishell()->line = NULL;
+		}
 	}
 	else if (signbr == SIGQUIT)
 	{
-		if (minishell->executed == 1)
+		if (get_minishell()->executed == 1)
 		{
 			ft_putstr("Quit (core dumped)\n");
-			minishell->executed = 0;
+			get_minishell()->executed = 0;
 		}
-		else
-			ft_putstr("  \b\b");
 	}
 }
 

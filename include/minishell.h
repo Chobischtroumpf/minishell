@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 13:27:32 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/14 11:36:31 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct		s_rdir
 {
 	char			*file;
 	int				fd;
-	int				is_dbl : 1;
+	int				is_dbl : 2;
 	int				std;
 	struct s_rdir	*next;
 }					t_rdir;
@@ -43,9 +43,9 @@ typedef struct		s_rdir
 typedef struct		s_cmd
 {
 	char			**argv;
-	int				pipe : 1;
-	int				is_rdir : 1;
-	int				has_path : 1;
+	int				pipe : 2;
+	int				is_rdir : 2;
+	int				has_path : 2;
 	t_rdir			*in;
 	t_rdir			*out;
 	struct s_cmd	*next;
@@ -62,10 +62,10 @@ typedef struct		s_minishell
 {
 	char			*line;
 	char			**tokens;
-	int				executed : 1;
+	int				executed : 2;
 	unsigned int	nbr_cmd : 11;
-	int				was_eof : 1;
-	int				backslash : 1;
+	int				was_eof : 2;
+	int				backslash : 2;
 	int				gnl_ret : 2;
 	int				excode;
 	t_cmd			*cmd;
