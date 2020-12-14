@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 11:58:11 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:03:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ int			main(int ac, char **av, char **envv)
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
 	{
 		minishell->line = ft_strdup(av[2]);
-		ft_lexing();
+		if (!ft_lexing())
+			return (1 || ft_exit_error());
 		if (!(ft_cmd_parse(minishell->tokens)))
 			return (1 || ft_exit_error());
 		if (!(ft_exec_cmd()))
