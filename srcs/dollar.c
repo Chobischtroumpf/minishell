@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/11 17:50:58 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/14 12:52:32 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,56 @@ char	*dollar_to_env(char *arg)
 	return (arg);
 }
 
-int		process_dollar(char *token, char *buffer, int *j)
-{ 
-	printf("token : %s\n", token);
-	printf("buffer : %s\n", buffer);
-	printf("J : %d\n", *j);
+void	add_str_to_buffer(char *buffer, char *str, int *j)
+{
+	while(*str)
+	{
+		buffer[++*j] = *str++;
+	}
+}
+
+int 	check_part_cases(char *token, char *buffer, int *j)
+{
+	if (!ft_strncmp(token, "$$", 2))
+	{
+		add_str_to_buffer(buffer, "TEMP_PID", j);
+		return (1);
+	}
+	else if (!ft_strncmp(token, "$?", 2))
+	{
+		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j);
+		return (1);
+	}
+	// $ alone
 	return (0);
+		
+}
+
+int		check_env(char *token, char *buffer, int *j)
+{
+	int len;
+	
+	len = ft_strlen(token);
+	printf("token : %s\n", token);
+	printf("buffer : %s\nj : %d\n", buffer, *j);
+	while (len--)
+	{
+		if ()
+	}
+	return 0;
+}
+
+int		process_dollar(char *token, char *buffer, int *j)
+{	
+	int ret;
+	char *token2;
+	
+	token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
+
+	if ((ret = check_part_cases(token2, buffer, j)))// handles $$ and $?
+		return (ret);
+	else if ((ret = check_env(token2, buffer, j))) // is it in env ?
+		return (ret);
+	// not existent()
+	return (ret);
 }

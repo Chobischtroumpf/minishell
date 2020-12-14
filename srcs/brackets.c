@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/11 17:32:17 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/14 12:19:16 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 {
 	int ret;
-
+	
 	ret = 0;
 	if (tokken[0] == '\\' && quote)
 	{
@@ -64,14 +64,17 @@ static char	*check_quote(char *token, int i)
 		else if (token[i++] == '"')
 		{
 			while (token[i] != '"')
+			{
 				if (token[i] == '$')
 					i += process_dollar(&token[i], buffer, &j);//replacer l'env, virer les guillemets, placer un délimiteur pour le split, renvoyer la longueur de l'env
 				else
 					i += backslash_checker(&token[i], buffer, &j, 1);
-			buffer[++j] = token[i];
+				i++;
+			}		
 		}
 		else
 		{
+			i--;
 			if (token[i] == '$')
 				i += 1;
 			else
