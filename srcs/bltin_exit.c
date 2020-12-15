@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 16:15:23 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/14 14:05:14 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,24 @@ static int		ft_atol_check(const char *str)
 	int				is_negative;
 	int				is_sign;
 	const char		*str_cpy;
+	int				i;
 
 	str_cpy = ft_strtrim(str, " \t");
 	is_negative = checker(&str_cpy);
 	is_sign = check_sign(str_cpy[0]);
+	i = is_sign;
 	while (str_cpy[is_sign])
 		if (!ft_isdigit(str_cpy[is_sign++]))
 			return (0);
 	nb = 0;
-	while (str_cpy[is_sign] >= '0' && str_cpy[is_sign] <= '9')
+	while (str_cpy[i] >= '0' && str_cpy[i] <= '9')
 	{
 		if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
 			return (0);
 		nb *= 10;
-		if (nb > LONG_MAX && (nb + str_cpy[is_sign] - '0') < INT_MAX)
+		if (nb > (unsigned long)LONG_MAX && (nb + str_cpy[i] - '0') < INT_MAX)
 			return (0);
-		nb += str_cpy[is_sign++] - '0';
+		nb += str_cpy[i++] - '0';
 	}
 	if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
 		return ((long)0);
