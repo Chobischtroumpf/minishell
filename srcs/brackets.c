@@ -59,8 +59,8 @@ char	*check_quote(char *token, int i)
 	ft_bzero(buffer, LINE_MAX);
 	while (token[++i])
 		if (token[i] == '\'')
-			while(token[i] != '\'')
-				buffer[++j] = token[i++];
+			while(token[++i] != '\'')
+				buffer[++j] = token[i];
 		else if (token[i] == '"')
 			while (token[++i] != '"')
 			{
