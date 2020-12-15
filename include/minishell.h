@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 11:36:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/15 16:08:51 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
-// # define LINE_MAX 1024
+# ifdef LINE_MAX
+#  undef LINE_MAX
+#  define LINE_MAX 100024
+# endif
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -79,8 +82,12 @@ void			    ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
+int					ft_is_split(char *str);
+char				**ft_split_args(char **args, int i);
 
+char				*check_quote(char *token, int i);
 void 				printoutarray(char **pointertoarray);
+int					process_dollar(char *token, char *buffer, int *j, int quote);
 void				check_dollar(t_cmd *cmd);
 int					has_dollar(char *arg);
 char				*dollar_to_env(char *arg);
@@ -93,9 +100,8 @@ char				*ft_tokens_split(char *line, int nbr_tokens);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
-int					ft_bracket_removal(t_cmd **cmd);
+int					ft_dollar_quotes(t_cmd *cmd);
 int					ft_isascii_except(int c);
-char				*ft_arg_cleaner(char *arg);
 int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);

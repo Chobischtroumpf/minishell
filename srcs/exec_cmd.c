@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/25 14:50:24 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/15 16:10:04 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	check_in(t_rdir *in)
 
 	while (in)
 	{
-		tmp = ft_arg_cleaner(in->file);
+		tmp = check_quote(in->file, -1);
 		free(in->file);
 		in->file = tmp;
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
@@ -85,7 +85,7 @@ static int	check_out(t_rdir *out)
 
 	while (out)
 	{
-		tmp = ft_arg_cleaner(out->file);
+		tmp = check_quote(out->file, -1);
 		free(out->file);
 		out->file = tmp;
 		if (out->is_dbl)
@@ -117,19 +117,15 @@ int			ft_exec_cmd(void)
 	cmd = get_minishell()->cmd;
 	while (cmd)
 	{
-		check_dollar(cmd);
+		// check_dollar(cmd);
+		ft_dollar_quotes(cmd);
 		//check pipe
-		// printf("\n-----ARGS AFTER DOLLAR-----\n\n");
-		// printoutarray(cmd->argv);
-		ft_bracket_removal(&cmd);
-		// printf("\n-----ARGS AFTER BRACKETS-----\n\n");
-		// printoutarray(cmd->argv);
 		check_in(cmd->in);
 		check_out(cmd->out);
 		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
-		else
+		else if (cmd->argv[0])
 			ft_exec_extern(cmd);
 		close_redirection(cmd);
 		cmd = cmd->next;
