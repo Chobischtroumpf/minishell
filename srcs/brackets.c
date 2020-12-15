@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/14 17:24:04 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/15 12:38:11 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 	return (ret);
 }
 
-static int	check_single_quote(char *token, char *buffer, int *j)
-{
-	int	i;
+// static int	check_single_quote(char *token, char *buffer, int *j)
+// {
+// 	int	i;
 
-	i = 1;
-	buffer[++*j] = *(token++);
-	while(*(token) != '\'' && i++)
-		buffer[++*j] = *(token++);
-	buffer[++*j] = *(token);
-	return (i);
-}
+// 	i = 1;
+// 	buffer[++*j] = *(token++);
+// 	while(*(token) != '\'' && i++)
+// 		buffer[++*j] = *(token++);
+// 	buffer[++*j] = *(token);
+// 	return (i);
+// }
 
 static char	*check_quote(char *token, int i)
 {
@@ -60,7 +60,8 @@ static char	*check_quote(char *token, int i)
 	while (token[++i])
 	{
 		if (token[i] == '\'')
-			i += check_single_quote(&token[i], buffer, &j);
+			while(token[i] != '\'')
+				buffer[++j] = token[i++];
 		else if (token[i++] == '"')
 		{
 			while (token[i] != '"')
@@ -97,10 +98,10 @@ int		ft_dollar_quotes(t_cmd *cmd)
 		old_arg = cmd->argv[i];
 		cmd->argv[i] = check_quote(cmd->argv[i], -1);
 		splits = ft_is_split(cmd->argv[i]);
-		if (splits)
+		if (splits && cmd->argv[i][0] == 3)
 		{
+			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i])); //used to remove splitting flag. this should be rewritten, probably causing leaks
 			cmd->argv = ft_split_args(cmd->argv, i);
-			i += splits;
 		}
 		free(old_arg);
 	}

@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/14 17:26:26 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/15 12:37:30 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,24 +107,32 @@ char	*dollar_to_env(char *arg)
 	return (arg);
 }
 
-void	add_str_to_buffer(char *buffer, char *str, int *j)
+void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
+	int flag;
+	
+	if (ft_is_split(str))
+		flag = 1;
+	else
+		flag = 0;
+	if (flag && !quote)
+		buffer[++*j] = 3;
 	while(*str)
 	{
 		buffer[++*j] = *str++;
 	}
 }
 
-int 	check_part_cases(char *token, char *buffer, int *j)
+int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 {
 	if (!ft_strncmp(token, "$$", 2))
 	{
-		add_str_to_buffer(buffer, "TEMP_PID", j);
+		add_str_to_buffer(buffer, "TEMP_PID", j, quote);
 		return (1);
 	}
 	else if (!ft_strncmp(token, "$?", 2))
 	{
-		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j);
+		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j, quote);
 		return (1);
 	}
 	// $ alone
@@ -132,7 +140,7 @@ int 	check_part_cases(char *token, char *buffer, int *j)
 		
 }
 
-int		check_env(char *token, char *buffer, int *j)
+int		check_env(char *token, char *buffer, int *j, int quote)
 {
 	int len;
 	char *value;
@@ -141,7 +149,7 @@ int		check_env(char *token, char *buffer, int *j)
 	{
 		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("|,_", token[len]) || !token[len + 1]))
 		{
-			add_str_to_buffer(buffer, value, j);
+			add_str_to_buffer(buffer, value, j, quote);
 			return (len);
 		}
 	}
@@ -177,10 +185,10 @@ int		process_dollar(char *token, char *buffer, int *j, int quote)
 		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
 	else
 		token2 = ft_strdup(token);
-
-	if ((ret = check_part_cases(token2, buffer, j)))// handles $$ and $?
+	
+	if ((ret = check_part_cases(token2, buffer, j, quote)))// handles $$ and $?
 		return(free_str_ret(token2, ret));
-	else if ((ret = check_env(token2, buffer, j))) // is it in env ?
+	else if ((ret = check_env(token2, buffer, j, quote))) // is it in env ?
 		return(free_str_ret(token2, ret));
 	else if ((ret = replace_false_dollar(token2, buffer, j))) // if not in env, get rid off the false key
 		return(free_str_ret(token2, ret));
