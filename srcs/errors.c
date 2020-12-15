@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/25 14:24:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/14 13:51:56 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ int		ft_no_cmd_error(char *cmd, int ret)
 ** the numeric_arg_error function prints the numeric_arg_error to stderr
 */
 
-int		ft_numeric_arg_error(char *cmd, char *arg, int ret)
+void	ft_numeric_arg_error(char *cmd, char *arg)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	return (ret);
 }
 
 /*
@@ -75,58 +74,4 @@ int		ft_parse_error(char *error, int ret)
 	ft_putstr_fd(error, 2);
 	ft_putstr_fd("'\n", 2);
 	return (ret);
-}
-
-/*
-** the exit_error function frees the minishell struct, assigns errno to strerr
-** and prints strerr to the stderr
-*/
-
-void	*ft_exit_error(void)
-{
-	char *strerr;
-
-	ft_free_minishell();
-	ft_free_env();
-	strerr = strerror(errno);
-	ft_putstr_fd(strerr, 2);
-	exit(-1);
-	return (NULL);
-}
-
-int		ft_invalid_identifier(char *cmd, char *arg)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": `", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-	return (1);
-}
-
-long	ft_error_shlvl(long shlvl)
-{
-	char	*shlvl_str;
-
-	// printf("shlvl in error = %d\n", shlvl);
-	if (!(shlvl_str = ft_itoa(shlvl)))
-		ft_exit_error();
-	// printf("shlvl_str in error = %s\n", shlvl_str);
-	ft_putstr_fd("minishell: warning: shell level (", 2);
-	ft_putstr_fd(shlvl_str, 2);
-	ft_putstr_fd(") too high, resetting to 1\n", 2);
-	free(shlvl_str);
-	return ((long)1);
-}
-
-int		ft_eof_error(int nbr_tokens, int ret)
-{
-	ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
-	if (nbr_tokens == -1)
-		ft_putstr_fd("\"", 2);
-	else if (nbr_tokens == -2)
-		ft_putstr_fd("'", 2);
-	ft_putstr_fd("'\n", 2);
-	ft_free_minishell();
-	return(ret);
 }

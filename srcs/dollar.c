@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/24 13:31:36 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/11 18:29:16 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		has_dollar(char *arg)
 {
-	int i;
-	char *str;
-	char *tmp;
+	int		i;
+	char	*str;
+	char	*tmp;
 
 	i = 0;
 	if (ft_strchr(arg, '$'))
@@ -30,9 +30,9 @@ int		has_dollar(char *arg)
 	while (str[i])
 	{
 		if (i > 0 && str[i] == '$' && str[i - 1] != '\\' && str[i + 1])
-			return (free_str_ret(str));
+			return (free_str_ret(str, 1));
 		else if (str[i] == '$' && str[i + 1] && str[i - 1] != '\\')
-			return (free_str_ret(str));
+			return (free_str_ret(str, 1));
 		else if (str[i] == '\'' && !ft_backslash_counter(str, i - 1))
 		{
 			i++;
@@ -115,9 +115,8 @@ char	*dollar_to_env(char *arg)
 				arg = replace_by_env(arg, key, value, i);
 			else if (arg[i] == '$')
 			{
-				// printf("ARG = %s\n", arg);
 				j = 1;
-				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \t<>|;\"'", arg[i + j]))
+				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \\\t<>|;\",\']", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
 				if (!ft_find_by_key(str) && arg[i + 1])
@@ -132,19 +131,4 @@ char	*dollar_to_env(char *arg)
 		tmp = tmp->next;
 	}
 	return (arg);
-}
-
-void	check_dollar(t_cmd *cmd)
-{
-	char	**args;
-	int		i;
-
-	i = 0;
-	args = cmd->argv;
-	while (args[i])
-	{
-		while (has_dollar(args[i]))
-			args[i] = dollar_to_env(args[i]);
-		i++;
-	}
 }

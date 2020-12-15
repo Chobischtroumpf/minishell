@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/24 22:15:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/14 11:36:31 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 typedef struct		s_rdir
 {
 	char			*file;
-	int				fd : 16;
-	int				is_dbl : 1;
+	int				fd;
+	int				is_dbl : 2;
 	int				std;
 	struct s_rdir	*next;
 }					t_rdir;
@@ -43,9 +43,9 @@ typedef struct		s_rdir
 typedef struct		s_cmd
 {
 	char			**argv;
-	int				pipe : 1;
-	int				is_rdir : 1;
-	int				has_path : 1;
+	int				pipe : 2;
+	int				is_rdir : 2;
+	int				has_path : 2;
 	t_rdir			*in;
 	t_rdir			*out;
 	struct s_cmd	*next;
@@ -62,16 +62,15 @@ typedef struct		s_minishell
 {
 	char			*line;
 	char			**tokens;
-	int				executed : 1;
+	int				executed : 2;
 	unsigned int	nbr_cmd : 11;
-	int				was_eof : 1;
+	int				was_eof : 2;
+	int				backslash : 2;
 	int				gnl_ret : 2;
 	int				excode;
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
-
-
 
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
@@ -81,9 +80,12 @@ long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 
+void 				printoutarray(char **pointertoarray);
 void				check_dollar(t_cmd *cmd);
+int					has_dollar(char *arg);
+char				*dollar_to_env(char *arg);
 char				*remove_char(char *str, char c);
-int					free_str_ret(char *str);
+int					free_str_ret(char *str, int ret);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int i, int space);
@@ -104,10 +106,14 @@ void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_count_arg(char **arr);
 void				open_redirection(t_cmd *cmd);
 void				close_redirection(t_cmd *cmd);
+int					get_next_char(int fd, char *cptr);
+char				*ft_chardup(char c);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
+char				*ft_strjoin_delimiter_free(char *s1, char *s2, char del);
 char 				**ft_env_to_array(void);
+void				ft_append_env(char **keyvalue);
 int					ft_valid_key(char *str);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
@@ -117,6 +123,7 @@ void				ft_add_env(char **keyvalue);
 void				ft_add_env2(char *key, char *value);
 int					ft_remove_env(t_env **env_list, char *key);
 
+void				main_execution(void);
 int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
@@ -133,13 +140,14 @@ void				ft_free_node(t_env *env);
 int					ft_free_array(char **array);
 void				ft_free_redir(t_cmd *cmd);
 void				ft_free_cmd(t_cmd *cmd);
+void				ft_free_line(void);
+void				ft_free_all(void);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 
-
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_skip_quotes(char *str, int i);
-int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
+void				ft_numeric_arg_error(char *cmd,char *arg);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
@@ -151,5 +159,6 @@ void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
 int					ft_eof_error(int nbr_tokens, int ret);
+int					ft_err_read_error(char *arg, int  ret);
  
 #endif

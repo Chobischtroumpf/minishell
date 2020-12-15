@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/23 22:52:12 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/13 13:26:50 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	update_pwd(void)
 	ft_remove_env(&get_minishell()->env, "PWD");
 	ft_remove_env(&get_minishell()->env, "OLDPWD");
 	ft_add_env2("OLDPWD", oldpwd);
-	ft_add_env2("PWD", pwd); 
+	ft_add_env2("PWD", pwd);
 	free(oldpwd);
 }
 
@@ -55,14 +55,13 @@ int		ft_chdir_err(int err_code, char *arg)
 	return (-err_code);
 }
 
-void init_home(void)
+void	init_home(void)
 {
 	if (!ft_find_by_key2("OLDPWD"))
 		ft_add_env2("OLDPWD", "");
 	if (!ft_find_by_key2("HOME"))
 		ft_add_env2("HOME", "");
 }
-
 
 int		ft_exec_cd(t_cmd *cmd)
 {

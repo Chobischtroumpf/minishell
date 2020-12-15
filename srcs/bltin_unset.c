@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/24 22:41:02 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/27 12:02:46 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ char	*ft_get_env_value(t_env *env_list, char *key)
 **	and re-link the list.
 */
 
-int	ft_remove_env(t_env **env_list, char *key)
+int		ft_remove_env(t_env **env_list, char *key)
 {
 	t_env	*current;
 	t_env	*next;
 
-	if (!(*env_list))
-		return (0);
 	while (*env_list && ft_is_key(*env_list, key) == 0)
 	{
 		next = (*env_list)->next;
@@ -72,7 +70,6 @@ int	ft_remove_env(t_env **env_list, char *key)
 			next = current->next->next;
 			ft_free_node(current->next);
 			current->next = next;
-			return (0);
 		}
 		else
 			current = current->next;
@@ -82,18 +79,18 @@ int	ft_remove_env(t_env **env_list, char *key)
 
 int		ft_valid_key2(char *str)
 {
-	char *tmp;
-	int i;
+	char	*tmp;
+	int		i;
 
 	tmp = str;
 	i = 0;
-	if(!tmp[i])
-			return (0);
-	while(tmp[i])
+	if (!tmp[i])
+		return (0);
+	while (tmp[i])
 	{
-		if(!ft_isalnum(tmp[i]))
+		if (!ft_isalnum(tmp[i]))
 			return (0);
-		if(ft_isspace(tmp[i]))
+		if (ft_isspace(tmp[i]))
 			return (0);
 		i++;
 	}
@@ -120,7 +117,7 @@ int		ft_exec_unset(t_cmd *cmd)
 	fail = 0;
 	value = NULL;
 	while (args[i])
-	{	
+	{
 		if (ft_valid_key2(args[i]))
 			value = ft_get_env_value(get_minishell()->env, args[i]);
 		else

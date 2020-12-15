@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_delimiter.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 09:32:08 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 13:30:14 by alessandro       ###   ########.fr       */
+/*   Created: 2020/12/13 14:16:14 by alessandro        #+#    #+#             */
+/*   Updated: 2020/12/13 14:18:33 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+/*
+**	Joins *char 's1' and *char 's2' with a character 'del' between the two.
+*/
+
+char	*ft_strjoin_delimiter(char *s1, char *s2, char del)
 {
-	char	*new;
+	char	*str;
+	char	*to_free;
+	int		total;
 	int		i;
 
 	i = 0;
-	if (!(new = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char))))
+	to_free = s1;
+	if (!s1 || !s2)
 		return (NULL);
-	while (s1 && *s1)
-		new[i++] = *s1++;
-	while (s2 && *s2)
-		new[i++] = *s2++;
-	new[i] = '\0';
-	return (new);
+	total = ft_strlen(s1) + ft_strlen(s2) + 2;
+	if (!(str = (char *)malloc(total * sizeof(char))))
+		return (NULL);
+	while (*s1)
+		str[i++] = *s1++;
+	str[i++] = del;
+	while (*s2)
+		str[i++] = *s2++;
+	str[i] = '\0';
+	return (str);
 }
