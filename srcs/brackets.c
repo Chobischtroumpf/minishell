@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/15 12:38:11 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/15 16:08:15 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 // 	return (i);
 // }
 
-static char	*check_quote(char *token, int i)
+char	*check_quote(char *token, int i)
 {
 	char	buffer[LINE_MAX];
 	int		j;
@@ -58,30 +58,24 @@ static char	*check_quote(char *token, int i)
 	j = -1;
 	ft_bzero(buffer, LINE_MAX);
 	while (token[++i])
-	{
 		if (token[i] == '\'')
 			while(token[i] != '\'')
 				buffer[++j] = token[i++];
-		else if (token[i++] == '"')
-		{
-			while (token[i] != '"')
+		else if (token[i] == '"')
+			while (token[++i] != '"')
 			{
 				if (token[i] == '$')
-					i += process_dollar(&token[i], buffer, &j, 1);//replacer l'env, virer les guillemets, placer un délimiteur pour le split, renvoyer la longueur de l'env
+					i += process_dollar(&token[i], buffer, &j, 1);
 				else
 					i += backslash_checker(&token[i], buffer, &j, 1);
-				i++;
 			}		
-		}
 		else
 		{
-			i--;
 			if (token[i] == '$')
 				i += process_dollar(&token[i], buffer, &j, 0);
 			else
 				i += backslash_checker(&token[i], buffer, &j, 1);
 		}
-	}
 	buffer[++j] = '\0';
 	return (ft_strdup(buffer));
 }

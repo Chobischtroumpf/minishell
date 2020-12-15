@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 17:02:43 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/15 16:08:51 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int 				ft_line_handle(void);
 int					ft_is_split(char *str);
 char				**ft_split_args(char **args, int i);
 
-
+char				*check_quote(char *token, int i);
 void 				printoutarray(char **pointertoarray);
 int					process_dollar(char *token, char *buffer, int *j, int quote);
 void				check_dollar(t_cmd *cmd);
