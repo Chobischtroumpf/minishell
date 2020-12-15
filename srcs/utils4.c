@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 10:27:20 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 16:18:11 by alessandro       ###   ########.fr       */
+/*   Created: 2020/12/11 15:02:38 by alessandro        #+#    #+#             */
+/*   Updated: 2020/12/11 15:03:51 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_cmd(t_cmd *cmd)
+char	*ft_chardup(char c)
 {
-	t_cmd	*tmp;
-	int		i;
+	char *dup;
 
-	while (cmd)
+	if (!(dup = (char*)ft_calloc(2, sizeof(char))))
 	{
-		tmp = cmd->next;
-		if (cmd->argv)
-		{
-			i = 0;
-			while (cmd->argv[i])
-				free(cmd->argv[i++]);
-			free(cmd->argv);
-		}
-		ft_free_redir(cmd);
-		free(cmd);
-		cmd = tmp;
+		ft_exit_error();
+		return (NULL);
 	}
-}
-
-void	ft_free_all(void)
-{
-	ft_free_minishell();
-	ft_free_env();
+	dup[0] = c;
+	return (dup);
 }

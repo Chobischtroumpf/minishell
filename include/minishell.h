@@ -37,8 +37,8 @@
 typedef struct		s_rdir
 {
 	char			*file;
-	int				fd : 16;
-	int				is_dbl : 1;
+	int				fd;
+	int				is_dbl : 2;
 	int				std;
 	struct s_rdir	*next;
 }					t_rdir;
@@ -46,9 +46,9 @@ typedef struct		s_rdir
 typedef struct		s_cmd
 {
 	char			**argv;
-	int				pipe : 1;
-	int				is_rdir : 1;
-	int				has_path : 1;
+	int				pipe : 2;
+	int				is_rdir : 2;
+	int				has_path : 2;
 	t_rdir			*in;
 	t_rdir			*out;
 	struct s_cmd	*next;
@@ -65,16 +65,15 @@ typedef struct		s_minishell
 {
 	char			*line;
 	char			**tokens;
-	int				executed : 1;
+	int				executed : 2;
 	unsigned int	nbr_cmd : 11;
-	int				was_eof : 1;
+	int				was_eof : 2;
+	int				backslash : 2;
 	int				gnl_ret : 2;
 	int				excode;
 	t_cmd			*cmd;
 	t_env			*env;
 } 					t_minishell;
-
-
 
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
@@ -113,6 +112,8 @@ void				ft_add_redir_cmd(t_cmd *cmd,char *redir, char *file);
 int					ft_count_arg(char **arr);
 void				open_redirection(t_cmd *cmd);
 void				close_redirection(t_cmd *cmd);
+int					get_next_char(int fd, char *cptr);
+char				*ft_chardup(char c);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
@@ -128,6 +129,7 @@ void				ft_add_env(char **keyvalue);
 void				ft_add_env2(char *key, char *value);
 int					ft_remove_env(t_env **env_list, char *key);
 
+void				main_execution(void);
 int					ft_exec_cd(t_cmd *cmd);
 int					ft_exec_pwd(void);
 int					ft_exec_echo(t_cmd *cmd);
@@ -144,13 +146,14 @@ void				ft_free_node(t_env *env);
 int					ft_free_array(char **array);
 void				ft_free_redir(t_cmd *cmd);
 void				ft_free_cmd(t_cmd *cmd);
+void				ft_free_line(void);
+void				ft_free_all(void);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 
-
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_skip_quotes(char *str, int i);
-int					ft_numeric_arg_error(char *cmd,char *arg, int ret);
+void				ft_numeric_arg_error(char *cmd,char *arg);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 int					ft_no_file_error(char *cmd, char *file, int ret);
@@ -162,5 +165,6 @@ void				ft_err_not_dir(char *arg);
 void				ft_err_file_too_long(char *arg);
 void				ft_err_loop(char *arg);
 int					ft_eof_error(int nbr_tokens, int ret);
+int					ft_err_read_error(char *arg, int  ret);
  
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/26 23:51:34 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/14 13:51:56 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ int		ft_no_cmd_error(char *cmd, int ret)
 ** the numeric_arg_error function prints the numeric_arg_error to stderr
 */
 
-int		ft_numeric_arg_error(char *cmd, char *arg, int ret)
+void	ft_numeric_arg_error(char *cmd, char *arg)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(arg, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	return (ret);
 }
 
 /*

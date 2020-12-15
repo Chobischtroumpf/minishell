@@ -6,16 +6,16 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:09:03 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/05 12:31:41 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/14 13:51:32 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		count_len(int nbr)
+static int		count_len(long nbr)
 {
 	int				count;
-	unsigned int	unbr;
+	unsigned long	unbr;
 
 	if (nbr == 0)
 		return (1);
@@ -46,7 +46,7 @@ char			*ft_itoa(long n)
 		return (NULL);
 	str[len] = '\0';
 	is_negative = 0;
-	unbr = n;
+	unbr = (unsigned long)n;
 	if (n < 0)
 	{
 		is_negative = 1;

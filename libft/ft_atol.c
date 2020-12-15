@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 10:46:26 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/18 12:18:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/13 14:06:39 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ long		ft_atol(const char *str)
 	nb = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (!is_negative && nb > (unsigned long)LONG_MAX )
+		if (!is_negative && nb > (unsigned long)LONG_MAX)
 			return (1);
 		else if (nb > (unsigned long)LONG_MIN)
 			return (0);

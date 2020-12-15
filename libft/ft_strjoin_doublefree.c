@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin_doublefree.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 10:27:20 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 16:18:11 by alessandro       ###   ########.fr       */
+/*   Created: 2020/12/11 18:29:40 by alessandro        #+#    #+#             */
+/*   Updated: 2020/12/13 13:23:51 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_free_cmd(t_cmd *cmd)
+char	*ft_strjoin_doublefree(char *s1, char *s2)
 {
-	t_cmd	*tmp;
-	int		i;
+	char		*dest;
 
-	while (cmd)
-	{
-		tmp = cmd->next;
-		if (cmd->argv)
-		{
-			i = 0;
-			while (cmd->argv[i])
-				free(cmd->argv[i++]);
-			free(cmd->argv);
-		}
-		ft_free_redir(cmd);
-		free(cmd);
-		cmd = tmp;
-	}
-}
-
-void	ft_free_all(void)
-{
-	ft_free_minishell();
-	ft_free_env();
+	if (!(dest = ft_strjoin(s1, s2)))
+		return (NULL);
+	free(s1);
+	free(s2);
+	return (dest);
+	return (NULL);
 }
