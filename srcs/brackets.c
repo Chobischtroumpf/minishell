@@ -17,10 +17,10 @@ static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 	int ret;
 	
 	ret = 0;
-	if (tokken[0] == '\\' && quote)
+	if (*tokken == '\\' && quote)
 	{
 		ret = 1;
-		if (ft_haschr("$'\"\\", tokken[1]))
+		if (ft_haschr("$\"\\", tokken[1]))
 			buffer[++*j] = *(++tokken);
 		else
 		{
@@ -28,7 +28,7 @@ static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 			buffer[++*j] = *(++tokken);
 		}
 	}
-	else if (tokken[0] == '\\')
+	else if (*tokken == '\\')
 	{
 		ret = 1;
 		buffer[++*j] = *(++tokken);
@@ -37,18 +37,6 @@ static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 		buffer[++*j] = *tokken;
 	return (ret);
 }
-
-// static int	check_single_quote(char *token, char *buffer, int *j)
-// {
-// 	int	i;
-
-// 	i = 1;
-// 	buffer[++*j] = *(token++);
-// 	while(*(token) != '\'' && i++)
-// 		buffer[++*j] = *(token++);
-// 	buffer[++*j] = *(token);
-// 	return (i);
-// }
 
 char	*check_quote(char *token, int i)
 {
@@ -74,7 +62,7 @@ char	*check_quote(char *token, int i)
 			if (token[i] == '$')
 				i += process_dollar(&token[i], buffer, &j, 0);
 			else
-				i += backslash_checker(&token[i], buffer, &j, 1);
+				i += backslash_checker(&token[i], buffer, &j, 0);
 		}
 	buffer[++j] = '\0';
 	return (ft_strdup(buffer));
