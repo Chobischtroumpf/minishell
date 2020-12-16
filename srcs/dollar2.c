@@ -6,7 +6,7 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/15 12:32:17 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/16 16:39:55 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,3 @@ int		ft_is_split(char *str)
 	free(tmp);
 	return (count);
 }
-
-// void	check_dollar(t_cmd *cmd)
-// {
-// 	char	**args;
-// 	int		i;
-
-// 	i = 0;
-// 	args = cmd->argv;
-// 	while (args[i])
-// 	{
-// 		while (has_dollar(args[i]))
-// 		{
-// 			args[i] = dollar_to_env(args[i]);
-// 			if (ft_is_split(args[i]))
-// 				cmd->argv = ft_gros_bordel(args, i);
-// 		}
-// 		i++;
-// 	}
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/11 18:29:16 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/16 15:57:27 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	len = ft_strlen(token);
 	while (len--)
 	{
-		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("|,_", token[len]) || !token[len + 1]))
+		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("_", token[len + 1]) || !token[len + 1]))
 		{
 			add_str_to_buffer(buffer, value, j, quote);
 			return (len);
