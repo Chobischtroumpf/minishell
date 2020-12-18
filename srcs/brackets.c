@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/18 14:48:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/18 16:03:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int ft_dollar_quotes(t_cmd *cmd)
 	int i;
 	int splits;
 
-	i = -1;
+	// i = -1;
 	// while (cmd->argv[++i])
 	// 	printf("BEFORE : ARG[%d] = |%s|\n", i, cmd->argv[i]);
 	// printf("------------------------------------\n");
@@ -125,7 +125,7 @@ int ft_dollar_quotes(t_cmd *cmd)
 	{
 		remove_all_chars(cmd->argv[i], 3);
 	}
-	i = -1;
+	// i = -1;
 	// printf("------------------------------------\n");
 	// while (cmd->argv[++i])
 	// 	printf("AFTER : ARG[%d] = |%s|\n", i, cmd->argv[i]);
