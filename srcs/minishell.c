@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 14:07:49 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/17 23:34:02 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		print_lst(void);
 static void	prompt_msg(void)
 {
 	if (get_minishell()->was_eof == 0)
-		ft_putstr("\033[32mminishell\033[0m$ ");
+		ft_putstr_fd("\033[32mminishell\033[0m$ ", 2);
 }
 
 /*

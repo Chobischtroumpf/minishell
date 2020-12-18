@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/15 16:10:04 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/18 00:44:34 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	check_in(t_rdir *in)
 		free(in->file);
 		in->file = tmp;
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
-			return (ft_no_file_error(NULL, in->file, 0));
+			return (ft_err_file_not_found(NULL, in->file, 0));
 		if (in->next)
 			close(in->fd);
 		in = in->next;
@@ -117,11 +117,14 @@ int			ft_exec_cmd(void)
 	cmd = get_minishell()->cmd;
 	while (cmd)
 	{
-		// check_dollar(cmd);
 		ft_dollar_quotes(cmd);
 		//check pipe
-		check_in(cmd->in);
-		check_out(cmd->out);
+		if (!check_in(cmd->in) || !check_out(cmd->out))
+		{
+			get_minishell()->excode = 1;
+			cmd = cmd->next;
+			continue;
+		}
 		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));

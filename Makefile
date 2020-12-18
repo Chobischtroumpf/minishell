@@ -6,7 +6,7 @@
 #    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/12/13 11:47:21 by alessandro       ###   ########.fr        #
+#    Updated: 2020/12/17 22:42:33 by alessandro       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			errors.c		\
 			errors2.c		\
 			errors3.c		\
+			errors4.c		\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
@@ -45,7 +46,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			dollar2.c		\
 			brackets.c		\
 			free.c			\
-			shlvl.c			
+			shlvl.c			\
+			files.c
 
 
 OBJ_PATH = objs
