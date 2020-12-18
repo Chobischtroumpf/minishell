@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/16 15:57:27 by ncolin           ###   ########.fr       */
+/*   Updated: 2020/12/18 15:14:36 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,43 @@ char	*dollar_to_env(char *arg)
 	return (arg);
 }
 
+void skip_spaces(char *str)
+{
+	char *trimmed;
+	char *untrimmed;
+	int prev_space;
+	// printf("before trim |%s|\n", str);
+	trimmed = str;
+	untrimmed = str;
+	prev_space = 0;
+	while (*untrimmed)
+	{
+		if (ft_isspace(*untrimmed))
+		{
+			if (!prev_space)
+			{
+				*trimmed++ = ' ';
+				prev_space = 1;
+			}
+		}
+		else
+		{
+			*trimmed++ = *untrimmed;
+			prev_space = 0; 
+		}
+		++untrimmed;
+	}
+	*trimmed = '\0';
+	// printf("after  trim |%s|\n", str);
+
+}
+
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
 	int flag;
 	
+	if (!quote)
+		skip_spaces(str);
 	if (ft_is_split(str))
 		flag = 1;
 	else
@@ -142,6 +175,7 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 
 int		check_env(char *token, char *buffer, int *j, int quote)
 {
+	// printf("TOKEN = |%s|\n", token);
 	int len;
 	char *value;
 	len = ft_strlen(token);
@@ -150,9 +184,13 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("_", token[len + 1]) || !token[len + 1]))
 		{
 			add_str_to_buffer(buffer, value, j, quote);
+			// if(!quote)
+			// 	skip_spaces(buffer);
 			return (len);
 		}
 	}
+	
+
 	return 0;
 }
 
@@ -175,6 +213,7 @@ int 	replace_false_dollar(char *token, char *buffer, int *j)
 }
 
 
+
 int		process_dollar(char *token, char *buffer, int *j, int quote)
 {	
 	int		ret;
@@ -183,6 +222,7 @@ int		process_dollar(char *token, char *buffer, int *j, int quote)
 	ret = 0;
 	if (quote)
 		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
+	
 	else
 		token2 = ft_strdup(token);
 	
