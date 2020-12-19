@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/19 13:39:09 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/19 14:23:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ static int backslash_checker(char *tokken, char *buffer, int *j, int quote)
 	return (ret);
 }
 
-
-
-
 char *check_quote(char *token, int i)
 {
 	char buffer[LINE_MAX];
@@ -50,14 +47,11 @@ char *check_quote(char *token, int i)
 	ft_bzero(buffer, LINE_MAX);
 	while (token[++i])
 	{
-		// printf("token i et token i + 1 : %c%c\n", token[i], token[i+1]);
 		if (token[i] == '\'')
 		{
-			// printf("SKIPPING SINGLE QUOTE\nTOKEN = %s\nPOS in token = %d\n\n", token, i);
 			i++;
 			while (token[i] != '\'')
 				buffer[++j] = token[i++];
-			// printf("SKIPPED SINGLE QUOTE\nTOKEN = %s\nPOS in token = %d\nBUFFER = %s\n\n", token, i, buffer);
 		}
 		else if (token[i] == '"')
 			while (token[++i] != '"')
@@ -70,16 +64,11 @@ char *check_quote(char *token, int i)
 		else
 		{			
 			if (token[i] == '$')
-			{
 				i += process_dollar(&token[i], buffer, &j, 0);
-				// printf("DOLLAR PROCESSED :\nPOSITION DE SORTIE : %c\n I = %d\n\n", token[i], i);
-				// printf("LONGUEUR DE TOKEN = %zu, I = %d\n\n", ft_strlen(token), i);
-			}
 			else
 				i += backslash_checker(&token[i], buffer, &j, 0);
 		}
 	}
-	// printf("===========OUT OF WHILE\n\n");
 	buffer[++j] = '\0';
 	return (ft_strdup(buffer));
 }
@@ -103,10 +92,10 @@ int ft_dollar_quotes(t_cmd *cmd)
 	int i;
 	int splits;
 
-	// i = -1;
-	// while (cmd->argv[++i])
-	// 	printf("BEFORE : ARG[%d] = |%s|\n", i, cmd->argv[i]);
-	// printf("------------------------------------\n");
+	i = -1;
+	while (cmd->argv[++i])
+		printf("BEFORE : ARG[%d] = |%s|\n", i, cmd->argv[i]);
+	printf("------------------------------------\n");
 	i = -1;
 	while (cmd->argv[++i])
 	{
@@ -125,9 +114,9 @@ int ft_dollar_quotes(t_cmd *cmd)
 	i = -1;
 	while (cmd->argv[++i])
 		remove_all_chars(cmd->argv[i], 3);
-	// i = -1;
-	// printf("------------------------------------\n");
-	// while (cmd->argv[++i])
-	// 	printf("AFTER : ARG[%d] = |%s|\n", i, cmd->argv[i]);
+	i = -1;
+	printf("------------------------------------\n");
+	while (cmd->argv[++i])
+		printf("AFTER : ARG[%d] = |%s|\n", i, cmd->argv[i]);
 	return (1);
 }

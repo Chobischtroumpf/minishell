@@ -6,14 +6,16 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/19 13:39:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/19 14:10:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void skip_spaces(char *str)
-{
+{	
+	if (!str || ft_strlen(str) < 2)
+		return;
 	char *trimmed;
 	char *untrimmed;
 	int prev_space;
@@ -54,8 +56,7 @@ void skip_spaces(char *str)
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
 	int flag;
-
-	if (!quote)
+	if (!quote && ft_haschr(str, ' '))
 		skip_spaces(str);
 	if (ft_is_split(str))
 		flag = 1;
@@ -63,6 +64,7 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 		flag = 0;
 	if (flag && !quote)
 		buffer[++*j] = 3;
+	
 	while(*str)
 	{
 		buffer[++*j] = *str++;
@@ -71,7 +73,7 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 
 int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 {
-	// printf("token |%s|\n", token);
+	// printf("token |%s|\nBuffer |%s|\n\n", token, buffer);
 	if (!ft_strncmp(token, "$$", 2))
 	{
 		add_str_to_buffer(buffer, "TEMP_PID", j, quote);
@@ -82,9 +84,11 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j, quote);
 		return (1);
 	}
-	else if (token[0] == '$' && (ft_haschr("\\",token[1]) || !token[1]))
+	else if (token[0] == '$' && (ft_haschr("\\",token[1]) || !token[1]) )
 	{
-		buffer[++*j] = '$';
+		// printf("buffer = %s\n", buffer);
+		add_str_to_buffer(buffer, "$", j, quote);
+		// printf("buffer = %s\n", buffer);
 		return 1;
 	}
 	return (0);
@@ -93,7 +97,6 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 
 int		check_env(char *token, char *buffer, int *j, int quote)
 {
-	// printf("IN CHECK ENV\n");
 	int len;
 	char *value;
 	len = ft_strlen(token);
@@ -102,7 +105,6 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("_", token[len + 1]) || !token[len + 1]))
 		{	
 			add_str_to_buffer(buffer, value, j, quote);
-			// printf("var value %s\nlen %d\n", value, len);
 			return (len);
 		}
 	}
