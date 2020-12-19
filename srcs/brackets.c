@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/19 14:23:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/19 15:05:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void remove_all_chars(char *str, char c)
 	*pw = '\0';
 }
 
-
 int ft_dollar_quotes(t_cmd *cmd)
 {
 	char *old_arg;
@@ -93,9 +92,9 @@ int ft_dollar_quotes(t_cmd *cmd)
 	int splits;
 
 	i = -1;
-	while (cmd->argv[++i])
-		printf("BEFORE : ARG[%d] = |%s|\n", i, cmd->argv[i]);
-	printf("------------------------------------\n");
+	// while (cmd->argv[++i])
+	// 	printf("BEFORE : ARG[%d] = |%s|\n", i, cmd->argv[i]);
+	// printf("------------------------------------\n");
 	i = -1;
 	while (cmd->argv[++i])
 	{
@@ -108,15 +107,14 @@ int ft_dollar_quotes(t_cmd *cmd)
 			cmd->argv = ft_split_args(cmd->argv, i);
 			i += splits;
 		}
-
 		free(old_arg);
 	}
 	i = -1;
 	while (cmd->argv[++i])
 		remove_all_chars(cmd->argv[i], 3);
 	i = -1;
-	printf("------------------------------------\n");
-	while (cmd->argv[++i])
-		printf("AFTER : ARG[%d] = |%s|\n", i, cmd->argv[i]);
+	// printf("------------------------------------\n");
+	// while (cmd->argv[++i])
+	// 	printf("AFTER : ARG[%d] = |%s|\n", i, cmd->argv[i]);
 	return (1);
 }

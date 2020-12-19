@@ -6,16 +6,14 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/19 14:10:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/19 15:24:08 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void skip_spaces(char *str)
+void skip_extra_spaces(char *str)
 {	
-	if (!str || ft_strlen(str) < 2)
-		return;
 	char *trimmed;
 	char *untrimmed;
 	int prev_space;
@@ -55,16 +53,17 @@ void skip_spaces(char *str)
 
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
-	int flag;
+	// int flag;
 	if (!quote && ft_haschr(str, ' '))
-		skip_spaces(str);
-	if (ft_is_split(str))
-		flag = 1;
-	else
-		flag = 0;
-	if (flag && !quote)
+	{
+		skip_extra_spaces(str);
+	}
+	// if (ft_is_split(str))
+	// 	flag = 1;
+	// else
+	// 	flag = 0;
+	if (!quote)
 		buffer[++*j] = 3;
-	
 	while(*str)
 	{
 		buffer[++*j] = *str++;
@@ -92,7 +91,6 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 		return 1;
 	}
 	return (0);
-		
 }
 
 int		check_env(char *token, char *buffer, int *j, int quote)
@@ -108,8 +106,6 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 			return (len);
 		}
 	}
-	
-
 	return 0;
 }
 
@@ -141,7 +137,6 @@ int		process_dollar(char *token, char *buffer, int *j, int quote)
 	ret = 0;
 	if (quote)
 		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
-	
 	else
 		token2 = ft_strdup(token);
 	
