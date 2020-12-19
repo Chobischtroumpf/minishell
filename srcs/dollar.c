@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/18 16:14:26 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/19 13:39:37 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 
 int		check_env(char *token, char *buffer, int *j, int quote)
 {
-	
+	// printf("IN CHECK ENV\n");
 	int len;
 	char *value;
 	len = ft_strlen(token);
@@ -102,6 +102,7 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("_", token[len + 1]) || !token[len + 1]))
 		{	
 			add_str_to_buffer(buffer, value, j, quote);
+			// printf("var value %s\nlen %d\n", value, len);
 			return (len);
 		}
 	}
@@ -117,7 +118,7 @@ int 	replace_false_dollar(char *token, char *buffer, int *j)
 	
 	i = 1;
 	count =0;
-	while (token[i] && !ft_haschr("|", token[i]))
+	while (token[i] && !ft_haschr("|$", token[i]))
 	{
 		i++;
 		count++;
