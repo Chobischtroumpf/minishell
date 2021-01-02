@@ -23,16 +23,22 @@ static t_cmd	*ft_new_cmd(char *token)
 
 	if (!(new = malloc(sizeof(t_cmd))))
 		ft_exit_error();
-	if (!(new->argv = malloc(sizeof(char *) * 2)))
-		ft_exit_error();
-	new->argv[0] = ft_strdup(token);
-	new->argv[1] = NULL;
+	if (token)
+	{
+		if (!(new->argv = malloc(sizeof(char *) * 2)))
+			ft_exit_error();
+		new->argv[0] = ft_strdup(token);
+		new->argv[1] = NULL;
+	}
+	else
+	{
+		if (!(new->argv = malloc(sizeof(char *) * 1)))
+			ft_exit_error();
+		new->argv[0] = NULL;
+	}
 	new->pipe = 0;
 	new->is_rdir = 0;
-	if (ft_strchr(new->argv[0], '/'))
-		new->has_path = 1;
-	else
-		new->has_path = 0;
+	new->has_path = 0;
 	new->in = NULL;
 	new->out = NULL;
 	new->next = NULL;
@@ -121,10 +127,10 @@ int				ft_cmd_parse(char **tokens)
 	while (tokens[i])
 	{
 		if (new && !(new = 0))
-			minishell->cmd = ft_add_cmd(minishell->cmd, tokens[i]);
-		else if (!ft_strcmp(tokens[i], "|") && (new = 1))
+			minishell->cmd = ft_add_cmd(minishell->cmd, NULL);
+		if (!ft_strcmp(tokens[i], "|") && (new = 1))
 			ft_add_pipe_cmd(minishell->cmd);
-		else if (ft_is_redir(tokens[i]) && (i++))
+		else if (ft_is_redir(tokens[i]) && (++i))
 			ft_add_redir_cmd(minishell->cmd, tokens[i - 1], tokens[i]);
 		else if (!ft_strcmp(tokens[i], ";") && (new = 1) && (i++))
 			continue;

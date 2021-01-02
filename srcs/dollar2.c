@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/27 12:02:21 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/15 12:32:17 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_out_array(char **pointertoarray)
 	}
 }
 
-char	**ft_gros_bordel(char **args, int i)
+char	**ft_split_args(char **args, int i)
 {
 	char	**splitted;
 	char	**new_args;
@@ -67,37 +67,40 @@ int		ft_is_split(char *str)
 {
 	char	*tmp;
 	int		i;
+	int count;
 
+	count = 0;
 	tmp = ft_strtrim(str, " ");
 	i = 0;
 	while (str[i])
 	{
 		if (ft_isspace(str[i]))
 		{
-			free(tmp);
-			return (1);
+			count++;
+			while (ft_isspace(str[++i]))
+				;
 		}
 		i++;
 	}
 	free(tmp);
-	return (0);
+	return (count);
 }
 
-void	check_dollar(t_cmd *cmd)
-{
-	char	**args;
-	int		i;
+// void	check_dollar(t_cmd *cmd)
+// {
+// 	char	**args;
+// 	int		i;
 
-	i = 0;
-	args = cmd->argv;
-	while (args[i])
-	{
-		while (has_dollar(args[i]))
-		{
-			args[i] = dollar_to_env(args[i]);
-			if (ft_is_split(args[i]))
-				cmd->argv = ft_gros_bordel(args, i);
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	args = cmd->argv;
+// 	while (args[i])
+// 	{
+// 		while (has_dollar(args[i]))
+// 		{
+// 			args[i] = dollar_to_env(args[i]);
+// 			if (ft_is_split(args[i]))
+// 				cmd->argv = ft_gros_bordel(args, i);
+// 		}
+// 		i++;
+// 	}
+// }

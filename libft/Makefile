@@ -62,7 +62,7 @@ $(OBJECTS_FT_PRINTF) : $(SRCS_FT_PRINTF)
 $(OBJECTS_B) : $(SRCS_B)
 		clang $(CFLAGS) $(SRCS_B)
 
-bonus : fclean $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
+bonus : $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 	@ar rcs libft.a $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 
 clean : 

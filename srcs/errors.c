@@ -6,27 +6,30 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 13:43:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/13 15:40:17 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/18 00:44:15 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_no_file_error(char *cmd, char *file, int ret)
+int		ft_error_dispatch(int ret_val, char *cmd, char *arg)
 {
-	ft_putstr_fd("minishell", 2);
-	if (cmd)
-	{
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(cmd, 2);
-	}
-	if (file)
-	{
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(file, 2);
-	}
-	ft_putstr_fd(": No such file or directory\n", 2);
-	return (ret);
+	if (errno == EFAULT)
+		ret_val = 11;
+	else if (errno == ENOENT)
+		ft_err_file_not_found(cmd, arg, 127);
+	else if (errno == EISDIR)
+		ft_err_is_dir(cmd, arg, 0);
+	else if (errno == EACCES)
+		ft_err_no_access(cmd, arg, 0);
+	else if (errno == ENAMETOOLONG)
+		ft_err_file_too_long(cmd, arg);
+	else if (errno == ELOOP)
+		ft_err_loop(cmd, arg);
+	else
+		ret_val = 0;
+	errno = 0;
+	return (ret_val);
 }
 
 int		ft_no_cmd_error(char *cmd, int ret)

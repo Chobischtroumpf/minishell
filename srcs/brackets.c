@@ -3,118 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/10 15:59:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/15 16:08:15 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			quote_removal(char *c)
+static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 {
-	if (*c == '"' || *c == '\'')
+	int ret;
+	
+	ret = 0;
+	if (*tokken == '\\' && quote)
 	{
-		*c = 2;
-		return (1);
-	}
-	return (0);
-}
-
-char		*ft_backslash_remover(char *arg, int i, int *nbr_bkslsh)
-{
-	char	*new_arg;
-
-	new_arg = NULL;
-	if (arg[i] == '\\')
-	{
-		while (arg[i] == '\\')
+		ret = 1;
+		if (ft_haschr("$\"\\", tokken[1]))
+			buffer[++*j] = *(++tokken);
+		else
 		{
-			*nbr_bkslsh += 1;
-			if (*nbr_bkslsh % 2)
-				arg[i] = 2;
-			i++;
+			buffer[++*j] = *tokken;
+			buffer[++*j] = *(++tokken);
 		}
-		if (!(new_arg = ft_strtrim_integral(arg, (char)2)))
-			return (NULL);
 	}
-	if (!new_arg)
-		new_arg = ft_strdup(arg);
-	free(arg);
-	return (new_arg);
+	else if (*tokken == '\\')
+	{
+		ret = 1;
+		buffer[++*j] = *(++tokken);
+	}
+	else
+		buffer[++*j] = *tokken;
+	return (ret);
 }
 
-char		*ft_arg_cleaner(char *arg)
+char	*check_quote(char *token, int i)
 {
+	char	buffer[LINE_MAX];
 	int		j;
-	int		previous_j;
-	int		nbr_bckslsh;
-	char	*new_arg;
-	char	*arg_cpy;
 
-	j = 0;
-	arg_cpy = strdup(arg);
-	while (arg_cpy[j])
-	{
-		nbr_bckslsh = 0;
-		arg_cpy = ft_backslash_remover(arg_cpy, j, &nbr_bckslsh);
-		if (arg_cpy[j] == '"' && !(nbr_bckslsh % 2))
-		{
-			previous_j = j;
-			j = ft_brackets(arg_cpy, j);
-			quote_removal(&arg_cpy[previous_j]);
-			quote_removal(&arg_cpy[j]);
-			while (previous_j < j)
+	j = -1;
+	ft_bzero(buffer, LINE_MAX);
+	while (token[++i])
+		if (token[i] == '\'')
+			while(token[++i] != '\'')
+				buffer[++j] = token[i];
+		else if (token[i] == '"')
+			while (token[++i] != '"')
 			{
-				nbr_bckslsh = 0;
-				while (arg_cpy[previous_j] == '\\' && ft_isascii_except(arg[previous_j + 1]))
-				{
-					nbr_bckslsh += 1;
-					if (nbr_bckslsh % 2)
-						arg_cpy[previous_j] = 2;
-					previous_j++;
-				}
-				previous_j++;
-			}
-		}
-		else if (arg_cpy[j] == '\'' && !(nbr_bckslsh % 2))
+				if (token[i] == '$')
+					i += process_dollar(&token[i], buffer, &j, 1);
+				else
+					i += backslash_checker(&token[i], buffer, &j, 1);
+			}		
+		else
 		{
-			previous_j = j;
-			j = ft_brackets(arg_cpy, j);
-			quote_removal(&arg_cpy[j]);
-			quote_removal(&arg_cpy[previous_j]);
+			if (token[i] == '$')
+				i += process_dollar(&token[i], buffer, &j, 0);
+			else
+				i += backslash_checker(&token[i], buffer, &j, 0);
 		}
-		j++;
-	}
-	if (!(new_arg = ft_strtrim_integral(arg_cpy, (char)2)))
-		return ((char*)ft_exit_error());
-	free(arg_cpy);
-	return (new_arg);
+	buffer[++j] = '\0';
+	return (ft_strdup(buffer));
 }
 
-int			ft_bracket_removal(t_cmd **cmd)
+int		ft_dollar_quotes(t_cmd *cmd)
 {
-	char	**new_argv;
+	char	*old_arg;
 	int		i;
+	int		splits;
 
-	i = 0;
-	while ((*cmd)->argv[i])
-		i++;
-	if (!(new_argv = malloc(sizeof(char *) * (i + 1))))
-		return (-1);
-	i = 0;
-	while ((*cmd)->argv[i])
+	i = -1;
+	while (cmd->argv[++i])
 	{
-		if (!(new_argv[i] = ft_arg_cleaner((*cmd)->argv[i])))
+		old_arg = cmd->argv[i];
+		cmd->argv[i] = check_quote(cmd->argv[i], -1);
+		splits = ft_is_split(cmd->argv[i]);
+		if (splits && cmd->argv[i][0] == 3)
 		{
-			ft_free_array(new_argv);
-			return (0 && ft_exit_error());
+			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i])); //used to remove splitting flag. this should be rewritten, probably causing leaks
+			cmd->argv = ft_split_args(cmd->argv, i);
 		}
-		i++;
+		free(old_arg);
 	}
-	new_argv[i] = NULL;
-	ft_free_array((*cmd)->argv);
-	(*cmd)->argv = new_argv;
 	return (1);
 }

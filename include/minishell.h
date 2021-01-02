@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 11:36:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/12/17 23:46:43 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@
 # include <signal.h>
 # include <errno.h>
 
+# define IS_DIR 040000
+# define IS_LINK 080000
 # define SEP_SPACE " 	<>|;"
 # define SEP "<>|;"
 # define SPACE " \t"
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
-// # define LINE_MAX 1024
+# ifdef LINE_MAX
+#  undef LINE_MAX
+#  define LINE_MAX 100024
+# endif
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -79,8 +84,12 @@ void			    ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
+int					ft_is_split(char *str);
+char				**ft_split_args(char **args, int i);
 
+char				*check_quote(char *token, int i);
 void 				printoutarray(char **pointertoarray);
+int					process_dollar(char *token, char *buffer, int *j, int quote);
 void				check_dollar(t_cmd *cmd);
 int					has_dollar(char *arg);
 char				*dollar_to_env(char *arg);
@@ -93,9 +102,8 @@ char				*ft_tokens_split(char *line, int nbr_tokens);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
-int					ft_bracket_removal(t_cmd **cmd);
+int					ft_dollar_quotes(t_cmd *cmd);
 int					ft_isascii_except(int c);
-char				*ft_arg_cleaner(char *arg);
 int					ft_skip_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
@@ -134,6 +142,12 @@ int					ft_exec_unset(t_cmd *cmd);
 int					ft_exec_export(t_cmd *cmd);
 void				ft_exec_extern(t_cmd *cmd);
 
+int					ft_file_readable(char *cmd);
+int					ft_file_is_exec(char *cmd);
+int					ft_file_is_dir(char *cmd);
+int					ft_file_exists(char *cmd);
+int					ft_file_is_symlink(char *cmd);
+
 int					ft_free_minishell(void);
 void				ft_free_env(void);
 void				ft_free_node(t_env *env);
@@ -145,20 +159,24 @@ void				ft_free_all(void);
 void				ft_eof_exit(void);
 void				ft_get_exit_code(int status, int excode);
 
+int					ft_error_dispatch(int ret_val, char *cmd, char *arg);
 int					ft_too_many_args(char *cmd, int ret);
 int					ft_skip_quotes(char *str, int i);
 void				ft_numeric_arg_error(char *cmd,char *arg);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
-int					ft_no_file_error(char *cmd, char *file, int ret);
 void 				*ft_exit_error(void);
 int					ft_invalid_identifier(char *cmd, char *arg);
-void				ft_err_file_not_found(char *arg);
-void				ft_err_no_access(char *arg);
-void				ft_err_not_dir(char *arg);
-void				ft_err_file_too_long(char *arg);
-void				ft_err_loop(char *arg);
+int					ft_err_file_not_found(char *cmd, char *arg, int ret);
+int					ft_err_no_access(char *cmd, char *arg, int ret);
+void				ft_err_not_dir(char *cmd, char *arg);
+int					ft_err_is_dir(char *cmd, char *arg, int ret);
+void				ft_err_file_too_long(char *cmd, char *arg);
+void				ft_err_loop(char *cmd, char *arg);
 int					ft_eof_error(int nbr_tokens, int ret);
+int					ft_err_not_exec(char *cmd,char *arg, int ret);
 int					ft_err_read_error(char *arg, int  ret);
- 
+int					ft_err_is_segfault(char *cmd, char *arg, int ret);
+int					ft_err_is_symlink_loop(char *cmd, int ret_val);
+
 #endif

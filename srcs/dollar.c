@@ -45,32 +45,6 @@ int		has_dollar(char *arg)
 	return (0);
 }
 
-char	*replace_false_dollar(char *arg, int i)
-{
-	char	*tmp;
-	char	*prefix;
-	char	*suffix;
-	int		j;
-
-	tmp = ft_substr(arg, i, ft_strlen(arg) - i);
-	j = 0;
-	while (tmp[++j])
-		if (tmp[j] == '$')
-			break ;
-	if (j > 0 && tmp[j] == '$' && tmp[j - 1] == '\\')
-	{
-		free(tmp);
-		return (arg);
-	}
-	prefix = ft_substr(arg, 0, i);
-	suffix = ft_substr(tmp, j, ft_strlen(tmp) - j);
-	free(arg);
-	arg = ft_strjoin_free(prefix, suffix);
-	free(tmp);
-	free(suffix);
-	return (arg);
-}
-
 char	*replace_by_env(char *arg, char *key, char *value, int i)
 {
 	char	*prefix;
@@ -119,8 +93,8 @@ char	*dollar_to_env(char *arg)
 				while (arg[i + j] && arg[i + j] != '$' && !ft_haschr(" \\\t<>|;\",\']", arg[i + j]))
 					j++;
 				str = ft_substr(arg, i + 1, j - 1);
-				if (!ft_find_by_key(str) && arg[i + 1])
-					arg = replace_false_dollar(arg, i);
+				// if (!ft_find_by_key(str) && arg[i + 1])
+				// 	arg = replace_false_dollar(arg, i);
 				free(str);
 				break ;
 			}
@@ -131,4 +105,93 @@ char	*dollar_to_env(char *arg)
 		tmp = tmp->next;
 	}
 	return (arg);
+}
+
+void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
+{
+	int flag;
+	
+	if (ft_is_split(str))
+		flag = 1;
+	else
+		flag = 0;
+	if (flag && !quote)
+		buffer[++*j] = 3;
+	while(*str)
+	{
+		buffer[++*j] = *str++;
+	}
+}
+
+int 	check_part_cases(char *token, char *buffer, int *j, int quote)
+{
+	if (!ft_strncmp(token, "$$", 2))
+	{
+		add_str_to_buffer(buffer, "TEMP_PID", j, quote);
+		return (1);
+	}
+	else if (!ft_strncmp(token, "$?", 2))
+	{
+		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j, quote);
+		return (1);
+	}
+	// $ alone
+	return (0);
+		
+}
+
+int		check_env(char *token, char *buffer, int *j, int quote)
+{
+	int len;
+	char *value;
+	len = ft_strlen(token);
+	while (len--)
+	{
+		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("|,_", token[len]) || !token[len + 1]))
+		{
+			add_str_to_buffer(buffer, value, j, quote);
+			return (len);
+		}
+	}
+	return 0;
+}
+
+int 	replace_false_dollar(char *token, char *buffer, int *j)
+{
+	int i;
+	int count;
+	
+	i = 1;
+	count =0;
+	while (token[i] && !ft_haschr("|", token[i]))
+	{
+		i++;
+		count++;
+	}
+	if (token[i] != '$' && token[i]!= '|')
+		while (token[i])
+			buffer[++*j] = token[i++];
+	return (count);
+}
+
+
+int		process_dollar(char *token, char *buffer, int *j, int quote)
+{	
+	int		ret;
+	char	*token2;
+	
+	ret = 0;
+	if (quote)
+		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
+	else
+		token2 = ft_strdup(token);
+	
+	if ((ret = check_part_cases(token2, buffer, j, quote)))// handles $$ and $?
+		return(free_str_ret(token2, ret));
+	else if ((ret = check_env(token2, buffer, j, quote))) // is it in env ?
+		return(free_str_ret(token2, ret));
+	else if ((ret = replace_false_dollar(token2, buffer, j))) // if not in env, get rid off the false key
+		return(free_str_ret(token2, ret));
+	free(token2);
+	return (ret);
 }
