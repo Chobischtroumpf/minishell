@@ -6,12 +6,13 @@
 /*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/04 15:18:43 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/04 15:47:27 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//counts the consecutive pipes in the chain of commands
 int count_pipes(t_cmd *cmd)
 {
 	int i;
@@ -28,31 +29,35 @@ int count_pipes(t_cmd *cmd)
 	return (i);
 }
 
+//main function for pipe handling
 void handle_pipe(t_cmd *cmd, int pipe_nb)
 {
 	int pipe_fds[pipe_nb * 2];
-	// int pids[pipe_nb + 1];
+	int pids[pipe_nb + 1];
 	int i;
-	
 	printf("number of pipes : %d \n", count_pipes(cmd));
 	i = 0;
+	// create the pipes in array pipefds
+	// eg : for 2 consecutive pipes : pipe_fds = [pipeA.0, pipeA.1, pipeB.0, pipeB.1]
 	while (i < pipe_nb)
 	{
 		if (pipe(&pipe_fds[i * 2]) == -1)
 			printf("error pipe\n");
 		i++;
 	}
-	// int pid = fork();
-	// if (pid == 0)
-	// {
-	// 	close(pipe_fds[0]);
-	// 	write(pipe_fds[1], &cmd->argv[0][0], sizeof(int));
-	// }
-	// else
-	// {
-	// 	int message;
-	// 	close(pipe_fds[1]);
-	// 	read(pipe_fds[0], &message, sizeof(int));
-	// 	printf("received : %c\n", (char)message);
-	// }
+	i = 0;
+	while (i <= pipe_nb)
+	{
+		pids[i] = fork();
+		if (!pids[i]) //child process
+		{
+			//exec commands
+		}
+		else if (pids[i] == -1)
+			exit(0); //needs a proper exit + error
+		cmd = cmd->next;
+		i++;
+	}
+	//close pipes
+	// /return (cmd);
 }
