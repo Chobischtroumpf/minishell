@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/17 23:46:43 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/04 15:01:10 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,6 @@ int					ft_err_read_error(char *arg, int  ret);
 int					ft_err_is_segfault(char *cmd, char *arg, int ret);
 int					ft_err_is_symlink_loop(char *cmd, int ret_val);
 
+int 				count_pipes(t_cmd *cmd);
+void 				handle_pipe(t_cmd *cmd, int pipe_nb);
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/12/17 22:42:33 by alessandro       ###   ########.fr        #
+#    Updated: 2021/01/04 14:49:04 by ncolin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			brackets.c		\
 			free.c			\
 			shlvl.c			\
-			files.c
+			files.c			\
+			pipe.c
 
 
 OBJ_PATH = objs

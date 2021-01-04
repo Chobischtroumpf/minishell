@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/18 00:44:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/04 15:02:26 by ncolin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int			ft_exec_cmd(void)
 	while (cmd)
 	{
 		ft_dollar_quotes(cmd);
-		//check pipe
+		handle_pipe(cmd, count_pipes(cmd));
 		if (!check_in(cmd->in) || !check_out(cmd->out))
 		{
 			get_minishell()->excode = 1;
