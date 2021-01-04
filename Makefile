@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/12/13 11:47:21 by alessandro       ###   ########.fr        #
+#    Updated: 2021/01/04 14:59:17 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ SRC_NAME =	cmd_add_rdir.c	\
 			dollar2.c		\
 			brackets.c		\
 			free.c			\
-			shlvl.c			
-
+			shlvl.c			\
+			split_empty.c	
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)

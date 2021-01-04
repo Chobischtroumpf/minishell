@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/15 16:08:51 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/04 14:54:04 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # endif
 # ifdef LINE_MAX
 #  undef LINE_MAX
-#  define LINE_MAX 100024
 # endif
+# define LINE_MAX 10024
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -114,6 +114,7 @@ void				open_redirection(t_cmd *cmd);
 void				close_redirection(t_cmd *cmd);
 int					get_next_char(int fd, char *cptr);
 char				*ft_chardup(char c);
+char				**ft_split_empty(char const *str, char sep);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
