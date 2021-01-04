@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/04 22:19:09 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/04 23:16:04 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	**path_array_creation(char *cmd)
 	return (path_array);
 }
 
-static void	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
+static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 {
 	char	*path_cmd;
 	char	*path_cmd2;
@@ -76,11 +76,16 @@ static void	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	{
 		path_cmd = ft_strjoin(path_array[i], "/");
 		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
-		execve(path_cmd2, cmd->argv, env_array);
+		if (execve(path_cmd2, cmd->argv, env_array) == -1)
+			if (ft_file_exists(path_cmd2) && !ft_file_is_exec(path_cmd2))
+				return (ft_err_no_access(path_cmd2, NULL, 126));
 		free(path_cmd);
+		path_cmd = NULL;
 		free(path_cmd2);
+		path_cmd2 = NULL;
 		i++;
 	}
+	return (0);
 }
 
 static void	exec_cmd(t_cmd *cmd)
@@ -92,9 +97,11 @@ static void	exec_cmd(t_cmd *cmd)
 	env_array = ft_env_to_array();
 	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
 	{
-		exec_with_path(cmd, path_array, env_array);
+		ret_val = exec_with_path(cmd, path_array, env_array);
 		ft_free_array(env_array);
 		ft_free_array(path_array);
+		if (ret_val)
+			exit(ret_val);
 		exit(ft_no_cmd_error(cmd->argv[0], 127));
 	}
 	else
