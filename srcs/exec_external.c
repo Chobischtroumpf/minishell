@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/04 16:47:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/04 17:15:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,17 @@ static char	**path_array_creation(void)
 	
 	i = -1;
 	path_str = ft_find_by_key2("PATH");
-	if (path_str)
+	if (ft_strcmp(path_str, ""))
 	{
 		if (!(path_array = ft_split_empty(path_str, ':')))
 			ft_exit_error();
 		while (path_array[++i] != NULL)
-		{
-			printf("here!\n");
 			if (ft_haschr(path_array[i], -1))
 			{
-				printf("inside if!\n");
 				path_str = path_array[i];
 				path_array[i] = ft_strdup(".");
 				free (path_str);
 			}
-		}
 	}
 	else
 	{
@@ -58,6 +54,7 @@ static void	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	{
 		path_cmd = ft_strjoin(path_array[i], "/");
 		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
+		
 		execve(path_cmd2, cmd->argv, env_array);
 		free(path_cmd);
 		free(path_cmd2);
@@ -94,8 +91,8 @@ static void	exec_cmd(t_cmd *cmd)
 		
 		exec_with_path(cmd, path_array, env_array);
 		ft_free_array(env_array);
-		exit(ft_no_cmd_error(cmd->argv[0], 127));
 		ft_free_array(path_array);
+		exit(ft_no_cmd_error(cmd->argv[0], 127));
 	}
 	else
 	{

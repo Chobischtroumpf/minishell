@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 11:45:10 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/04 15:00:24 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/04 17:03:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,11 @@ char		**ft_split_empty(char const *str, char sep)
 	bzero(buff, 4096);
 	while (str[++i])
 	{
-		if (is_sep(str[i], sep) && (((i != 0 && is_sep(str[i-1], sep)) || i == 0)))
+		if (is_sep(str[i], sep) && (i == 0 || is_sep(str[i-1], sep)))
 			buff[j++] = -1;
 		buff[j++] = str[i];
+		if (is_sep(str[i], sep) && !str[i+1])
+			buff[j++] = -1;
 	}
 	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(buff, sep) + 1))))
 		return (0);
