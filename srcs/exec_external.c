@@ -6,40 +6,62 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/04 17:15:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/04 22:19:09 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**path_array_creation(void)
+int			ft_check_file(char *cmd, int is_printed)
+{
+	int		ret_val;
+
+	ret_val = ft_file_is_symlink(cmd);
+	if (!is_printed && ret_val != 127)
+	{
+		if (!ft_file_exists(cmd))
+			ret_val = ft_err_file_not_found(cmd, NULL, 127);
+		else if (ft_file_is_dir(cmd))
+			ret_val = ft_err_is_dir(cmd, NULL, 126);
+		else if (!ft_file_is_exec(cmd) || !ft_file_readable(cmd))
+			ret_val = ft_err_no_access(cmd, NULL, 126);
+	}
+	else if (ret_val != 127)
+	{
+		if (!ft_file_exists(cmd))
+			ret_val = 127;
+		else if (ft_file_is_dir(cmd) || !ft_file_is_exec(cmd)
+				|| !ft_file_readable(cmd))
+			ret_val = 126;
+	}
+	return (ret_val);
+}
+
+static char	**path_array_creation(char *cmd)
 {
 	char	**path_array;
-	char	*path_str;
 	int		i;
-	
-	i = -1;
-	path_str = ft_find_by_key2("PATH");
-	if (ft_strcmp(path_str, ""))
+
+	if (ft_strcmp(ft_find_by_key2("PATH"), "") && (i = -1))
 	{
-		if (!(path_array = ft_split_empty(path_str, ':')))
+		if (!(path_array = ft_split_empty(ft_find_by_key2("PATH"), ':')))
 			ft_exit_error();
 		while (path_array[++i] != NULL)
 			if (ft_haschr(path_array[i], -1))
 			{
-				path_str = path_array[i];
+				free(path_array[i]);
 				path_array[i] = ft_strdup(".");
-				free (path_str);
 			}
 	}
 	else
 	{
+		if (ft_check_file(cmd, 1))
+			return (NULL);
 		if (!(path_array = malloc(sizeof(char*) * 2)))
 			ft_exit_error();
 		path_array[0] = ft_strdup(".");
 		path_array[1] = NULL;
 	}
-	
 	return (path_array);
 }
 
@@ -54,29 +76,11 @@ static void	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	{
 		path_cmd = ft_strjoin(path_array[i], "/");
 		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
-		
 		execve(path_cmd2, cmd->argv, env_array);
 		free(path_cmd);
 		free(path_cmd2);
 		i++;
 	}
-}
-
-int			ft_check_file(char *cmd)
-{
-	int		ret_val;
-
-	ret_val = ft_file_is_symlink(cmd);
-	if (ret_val != 127)
-	{
-		if (!ft_file_exists(cmd))
-			ret_val = ft_err_file_not_found(cmd, NULL, 127);
-		else if (ft_file_is_dir(cmd))
-			ret_val = ft_err_is_dir(cmd, NULL, 126);
-		else if (!ft_file_is_exec(cmd) || !ft_file_readable(cmd))
-			ret_val = ft_err_no_access(cmd, NULL, 126);
-	}
-	return (ret_val);
 }
 
 static void	exec_cmd(t_cmd *cmd)
@@ -86,9 +90,8 @@ static void	exec_cmd(t_cmd *cmd)
 	int		ret_val;
 
 	env_array = ft_env_to_array();
-	if (!cmd->has_path && (path_array = path_array_creation()))
+	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
 	{
-		
 		exec_with_path(cmd, path_array, env_array);
 		ft_free_array(env_array);
 		ft_free_array(path_array);
@@ -96,7 +99,7 @@ static void	exec_cmd(t_cmd *cmd)
 	}
 	else
 	{
-		ret_val = ft_check_file(cmd->argv[0]);
+		ret_val = ft_check_file(cmd->argv[0], 0);
 		execve(cmd->argv[0], cmd->argv, env_array);
 		exit(ret_val);
 	}
