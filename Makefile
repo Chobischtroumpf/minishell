@@ -6,7 +6,11 @@
 #    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/01/04 14:59:17 by adorigo          ###   ########.fr        #
+=======
+#    Updated: 2020/12/17 22:42:33 by alessandro       ###   ########.fr        #
+>>>>>>> master
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +41,7 @@ SRC_NAME =	cmd_add_rdir.c	\
 			errors.c		\
 			errors2.c		\
 			errors3.c		\
+			errors4.c		\
 			line_handle.c	\
 			redirections.c	\
 			quit.c			\
@@ -46,7 +51,12 @@ SRC_NAME =	cmd_add_rdir.c	\
 			brackets.c		\
 			free.c			\
 			shlvl.c			\
+<<<<<<< HEAD
 			split_empty.c	
+=======
+			files.c
+
+>>>>>>> master
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)

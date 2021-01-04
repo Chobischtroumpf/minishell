@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/19 15:05:55 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/04 16:47:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int backslash_checker(char *tokken, char *buffer, int *j, int quote)
 	int ret;
 
 	ret = 0;
-	if (tokken[0] == '\\' && quote)
+	if (*tokken == '\\' && quote)
 	{
 		ret = 1;
-		if (ft_haschr("$'\"\\", tokken[1]))
+		if (ft_haschr("$\"\\", tokken[1]))
 			buffer[++*j] = *(++tokken);
 		else
 		{
@@ -28,7 +28,7 @@ static int backslash_checker(char *tokken, char *buffer, int *j, int quote)
 			buffer[++*j] = *(++tokken);
 		}
 	}
-	else if (tokken[0] == '\\')
+	else if (*tokken == '\\')
 	{
 		ret = 1;
 		buffer[++*j] = *(++tokken);
@@ -38,7 +38,7 @@ static int backslash_checker(char *tokken, char *buffer, int *j, int quote)
 	return (ret);
 }
 
-char *check_quote(char *token, int i)
+char	*check_quote(char *token, int i)
 {
 	char buffer[LINE_MAX];
 	int j;
@@ -48,11 +48,8 @@ char *check_quote(char *token, int i)
 	while (token[++i])
 	{
 		if (token[i] == '\'')
-		{
-			i++;
-			while (token[i] != '\'')
-				buffer[++j] = token[i++];
-		}
+			while(token[++i] != '\'')
+				buffer[++j] = token[i];
 		else if (token[i] == '"')
 			while (token[++i] != '"')
 			{

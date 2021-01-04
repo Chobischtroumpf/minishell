@@ -6,7 +6,7 @@
 /*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/13 13:26:50 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/12/17 22:37:25 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ int		ft_array_size(char **array)
 	return (i);
 }
 
-int		ft_chdir_err(int err_code, char *arg)
+int		ft_chdir_err(int err_code,char *cmd, char *arg)
 {
 	if (errno == ENOENT)
-		ft_err_file_not_found(arg);
+		ft_err_file_not_found(cmd, arg, 0);
 	else if (errno == EACCES)
-		ft_err_no_access(arg);
+		ft_err_no_access(cmd, arg, 0);
 	else if (errno == ENOTDIR)
-		ft_err_not_dir(arg);
+		ft_err_not_dir(cmd, arg);
 	else if (errno == ENAMETOOLONG)
-		ft_err_file_too_long(arg);
+		ft_err_file_too_long(cmd, arg);
 	else if (errno == ELOOP)
-		ft_err_loop(arg);
+		ft_err_loop(cmd, arg);
 	errno = 0;
 	return (-err_code);
 }
@@ -79,16 +79,16 @@ int		ft_exec_cd(t_cmd *cmd)
 		if (!ft_strncmp(home, "", ft_strlen(home)))
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		else
-			ret = ft_chdir_err(chdir(home), "home");
+			ret = ft_chdir_err(chdir(home),cmd->argv[0], "home");
 	}
 	else if (!(ft_strncmp(cmd->argv[1], "", ft_strlen(cmd->argv[1]))))
-		ret = ft_chdir_err(chdir("."), cmd->argv[1]);
+		ret = ft_chdir_err(chdir("."),cmd->argv[0], cmd->argv[1]);
 	else if (!(ft_strncmp(cmd->argv[1], "~", ft_strlen(cmd->argv[1]))))
-		ret = ft_chdir_err(chdir(home), cmd->argv[1]);
+		ret = ft_chdir_err(chdir(home),cmd->argv[0], cmd->argv[1]);
 	else if (!(ft_strncmp(cmd->argv[1], "-", ft_strlen(cmd->argv[1]))))
-		ret = ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")), cmd->argv[1]);
+		ret = ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")),cmd->argv[0], cmd->argv[1]);
 	else if ((ft_array_size(cmd->argv) == 2))
-		ret = ft_chdir_err(chdir(cmd->argv[1]), cmd->argv[1]);
+		ret = ft_chdir_err(chdir(cmd->argv[1]),cmd->argv[0], cmd->argv[1]);
 	if (!ret)
 		update_pwd();
 	free(home);

@@ -38,10 +38,7 @@ static t_cmd	*ft_new_cmd(char *token)
 	}
 	new->pipe = 0;
 	new->is_rdir = 0;
-	if (ft_strchr(new->argv[0], '/'))
-		new->has_path = 1;
-	else
-		new->has_path = 0;
+	new->has_path = 0;
 	new->in = NULL;
 	new->out = NULL;
 	new->next = NULL;

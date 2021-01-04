@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 14:07:49 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/02 22:29:25 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		print_lst(void);
 static void	prompt_msg(void)
 {
 	if (get_minishell()->was_eof == 0)
-		ft_putstr("\033[32mminishell\033[0m$ ");
+		ft_putstr_fd("\033[32mminishell\033[0m$ ", 2);
 }
 
 /*
