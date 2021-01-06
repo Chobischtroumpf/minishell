@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/04 15:02:26 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/06 13:37:03 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** array where it is located
 */
 
-static int	is_built_in(char *command)
+int	is_built_in(char *command)
 {
 	char		**builtin;
 	int			i;
@@ -39,7 +39,7 @@ static int	is_built_in(char *command)
 ** variable's value
 */
 
-static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
+int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 {
 	int			ret;
 
@@ -118,11 +118,17 @@ int			ft_exec_cmd(void)
 	while (cmd)
 	{
 		ft_dollar_quotes(cmd);
-		handle_pipe(cmd, count_pipes(cmd));
+		if (cmd->pipe)
+		{
+			cmd = handle_pipe(cmd, count_pipes(cmd));
+
+			continue ;
+		}
 		if (!check_in(cmd->in) || !check_out(cmd->out))
 		{
 			get_minishell()->excode = 1;
 			cmd = cmd->next;
+			
 			continue;
 		}
 		open_redirection(cmd);

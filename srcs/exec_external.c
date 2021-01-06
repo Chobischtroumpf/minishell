@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/18 00:26:13 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/06 13:32:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			ft_check_file(char *cmd)
 	return (ret_val);
 }
 
-static void	exec_cmd(t_cmd *cmd)
+void	exec_cmd(t_cmd *cmd)
 {
 	char	**path_array;
 	char	**env_array;
@@ -100,6 +100,7 @@ void		ft_exec_extern(t_cmd *cmd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		exec_cmd(cmd);
+		printf("executed\n");
 	}
 	else if (pid > 0)
 	{
@@ -108,4 +109,5 @@ void		ft_exec_extern(t_cmd *cmd)
 		if (get_minishell()->excode == 139)
 			ft_err_is_segfault(cmd->argv[0], NULL, 0);
 	}
+	
 }

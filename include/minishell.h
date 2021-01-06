@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/04 15:01:10 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/05 22:37:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct		s_minishell
 
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
+int					is_built_in(char *command);
+int					ft_exec_builtin(int bltin_pos, t_cmd *cmd);
 
 void			    ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
@@ -180,5 +182,6 @@ int					ft_err_is_segfault(char *cmd, char *arg, int ret);
 int					ft_err_is_symlink_loop(char *cmd, int ret_val);
 
 int 				count_pipes(t_cmd *cmd);
-void 				handle_pipe(t_cmd *cmd, int pipe_nb);
+t_cmd 				*handle_pipe(t_cmd *cmd, int pipe_nb);
+void				exec_cmd(t_cmd *cmd);
 #endif
