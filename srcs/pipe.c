@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/06 13:42:22 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/06 22:44:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_cmd *handle_pipe(t_cmd *cmd, int pipe_nb)
 			exec_cmd(cmd);
 		}
 		else if (pids[i] == -1)
-			exit(0); //needs a proper exit + error
+			ft_exit_error();
 		cmd = cmd->next;
 		i++;
 	}
