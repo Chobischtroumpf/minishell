@@ -6,14 +6,17 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/06 22:44:40 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/06 23:34:34 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//counts the consecutive pipes in the chain of commands
-int count_pipes(t_cmd *cmd)
+/*
+**counts the consecutive pipes in the chain of commands
+*/
+
+int			count_pipes(t_cmd *cmd)
 {
 	int i;
 
@@ -29,8 +32,11 @@ int count_pipes(t_cmd *cmd)
 	return (i);
 }
 
-static void
-	close_all(int pipes[], int nb)
+/*
+**
+*/
+
+static void	close_all(int pipes[], int nb)
 {
 	int i;
 
@@ -39,8 +45,7 @@ static void
 		close(pipes[i++]);
 }
 
-static void
-	dup2_and_close_pipe(int pipes[], int i, int nb)
+static void	dup2_and_close_pipe(int pipes[], int i, int nb)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -51,8 +56,7 @@ static void
 	close_all(pipes, nb);
 }
 
-static void
-	close_pipe_and_wait(int pipes[], int nb, int cpid[])
+static void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
 {
 	int status;
 	int	i;
@@ -67,8 +71,7 @@ static void
 	ft_get_exit_code(status, NO_EXCODE);
 }
 
-int
-	create_pipes(int pipes[], int nb)
+int			create_pipes(int pipes[], int nb)
 {
 	int i;
 
@@ -82,7 +85,7 @@ int
 	return (1);
 }
 
-int	ft_get_exit_code_return(int status, int excode)
+int			ft_get_exit_code_return(int status, int excode)
 {
 	if (excode == -1)
 	{
@@ -96,8 +99,8 @@ int	ft_get_exit_code_return(int status, int excode)
 	return(excode);
 }
 
-//main function for pipe handling
-t_cmd *handle_pipe(t_cmd *cmd, int pipe_nb)
+
+t_cmd		*handle_pipe(t_cmd *cmd, int pipe_nb)
 {
 	int pipe_fds[pipe_nb * 2];
 	int pids[pipe_nb + 1];

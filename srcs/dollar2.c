@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/15 12:32:17 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/06 23:21:59 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_is_split(char *str)
 {
 	char	*tmp;
 	int		i;
-	int count;
+	int		count;
 
 	count = 0;
 	tmp = ft_strtrim(str, " ");
@@ -86,21 +86,23 @@ int		ft_is_split(char *str)
 	return (count);
 }
 
-// void	check_dollar(t_cmd *cmd)
-// {
-// 	char	**args;
-// 	int		i;
-
-// 	i = 0;
-// 	args = cmd->argv;
-// 	while (args[i])
-// 	{
-// 		while (has_dollar(args[i]))
-// 		{
-// 			args[i] = dollar_to_env(args[i]);
-// 			if (ft_is_split(args[i]))
-// 				cmd->argv = ft_gros_bordel(args, i);
-// 		}
-// 		i++;
-// 	}
-// }
+/*
+** void	check_dollar(t_cmd *cmd)
+** {
+** 	char	**args;
+** 	int		i;
+** 
+** 	i = 0;
+** 	args = cmd->argv;
+** 	while (args[i])
+** 	{
+** 		while (has_dollar(args[i]))
+** 		{
+** 			args[i] = dollar_to_env(args[i]);
+** 			if (ft_is_split(args[i]))
+** 				cmd->argv = ft_gros_bordel(args, i);
+** 		}
+** 		i++;
+** 	}
+** }
+*/

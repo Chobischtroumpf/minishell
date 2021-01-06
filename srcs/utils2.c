@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:00:48 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/14 16:18:05 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/06 23:15:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ long			ft_atoi_pos(const char *str)
 	is_sign = check_sign(str[0]);
 	i = is_sign;
 	nb = 0;
-	// if (ft_strlen(str) > (size_t)(19 + is_sign))
-	// 	return (0);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (nb > (unsigned long)LONG_MAX)

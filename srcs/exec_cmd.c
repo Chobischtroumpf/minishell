@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/06 22:50:26 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/06 23:16:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** array where it is located
 */
 
-int	is_built_in(char *command)
+int			is_built_in(char *command)
 {
 	char		**builtin;
 	int			i;
@@ -39,7 +39,7 @@ int	is_built_in(char *command)
 ** variable's value
 */
 
-int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
+int			ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 {
 	int			ret;
 

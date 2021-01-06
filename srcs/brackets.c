@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/15 16:08:15 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/06 23:35:20 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 {
 	int ret;
-	
+
 	ret = 0;
 	if (*tokken == '\\' && quote)
 	{
@@ -38,7 +38,7 @@ static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 	return (ret);
 }
 
-char	*check_quote(char *token, int i)
+char		*check_quote(char *token, int i)
 {
 	char	buffer[LINE_MAX];
 	int		j;
@@ -47,16 +47,14 @@ char	*check_quote(char *token, int i)
 	ft_bzero(buffer, LINE_MAX);
 	while (token[++i])
 		if (token[i] == '\'')
-			while(token[++i] != '\'')
+			while (token[++i] != '\'')
 				buffer[++j] = token[i];
 		else if (token[i] == '"')
 			while (token[++i] != '"')
-			{
 				if (token[i] == '$')
 					i += process_dollar(&token[i], buffer, &j, 1);
 				else
 					i += backslash_checker(&token[i], buffer, &j, 1);
-			}		
 		else
 		{
 			if (token[i] == '$')
@@ -68,7 +66,7 @@ char	*check_quote(char *token, int i)
 	return (ft_strdup(buffer));
 }
 
-int		ft_dollar_quotes(t_cmd *cmd)
+int			ft_dollar_quotes(t_cmd *cmd)
 {
 	char	*old_arg;
 	int		i;
