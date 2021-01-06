@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/04 16:47:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:53:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int ft_dollar_quotes(t_cmd *cmd)
 	int i;
 	int splits;
 
-	i = -1;
+	// i = -1;
 	// while (cmd->argv[++i])
 	// 	printf("BEFORE : ARG[%d] = |%s|\n", i, cmd->argv[i]);
 	// printf("------------------------------------\n");
@@ -102,14 +102,14 @@ int ft_dollar_quotes(t_cmd *cmd)
 		{
 			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i])); //used to remove splitting flag. this should be rewritten, probably causing leaks
 			cmd->argv = ft_split_args(cmd->argv, i);
-			i += splits;
+			i += splits-1;
 		}
 		free(old_arg);
 	}
 	i = -1;
 	while (cmd->argv[++i])
 		remove_all_chars(cmd->argv[i], 3);
-	i = -1;
+	// i = -1;
 	// printf("------------------------------------\n");
 	// while (cmd->argv[++i])
 	// 	printf("AFTER : ARG[%d] = |%s|\n", i, cmd->argv[i]);

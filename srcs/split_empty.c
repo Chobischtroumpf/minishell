@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 11:45:10 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/04 17:03:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/06 11:26:26 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char		**ft_split_empty(char const *str, char sep)
 	i = -1;
 	if (!str)
 		return (0);
-	bzero(buff, 4096);
+	bzero(buff, LINE_MAX);
 	while (str[++i])
 	{
 		if (is_sep(str[i], sep) && (i == 0 || is_sep(str[i-1], sep)))

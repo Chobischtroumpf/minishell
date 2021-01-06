@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/16 16:39:55 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/05 23:07:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_split_args(char **args, int i)
 
 	j = 0;
 	k = 0;
-	splitted = ft_split(args[i], ' ');
+	splitted = ft_split_skip(args[i], ' ', "'\"");
 	new_args = malloc(sizeof(char*) * (ft_count_arg(args) + \
 										ft_count_arg(splitted) + 2));
 	while (j < i)
@@ -67,21 +67,29 @@ int		ft_is_split(char *str)
 {
 	char	*tmp;
 	int		i;
-	int count;
+	int		count;
 
 	count = 0;
 	tmp = ft_strtrim(str, " ");
 	i = 0;
-	while (str[i])
+	while (str[i++])
 	{
-		if (ft_isspace(str[i]))
+		if (str[i] == '\'')
+			while (str[++i] != '\'')
+				;
+		if (str[i] == '"')
+			while (str[++i] != '"')
+				;
+		if (ft_isspace(str[i]) && i != 0)
 		{
 			count++;
-			while (ft_isspace(str[++i]))
-				;
+			while (ft_isspace(str[i]))
+				i++;
+			continue ;
 		}
-		i++;
 	}
+	if (str[i - 1] == ' ')
+		count--;
 	free(tmp);
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/04 16:47:37 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:59:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # ifdef LINE_MAX
 #  undef LINE_MAX
 # endif
-# define LINE_MAX 10024
+# define LINE_MAX 100024
 # define NO_EXCODE -1
 # define NO_STATUS -1
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/19 15:24:08 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/05 18:08:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,12 @@ void skip_extra_spaces(char *str)
 
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
-	// int flag;
 	if (!quote && ft_haschr(str, ' '))
-	{
 		skip_extra_spaces(str);
-	}
-	// if (ft_is_split(str))
-	// 	flag = 1;
-	// else
-	// 	flag = 0;
 	if (!quote)
 		buffer[++*j] = 3;
 	while(*str)
-	{
 		buffer[++*j] = *str++;
-	}
 }
 
 int 	check_part_cases(char *token, char *buffer, int *j, int quote)
@@ -95,18 +86,25 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 
 int		check_env(char *token, char *buffer, int *j, int quote)
 {
-	int len;
-	char *value;
-	len = ft_strlen(token);
-	while (len--)
+	int		len;
+	char	*value;
+	char	*key;
+
+	len = ft_strpbkr(&token[1], "-!`'\"%^&*()=+|\\<>,./~#@][¬:;$");
+	if (len == 0)
+		len = ft_strlen(token) - 1;
+	key = ft_substr(token, 1, len);
+	if ((value = ft_strdup(ft_find_by_key2(key))))
 	{
-		if ((value = ft_find_by_key2(ft_substr(token,1 , len) )) && (!ft_haschr("_", token[len + 1]) || !token[len + 1]))
-		{	
-			add_str_to_buffer(buffer, value, j, quote);
-			return (len);
-		}
+		printf("value = %s\n", value);
+		add_str_to_buffer(buffer, value, j, quote);
+		free(key);
+		// free (value);
+		return (len);
 	}
-	return 0;
+	free(key);
+	// free (value);
+	return (0);
 }
 
 int 	replace_false_dollar(char *token, char *buffer, int *j)

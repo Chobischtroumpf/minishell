@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strpbkr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 10:28:03 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/05 17:47:19 by adorigo          ###   ########.fr       */
+/*   Created: 2021/01/05 16:42:26 by adorigo           #+#    #+#             */
+/*   Updated: 2021/01/05 17:22:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *src)
+int	ft_strpbkr(const char *s, const char *s2)
 {
-	char	*new;
+	char	*ptr;
+	char	*ptr2;
+	int		index_min;
 	int		i;
-	int		size;
+	int		j;
 
-	size = 0;
-	if (!src)
-		return (NULL);
-	while (src[size])
-		++size;
-	if (!(new = malloc(sizeof(char) * (size + 1))))
+	index_min = INT_MAX;
+	if (!s || !s2)
+		return (0);
+	ptr = (char *)s;
+	ptr2 = (char *)s2;
+	i = -1;
+	while (ptr2[++i])
 	{
-		return (NULL);
+		j = -1;
+		while (ptr[++j])
+			if (ptr[j] == ptr2[i])
+				if (j <= index_min)
+					index_min = j;
 	}
-	i = 0;
-	while (src[i])
-	{
-		new[i] = src[i];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
+	if (index_min < INT_MAX)
+		return (index_min);
+	return (0);
 }
