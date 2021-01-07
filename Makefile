@@ -13,42 +13,45 @@
 NAME = minishell
 
 SRC_PATH = srcs
-SRC_NAME =	cmd_add_rdir.c	\
-			cmd_parser_1.c	\
-			cmd_parser_2.c	\
-			get_static.c	\
-			lexing.c		\
-			minishell.c		\
-			utils.c			\
-			utils2.c		\
-			utils3.c		\
-			utils4.c		\
-			env.c			\
-			env2.c			\
-			exec_cmd.c		\
-			bltin_echo.c	\
-			bltin_exit.c	\
-			bltin_pwd.c		\
-			bltin_env.c		\
-			bltin_unset.c	\
-			bltin_export.c	\
-			bltin_cd.c 		\
-			exec_external.c	\
-			errors.c		\
-			errors2.c		\
-			errors3.c		\
-			errors4.c		\
-			line_handle.c	\
-			redirections.c	\
-			quit.c			\
-			exit.c			\
-			dollar.c		\
-			dollar2.c		\
-			brackets.c		\
-			free.c			\
-			shlvl.c			\
-			files.c			\
-			pipe.c
+SRC_NAME =	cmd_add_rdir.c			\
+			cmd_parser_1.c			\
+			cmd_parser_2.c			\
+			get_static.c			\
+			lexing.c				\
+			minishell.c				\
+			utils.c					\
+			utils2.c				\
+			utils3.c				\
+			utils4.c				\
+			env.c					\
+			env2.c					\
+			exec_cmd.c				\
+			bltin_echo.c			\
+			bltin_exit.c			\
+			bltin_pwd.c				\
+			bltin_env.c				\
+			bltin_unset.c			\
+			bltin_export.c			\
+			bltin_cd.c 				\
+			exec_external.c			\
+			errors.c				\
+			errors2.c				\
+			errors3.c				\
+			errors4.c				\
+			line_handle.c			\
+			redirections.c			\
+			quit.c					\
+			exit.c					\
+			dollar.c				\
+			dollar2.c				\
+			brackets.c				\
+			free.c					\
+			shlvl.c					\
+			ft_split_empty.c		\
+			ft_split_skip_quotes.c	\
+			files.c         \
+      pipe.c
+
 
 
 OBJ_PATH = objs
@@ -73,7 +76,118 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@$(CC) $(CFLAGS) -c $< $(CFLAGS) -o $@
 
 libft:
-	@make -C libft
+	@make -C libft<<<<<<< pipe
+17
+ 
+SRC_NAME =  cmd_add_rdir.c  \
+18
+ 
+      cmd_parser_1.c  \
+19
+ 
+      cmd_parser_2.c  \
+20
+ 
+      get_static.c  \
+21
+ 
+      lexing.c    \
+22
+ 
+      minishell.c   \
+23
+ 
+      utils.c     \
+24
+ 
+      utils2.c    \
+25
+ 
+      utils3.c    \
+26
+ 
+      utils4.c    \
+27
+ 
+      env.c     \
+28
+ 
+      env2.c      \
+29
+ 
+      exec_cmd.c    \
+30
+ 
+      bltin_echo.c  \
+31
+ 
+      bltin_exit.c  \
+32
+ 
+      bltin_pwd.c   \
+33
+ 
+      bltin_env.c   \
+34
+ 
+      bltin_unset.c \
+35
+ 
+      bltin_export.c  \
+36
+ 
+      bltin_cd.c    \
+37
+ 
+      exec_external.c \
+38
+ 
+      errors.c    \
+39
+ 
+      errors2.c   \
+40
+ 
+      errors3.c   \
+41
+ 
+      errors4.c   \
+42
+ 
+      line_handle.c \
+43
+ 
+      redirections.c  \
+44
+ 
+      quit.c      \
+45
+ 
+      exit.c      \
+46
+ 
+      dollar.c    \
+47
+ 
+      dollar2.c   \
+48
+ 
+      brackets.c    \
+49
+ 
+      free.c      \
+50
+ 
+      shlvl.c     \
+51
+ 
+      files.c     \
+52
+ 
+      pipe.c
+53
+ 
+=======
 
 libft_bonus:
 	@make -C libft bonus

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/12/11 18:42:56 by alessandro       ###   ########.fr        #
+#    Updated: 2021/01/05 16:55:53 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS = ft_memset.c ft_strlast.c ft_memcpy.c ft_memccpy.c ft_memmove.c	\
 		ft_strtrim.c ft_utoa_base.c ft_itoa_base.c ft_itoa.c ft_bzero.c	\
 		get_next_line.c ft_haschr.c ft_printf.c ft_hasnchar.c ft_atol.c	\
 		ft_split_once.c	ft_strjoin_free.c ft_realloc.c ft_split_total.c	\
-		ft_strjoin_delimiter.c ft_strjoin_delimiter_free.c				\
+		ft_strjoin_delimiter.c ft_strjoin_delimiter_free.c ft_strpbkr.c	\
 		ft_strjoin_doublefree.c
 
 SRCS_B = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c 	\

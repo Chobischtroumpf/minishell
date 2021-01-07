@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 10:28:03 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/05 17:47:19 by adorigo          ###   ########.fr       */
+/*   Created: 2021/01/07 02:07:25 by adorigo           #+#    #+#             */
+/*   Updated: 2021/01/07 02:10:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *src)
+char	*ft_strtrim_char(const char *s1, char set)
 {
+	size_t	beg;
+	size_t	end;
 	char	*new;
-	int		i;
-	int		size;
 
-	size = 0;
-	if (!src)
+	if (!s1 || !set)
 		return (NULL);
-	while (src[size])
-		++size;
-	if (!(new = malloc(sizeof(char) * (size + 1))))
-	{
+	beg = 0;
+	while (s1[beg] == set)
+		beg++;
+	end = ft_strlen(s1 + beg);
+	if (end)
+		while (s1[end + beg - 1] != 0 && s1[end + beg - 1] == set)
+			end--;
+	if (!(new = malloc(sizeof(char) * end + 1)))
 		return (NULL);
-	}
-	i = 0;
-	while (src[i])
-	{
-		new[i] = src[i];
-		i++;
-	}
-	new[i] = '\0';
+	ft_strncpy(new, s1 + beg, end);
+	new[end] = '\0';
 	return (new);
 }

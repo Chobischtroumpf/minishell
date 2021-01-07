@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/07 13:41:55 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:26:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # endif
 # ifdef LINE_MAX
 #  undef LINE_MAX
-#  define LINE_MAX 100024
 # endif
+# define LINE_MAX 100024
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -88,6 +88,7 @@ long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 int					ft_is_split(char *str);
 char				**ft_split_args(char **args, int i);
+char				**ft_split_skip_quotes(char const *str, char sep);
 
 char				*check_quote(char *token, int i);
 void 				printoutarray(char **pointertoarray);
@@ -118,6 +119,7 @@ void				open_redirection(t_cmd *cmd);
 void				close_redirection(t_cmd *cmd);
 int					get_next_char(int fd, char *cptr);
 char				*ft_chardup(char c);
+char				**ft_split_empty(char const *str, char sep);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);

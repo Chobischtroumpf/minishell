@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/06 23:35:20 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:46:43 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,22 @@ char		*check_quote(char *token, int i)
 	return (ft_strdup(buffer));
 }
 
+
+void		remove_all_chars(char *str, char c)
+{
+	char *pr;
+	char *pw;
+
+	pr = str;
+	pw = str;
+	while (*pr)
+	{
+		*pw = *pr++;
+		pw += (*pw != c);
+	}
+	*pw = '\0';
+}
+
 int			ft_dollar_quotes(t_cmd *cmd)
 {
 	char	*old_arg;
@@ -80,10 +96,14 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		splits = ft_is_split(cmd->argv[i]);
 		if (splits && cmd->argv[i][0] == 3)
 		{
-			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i])); //used to remove splitting flag. this should be rewritten, probably causing leaks
+			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i]));
 			cmd->argv = ft_split_args(cmd->argv, i);
+			i += splits - 1;
 		}
 		free(old_arg);
 	}
+	i = -1;
+	while (cmd->argv[++i])
+		remove_all_chars(cmd->argv[i], 3);
 	return (1);
 }

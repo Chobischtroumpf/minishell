@@ -3,33 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/07 16:07:37 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/04 23:16:04 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**path_array_creation(void)
+int			ft_check_file(char *cmd, int is_printed)
 {
-	t_env	*env;
-	char	**path_array;
+	int		ret_val;
 
-	env = get_minishell()->env;
-	while (env)
+	ret_val = ft_file_is_symlink(cmd);
+	if (!is_printed && ret_val != 127)
 	{
-		if (!ft_strcmp(env->key, "PATH"))
-			path_array = ft_split(env->value, ':');
-		env = env->next;
+		if (!ft_file_exists(cmd))
+			ret_val = ft_err_file_not_found(cmd, NULL, 127);
+		else if (ft_file_is_dir(cmd))
+			ret_val = ft_err_is_dir(cmd, NULL, 126);
+		else if (!ft_file_is_exec(cmd) || !ft_file_readable(cmd))
+			ret_val = ft_err_no_access(cmd, NULL, 126);
 	}
-	if (!path_array)
-		ft_exit_error();
+	else if (ret_val != 127)
+	{
+		if (!ft_file_exists(cmd))
+			ret_val = 127;
+		else if (ft_file_is_dir(cmd) || !ft_file_is_exec(cmd)
+				|| !ft_file_readable(cmd))
+			ret_val = 126;
+	}
+	return (ret_val);
+}
+
+static char	**path_array_creation(char *cmd)
+{
+	char	**path_array;
+	int		i;
+
+	if (ft_strcmp(ft_find_by_key2("PATH"), "") && (i = -1))
+	{
+		if (!(path_array = ft_split_empty(ft_find_by_key2("PATH"), ':')))
+			ft_exit_error();
+		while (path_array[++i] != NULL)
+			if (ft_haschr(path_array[i], -1))
+			{
+				free(path_array[i]);
+				path_array[i] = ft_strdup(".");
+			}
+	}
+	else
+	{
+		if (ft_check_file(cmd, 1))
+			return (NULL);
+		if (!(path_array = malloc(sizeof(char*) * 2)))
+			ft_exit_error();
+		path_array[0] = ft_strdup(".");
+		path_array[1] = NULL;
+	}
 	return (path_array);
 }
 
-static void	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
+static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 {
 	char	*path_cmd;
 	char	*path_cmd2;
@@ -40,28 +76,16 @@ static void	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	{
 		path_cmd = ft_strjoin(path_array[i], "/");
 		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
-		execve(path_cmd2, cmd->argv, env_array);
+		if (execve(path_cmd2, cmd->argv, env_array) == -1)
+			if (ft_file_exists(path_cmd2) && !ft_file_is_exec(path_cmd2))
+				return (ft_err_no_access(path_cmd2, NULL, 126));
 		free(path_cmd);
+		path_cmd = NULL;
 		free(path_cmd2);
+		path_cmd2 = NULL;
 		i++;
 	}
-}
-
-int			ft_check_file(char *cmd)
-{
-	int		ret_val;
-
-	ret_val = ft_file_is_symlink(cmd);
-	if (ret_val != 127)
-	{
-		if (!ft_file_exists(cmd))
-			ret_val = ft_err_file_not_found(cmd, NULL, 127);
-		else if (ft_file_is_dir(cmd))
-			ret_val = ft_err_is_dir(cmd, NULL, 126);
-		else if (!ft_file_is_exec(cmd) || !ft_file_readable(cmd))
-			ret_val = ft_err_no_access(cmd, NULL, 126);
-	}
-	return (ret_val);
+	return (0);
 }
 
 void	exec_cmd(t_cmd *cmd)
@@ -71,16 +95,18 @@ void	exec_cmd(t_cmd *cmd)
 	int		ret_val;
 
 	env_array = ft_env_to_array();
-	if (!cmd->has_path && (path_array = path_array_creation()))
+	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
 	{
-		exec_with_path(cmd, path_array, env_array);
+		ret_val = exec_with_path(cmd, path_array, env_array);
 		ft_free_array(env_array);
-		exit(ft_no_cmd_error(cmd->argv[0], 127));
 		ft_free_array(path_array);
+		if (ret_val)
+			exit(ret_val);
+		exit(ft_no_cmd_error(cmd->argv[0], 127));
 	}
 	else
 	{
-		ret_val = ft_check_file(cmd->argv[0]);
+		ret_val = ft_check_file(cmd->argv[0], 0);
 		execve(cmd->argv[0], cmd->argv, env_array);
 		exit(ret_val);
 	}
