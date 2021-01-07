@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/05 18:08:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/07 16:27:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	key = ft_substr(token, 1, len);
 	if ((value = ft_strdup(ft_find_by_key2(key))))
 	{
-		printf("value = %s\n", value);
+		// printf("value = %s\n", value);
 		add_str_to_buffer(buffer, value, j, quote);
 		free(key);
 		// free (value);

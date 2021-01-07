@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/05 23:07:01 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/07 16:25:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_split_args(char **args, int i)
 
 	j = 0;
 	k = 0;
-	splitted = ft_split_skip(args[i], ' ', "'\"");
+	splitted = ft_split_skip_quotes(args[i], ' ');
 	new_args = malloc(sizeof(char*) * (ft_count_arg(args) + \
 										ft_count_arg(splitted) + 2));
 	while (j < i)

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/05 17:59:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/07 16:26:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ long				ft_error_shlvl(long shlvl);
 int 				ft_line_handle(void);
 int					ft_is_split(char *str);
 char				**ft_split_args(char **args, int i);
+char				**ft_split_skip_quotes(char const *str, char sep);
 
 char				*check_quote(char *token, int i);
 void 				printoutarray(char **pointertoarray);
