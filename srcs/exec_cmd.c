@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/07 13:54:06 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/07 17:22:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,12 @@ int		check_in(t_rdir *in)
 		free(in->file);
 		in->file = tmp;
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
-			return (ft_err_file_not_found(NULL, in->file, 0));
+		{
+			if (ft_file_exists(in->file) && !ft_file_is_exec(in->file))
+				return (ft_err_no_access(in->file, NULL, 0));
+			else
+				return (ft_err_file_not_found(NULL, in->file, 0));
+		}
 		if (in->next)
 			close(in->fd);
 		in = in->next;
