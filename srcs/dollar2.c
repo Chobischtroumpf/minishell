@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolin <ncolin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/15 12:32:17 by ncolin           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:25:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**ft_split_args(char **args, int i)
 
 	j = 0;
 	k = 0;
-	splitted = ft_split(args[i], ' ');
+	splitted = ft_split_skip_quotes(args[i], ' ');
 	new_args = malloc(sizeof(char*) * (ft_count_arg(args) + \
 										ft_count_arg(splitted) + 2));
 	while (j < i)
@@ -67,40 +67,29 @@ int		ft_is_split(char *str)
 {
 	char	*tmp;
 	int		i;
-	int count;
+	int		count;
 
 	count = 0;
 	tmp = ft_strtrim(str, " ");
 	i = 0;
-	while (str[i])
+	while (str[i++])
 	{
-		if (ft_isspace(str[i]))
+		if (str[i] == '\'')
+			while (str[++i] != '\'')
+				;
+		if (str[i] == '"')
+			while (str[++i] != '"')
+				;
+		if (ft_isspace(str[i]) && i != 0)
 		{
 			count++;
-			while (ft_isspace(str[++i]))
-				;
+			while (ft_isspace(str[i]))
+				i++;
+			continue ;
 		}
-		i++;
 	}
+	if (str[i - 1] == ' ')
+		count--;
 	free(tmp);
 	return (count);
 }
-
-// void	check_dollar(t_cmd *cmd)
-// {
-// 	char	**args;
-// 	int		i;
-
-// 	i = 0;
-// 	args = cmd->argv;
-// 	while (args[i])
-// 	{
-// 		while (has_dollar(args[i]))
-// 		{
-// 			args[i] = dollar_to_env(args[i]);
-// 			if (ft_is_split(args[i]))
-// 				cmd->argv = ft_gros_bordel(args, i);
-// 		}
-// 		i++;
-// 	}
-// }

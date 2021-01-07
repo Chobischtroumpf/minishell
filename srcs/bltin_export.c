@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/27 15:04:38 by nathan           ###   ########.fr       */
+/*   Updated: 2020/12/19 13:16:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int		ft_export_no_arg(t_minishell *minishell)
 	tmp = minishell->env;
 	while (tmp)
 	{
+		if (ft_haschr("$\"\\", tmp->value[0]) && ft_strlen(tmp->value) == 1)
+			tmp->value = ft_strjoin("\\", tmp->value); //does it leak?
 		ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}

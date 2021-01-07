@@ -3,50 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2020/12/17 22:42:33 by alessandro       ###   ########.fr        #
+#    Updated: 2021/01/07 16:27:17 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC_PATH = srcs
-SRC_NAME =	cmd_add_rdir.c	\
-			cmd_parser_1.c	\
-			cmd_parser_2.c	\
-			get_static.c	\
-			lexing.c		\
-			minishell.c		\
-			utils.c			\
-			utils2.c		\
-			utils3.c		\
-			utils4.c		\
-			env.c			\
-			env2.c			\
-			exec_cmd.c		\
-			bltin_echo.c	\
-			bltin_exit.c	\
-			bltin_pwd.c		\
-			bltin_env.c		\
-			bltin_unset.c	\
-			bltin_export.c	\
-			bltin_cd.c 		\
-			exec_external.c	\
-			errors.c		\
-			errors2.c		\
-			errors3.c		\
-			errors4.c		\
-			line_handle.c	\
-			redirections.c	\
-			quit.c			\
-			exit.c			\
-			dollar.c		\
-			dollar2.c		\
-			brackets.c		\
-			free.c			\
-			shlvl.c			\
+SRC_NAME =	cmd_add_rdir.c			\
+			cmd_parser_1.c			\
+			cmd_parser_2.c			\
+			get_static.c			\
+			lexing.c				\
+			minishell.c				\
+			utils.c					\
+			utils2.c				\
+			utils3.c				\
+			utils4.c				\
+			env.c					\
+			env2.c					\
+			exec_cmd.c				\
+			bltin_echo.c			\
+			bltin_exit.c			\
+			bltin_pwd.c				\
+			bltin_env.c				\
+			bltin_unset.c			\
+			bltin_export.c			\
+			bltin_cd.c 				\
+			exec_external.c			\
+			errors.c				\
+			errors2.c				\
+			errors3.c				\
+			errors4.c				\
+			line_handle.c			\
+			redirections.c			\
+			quit.c					\
+			exit.c					\
+			dollar.c				\
+			dollar2.c				\
+			brackets.c				\
+			free.c					\
+			shlvl.c					\
+			ft_split_empty.c		\
+			ft_split_skip_quotes.c	\
 			files.c
 
 
