@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/06 23:34:34 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/07 16:25:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,6 @@ int			create_pipes(int pipes[], int nb)
 	return (1);
 }
 
-int			ft_get_exit_code_return(int status, int excode)
-{
-	if (excode == -1)
-	{
-		if (WIFEXITED(status))
-			get_minishell()->excode = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			get_minishell()->excode = 128 + WTERMSIG(status);
-	}
-	else
-		get_minishell()->excode = excode;
-	return(excode);
-}
-
-
 t_cmd		*handle_pipe(t_cmd *cmd, int pipe_nb)
 {
 	int pipe_fds[pipe_nb * 2];
@@ -108,19 +93,24 @@ t_cmd		*handle_pipe(t_cmd *cmd, int pipe_nb)
 	int btin_nb;
 
 	i = 0;
-	// create the pipes in array pipefds
-	// eg : for 2 consecutive pipes : pipe_fds = [pipeA.0, pipeA.1, pipeB.0, pipeB.1]
 	if (!create_pipes(pipe_fds, pipe_nb))
 		return (0);
 	i = 0;
 	while (i < (pipe_nb + 1))
 	{
-		if ((pids[i] = fork()) == 0) //child process
+		if ((pids[i] = fork()) == 0)
 		{
 			dup2_and_close_pipe(pipe_fds, i, pipe_nb);
+			if (!check_in(cmd->in) || !check_out(cmd->out))
+			{
+				get_minishell()->excode = 1;
+				continue ;
+			}
+			open_redirection(cmd);
 			if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
-				exit(ft_get_exit_code_return(NO_STATUS, ft_exec_builtin(btin_nb, cmd)));
+				exit(ft_exec_builtin(btin_nb, cmd));
 			exec_cmd(cmd);
+			close_redirection(cmd);
 		}
 		else if (pids[i] == -1)
 			ft_exit_error();

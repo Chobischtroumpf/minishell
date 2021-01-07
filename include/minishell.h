@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/05 22:37:42 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/07 13:41:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,4 +184,7 @@ int					ft_err_is_symlink_loop(char *cmd, int ret_val);
 int 				count_pipes(t_cmd *cmd);
 t_cmd 				*handle_pipe(t_cmd *cmd, int pipe_nb);
 void				exec_cmd(t_cmd *cmd);
+int					check_in(t_rdir *in);
+int					check_out(t_rdir *out);
+
 #endif
