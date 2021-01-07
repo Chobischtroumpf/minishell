@@ -66,6 +66,7 @@ char		*check_quote(char *token, int i)
 	return (ft_strdup(buffer));
 }
 
+
 void		remove_all_chars(char *str, char c)
 {
 	char *pr;

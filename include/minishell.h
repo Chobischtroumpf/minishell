@@ -79,6 +79,8 @@ typedef struct		s_minishell
 
 t_minishell			*get_minishell(void);
 char				**get_built_in(void);
+int					is_built_in(char *command);
+int					ft_exec_builtin(int bltin_pos, t_cmd *cmd);
 
 void			    ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
@@ -180,5 +182,11 @@ int					ft_err_not_exec(char *cmd,char *arg, int ret);
 int					ft_err_read_error(char *arg, int  ret);
 int					ft_err_is_segfault(char *cmd, char *arg, int ret);
 int					ft_err_is_symlink_loop(char *cmd, int ret_val);
+
+int 				count_pipes(t_cmd *cmd);
+t_cmd 				*handle_pipe(t_cmd *cmd, int pipe_nb);
+void				exec_cmd(t_cmd *cmd);
+int					check_in(t_rdir *in);
+int					check_out(t_rdir *out);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/18 00:44:34 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/07 13:54:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** array where it is located
 */
 
-static int	is_built_in(char *command)
+int			is_built_in(char *command)
 {
 	char		**builtin;
 	int			i;
@@ -39,7 +39,7 @@ static int	is_built_in(char *command)
 ** variable's value
 */
 
-static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
+int			ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 {
 	int			ret;
 
@@ -61,7 +61,7 @@ static int	ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	return (ret);
 }
 
-static int	check_in(t_rdir *in)
+int		check_in(t_rdir *in)
 {
 	char	*tmp;
 
@@ -79,7 +79,7 @@ static int	check_in(t_rdir *in)
 	return (1);
 }
 
-static int	check_out(t_rdir *out)
+int	check_out(t_rdir *out)
 {
 	char	*tmp;
 
@@ -118,7 +118,11 @@ int			ft_exec_cmd(void)
 	while (cmd)
 	{
 		ft_dollar_quotes(cmd);
-		//check pipe
+		if (cmd->pipe)
+		{
+			cmd = handle_pipe(cmd, count_pipes(cmd));
+			continue ;
+		}
 		if (!check_in(cmd->in) || !check_out(cmd->out))
 		{
 			get_minishell()->excode = 1;
