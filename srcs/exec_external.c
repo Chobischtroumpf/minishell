@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/04 23:16:04 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 15:20:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	return (0);
 }
 
-void	exec_cmd(t_cmd *cmd)
+void		exec_cmd(t_cmd *cmd)
 {
 	char	**path_array;
 	char	**env_array;
@@ -135,5 +135,4 @@ void		ft_exec_extern(t_cmd *cmd)
 		if (get_minishell()->excode == 139)
 			ft_err_is_segfault(cmd->argv[0], NULL, 0);
 	}
-	
 }

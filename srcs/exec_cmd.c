@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/07 17:22:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 15:01:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	return (ret);
 }
 
-int		check_in(t_rdir *in)
+int			check_in(t_rdir *in)
 {
 	char	*tmp;
 
@@ -84,7 +84,7 @@ int		check_in(t_rdir *in)
 	return (1);
 }
 
-int	check_out(t_rdir *out)
+int			check_out(t_rdir *out)
 {
 	char	*tmp;
 
