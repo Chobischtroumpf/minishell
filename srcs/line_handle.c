@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/14 11:57:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 12:58:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			ft_lexing(void)
 	x = -1;
 	minishell = get_minishell();
 	tmp = minishell->line;
-	minishell->line = ft_strtrim(tmp, "\t\r\v\f");
+	minishell->line = ft_strtrim(tmp, "\t");
 	free(tmp);
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
 	{
