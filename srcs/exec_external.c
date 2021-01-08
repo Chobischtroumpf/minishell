@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/04 23:16:04 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 11:20:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void		ft_exec_extern(t_cmd *cmd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		exec_cmd(cmd);
-		printf("executed\n");
 	}
 	else if (pid > 0)
 	{

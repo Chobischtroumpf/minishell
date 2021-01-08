@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/07 16:56:59 by adorigo          ###   ########.fr        #
+#    Updated: 2021/01/08 12:00:58 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,9 @@ SRC_NAME =	cmd_add_rdir.c			\
 			ft_split_empty.c		\
 			ft_split_skip_quotes.c	\
 			files.c					\
-			pipe.c
+      		pipe.c
+
+
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)

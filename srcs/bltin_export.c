@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/19 13:16:24 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 11:51:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_valid_key(char *str)
 	arg = ft_strjoin(str, "=");
 	eq_found = 0;
 	i = 0;
-	special_chars = "+=_";
+	special_chars = "_+=";
 	if (ft_isdigit(arg[0]) || arg[0] == '=' || arg[0] == '+')
 		return (0);
 	while (arg[i])
@@ -60,7 +60,7 @@ int		ft_valid_key(char *str)
 void	ft_process_args(char **keyvalue)
 {
 	char *tmp;
-
+	update_lastcmd(keyvalue[0]);
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
 		tmp = keyvalue[0];
@@ -95,7 +95,7 @@ int		ft_export_no_arg(t_minishell *minishell)
 	t_env *tmp;
 
 	tmp = minishell->env;
-	while (tmp)
+	while (tmp->next)
 	{
 		if (ft_haschr("$\"\\", tmp->value[0]) && ft_strlen(tmp->value) == 1)
 			tmp->value = ft_strjoin("\\", tmp->value); //does it leak?
@@ -140,4 +140,10 @@ int		ft_exec_export(t_cmd *cmd)
 	if (ret)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+void	update_lastcmd(char *last_cmd)
+{
+	ft_remove_env(&get_minishell()->env, "_");
+	ft_add_env2("_", last_cmd);
 }
