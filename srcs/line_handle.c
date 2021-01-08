@@ -3,33 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/14 11:57:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 12:59:58 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_lexing(void)
+int ft_lexing(void)
 {
-	t_minishell	*minishell;
-	int			nbr_tokens;
-	char		*tmp;
-	int			x;
+	t_minishell *minishell;
+	int nbr_tokens;
+	char *tmp;
 
+	int x;
 	x = -1;
 	minishell = get_minishell();
 	tmp = minishell->line;
 	minishell->line = ft_strtrim(tmp, "\t\r\v\f");
 	free(tmp);
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
-	{
-		ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2));
-		return (0);
-	}
-	if (!(minishell->tokens = malloc(sizeof(char*) * (nbr_tokens + 1))))
+		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
+	if (!(minishell->tokens = malloc(sizeof(char *) * (nbr_tokens + 1))))
 		ft_exit_error();
 	while (++x < nbr_tokens)
 	{
@@ -41,10 +38,10 @@ int			ft_lexing(void)
 	return (1);
 }
 
-int			get_next_char(int fd, char *cptr)
+int get_next_char(int fd, char *cptr)
 {
-	static char	buf;
-	int			ret;
+	static char buf;
+	int ret;
 
 	buf = 0;
 	if (fd < 0 || fd > FOPEN_MAX || !cptr)
@@ -57,17 +54,17 @@ int			get_next_char(int fd, char *cptr)
 	return (ret);
 }
 
-int			ft_line_handle(void)
+int ft_line_handle(void)
 {
-	t_minishell	*minish;
-	int			ret;
-	char		c;
+	t_minishell *minish;
+	int ret;
+	char c;
 
 	minish = get_minishell();
 	while ((ret = get_next_char(STDIN_FILENO, &c)) == 1)
 	{
 		if (c == '\n')
-			break ;
+			break;
 		minish->line = ft_strjoin_doublefree(minish->line, ft_chardup(c));
 	}
 	if (ret == -1)

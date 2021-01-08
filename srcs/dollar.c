@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/07 17:23:43 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 13:07:14 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 {
 	if (!ft_strncmp(token, "$$", 2))
 	{
-		add_str_to_buffer(buffer, "TEMP_PID", j, quote);
+		add_str_to_buffer(buffer, "$$", j, quote);
 		return (1);
 	}
 	else if (!ft_strncmp(token, "$?", 2))
