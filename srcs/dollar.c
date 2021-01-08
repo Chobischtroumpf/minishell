@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/07 16:27:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/07 17:23:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void skip_extra_spaces(char *str)
 	char *trimmed;
 	char *untrimmed;
 	int prev_space;
-	// printf("before trim |%s|\n", str);
 	trimmed = str;
 	untrimmed = str;
 	prev_space = 0;
@@ -39,17 +38,8 @@ void skip_extra_spaces(char *str)
 		++untrimmed;
 	}
 	*trimmed = '\0';
-	// printf("after  trim |%s|\n", str);
 }
 
-// int is_empty(const char *s) {
-//   while (*s != '\0') {
-//     if (!ft_isspace((unsigned char)*s))
-//       return 0;
-//     s++;
-//   }
-//   return 1;
-// }
 
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
@@ -63,7 +53,6 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 
 int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 {
-	// printf("token |%s|\nBuffer |%s|\n\n", token, buffer);
 	if (!ft_strncmp(token, "$$", 2))
 	{
 		add_str_to_buffer(buffer, "TEMP_PID", j, quote);
@@ -76,9 +65,7 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 	}
 	else if (token[0] == '$' && (ft_haschr("\\",token[1]) || !token[1]) )
 	{
-		// printf("buffer = %s\n", buffer);
 		add_str_to_buffer(buffer, "$", j, quote);
-		// printf("buffer = %s\n", buffer);
 		return 1;
 	}
 	return (0);
@@ -96,14 +83,11 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	key = ft_substr(token, 1, len);
 	if ((value = ft_strdup(ft_find_by_key2(key))))
 	{
-		// printf("value = %s\n", value);
 		add_str_to_buffer(buffer, value, j, quote);
 		free(key);
-		// free (value);
 		return (len);
 	}
 	free(key);
-	// free (value);
 	return (0);
 }
 
@@ -137,7 +121,6 @@ int		process_dollar(char *token, char *buffer, int *j, int quote)
 		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
 	else
 		token2 = ft_strdup(token);
-	
 	if ((ret = check_part_cases(token2, buffer, j, quote)))// handles $$ and $?
 		return(free_str_ret(token2, ret));
 	else if ((ret = check_env(token2, buffer, j, quote))) // is it in env ?

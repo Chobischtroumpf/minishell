@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 15:02:38 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/11 15:03:51 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/07 17:45:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,14 @@ char	*ft_chardup(char c)
 	}
 	dup[0] = c;
 	return (dup);
+}
+
+char	*ft_last_arg(char **arg)
+{
+	int i;
+
+	i = 0;
+	while (arg[i])
+		i++;
+	return (arg[i - 1]);
 }

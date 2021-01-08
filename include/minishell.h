@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/07 16:26:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/07 17:45:52 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,7 @@ t_cmd 				*handle_pipe(t_cmd *cmd, int pipe_nb);
 void				exec_cmd(t_cmd *cmd);
 int					check_in(t_rdir *in);
 int					check_out(t_rdir *out);
+void				update_lastcmd(char *last_cmd);
+char				*ft_last_arg(char **arg);
 
 #endif
