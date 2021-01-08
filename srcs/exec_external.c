@@ -6,15 +6,15 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 15:20:42 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:52:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			ft_check_file(char *cmd, int is_printed)
+int ft_check_file(char *cmd, int is_printed)
 {
-	int		ret_val;
+	int ret_val;
 
 	ret_val = ft_file_is_symlink(cmd);
 	if (!is_printed && ret_val != 127)
@@ -30,17 +30,16 @@ int			ft_check_file(char *cmd, int is_printed)
 	{
 		if (!ft_file_exists(cmd))
 			ret_val = 127;
-		else if (ft_file_is_dir(cmd) || !ft_file_is_exec(cmd)
-				|| !ft_file_readable(cmd))
+		else if (ft_file_is_dir(cmd) || !ft_file_is_exec(cmd) || !ft_file_readable(cmd))
 			ret_val = 126;
 	}
 	return (ret_val);
 }
 
-static char	**path_array_creation(char *cmd)
+static char **path_array_creation(char *cmd)
 {
-	char	**path_array;
-	int		i;
+	char **path_array;
+	int i;
 
 	if (ft_strcmp(ft_find_by_key2("PATH"), "") && (i = -1))
 	{
@@ -57,7 +56,7 @@ static char	**path_array_creation(char *cmd)
 	{
 		if (ft_check_file(cmd, 1))
 			return (NULL);
-		if (!(path_array = malloc(sizeof(char*) * 2)))
+		if (!(path_array = malloc(sizeof(char *) * 2)))
 			ft_exit_error();
 		path_array[0] = ft_strdup(".");
 		path_array[1] = NULL;
@@ -65,11 +64,11 @@ static char	**path_array_creation(char *cmd)
 	return (path_array);
 }
 
-static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
+static int exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 {
-	char	*path_cmd;
-	char	*path_cmd2;
-	int		i;
+	char *path_cmd;
+	char *path_cmd2;
+	int i;
 
 	i = 0;
 	while (path_array[i])
@@ -88,11 +87,11 @@ static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	return (0);
 }
 
-void		exec_cmd(t_cmd *cmd)
+void exec_cmd(t_cmd *cmd)
 {
-	char	**path_array;
-	char	**env_array;
-	int		ret_val;
+	char **path_array;
+	char **env_array;
+	int ret_val;
 
 	env_array = ft_env_to_array();
 	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
@@ -112,10 +111,10 @@ void		exec_cmd(t_cmd *cmd)
 	}
 }
 
-void		ft_exec_extern(t_cmd *cmd)
+void ft_exec_extern(t_cmd *cmd)
 {
-	int		pid;
-	int		status;
+	int pid;
+	int status;
 
 	if (ft_haschr(cmd->argv[0], '/'))
 		cmd->has_path = 1;
@@ -126,7 +125,6 @@ void		ft_exec_extern(t_cmd *cmd)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		exec_cmd(cmd);
-		printf("executed\n");
 	}
 	else if (pid > 0)
 	{

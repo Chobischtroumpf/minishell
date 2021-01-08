@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 20:47:20 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 22:38:53 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:02:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,9 @@ char				**ft_split_skip_quotes(char const *str, char sep)
 	char	**tab;
 	int		i;
 	int		j;
-	
-	if (!str)
-		return (0);
-	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(str, sep) + 1))))
+
+	if (!str || !(tab = (char **)malloc(sizeof(char *) *
+							(count_words(str, sep) + 1))))
 		return (0);
 	i = 0;
 	j = 0;

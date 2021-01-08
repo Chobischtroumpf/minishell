@@ -6,13 +6,13 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/06 23:33:37 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 12:15:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_get_exit_code(int status, int excode)
+int		ft_get_exit_code(int status, int excode)
 {
 	if (excode == -1)
 	{
@@ -23,4 +23,5 @@ void	ft_get_exit_code(int status, int excode)
 	}
 	else
 		get_minishell()->excode = excode;
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/08 22:26:10 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/08 22:53:38 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,22 +54,22 @@ $(NAME) : $(OBJECTS) $(OBJECTS_FT_PRINTF)
 		@ar rcs $(NAME) $(OBJECTS) $(OBJECTS_FT_PRINTF)
 
 $(OBJECTS) : $(SRCS)
-		clang $(CFLAGS) $(SRCS)
+		@clang $(CFLAGS) $(SRCS)
 
 $(OBJECTS_FT_PRINTF) : $(SRCS_FT_PRINTF) 
-		clang $(CFLAGS) $(SRCS_FT_PRINTF)
+		@clang $(CFLAGS) $(SRCS_FT_PRINTF)
 
 $(OBJECTS_B) : $(SRCS_B)
-		clang $(CFLAGS) $(SRCS_B)
+		@clang $(CFLAGS) $(SRCS_B)
 
 bonus : $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 	@ar rcs libft.a $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 
 clean : 
-	rm -f $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
+	@rm -f $(OBJECTS) $(OBJECTS_B) $(OBJECTS_FT_PRINTF)
 
 fclean : clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re : fclean all
 

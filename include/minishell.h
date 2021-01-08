@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 22:38:26 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:53:52 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void				ft_free_cmd(t_cmd *cmd);
 void				ft_free_line(void);
 void				ft_free_all(void);
 void				ft_eof_exit(void);
-void				ft_get_exit_code(int status, int excode);
+int					ft_get_exit_code(int status, int excode);
 
 int					ft_error_dispatch(int ret_val, char *cmd, char *arg);
 int					ft_too_many_args(char *cmd, int ret);
@@ -189,5 +189,7 @@ t_cmd				*handle_pipe(t_cmd *cmd, int pipe_nb);
 void				exec_cmd(t_cmd *cmd);
 int					check_in(t_rdir *in);
 int					check_out(t_rdir *out);
+void				update_lastcmd(char *last_cmd);
+char				*ft_last_arg(char **arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 15:02:38 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 22:32:14 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:54:56 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ void	ft_free_node(t_env *env)
 	free(env->key);
 	free(env->value);
 	free(env);
+}
+
+char    *ft_last_arg(char **arg)
+{
+    int i;
+
+    i = 0;
+    while (arg[i])
+        i++;
+    return (arg[i - 1]);
 }

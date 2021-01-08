@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 15:01:10 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:03:51 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ int			is_built_in(char *command)
 	builtin = get_built_in();
 	while (builtin[i])
 	{
-		if (!ft_strcmp(command, builtin[i]))
-			return (i);
-		i++;
+Norme: ./srcs/utils2.c
+Norme: ./srcs/bltin_exit.c
+Norme: ./srcs/cmd_parser_1.c
+Norme: ./srcs/errors.c
+Norme: ./srcs/bltin_echo.c
+Norme: ./srcs/errors3.c
 	}
 	return (-1);
 }
@@ -134,6 +137,8 @@ int			ft_exec_cmd(void)
 			cmd = cmd->next;
 			continue;
 		}
+		if (!cmd->is_rdir)
+			update_lastcmd(ft_last_arg(cmd->argv));
 		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
