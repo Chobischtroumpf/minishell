@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:06:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/27 12:00:55 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:32:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ int		ft_skip_quotes(char *str, int i)
 	return (i);
 }
 
-void	ft_free_node(t_env *env)
+int		ft_skip_double_quotes(char *str, int i)
 {
-	free(env->key);
-	free(env->value);
-	free(env);
+	if (str[i] == '\"')
+	{
+		i++;
+		while (str[i] != '\"')
+			i++;
+	}
+	return (i);
 }
 
 char	*ft_strtrim_integral(char const *s1, char const set)

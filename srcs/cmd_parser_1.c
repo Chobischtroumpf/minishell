@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:16:48 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/07 17:13:27 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 22:44:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static int
 			return (ft_parse_error(tokens[i], 0));
 		else
 			pipe = 0;
-
 		i++;
 	}
 	if (i != 0 && !ft_strcmp(tokens[i - 1], "|"))

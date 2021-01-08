@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 15:02:38 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 15:42:30 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:32:14 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ int		count_pipes(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 	return (i);
+}
+
+void	ft_free_node(t_env *env)
+{
+	free(env->key);
+	free(env->value);
+	free(env);
 }

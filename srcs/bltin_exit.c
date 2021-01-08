@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/12/14 14:05:14 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/08 22:43:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,12 @@ static int		check_sign(char c)
 	return (0);
 }
 
-static int		ft_atol_check(const char *str)
+static int		ft_atol_check(const char *str, int i)
 {
 	unsigned long	nb;
 	int				is_negative;
 	int				is_sign;
 	const char		*str_cpy;
-	int				i;
 
 	str_cpy = ft_strtrim(str, " \t");
 	is_negative = checker(&str_cpy);
@@ -79,7 +78,7 @@ int				ft_exec_exit(t_cmd *cmd)
 
 	if (cmd->argv[1])
 	{
-		digit = ft_atol_check(cmd->argv[1]);
+		digit = ft_atol_check(cmd->argv[1], 0);
 		if (!digit)
 		{
 			ft_numeric_arg_error(cmd->argv[0], cmd->argv[1]);

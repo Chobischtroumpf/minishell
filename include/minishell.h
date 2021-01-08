@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 15:32:45 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:38:26 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int					ft_backslash_counter(char *str, int i);
 int					ft_dollar_quotes(t_cmd *cmd);
 int					ft_isascii_except(int c);
 int					ft_skip_quotes(char *str, int i);
+int					ft_skip_double_quotes(char *str, int i);
 int					ft_cmd_parse(char **tokens);
 int					ft_check_tokens(char **tokens);
 t_cmd				*ft_last_cmd(t_cmd *cmd);

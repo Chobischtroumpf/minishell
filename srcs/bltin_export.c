@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2020/12/19 13:16:24 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:41:03 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,18 @@ void	ft_process_args(char **keyvalue)
 
 int		ft_export_no_arg(t_minishell *minishell)
 {
-	t_env *tmp;
-
+	t_env	*tmp;
+	char	*temp;
+	
 	tmp = minishell->env;
 	while (tmp)
 	{
 		if (ft_haschr("$\"\\", tmp->value[0]) && ft_strlen(tmp->value) == 1)
-			tmp->value = ft_strjoin("\\", tmp->value); //does it leak?
+		{
+			temp = ft_strjoin("\\", tmp->value);
+			free(tmp->value);
+			tmp->value = temp;
+		}
 		ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
@@ -114,7 +119,7 @@ int		ft_export_no_arg(t_minishell *minishell)
 int		ft_exec_export(t_cmd *cmd)
 {
 	char	**key_value;
-	char 	**args;
+	char	**args;
 	int		i;
 	int		ret;
 
@@ -137,7 +142,5 @@ int		ft_exec_export(t_cmd *cmd)
 		else
 			return (ft_invalid_identifier("export", args[i]));
 	}
-	if (ret)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return ((ret) ? EXIT_FAILURE : EXIT_SUCCESS);
 }
