@@ -3,16 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+<<<<<<< HEAD
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
 #    Updated: 2021/01/07 17:07:06 by nathan           ###   ########.fr        #
+=======
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
+#    Updated: 2021/01/07 16:56:59 by adorigo          ###   ########.fr        #
+>>>>>>> master
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC_PATH = srcs
+
 SRC_NAME =	cmd_add_rdir.c			\
 			cmd_parser_1.c			\
 			cmd_parser_2.c			\
@@ -49,7 +57,7 @@ SRC_NAME =	cmd_add_rdir.c			\
 			shlvl.c					\
 			ft_split_empty.c		\
 			ft_split_skip_quotes.c	\
-			files.c         \
+			files.c					\
       		pipe.c
 
 
@@ -77,8 +85,6 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 
 libft:
 	@make -C libft
-
-SRC_NAME =  cmd_add_rdir.c  \
 
 libft_bonus:
 	@make -C libft bonus
