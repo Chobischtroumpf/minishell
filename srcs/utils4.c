@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 15:02:38 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 22:54:56 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 23:18:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_chardup(char c)
 {
 	char *dup;
 
-	if (!(dup = (char*)ft_calloc(2, sizeof(char))))
+	if (!(dup = (char *)ft_calloc(2, sizeof(char))))
 	{
 		ft_exit_error();
 		return (NULL);
@@ -48,12 +48,12 @@ void	ft_free_node(t_env *env)
 	free(env);
 }
 
-char    *ft_last_arg(char **arg)
+char	*ft_last_arg(char **arg)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (arg[i])
-        i++;
-    return (arg[i - 1]);
+	i = 0;
+	while (arg[i])
+		i++;
+	return (arg[i - 1]);
 }
