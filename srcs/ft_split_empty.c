@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 11:45:10 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 15:42:53 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 13:28:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,13 @@ static char	*malloc_word(char const *str, char sep)
 	return (word);
 }
 
-static void	*free_tab(char **tab, int i)
+void		split_helper(char *buff, char *str, char sep)
 {
-	while (i >= 0)
-	{
-		if (tab[i])
-			free(tab[i]);
-		i--;
-	}
-	free(tab);
-	return (NULL);
-}
+	int i;
+	int j;
 
-char		**ft_split_empty(char const *str, char sep)
-{
-	char	**tab;
-	int		i;
-	int		j;
-	char	buff[LINE_MAX];
-
-	j = 0;
 	i = -1;
-	if (!str)
-		return (0);
+	j = 0;
 	bzero(buff, LINE_MAX);
 	while (str[++i])
 	{
@@ -88,10 +72,20 @@ char		**ft_split_empty(char const *str, char sep)
 		if (is_sep(str[i], sep) && !str[i + 1])
 			buff[j++] = -1;
 	}
-	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(buff, sep) + 1))))
-		return (0);
+}
+
+char		**ft_split_empty(char const *str, char sep)
+{
+	char	**tab;
+	int		i;
+	int		j;
+	char	buff[LINE_MAX];
+
 	i = 0;
 	j = 0;
+	split_helper(buff, (char*)str, sep);
+	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(buff, sep) + 1))))
+		return (0);
 	while (buff[j])
 	{
 		while (buff[j] && is_sep(buff[j], sep))
@@ -99,7 +93,7 @@ char		**ft_split_empty(char const *str, char sep)
 		if (buff[j] && (!is_sep(buff[j], sep)))
 		{
 			if (!(tab[i] = malloc_word(&buff[j], sep)))
-				return (free_tab(tab, i));
+				return (ft_free_tab(tab, i));
 			i++;
 			while (buff[j] && !is_sep(buff[j], sep))
 				j++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_total.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 11:02:52 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/13 14:15:44 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/09 14:00:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,48 +52,31 @@ static char	*malloc_word(char const *str, char sep)
 	return (word);
 }
 
-static void	*free_tab(char **tab, int i)
-{
-	while (i >= 0)
-	{
-		if (tab[i])
-			free(tab[i]);
-		i--;
-	}
-	free(tab);
-	return (NULL);
-}
-
 char		**ft_split_total(char const *str, char sep)
 {
 	char	**tab;
 	int		i;
 
-	if (!str)
+	if (!str || !(tab = (char **)ft_calloc((count_words(str, sep) + 1),
+											sizeof(char *))))
 		return (0);
-	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(str, sep) + 1))))
-		return (0);
-	i = 0;
+	i = -1;
 	while (*str)
 	{
 		if (*str && (*str != sep))
 		{
-			if (!(tab[i] = malloc_word(str, sep)))
-				return (free_tab(tab, i));
-			i++;
+			if (!(tab[++i] = malloc_word(str, sep)))
+				return (ft_free_tab(tab, i));
 			while (*str && (*str != sep))
 				str++;
 		}
 		else if (*str && (*str == sep))
 		{
-			if (!(tab[i] = (char *)malloc(sizeof(char) * 2)))
-				return (free_tab(tab, i));
+			if (!(tab[++i] = (char *)ft_calloc(2, sizeof(char))))
+				return (ft_free_tab(tab, i));
 			tab[i][0] = sep;
-			tab[i][1] = '\0';
-			i++;
 			str++;
 		}
 	}
-	tab[i] = NULL;
 	return (tab);
 }

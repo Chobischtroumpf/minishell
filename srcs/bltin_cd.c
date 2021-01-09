@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/06 23:24:47 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 14:01:31 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,25 @@ int		ft_chdir_err(int err_code, char *cmd, char *arg)
 	return (-err_code);
 }
 
-void	init_home(void)
+int		cd_cases(char **argv, char *home)
 {
-	if (!ft_find_by_key2("OLDPWD"))
-		ft_add_env2("OLDPWD", "");
-	if (!ft_find_by_key2("HOME"))
-		ft_add_env2("HOME", "");
+	if (ft_array_size(argv) == 1)
+	{
+		if (!ft_strncmp(home, "", ft_strlen(home)))
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		else
+			return (ft_chdir_err(chdir(home), argv[0], "home"));
+	}
+	else if (!(ft_strncmp(argv[1], "", ft_strlen(argv[1]))))
+		return (ft_chdir_err(chdir("."), argv[0], argv[1]));
+	else if (!(ft_strncmp(argv[1], "~", ft_strlen(argv[1]))))
+		return (ft_chdir_err(chdir(home), argv[0], argv[1]));
+	else if (!(ft_strncmp(argv[1], "-", ft_strlen(argv[1]))))
+		return (ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")),\
+											argv[0], argv[1]));
+	else if ((ft_array_size(argv) == 2))
+		return (ft_chdir_err(chdir(argv[1]), argv[0], argv[1]));
+	return (1);
 }
 
 int		ft_exec_cd(t_cmd *cmd)
@@ -70,28 +83,12 @@ int		ft_exec_cd(t_cmd *cmd)
 
 	ret = 1;
 	init_home();
-	if (!(home = ft_strdup(ft_find_by_key2("HOME"))))
+	if (!(home = ft_find_by_key2("HOME")))
 		ft_putstr_fd("minishell: cd: HOME not set", 2);
 	else if (ft_array_size(cmd->argv) > 2)
 		return (ft_too_many_args("cd", 1));
-	else if (ft_array_size(cmd->argv) == 1)
-	{
-		if (!ft_strncmp(home, "", ft_strlen(home)))
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		else
-			ret = ft_chdir_err(chdir(home), cmd->argv[0], "home");
-	}
-	else if (!(ft_strncmp(cmd->argv[1], "", ft_strlen(cmd->argv[1]))))
-		ret = ft_chdir_err(chdir("."), cmd->argv[0], cmd->argv[1]);
-	else if (!(ft_strncmp(cmd->argv[1], "~", ft_strlen(cmd->argv[1]))))
-		ret = ft_chdir_err(chdir(home), cmd->argv[0], cmd->argv[1]);
-	else if (!(ft_strncmp(cmd->argv[1], "-", ft_strlen(cmd->argv[1]))))
-		ret = ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")),\
-											cmd->argv[0], cmd->argv[1]);
-	else if ((ft_array_size(cmd->argv) == 2))
-		ret = ft_chdir_err(chdir(cmd->argv[1]), cmd->argv[0], cmd->argv[1]);
+	ret = cd_cases(cmd->argv, home);
 	if (!ret)
 		update_pwd();
-	free(home);
 	return (ret);
 }

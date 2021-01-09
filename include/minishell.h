@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 22:53:52 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 14:07:41 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,6 @@ int					check_in(t_rdir *in);
 int					check_out(t_rdir *out);
 void				update_lastcmd(char *last_cmd);
 char				*ft_last_arg(char **arg);
+void				init_home(void);
 
 #endif
