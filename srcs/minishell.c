@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 15:02:45 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:03:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,29 @@
 
 static void	prompt_msg(void)
 {
+	char		pwd[100];
+	static int	too_long = 0;
+
 	if (get_minishell()->was_eof == 0)
-		ft_putstr_fd("\033[32mminishell\033[0m$ ", 2);
+	{
+		if (getcwd(pwd, 100))
+		{
+			too_long = 0;
+			ft_putstr_fd("\033[32m", 2);
+			ft_putstr_fd(pwd, 2);
+			if (!ft_strcmp(pwd, "/"))
+				ft_putstr_fd("\033[0m\n \033[36m->\033[0m ", 2);
+			else
+				ft_putstr_fd("/\033[0m\n \033[36m->\033[0m ", 2);
+		}
+		else
+		{
+			if (too_long == 0)
+				ft_putstr_fd("\033[31;1;4mpath_name too long, reverting back to original prompt\033[0m\n", 2);
+			too_long = 1;
+			ft_putstr_fd("\033[32mminishell\033[0m\n \033[36m->\033[0m ", 2);
+		}
+	}
 }
 
 /*
@@ -91,6 +112,7 @@ int			main(int ac, char **av, char **envv)
 	ft_init_pwd();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	
 	ft_shlvl();
 	if (ac == 1)
 		main_execution();
