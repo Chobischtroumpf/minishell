@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_skip_quotes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/06 20:47:20 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/06 23:16:43 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 23:02:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,44 +70,29 @@ static char			*malloc_word(char const *str, char sep)
 	return (word);
 }
 
-static void			*free_tab(char **tab, int i)
-{
-	while (i >= 0)
-	{
-		if (tab[i])
-			free(tab[i]);
-		i--;
-	}
-	free(tab);
-	return (NULL);
-}
-
 char				**ft_split_skip_quotes(char const *str, char sep)
 {
 	char	**tab;
 	int		i;
+	int		j;
 
-	if (!str)
-		return (0);
-	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(str, sep) + 1))))
+	if (!str || !(tab = (char **)malloc(sizeof(char *) *
+							(count_words(str, sep) + 1))))
 		return (0);
 	i = 0;
-	while (*str)
+	j = 0;
+	while (str[j])
 	{
-		while (*str && is_sep(*str, sep))
-			str++;
-		if (*str && !is_sep(*str, sep))
+		while (str[j] && is_sep(str[j], sep))
+			j++;
+		if (str[j] && !is_sep(str[j], sep))
 		{
-			if (!(tab[i++] = malloc_word(str, sep)))
-				return (free_tab(tab, i));
-			if (*str == '\'')
-				while (*++str != '\'')
-					;
-			if (*str == '\"')
-				while (*++str != '"')
-					;
-			while (*str && !is_sep(*str, sep))
-				str++;
+			if (!(tab[i++] = malloc_word(&str[j], sep)))
+				return (ft_free_tab(tab, i));
+			j = ft_skip_quotes((char*)str, j);
+			j = ft_skip_double_quotes((char*)str, j);
+			while (str[j] && !is_sep(str[j], sep))
+				j++;
 		}
 	}
 	tab[i] = NULL;

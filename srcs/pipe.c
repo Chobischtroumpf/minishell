@@ -6,37 +6,13 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/07 16:25:40 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 15:20:09 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**counts the consecutive pipes in the chain of commands
-*/
-
-int			count_pipes(t_cmd *cmd)
-{
-	int i;
-
-	i = 0;
-	while (cmd)
-	{
-		if (cmd->pipe)
-			i++;
-		else
-			break ;
-		cmd = cmd->next;
-	}
-	return (i);
-}
-
-/*
-**
-*/
-
-static void	close_all(int pipes[], int nb)
+void	close_pipes(int pipes[], int nb)
 {
 	int i;
 
@@ -45,7 +21,7 @@ static void	close_all(int pipes[], int nb)
 		close(pipes[i++]);
 }
 
-static void	dup2_and_close_pipe(int pipes[], int i, int nb)
+void	dup2_and_close_pipe(int pipes[], int i, int nb)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -53,15 +29,15 @@ static void	dup2_and_close_pipe(int pipes[], int i, int nb)
 		dup2(pipes[i * 2 + 1], 1);
 	if (i > 0)
 		dup2(pipes[(i - 1) * 2], 0);
-	close_all(pipes, nb);
+	close_pipes(pipes, nb);
 }
 
-static void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
+void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
 {
 	int status;
 	int	i;
-	
-	close_all(pipes, nb);
+
+	close_pipes(pipes, nb);
 	i = 0;
 	while (i < nb + 1)
 	{
@@ -71,7 +47,7 @@ static void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
 	ft_get_exit_code(status, NO_EXCODE);
 }
 
-int			create_pipes(int pipes[], int nb)
+int		start_pipes(int pipes[], int nb)
 {
 	int i;
 
@@ -85,7 +61,7 @@ int			create_pipes(int pipes[], int nb)
 	return (1);
 }
 
-t_cmd		*handle_pipe(t_cmd *cmd, int pipe_nb)
+t_cmd	*handle_pipe(t_cmd *cmd, int pipe_nb)
 {
 	int pipe_fds[pipe_nb * 2];
 	int pids[pipe_nb + 1];
@@ -93,7 +69,7 @@ t_cmd		*handle_pipe(t_cmd *cmd, int pipe_nb)
 	int btin_nb;
 
 	i = 0;
-	if (!create_pipes(pipe_fds, pipe_nb))
+	if (!start_pipes(pipe_fds, pipe_nb))
 		return (0);
 	i = 0;
 	while (i < (pipe_nb + 1))

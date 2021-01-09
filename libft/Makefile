@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/08 19:03:59 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/08 22:53:38 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS = ft_memset.c ft_strlast.c ft_memcpy.c ft_memccpy.c ft_memmove.c	\
 		get_next_line.c ft_haschr.c ft_printf.c ft_hasnchar.c ft_atol.c	\
 		ft_split_once.c	ft_strjoin_free.c ft_realloc.c ft_split_total.c	\
 		ft_strjoin_delimiter.c ft_strjoin_delimiter_free.c ft_strpbkr.c	\
-		ft_strjoin_doublefree.c
+		ft_strjoin_doublefree.c ft_free_tab.c
 
 SRCS_B = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c 	\
 		ft_lstadd_back_bonus.c ft_lstlast_bonus.c ft_lstdelone_bonus.c 	\

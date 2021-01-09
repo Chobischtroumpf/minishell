@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 12:58:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/08 23:20:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_lexing(void)
+int	ft_lexing(void)
 {
-	t_minishell *minishell;
-	int nbr_tokens;
-	char *tmp;
+	t_minishell	*minishell;
+	int			nbr_tokens;
+	char		*tmp;
+	int			x;
 
-	int x;
 	x = -1;
 	minishell = get_minishell();
 	tmp = minishell->line;
@@ -38,10 +38,10 @@ int ft_lexing(void)
 	return (1);
 }
 
-int get_next_char(int fd, char *cptr)
+int	get_next_char(int fd, char *cptr)
 {
-	static char buf;
-	int ret;
+	static char	buf;
+	int			ret;
 
 	buf = 0;
 	if (fd < 0 || fd > FOPEN_MAX || !cptr)
@@ -54,17 +54,17 @@ int get_next_char(int fd, char *cptr)
 	return (ret);
 }
 
-int ft_line_handle(void)
+int	ft_line_handle(void)
 {
-	t_minishell *minish;
-	int ret;
-	char c;
+	t_minishell	*minish;
+	int			ret;
+	char		c;
 
 	minish = get_minishell();
 	while ((ret = get_next_char(STDIN_FILENO, &c)) == 1)
 	{
 		if (c == '\n')
-			break;
+			break ;
 		minish->line = ft_strjoin_doublefree(minish->line, ft_chardup(c));
 	}
 	if (ret == -1)

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:00:48 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/06 23:15:38 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 14:10:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,26 @@ long			ft_atoi_pos(const char *str)
 	if (nb <= (unsigned long)LONG_MAX)
 		return (check_lvlneg(nb, is_negative));
 	return ((long)nb * is_negative);
+}
+
+/*
+** is_builtin is a function that checks whether the command currently being
+** executed is built into minishell, if it is, it returns the position in the
+** array where it is located
+*/
+
+int			is_built_in(char *command)
+{
+	char		**builtin;
+	int			i;
+
+	i = 0;
+	builtin = get_built_in();
+	while (builtin[i])
+	{
+		if (!ft_strcmp(command, builtin[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
 }

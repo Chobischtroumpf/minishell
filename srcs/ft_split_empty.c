@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_empty.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 11:45:10 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/06 21:39:12 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/09 13:28:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h" 
+#include "minishell.h"
 
 static int	is_sep(char c, char sep)
 {
@@ -56,16 +56,22 @@ static char	*malloc_word(char const *str, char sep)
 	return (word);
 }
 
-static void	*free_tab(char **tab, int i)
+void		split_helper(char *buff, char *str, char sep)
 {
-	while (i >= 0)
+	int i;
+	int j;
+
+	i = -1;
+	j = 0;
+	bzero(buff, LINE_MAX);
+	while (str[++i])
 	{
-		if (tab[i])
-			free(tab[i]);
-		i--;
+		if (is_sep(str[i], sep) && (i == 0 || is_sep(str[i - 1], sep)))
+			buff[j++] = -1;
+		buff[j++] = str[i];
+		if (is_sep(str[i], sep) && !str[i + 1])
+			buff[j++] = -1;
 	}
-	free(tab);
-	return (NULL);
 }
 
 char		**ft_split_empty(char const *str, char sep)
@@ -75,23 +81,11 @@ char		**ft_split_empty(char const *str, char sep)
 	int		j;
 	char	buff[LINE_MAX];
 
-	j = 0;
-	i = -1;
-	if (!str)
-		return (0);
-	bzero(buff, LINE_MAX);
-	while (str[++i])
-	{
-		if (is_sep(str[i], sep) && (i == 0 || is_sep(str[i-1], sep)))
-			buff[j++] = -1;
-		buff[j++] = str[i];
-		if (is_sep(str[i], sep) && !str[i+1])
-			buff[j++] = -1;
-	}
-	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(buff, sep) + 1))))
-		return (0);
 	i = 0;
 	j = 0;
+	split_helper(buff, (char*)str, sep);
+	if (!(tab = (char **)malloc(sizeof(char *) * (count_words(buff, sep) + 1))))
+		return (0);
 	while (buff[j])
 	{
 		while (buff[j] && is_sep(buff[j], sep))
@@ -99,7 +93,7 @@ char		**ft_split_empty(char const *str, char sep)
 		if (buff[j] && (!is_sep(buff[j], sep)))
 		{
 			if (!(tab[i] = malloc_word(&buff[j], sep)))
-				return (free_tab(tab, i));
+				return (ft_free_tab(tab, i));
 			i++;
 			while (buff[j] && !is_sep(buff[j], sep))
 				j++;

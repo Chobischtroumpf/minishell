@@ -6,17 +6,18 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/08 13:07:14 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/08 22:50:48 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void skip_extra_spaces(char *str)
-{	
-	char *trimmed;
-	char *untrimmed;
-	int prev_space;
+void	skip_extra_spaces(char *str)
+{
+	char	*trimmed;
+	char	*untrimmed;
+	int		prev_space;
+
 	trimmed = str;
 	untrimmed = str;
 	prev_space = 0;
@@ -33,13 +34,12 @@ void skip_extra_spaces(char *str)
 		else
 		{
 			*trimmed++ = *untrimmed;
-			prev_space = 0; 
+			prev_space = 0;
 		}
 		++untrimmed;
 	}
 	*trimmed = '\0';
 }
-
 
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
@@ -47,11 +47,11 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 		skip_extra_spaces(str);
 	if (!quote)
 		buffer[++*j] = 3;
-	while(*str)
+	while (*str)
 		buffer[++*j] = *str++;
 }
 
-int 	check_part_cases(char *token, char *buffer, int *j, int quote)
+int		check_part_cases(char *token, char *buffer, int *j, int quote)
 {
 	if (!ft_strncmp(token, "$$", 2))
 	{
@@ -63,10 +63,10 @@ int 	check_part_cases(char *token, char *buffer, int *j, int quote)
 		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j, quote);
 		return (1);
 	}
-	else if (token[0] == '$' && (ft_haschr("\\",token[1]) || !token[1]) )
+	else if (token[0] == '$' && (ft_haschr("\\", token[1]) || !token[1]))
 	{
 		add_str_to_buffer(buffer, "$", j, quote);
-		return 1;
+		return (1);
 	}
 	return (0);
 }
@@ -91,42 +91,40 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	return (0);
 }
 
-int 	replace_false_dollar(char *token, char *buffer, int *j)
+int		replace_false_dollar(char *token, char *buffer, int *j)
 {
 	int i;
 	int count;
-	
+
 	i = 1;
-	count =0;
+	count = 0;
 	while (token[i] && !ft_haschr("|$", token[i]))
 	{
 		i++;
 		count++;
 	}
-	if (token[i] != '$' && token[i]!= '|')
+	if (token[i] != '$' && token[i] != '|')
 		while (token[i])
 			buffer[++*j] = token[i++];
 	return (count);
 }
 
-
-
 int		process_dollar(char *token, char *buffer, int *j, int quote)
-{	
+{
 	int		ret;
 	char	*token2;
-	
+
 	ret = 0;
 	if (quote)
-		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));// gets rid of last "
+		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));
 	else
 		token2 = ft_strdup(token);
-	if ((ret = check_part_cases(token2, buffer, j, quote)))// handles $$ and $?
-		return(free_str_ret(token2, ret));
-	else if ((ret = check_env(token2, buffer, j, quote))) // is it in env ?
-		return(free_str_ret(token2, ret));
-	else if ((ret = replace_false_dollar(token2, buffer, j))) // if not in env, get rid off the false key
-		return(free_str_ret(token2, ret));
+	if ((ret = check_part_cases(token2, buffer, j, quote)))
+		return (free_str_ret(token2, ret));
+	else if ((ret = check_env(token2, buffer, j, quote)))
+		return (free_str_ret(token2, ret));
+	else if ((ret = replace_false_dollar(token2, buffer, j)))
+		return (free_str_ret(token2, ret));
 	free(token2);
 	return (ret);
 }

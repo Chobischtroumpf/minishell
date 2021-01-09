@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/08 11:51:29 by nathan           ###   ########.fr       */
+/*   Created: 2021/01/09 12:58:37 by nathan            #+#    #+#             */
+/*   Updated: 2021/01/09 13:04:45 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int		ft_valid_key(char *str)
 
 void	ft_process_args(char **keyvalue)
 {
-	char *tmp;
+	char	*tmp;
+
 	update_lastcmd(keyvalue[0]);
 	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
 	{
@@ -92,13 +93,18 @@ void	ft_process_args(char **keyvalue)
 
 int		ft_export_no_arg(t_minishell *minishell)
 {
-	t_env *tmp;
+	t_env	*tmp;
+	char	*temp;
 
 	tmp = minishell->env;
 	while (tmp->next)
 	{
 		if (ft_haschr("$\"\\", tmp->value[0]) && ft_strlen(tmp->value) == 1)
-			tmp->value = ft_strjoin("\\", tmp->value); //does it leak?
+		{
+			temp = ft_strjoin("\\", tmp->value);
+			free(tmp->value);
+			tmp->value = temp;
+		}
 		ft_printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
@@ -114,7 +120,7 @@ int		ft_export_no_arg(t_minishell *minishell)
 int		ft_exec_export(t_cmd *cmd)
 {
 	char	**key_value;
-	char 	**args;
+	char	**args;
 	int		i;
 	int		ret;
 
@@ -129,7 +135,7 @@ int		ft_exec_export(t_cmd *cmd)
 		{
 			if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
 				ret = ft_invalid_identifier("export", args[i]);
-			continue ;
+			continue;
 		}
 		key_value = ft_split_once(args[i], '=');
 		if (ft_valid_key(key_value[0]))
@@ -137,9 +143,7 @@ int		ft_exec_export(t_cmd *cmd)
 		else
 			return (ft_invalid_identifier("export", args[i]));
 	}
-	if (ret)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return ((ret) ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
 void	update_lastcmd(char *last_cmd)

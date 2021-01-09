@@ -6,33 +6,11 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 11:58:45 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 14:13:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** is_builtin is a function that checks whether the command currently being
-** executed is built into minishell, if it is, it returns the position in the
-** array where it is located
-*/
-
-int			is_built_in(char *command)
-{
-	char		**builtin;
-	int			i;
-
-	i = 0;
-	builtin = get_built_in();
-	while (builtin[i])
-	{
-		if (!ft_strcmp(command, builtin[i]))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 /*
 ** executes the specified builtin command, depending on the bltin_pos
@@ -61,7 +39,7 @@ int			ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	return (ret);
 }
 
-int		check_in(t_rdir *in)
+int			check_in(t_rdir *in)
 {
 	char	*tmp;
 
@@ -84,7 +62,7 @@ int		check_in(t_rdir *in)
 	return (1);
 }
 
-int	check_out(t_rdir *out)
+int			check_out(t_rdir *out)
 {
 	char	*tmp;
 
@@ -108,6 +86,18 @@ int	check_out(t_rdir *out)
 	return (1);
 }
 
+void		exec_no_pipe(t_cmd *cmd)
+{
+	int	btin_nb;
+
+	open_redirection(cmd);
+	if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
+		ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
+	else if (cmd->argv[0])
+		ft_exec_extern(cmd);
+	close_redirection(cmd);
+}
+
 /*
 ** ft_exec_cmd is the command in charge of executing the different comands
 ** found in the t_cmd struct
@@ -115,7 +105,6 @@ int	check_out(t_rdir *out)
 
 int			ft_exec_cmd(void)
 {
-	int			btin_nb;
 	t_cmd		*cmd;
 
 	get_minishell()->executed = 1;
@@ -134,15 +123,9 @@ int			ft_exec_cmd(void)
 			cmd = cmd->next;
 			continue;
 		}
-		if(!cmd->is_rdir)
+		if (!cmd->is_rdir)
 			update_lastcmd(ft_last_arg(cmd->argv));
-		open_redirection(cmd);
-		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
-			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
-		else if (cmd->argv[0])
-			ft_exec_extern(cmd);
-		close_redirection(cmd);
-		
+		exec_no_pipe(cmd);
 		cmd = cmd->next;
 	}
 	get_minishell()->executed = 0;

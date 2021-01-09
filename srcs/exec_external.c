@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 11:20:12 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 13:28:36 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			ft_check_file(char *cmd, int is_printed)
 {
-	int		ret_val;
+	int ret_val;
 
 	ret_val = ft_file_is_symlink(cmd);
 	if (!is_printed && ret_val != 127)
@@ -30,8 +30,8 @@ int			ft_check_file(char *cmd, int is_printed)
 	{
 		if (!ft_file_exists(cmd))
 			ret_val = 127;
-		else if (ft_file_is_dir(cmd) || !ft_file_is_exec(cmd)
-				|| !ft_file_readable(cmd))
+		else if (ft_file_is_dir(cmd) || !ft_file_is_exec(cmd) ||
+		!ft_file_readable(cmd))
 			ret_val = 126;
 	}
 	return (ret_val);
@@ -57,7 +57,7 @@ static char	**path_array_creation(char *cmd)
 	{
 		if (ft_check_file(cmd, 1))
 			return (NULL);
-		if (!(path_array = malloc(sizeof(char*) * 2)))
+		if (!(path_array = malloc(sizeof(char *) * 2)))
 			ft_exit_error();
 		path_array[0] = ft_strdup(".");
 		path_array[1] = NULL;
@@ -88,7 +88,7 @@ static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	return (0);
 }
 
-void	exec_cmd(t_cmd *cmd)
+void		exec_cmd(t_cmd *cmd)
 {
 	char	**path_array;
 	char	**env_array;
@@ -114,8 +114,8 @@ void	exec_cmd(t_cmd *cmd)
 
 void		ft_exec_extern(t_cmd *cmd)
 {
-	int		pid;
-	int		status;
+	int pid;
+	int status;
 
 	if (ft_haschr(cmd->argv[0], '/'))
 		cmd->has_path = 1;
@@ -134,5 +134,4 @@ void		ft_exec_extern(t_cmd *cmd)
 		if (get_minishell()->excode == 139)
 			ft_err_is_segfault(cmd->argv[0], NULL, 0);
 	}
-	
 }
