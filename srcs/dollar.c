@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/08 22:50:48 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:05:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	{
 		add_str_to_buffer(buffer, value, j, quote);
 		free(key);
+		free(value);
 		return (len);
 	}
 	free(key);
+	free(value);
 	return (0);
 }
 
