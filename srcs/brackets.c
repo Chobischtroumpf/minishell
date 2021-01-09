@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 15:24:53 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:08:12 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,5 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		free(old_arg);
 	}
 	i = -1;
-	while (cmd->argv[++i])
-		remove_all_chars(cmd->argv[i], 3);
 	return (1);
 }
