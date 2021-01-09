@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dollar2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/06 23:21:59 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:10:34 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_out_array(char **pointertoarray)
-{
-	int count;
-	int i;
-
-	i = 0;
-	count = 0;
-	while (pointertoarray[count])
-		count++;
-	while (i < count)
-	{
-		printf("ARGS[%i] >%s< \n", i, pointertoarray[i]);
-		i++;
-	}
-}
 
 char	**ft_split_args(char **args, int i)
 {

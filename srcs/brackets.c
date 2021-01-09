@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/09 17:08:12 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/09 17:09:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		old_arg = cmd->argv[i];
 		cmd->argv[i] = check_quote(cmd->argv[i], -1);
 		splits = ft_is_split(cmd->argv[i]);
-		if (splits && cmd->argv[i][0] == 3)
+		if (splits && cmd->argv[i][0] == -1)
 		{
 			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i]));
 			cmd->argv = ft_split_args(cmd->argv, i);
@@ -102,5 +102,7 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		free(old_arg);
 	}
 	i = -1;
+	while (cmd->argv[++i])
+		remove_all_chars(cmd->argv[i], -1);
 	return (1);
 }

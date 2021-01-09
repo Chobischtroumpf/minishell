@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/09 17:05:38 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/09 17:15:43 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 	if (!quote && ft_haschr(str, ' '))
 		skip_extra_spaces(str);
 	if (!quote)
-		buffer[++*j] = 3;
+		buffer[++*j] = -1;
 	while (*str)
 		buffer[++*j] = *str++;
 }
@@ -100,11 +100,13 @@ int		replace_false_dollar(char *token, char *buffer, int *j)
 
 	i = 1;
 	count = 0;
-	while (token[i] && !ft_haschr("|$", token[i]))
+	while (token[i] && (ft_isalnum(token[i]) || token[i] == '_'))
 	{
 		i++;
 		count++;
 	}
+	if (count == 0)
+	buffer[++*j] = token[0];
 	if (token[i] != '$' && token[i] != '|')
 		while (token[i])
 			buffer[++*j] = token[i++];
