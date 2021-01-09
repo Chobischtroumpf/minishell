@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 17:07:35 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/09 17:13:55 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/09 17:21:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	ft_putstr(char const *str)
 		return ;
 	while (*str != '\0')
 	{
-		ft_putnbr(*str);
-		ft_putchar(' ');
+		ft_putchar(*str);
 		str++;
 	}
 }
