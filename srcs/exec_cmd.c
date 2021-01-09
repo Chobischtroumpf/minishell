@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 23:22:07 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 12:45:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,15 @@ int			ft_exec_cmd(void)
 			cmd = cmd->next;
 			continue;
 		}
+		if(!cmd->is_rdir)
+			update_lastcmd(ft_last_arg(cmd->argv));
 		open_redirection(cmd);
 		if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 			ft_get_exit_code(NO_STATUS, ft_exec_builtin(btin_nb, cmd));
 		else if (cmd->argv[0])
 			ft_exec_extern(cmd);
 		close_redirection(cmd);
+		
 		cmd = cmd->next;
 	}
 	get_minishell()->executed = 0;
