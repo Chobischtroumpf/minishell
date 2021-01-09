@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:54:50 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/08 22:58:36 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/09 12:39:52 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,33 +117,33 @@ int		ft_export_no_arg(t_minishell *minishell)
 **	arguments are existing/valid. Returns (0) on complition.
 */
 
-int		ft_exec_export(t_cmd *cmd)
+int        ft_exec_export(t_cmd *cmd)
 {
-	char	**key_value;
-	char	**args;
-	int		i;
-	int		ret;
+    char    **key_value;
+    char    **args;
+    int        i;
+    int        ret;
 
-	args = cmd->argv;
-	ret = 0;
-	i = 0;
-	if (!args[1])
-		return (ft_export_no_arg(get_minishell()));
-	while (args[++i])
-	{
-		if (!ft_strchr(args[i], '='))
-		{
-			if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
-				ret = ft_invalid_identifier("export", args[i]);
-			continue ;
-		}
-		key_value = ft_split_once(args[i], '=');
-		if (ft_valid_key(key_value[0]))
-			ft_process_args(key_value);
-		else
-			return (ft_invalid_identifier("export", args[i]));
-	}
-	return ((ret) ? EXIT_FAILURE : EXIT_SUCCESS);
+    args = cmd->argv;
+    ret = 0;
+    i = 0;
+    if (!args[1])
+        return (ft_export_no_arg(get_minishell()));
+    while (args[++i])
+    {
+        if (!ft_strchr(args[i], '='))
+        {
+            if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
+                ret = ft_invalid_identifier("export", args[i]);
+            continue ;
+        }
+        key_value = ft_split_once(args[i], '=');
+        if (ft_valid_key(key_value[0]))
+            ft_process_args(key_value);
+        else
+            return (ft_invalid_identifier("export", args[i]));
+    }
+    return ((ret) ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
 void	update_lastcmd(char *last_cmd)
