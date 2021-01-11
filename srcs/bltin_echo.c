@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/09 17:13:55 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:33:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_arg(char **argv, int i, int cnt)
 	{
 		ft_putstr(argv[i]);
 		if (i < cnt - 1)
-			ft_putstr(" ");
+			ft_putchar(' ');
 		i++;
 	}
 }

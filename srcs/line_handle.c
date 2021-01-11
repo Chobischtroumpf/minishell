@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 23:20:12 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:11:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ int	ft_lexing(void)
 	t_minishell	*minishell;
 	int			nbr_tokens;
 	char		*tmp;
+	int			index;
 	int			x;
 
-	x = -1;
+	x = 0;
 	minishell = get_minishell();
 	tmp = minishell->line;
-	minishell->line = ft_strtrim(tmp, "\t");
+	while (ft_haschr(SPACE, minishell->line[x]))
+		x++;
+	minishell->line = ft_substr(tmp, x, ft_strlen(minishell->line) - x);
 	free(tmp);
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
 		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
 	if (!(minishell->tokens = malloc(sizeof(char *) * (nbr_tokens + 1))))
 		ft_exit_error();
+	x = -1;
 	while (++x < nbr_tokens)
-	{
-		tmp = ft_tokens_split(minishell->line, x + 1);
-		minishell->tokens[x] = ft_strdup(tmp);
-		free(tmp);
-	}
+		minishell->tokens[x] = ft_tokens_split(minishell->line, &index);
 	minishell->tokens[x] = NULL;
 	return (1);
 }
