@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 17:07:35 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/09 17:21:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:30:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,5 @@ void	ft_putstr(char const *str)
 {
 	if (!str)
 		return ;
-	while (*str != '\0')
-	{
-		ft_putchar(*str);
-		str++;
-	}
+	write(1, str, ft_strlen(str));
 }

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 15:10:45 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:27:34 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,12 @@ char		*ft_tokens_split(char **line)
 		token = ft_substr(tmp_line, 0, ft_check_sep(tmp_line, i, 0));
 		i += ft_check_sep(tmp_line, i, 0);
 	}
+	while (ft_haschr(SPACE, tmp_line[i]))
+		i++;
 	// printf("%d\n", i);
 	free(tmp_line);
 	tmp_line = ft_substr(*line, i, ft_strlen(*line) - i);
 	free(*line);
-	*line = ft_strtrim(tmp_line, " \t");
-	free(tmp_line);
+	*line = tmp_line;
 	return (token);
 }
