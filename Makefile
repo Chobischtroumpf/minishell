@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/08 22:53:26 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/11 13:21:53 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,46 +29,51 @@ endef
 
 NAME = minishell
 
-SRC_PATH = srcs
-
-SRC_NAME =	cmd_add_rdir.c			\
-			cmd_parser_1.c			\
-			cmd_parser_2.c			\
-			get_static.c			\
-			lexing.c				\
-			minishell.c				\
-			utils.c					\
-			utils2.c				\
-			utils3.c				\
-			utils4.c				\
-			env.c					\
-			env2.c					\
-			exec_cmd.c				\
-			bltin_echo.c			\
-			bltin_exit.c			\
-			bltin_pwd.c				\
-			bltin_env.c				\
-			bltin_unset.c			\
-			bltin_export.c			\
-			bltin_cd.c 				\
-			exec_external.c			\
-			errors.c				\
-			errors2.c				\
-			errors3.c				\
-			errors4.c				\
-			line_handle.c			\
-			redirections.c			\
-			quit.c					\
-			exit.c					\
-			dollar.c				\
-			dollar2.c				\
-			brackets.c				\
-			free.c					\
-			shlvl.c					\
-			ft_split_empty.c		\
-			ft_split_skip_quotes.c	\
-			files.c					\
-			pipe.c
+SRC_NAME =	minishell.c						\
+			\
+			built-in/bltin_echo.c			\
+			built-in/bltin_exit.c			\
+			built-in/bltin_pwd.c			\
+			built-in/bltin_env.c			\
+			built-in/bltin_unset.c			\
+			built-in/bltin_export.c			\
+			built-in/bltin_cd.c 			\
+			\
+			cmd/get_static.c				\
+			cmd/exec_cmd.c					\
+			cmd/exec_external.c				\
+			cmd/quit.c						\
+			\
+			environment/env.c				\
+			environment/env2.c				\
+			environment/dollar.c			\
+			environment/dollar2.c			\
+			environment/shlvl.c				\
+			\
+			errors/errors.c					\
+			errors/errors2.c				\
+			errors/errors3.c				\
+			errors/errors4.c				\
+			\
+			parsing/brackets.c				\
+			parsing/cmd_parser_1.c			\
+			parsing/cmd_parser_2.c			\
+			parsing/lexing.c				\
+			parsing/line_handle.c			\
+			\
+			redirections/cmd_add_rdir.c		\
+			redirections/redirections.c		\
+			redirections/pipe.c				\
+			\
+			utils/exit.c					\
+			utils/files.c					\
+			utils/free.c					\
+			utils/ft_split_empty.c			\
+			utils/ft_split_skip_quotes.c	\
+			utils/utils.c					\
+			utils/utils2.c					\
+			utils/utils3.c					\
+			utils/utils4.c					\
 
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
