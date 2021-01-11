@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/10 15:16:19 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 13:46:02 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		ft_atol_check(const char *str, int i)
 	unsigned long	nb;
 	int				is_negative;
 	int				is_sign;
-	char		*str_cpy;
+	char			*str_cpy;
 
 	str_cpy = ft_strtrim(str, " \t");
 	is_negative = checker(&str_cpy);
@@ -47,21 +47,20 @@ static int		ft_atol_check(const char *str, int i)
 	i = is_sign;
 	while (str_cpy[is_sign])
 		if (!ft_isdigit(str_cpy[is_sign++]))
-			return (0);
+			return (free_str_ret(str_cpy, 0));
 	nb = 0;
 	while (str_cpy[i] >= '0' && str_cpy[i] <= '9')
 	{
 		if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
-			return (0);
+			return (free_str_ret(str_cpy, 0));
 		nb *= 10;
 		if (nb > (unsigned long)LONG_MAX && (nb + str_cpy[i] - '0') < INT_MAX)
-			return (0);
+			return (free_str_ret(str_cpy, 0));
 		nb += str_cpy[i++] - '0';
 	}
-	free(str_cpy);
 	if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
-		return ((long)0);
-	return (1);
+		return (free_str_ret(str_cpy, 0));
+	return (free_str_ret(str_cpy, 1));
 }
 
 /*

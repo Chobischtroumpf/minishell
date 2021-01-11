@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/10 17:48:49 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 14:42:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int					free_str_ret(char *str, int ret);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int nbr_token, int space);
-char				*ft_tokens_split(char *line, int *i);
+char				*ft_tokens_split(char **line);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
