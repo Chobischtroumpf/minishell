@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 13:46:02 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 16:59:56 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		checker(char **str)
 	int	is_negative;
 
 	is_negative = 0;
-	while (**str == ' ' || **str == '\t')
+	while (**str == '\f' || **str == '\r' || **str == ' ' || **str == '\t')
 		(*str)++;
 	if (*str[0] == '-' || *str[0] == '+')
 	{
@@ -40,27 +40,29 @@ static int		ft_atol_check(const char *str, int i)
 	int				is_negative;
 	int				is_sign;
 	char			*str_cpy;
+	char			*str_cpy_cpy;
 
 	str_cpy = ft_strtrim(str, " \t");
+	str_cpy_cpy = str_cpy;
 	is_negative = checker(&str_cpy);
 	is_sign = check_sign(str_cpy[0]);
 	i = is_sign;
 	while (str_cpy[is_sign])
 		if (!ft_isdigit(str_cpy[is_sign++]))
-			return (free_str_ret(str_cpy, 0));
+			return (free_str_ret(str_cpy_cpy, 0));
 	nb = 0;
 	while (str_cpy[i] >= '0' && str_cpy[i] <= '9')
 	{
 		if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
-			return (free_str_ret(str_cpy, 0));
+			return (free_str_ret(str_cpy_cpy, 0));
 		nb *= 10;
 		if (nb > (unsigned long)LONG_MAX && (nb + str_cpy[i] - '0') < INT_MAX)
-			return (free_str_ret(str_cpy, 0));
+			return (free_str_ret(str_cpy_cpy, 0));
 		nb += str_cpy[i++] - '0';
 	}
 	if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
-		return (free_str_ret(str_cpy, 0));
-	return (free_str_ret(str_cpy, 1));
+		return (free_str_ret(str_cpy_cpy, 0));
+	return (free_str_ret(str_cpy_cpy, 1));
 }
 
 /*

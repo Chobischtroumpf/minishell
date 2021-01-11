@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 16:25:42 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 17:11:26 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,22 @@ char		*ft_tokens_split(char *line, int *index)
 	token = NULL;
 	if (!ft_haschr(SEP_SPACE, line[*index]) && line[*index])
 	{
-		while (line[*index] != '\0' && !ft_haschr(SEP_SPACE, line[*index])
-			&& !ft_backslash_counter(line, *index - 1))
-			*index = ft_brackets(line, *index) + 1;
+		while (line[*index] != '\0')
+			if (!ft_haschr(SEP_SPACE, line[*index]))
+				*index = ft_brackets(line, *index) + 1;
+			else if (ft_haschr(SEP_SPACE, line[*index])
+					&& ft_backslash_counter(line, *index - 1))
+				*index += 1;
+			else
+				break ;
 		token = ft_substr(line, ck, *index - ck);
 	}
-	else if (ft_haschr(SEP, line[*index]) && !ft_backslash_counter(line, *index - 1))
+	else if (ft_haschr(SEP, line[*index]))
 	{
 		token = ft_substr(line, ck, *index + ft_check_sep(line, *index, 0) - ck);
 		*index += ft_check_sep(line, *index, 0);
 	}
-	while (ft_haschr(SPACE, line[*index]))
+	while (line[*index] && ft_haschr(SPACE, line[*index]))
 		(*index)++;
 	return (token);
 }
