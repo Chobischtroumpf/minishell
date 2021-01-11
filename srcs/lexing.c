@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 14:59:07 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:10:45 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int			ft_check_sep(char *line, int i, int space)
 
 int			ft_brackets(char *line, int i)
 {
-	printf("i dans ft_brackets : %d\n", i);
 	if (line[i] == '"' && !ft_backslash_counter(line, i - 1))
 	{
 		while (line[i])
@@ -124,27 +123,29 @@ char		*ft_tokens_split(char **line)
 
 	i = 0;
 	token = NULL;
-	printf("line = %s\n", *line);
-	if (!ft_haschr(SEP_SPACE, *line[i]) && *line[i])
+	tmp_line = ft_strdup(*line);
+	// printf("line = %s\n", tmp_line);
+	if (!ft_haschr(SEP_SPACE, tmp_line[i]) && tmp_line[i])
 	{
-		printf("i before while : %d\n", i);
-		while (*line[i] != '\0' && printf("condition one ok\n") && !ft_haschr(SEP_SPACE, *line[i]) && printf("condition two ok\n")
-			&& !ft_backslash_counter(*line, i - 1) && printf("condition three ok\n"))
+		// printf("i before while : %d\n", i);
+		while (tmp_line[i] != '\0' && !ft_haschr(SEP_SPACE, tmp_line[i])
+			&& !ft_backslash_counter(tmp_line, i - 1))
 		{
-			printf("i inside while : %d\n", i);
-			i = ft_brackets(*line, i) + 1;
-			printf("line[i] = %c\n", *line[i]);
+			// printf("i inside while : %d\n", i);
+			i = ft_brackets(tmp_line, i) + 1;
+			// printf("tmp_line[i] = %c\n", tmp_line[i]);
 		}
-		printf("i after while : %d\n", i);
-		token = ft_substr(*line, 0, i);
+		// printf("i after while : %d\n", i);
+		token = ft_substr(tmp_line, 0, i);
 	}
-	else if (ft_haschr(SEP, *line[i]))
+	else if (ft_haschr(SEP, tmp_line[i]))
 	{
-		printf("i before token substr : %d\n", i);
-		token = ft_substr(*line, 0, ft_check_sep(*line, i, 0));
-		i += ft_check_sep(*line, i, 0);
+		// printf("i before token substr : %d\n", i);
+		token = ft_substr(tmp_line, 0, ft_check_sep(tmp_line, i, 0));
+		i += ft_check_sep(tmp_line, i, 0);
 	}
-	printf("%d\n", i);
+	// printf("%d\n", i);
+	free(tmp_line);
 	tmp_line = ft_substr(*line, i, ft_strlen(*line) - i);
 	free(*line);
 	*line = ft_strtrim(tmp_line, " \t");
