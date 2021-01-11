@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/10 15:56:04 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 21:35:25 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		remove_all_chars(char *str, char c)
 int			ft_dollar_quotes(t_cmd *cmd)
 {
 	char	*old_arg;
+	char	**temp_argv;
 	int		i;
 	int		splits;
 
@@ -92,14 +93,18 @@ int			ft_dollar_quotes(t_cmd *cmd)
 	{
 		old_arg = cmd->argv[i];
 		cmd->argv[i] = check_quote(cmd->argv[i], -1);
+		free(old_arg);
 		splits = ft_is_split(cmd->argv[i]);
 		if (splits && cmd->argv[i][0] == -1)
 		{
+			old_arg = cmd->argv[i];
 			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i]));
-			cmd->argv = ft_split_args(cmd->argv, i);
+			free(old_arg);
+			temp_argv = ft_split_args(cmd->argv, i);
+			free(cmd->argv);
+			cmd->argv = temp_argv;
 			i += splits - 1;
 		}
-		free(old_arg);
 	}
 	i = -1;
 	while (cmd->argv[++i])

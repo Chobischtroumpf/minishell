@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/11 17:11:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 20:44:34 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_lexing(void)
 	int			x;
 
 	x = 0;
+	index = 0;
 	minishell = get_minishell();
 	tmp = minishell->line;
 	while (ft_haschr(SPACE, minishell->line[x]))

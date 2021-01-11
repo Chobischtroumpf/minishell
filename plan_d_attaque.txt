@@ -1,0 +1,9 @@
+if cmd->argv[j][0] == flag
+	trim argv[j], flag
+	temp_argv[i] = ft_lexing
+	while temp_argv[i]
+		temp_argv2[j] = temp_argv[i]
+else
+	temp_argv2[j] = cmd->argv[j]
+
+modif ft_lexing et gestion dans main_execution et -c
