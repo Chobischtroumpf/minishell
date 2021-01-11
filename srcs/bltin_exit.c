@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 22:43:25 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/10 15:16:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		checker(const char **str)
+static int		checker(char **str)
 {
 	int	is_negative;
 
 	is_negative = 0;
-	while (**str == ' ' || **str == '\t' || **str == '\n'
-			|| **str == '\v' || **str == '\f' || **str == '\r')
+	while (**str == ' ' || **str == '\t')
 		(*str)++;
 	if (*str[0] == '-' || *str[0] == '+')
 	{
@@ -40,7 +39,7 @@ static int		ft_atol_check(const char *str, int i)
 	unsigned long	nb;
 	int				is_negative;
 	int				is_sign;
-	const char		*str_cpy;
+	char		*str_cpy;
 
 	str_cpy = ft_strtrim(str, " \t");
 	is_negative = checker(&str_cpy);
@@ -59,6 +58,7 @@ static int		ft_atol_check(const char *str, int i)
 			return (0);
 		nb += str_cpy[i++] - '0';
 	}
+	free(str_cpy);
 	if ((!is_negative && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
 		return ((long)0);
 	return (1);

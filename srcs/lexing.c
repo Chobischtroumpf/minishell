@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 13:00:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/10 18:18:11 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,32 +115,28 @@ int			ft_tokens_count(char *line)
 ** nbr_token, or reaches the end of the line
 */
 
-char		*ft_tokens_split(char *line, int nbr_token)
+char		*ft_tokens_split(char *line, int *i)
 {
-	int ck;
-	int cnt;
-	int i;
+	int		ck;
+	char	*token;
 
-	cnt = 0;
-	ck = 0;
-	i = 0;
-	while (line[i])
+	ck = *i;
+	token = NULL;
+	if (!ft_haschr(SEP_SPACE, line[*i]) && line[*i])
 	{
-		if (!ft_haschr(SEP_SPACE, line[i]) && line[i] && ++cnt)
-		{
-			while (!(ft_haschr(SEP_SPACE, line[i]) &&
-				!ft_backslash_counter(line, i - 1)) && line[i])
-				i = ft_brackets(line, i) + 1;
-			if (cnt == nbr_token)
-				return (ft_substr(line, ck, i - ck));
-			ck = i;
-		}
-		if (ft_haschr(SEP, line[i]) && !ft_backslash_counter(line, i - 1)
-			&& ++cnt)
-			if (cnt == nbr_token)
-				return (ft_substr(line, ck, i + ft_check_sep(line, i, 0) - ck));
-		i += ft_check_sep(line, i, 1);
-		ck = i;
+		while (!(ft_haschr(SEP_SPACE, line[*i]) &&
+			!ft_backslash_counter(line, *i - 1)) && line[*i])
+			*i = ft_brackets(line, *i) + 1;
+		token = ft_substr(line, ck, *i - ck);
+		// if (ft_haschr(SPACE, line[*i]))
+		// 	*i += ft_check_sep(line, *i, 1);
+		return (token);
+	}
+	if (ft_haschr(SEP, line[*i]) && !ft_backslash_counter(line, *i - 1))
+	{
+		token = ft_substr(line, ck, *i + ft_check_sep(line, *i, 0) - ck);
+		*i += ft_check_sep(line, *i, 0);
+		return(token);
 	}
 	return (NULL);
 }

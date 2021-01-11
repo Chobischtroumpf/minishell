@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2020/12/14 15:43:04 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/10 15:36:44 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void		ft_shlvl(void)
 	tmp = ft_find_by_key2("SHLVL");
 	shlvl_str = ft_strtrim(tmp, SPACE);
 	if (!shlvl_str || is_numeric(shlvl_str))
+	{
+		free(shlvl_str);
 		shlvl_str = ft_strdup("1");
+	}
 	else
 	{
 		shlvl = ft_atoi_pos(shlvl_str);
@@ -63,7 +66,7 @@ void		ft_shlvl(void)
 		if (shlvl < 999)
 			shlvl_str = ft_itoa(shlvl + 1);
 		else if (shlvl >= 999)
-			shlvl_str = ft_strdup(ft_itoa(ft_error_shlvl(shlvl + 1)));
+			shlvl_str = ft_itoa(ft_error_shlvl(shlvl + 1));
 	}
 	ft_exec_export_shlvl(shlvl_str);
 	free(shlvl_str);

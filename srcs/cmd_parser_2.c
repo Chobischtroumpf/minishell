@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/13 15:12:19 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/10 15:42:32 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 
 	last = ft_last_cmd(cmd);
 	cnt = ft_count_arg(last->argv);
-	new_arr = malloc(sizeof(char*) * (cnt + 2));
+	if (!(new_arr = ft_calloc((cnt + 2), sizeof(char*))))
+		ft_exit_error();
 	i = 0;
 	while (i < cnt)
 	{
@@ -102,7 +103,6 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 		i++;
 	}
 	new_arr[i] = ft_strdup(arg);
-	new_arr[cnt + 1] = NULL;
 	free(last->argv);
 	last->argv = new_arr;
 }

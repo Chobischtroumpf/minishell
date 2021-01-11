@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/09 14:07:41 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/10 17:48:49 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ char				*remove_char(char *str, char c);
 int					free_str_ret(char *str, int ret);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
-int					ft_check_sep(char *line, int i, int space);
-char				*ft_tokens_split(char *line, int nbr_tokens);
+int					ft_check_sep(char *line, int nbr_token, int space);
+char				*ft_tokens_split(char *line, int *i);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
