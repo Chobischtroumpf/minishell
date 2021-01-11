@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/11 15:41:37 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 16:13:05 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ int	ft_lexing(void)
 {
 	t_minishell	*minishell;
 	int			nbr_tokens;
-	char		*tmp_line;
+	char		*tmp;
+	int			index;
 	int			x;
-
 	x = -1;
 	minishell = get_minishell();
-	tmp_line = ft_strtrim(minishell->line, " \t");
+	tmp = minishell->line;
+	minishell->line = ft_strtrim(tmp, "\t");
+	free(tmp);
 	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
 		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
 	if (!(minishell->tokens = malloc(sizeof(char *) * (nbr_tokens + 1))))
 		ft_exit_error();
-	
 	while (++x < nbr_tokens)
-		minishell->tokens[x] = ft_tokens_split(&tmp_line);
-	
+		minishell->tokens[x] = ft_tokens_split(minishell->line, &index);
 	minishell->tokens[x] = NULL;
 	return (1);
 }

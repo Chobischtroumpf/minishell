@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 15:45:28 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 16:12:52 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <errno.h>
-
+# include <time.h>
 # define IS_DIR 040000
 # define IS_LINK 080000
 # define SEP_SPACE " 	<>|;"
@@ -31,7 +31,7 @@
 # ifdef LINE_MAX
 #  undef LINE_MAX
 # endif
-# define LINE_MAX 100024
+# define LINE_MAX 50000
 # define NO_EXCODE -1
 # define NO_STATUS -1
 
@@ -101,7 +101,7 @@ int					free_str_ret(char *str, int ret);
 int					ft_lexing(void);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int nbr_token, int space);
-char				*ft_tokens_split(char **line);
+char				*ft_tokens_split(char *line, int *index);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);

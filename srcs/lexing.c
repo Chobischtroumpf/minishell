@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 15:27:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 16:25:42 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,41 +115,26 @@ int			ft_tokens_count(char *line)
 ** nbr_token, or reaches the end of the line
 */
 
-char		*ft_tokens_split(char **line)
+char		*ft_tokens_split(char *line, int *index)
 {
 	char	*token;
-	char	*tmp_line;
-	int		i;
+	int		ck;
 
-	i = 0;
+	ck = *index;
 	token = NULL;
-	tmp_line = ft_strdup(*line);
-	// printf("line = %s\n", tmp_line);
-	if (!ft_haschr(SEP_SPACE, tmp_line[i]) && tmp_line[i])
+	if (!ft_haschr(SEP_SPACE, line[*index]) && line[*index])
 	{
-		// printf("i before while : %d\n", i);
-		while (tmp_line[i] != '\0' && !ft_haschr(SEP_SPACE, tmp_line[i])
-			&& !ft_backslash_counter(tmp_line, i - 1))
-		{
-			// printf("i inside while : %d\n", i);
-			i = ft_brackets(tmp_line, i) + 1;
-			// printf("tmp_line[i] = %c\n", tmp_line[i]);
-		}
-		// printf("i after while : %d\n", i);
-		token = ft_substr(tmp_line, 0, i);
+		while (line[*index] != '\0' && !ft_haschr(SEP_SPACE, line[*index])
+			&& !ft_backslash_counter(line, *index - 1))
+			*index = ft_brackets(line, *index) + 1;
+		token = ft_substr(line, ck, *index - ck);
 	}
-	else if (ft_haschr(SEP, tmp_line[i]))
+	else if (ft_haschr(SEP, line[*index]) && !ft_backslash_counter(line, *index - 1))
 	{
-		// printf("i before token substr : %d\n", i);
-		token = ft_substr(tmp_line, 0, ft_check_sep(tmp_line, i, 0));
-		i += ft_check_sep(tmp_line, i, 0);
+		token = ft_substr(line, ck, *index + ft_check_sep(line, *index, 0) - ck);
+		*index += ft_check_sep(line, *index, 0);
 	}
-	while (ft_haschr(SPACE, tmp_line[i]))
-		i++;
-	// printf("%d\n", i);
-	free(tmp_line);
-	tmp_line = ft_substr(*line, i, ft_strlen(*line) - i);
-	free(*line);
-	*line = tmp_line;
+	while (ft_haschr(SPACE, line[*index]))
+		(*index)++;
 	return (token);
 }

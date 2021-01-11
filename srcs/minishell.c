@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 15:45:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 16:21:02 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,13 @@ int			main(int ac, char **av, char **envv)
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
 	{
 		minishell->line = ft_strdup(av[2]);
+		// clock_t t;
+		// t = clock();
 		if (!ft_lexing())
 			return (1 || ft_exit_error());
+		// t = clock() - t;
+		// double time_taken = ((double)t)/CLOCKS_PER_SEC; // calculate the elapsed time
+		// printf("\nThe program took %f seconds to execute\n", time_taken);
 		if (!(ft_cmd_parse(minishell->tokens)))
 			return (1 || ft_exit_error());
 		if (!(ft_exec_cmd()))
