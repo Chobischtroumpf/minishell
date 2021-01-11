@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/09 13:28:36 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/11 20:59:00 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void		exec_cmd(t_cmd *cmd)
 	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
 	{
 		ret_val = exec_with_path(cmd, path_array, env_array);
-		ft_free_array(env_array);
-		ft_free_array(path_array);
+		ft_free_array(env_array, 0);
+		ft_free_array(path_array, 0);
 		if (ret_val)
 			exit(ret_val);
 		exit(ft_no_cmd_error(cmd->argv[0], 127));

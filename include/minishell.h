@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 16:12:52 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 20:57:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int					ft_file_is_symlink(char *cmd);
 int					ft_free_minishell(void);
 void				ft_free_env(void);
 void				ft_free_node(t_env *env);
-int					ft_free_array(char **array);
+int					ft_free_array(char **array, int ret);
 void				ft_free_redir(t_cmd *cmd);
 void				ft_free_cmd(t_cmd *cmd);
 void				ft_free_line(void);
@@ -171,7 +171,7 @@ void				ft_numeric_arg_error(char *cmd, char *arg);
 int					ft_parse_error(char *error, int ret);
 int					ft_no_cmd_error(char *cmd, int ret);
 void				*ft_exit_error(void);
-int					ft_invalid_identifier(char *cmd, char *arg);
+int					ft_invalid_id(char *cmd, char *arg);
 int					ft_err_file_not_found(char *cmd, char *arg, int ret);
 int					ft_err_no_access(char *cmd, char *arg, int ret);
 void				ft_err_not_dir(char *cmd, char *arg);

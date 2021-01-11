@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 11:40:22 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/09 17:10:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 20:58:45 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**ft_split_args(char **args, int i)
 		i++;
 		j++;
 	}
-	ft_free_array(splitted);
+	ft_free_array(splitted, 0);
 	new_args[j] = NULL;
 	return (new_args);
 }

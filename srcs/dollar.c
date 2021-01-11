@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/09 17:21:16 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 21:17:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 
 int		check_part_cases(char *token, char *buffer, int *j, int quote)
 {
+	char *integer;
+
 	if (!ft_strncmp(token, "$$", 2))
 	{
 		add_str_to_buffer(buffer, "$$", j, quote);
@@ -60,7 +62,9 @@ int		check_part_cases(char *token, char *buffer, int *j, int quote)
 	}
 	else if (!ft_strncmp(token, "$?", 2))
 	{
-		add_str_to_buffer(buffer, ft_itoa(get_minishell()->excode), j, quote);
+		integer = ft_itoa(get_minishell()->excode);
+		add_str_to_buffer(buffer, integer, j, quote);
+		free(integer);
 		return (1);
 	}
 	else if (token[0] == '$' && (ft_haschr("\\", token[1]) || !token[1]))

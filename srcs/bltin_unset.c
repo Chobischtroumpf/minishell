@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2020/11/27 12:02:46 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/11 20:58:10 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		ft_exec_unset(t_cmd *cmd)
 		if (ft_valid_key2(args[i]))
 			value = ft_get_env_value(get_minishell()->env, args[i]);
 		else
-			fail = ft_invalid_identifier("unset", args[i]);
+			fail = ft_invalid_id("unset", args[i]);
 		if (value)
 			ret &= ft_remove_env(&get_minishell()->env, args[i]);
 		i++;

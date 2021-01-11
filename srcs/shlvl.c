@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/10 15:36:44 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 20:59:06 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_exec_export_shlvl(char *shlvl)
 	argv[2] = NULL;
 	cmd->argv = argv;
 	ft_exec_export(cmd);
-	ft_free_array(argv);
+	ft_free_array(argv, 0);
 	free(cmd);
 }
 
