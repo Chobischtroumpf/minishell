@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/12 12:14:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,22 @@ void	skip_extra_spaces(char *str)
 
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
+	int k;
+
 	if (!quote && ft_haschr(str, ' '))
 		skip_extra_spaces(str);
 	while (*str)
 		buffer[++*j] = *str++;
+	if (!quote && buffer[0] != -1)
+	{
+		k = ++*j;
+		while (k >= 0)
+		{
+			buffer[k + 1] = buffer[k];
+			k--;
+		}
+		buffer[0] = -1;
+	}
 }
 
 int		check_part_cases(char *token, char *buffer, int *j, int quote)
@@ -60,7 +72,7 @@ int		check_part_cases(char *token, char *buffer, int *j, int quote)
 	}
 	else if (!ft_strncmp(token, "$?", 2))
 	{
-		integer = ft_itoa(get_minishell()->excode);
+		integer = ft_itoa(get_minishell()->exval);
 		add_str_to_buffer(buffer, integer, j, quote);
 		free(integer);
 		return (1);

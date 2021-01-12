@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 15:45:16 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,12 @@ int			ft_exec_cmd(void)
 		ft_dollar_quotes(cmd);
 		if (cmd->pipe)
 		{
-			cmd = handle_pipe(cmd, count_pipes(cmd));
+			cmd = handle_pipe(get_minishell(), cmd, count_pipes(cmd), -1);
 			continue ;
 		}
 		if (!check_in(cmd->in) || !check_out(cmd->out))
 		{
-			get_minishell()->excode = 1;
+			get_minishell()->exval = 1;
 			cmd = cmd->next;
 			continue;
 		}

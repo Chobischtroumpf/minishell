@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 02:53:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:06:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct		s_minishell
 	int				was_eof : 2;
 	int				backslash : 2;
 	int				gnl_ret : 2;
-	int				excode;
+	int				exval;
 	t_cmd			*cmd;
 	t_env			*env;
 }					t_minishell;
@@ -101,7 +101,7 @@ int					free_str_ret(char *str, int ret);
 char				**ft_lexing(char *line);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int nbr_token, int space);
-char				*ft_tokens_split(char *line, int *index);
+char				*ft_tokens_split(char *line, int *indx);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
@@ -163,7 +163,7 @@ void				ft_free_cmd(t_cmd *cmd);
 void				ft_free_line(void);
 void				ft_free_all(void);
 void				ft_eof_exit(void);
-char				**ft_get_exit_code(int status, int excode);
+char				**ft_get_exit_code(int status, int exit);
 
 int					ft_error_dispatch(int ret_val, char *cmd, char *arg);
 int					ft_too_many_args(char *cmd, int ret);
@@ -186,7 +186,7 @@ int					ft_err_is_segfault(char *cmd, char *arg, int ret);
 int					ft_err_is_symlink_loop(char *cmd, int ret_val);
 
 int					count_pipes(t_cmd *cmd);
-t_cmd				*handle_pipe(t_cmd *cmd, int pipe_nb);
+t_cmd				*handle_pipe(t_minishell *m, t_cmd *cmd, int pipe_nb, int i);
 void				exec_cmd(t_cmd *cmd);
 int					check_in(t_rdir *in);
 int					check_out(t_rdir *out);

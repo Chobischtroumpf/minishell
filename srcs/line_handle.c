@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 15:16:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:38:09 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	**ft_lexing(char *line)
 		x++;
 	tmp = ft_substr(line, x, ft_strlen(line) - x);
 	if ((nbr_tokens = ft_tokens_count(tmp)) < 0)
+	{
+		free(tmp);
 		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
+	}
 	if (!(tokens = ft_calloc((nbr_tokens + 1), sizeof(char *))))
 		ft_exit_error();
 	x = -1;

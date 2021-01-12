@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/08 15:20:09 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,21 @@ int		start_pipes(int pipes[], int nb)
 	return (1);
 }
 
-t_cmd	*handle_pipe(t_cmd *cmd, int pipe_nb)
+t_cmd	*handle_pipe(t_minishell *m, t_cmd *cmd, int pipe_nb, int i)
 {
 	int pipe_fds[pipe_nb * 2];
 	int pids[pipe_nb + 1];
-	int i;
 	int btin_nb;
 
-	i = 0;
 	if (!start_pipes(pipe_fds, pipe_nb))
 		return (0);
-	i = 0;
-	while (i < (pipe_nb + 1))
+	while (++i < (pipe_nb + 1))
 	{
 		if ((pids[i] = fork()) == 0)
 		{
 			dup2_and_close_pipe(pipe_fds, i, pipe_nb);
-			if (!check_in(cmd->in) || !check_out(cmd->out))
-			{
-				get_minishell()->excode = 1;
+			if ((!check_in(cmd->in) || !check_out(cmd->out)) && (m->exval = 1))
 				continue ;
-			}
 			open_redirection(cmd);
 			if ((btin_nb = is_built_in(cmd->argv[0])) != -1)
 				exit(ft_exec_builtin(btin_nb, cmd));
@@ -91,7 +85,6 @@ t_cmd	*handle_pipe(t_cmd *cmd, int pipe_nb)
 		else if (pids[i] == -1)
 			ft_exit_error();
 		cmd = cmd->next;
-		i++;
 	}
 	close_pipe_and_wait(pipe_fds, pipe_nb, pids);
 	return (cmd);
