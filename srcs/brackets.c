@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 16:50:53 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:54:00 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	backslash_checker(char *token, char *buffer, int *j, int quote)
 	return (ret);
 }
 
-static char	*backslash_remover(char *token, int size_token)
+static char	*rm_backslash(char *token, int size_token)
 {
 	char	buffer[size_token];
 	int		i;
@@ -89,33 +89,33 @@ char		*check_quote(char *token, int i)
 	return (ft_strdup(buffer));
 }
 
-static void	ft_splitting_argv(char **argv, int size_argv, int i, int j)
+static void	ft_splitting_argv(t_cmd *cmd, char **argv, int size_argv, int i)
 {
-	char	**temp;
+	char	**tmp;
 	char	*old_arg;
 	int		k;
+	int		j;
 
-	if (!(get_minishell()->cmd->argv = ft_calloc(size_argv, sizeof(char*))))
+	j = 0;
+	if (!(cmd->argv = ft_calloc(size_argv, sizeof(char*))))
 		ft_exit_error();
 	while (argv[++i])
 		if (ft_haschr(argv[i], -1))
 		{
 			old_arg = ft_strtrim_integral(argv[i], -1);
-			temp = ft_lexing(old_arg);
+			tmp = ft_lexing(old_arg);
 			free(old_arg);
-			k = 0;
-			while (temp[k])
+			k = -1;
+			while (tmp[++k])
 			{
-				old_arg = temp[k];
-				temp[k] = backslash_remover(temp[k], ft_strlen(temp[k]) + 1);
+				old_arg = tmp[k];
+				cmd->argv[j++] = rm_backslash(tmp[k], ft_strlen(tmp[k]) + 1);
 				free(old_arg);
-				get_minishell()->cmd->argv[j++] = temp[k++];
 			}
-			free(temp);
+			free(tmp);
 		}
 		else
-			get_minishell()->cmd->argv[j++] = backslash_remover(argv[i],
-												ft_strlen(argv[i]) + 1);
+			cmd->argv[j++] = rm_backslash(argv[i], ft_strlen(argv[i]) + 1);
 }
 
 int			ft_dollar_quotes(t_cmd *cmd)
@@ -136,8 +136,8 @@ int			ft_dollar_quotes(t_cmd *cmd)
 			size_temp_argv += ft_tokens_count(&(temp_argv[i][1]));
 		else
 			size_temp_argv++;
-	ft_free_array(get_minishell()->cmd->argv, 0);
-	ft_splitting_argv(temp_argv, size_temp_argv + 1, -1, 0);
+	ft_free_array(cmd->argv, 0);
+	ft_splitting_argv(cmd, temp_argv, size_temp_argv + 1, -1);
 	ft_free_array(temp_argv, 0);
 	return (1);
 }

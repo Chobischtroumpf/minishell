@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/12 13:29:28 by adorigo          ###   ########.fr        #
+#    Updated: 2021/01/12 21:56:27 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_NAME =	cmd_add_rdir.c			\
 			utils2.c				\
 			utils3.c				\
 			utils4.c				\
+			utils5.c				\
 			env.c					\
 			env2.c					\
 			exec_cmd.c				\
@@ -58,7 +59,6 @@ SRC_NAME =	cmd_add_rdir.c			\
 			errors4.c				\
 			line_handle.c			\
 			redirections.c			\
-			quit.c					\
 			exit.c					\
 			dollar.c				\
 			brackets.c				\

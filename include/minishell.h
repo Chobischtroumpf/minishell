@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 17:06:38 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:55:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
 int					ft_dollar_quotes(t_cmd *cmd);
+void				skip_extra_spaces(char *str);
 int					ft_isascii_except(int c);
 int					ft_skip_quotes(char *str, int i);
 int					ft_skip_double_quotes(char *str, int i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:00:48 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/09 14:10:24 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/12 21:48:10 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ long			ft_atoi_pos(const char *str)
 ** array where it is located
 */
 
-int			is_built_in(char *command)
+int				is_built_in(char *command)
 {
 	char		**builtin;
 	int			i;

@@ -6,40 +6,11 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 21:55:14 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	skip_extra_spaces(char *str)
-{
-	char	*trimmed;
-	char	*untrimmed;
-	int		prev_space;
-
-	trimmed = str;
-	untrimmed = str;
-	prev_space = 0;
-	while (*untrimmed)
-	{
-		if (ft_isspace(*untrimmed))
-		{
-			if (!prev_space)
-			{
-				*trimmed++ = ' ';
-				prev_space = 1;
-			}
-		}
-		else
-		{
-			*trimmed++ = *untrimmed;
-			prev_space = 0;
-		}
-		++untrimmed;
-	}
-	*trimmed = '\0';
-}
 
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
