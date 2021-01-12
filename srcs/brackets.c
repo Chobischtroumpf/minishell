@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 12:25:47 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 13:53:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,48 @@ void    print_out_array(char **pointertoarray)
 	}
 }
 
-static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
+static int	backslash_checker(char *token, char *buffer, int *j, int quote)
 {
 	int ret;
 
 	ret = 0;
-	if (*tokken == '\\' && quote)
+	if (*token == '\\' && quote)
 	{
 		ret = 1;
-		if (ft_haschr("$\"\\", tokken[1]))
-			buffer[++*j] = *(++tokken);
+		if (ft_haschr("$\"\\", token[1]))
+			buffer[++*j] = *(++token);
 		else
 		{
-			buffer[++*j] = *tokken;
-			buffer[++*j] = *(++tokken);
+			buffer[++*j] = *token;
+			buffer[++*j] = *(++token);
 		}
 	}
-	else if (*tokken == '\\')
+	else if (*token == '\\')
 	{
 		ret = 1;
-		buffer[++*j] = *(++tokken);
+		buffer[++*j] = *token;
+		buffer[++*j] = *(++token);
 	}
 	else
-		buffer[++*j] = *tokken;
+		buffer[++*j] = *token;
 	return (ret);
+}
+
+static char	*backslash_remover(char	*token, int size_token)
+{
+	char	buffer[size_token];
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	ft_bzero(buffer, size_token);
+	while (token[++i])
+	{
+
+		// printf("buffer[j] : %c\nj : %d\n i: %d\n", buffer[j], j, i);
+	}
+	return (ft_strdup(buffer));
 }
 
 char		*check_quote(char *token, int i)
@@ -146,9 +164,13 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		{
 			trimmed_argv = ft_strtrim_integral(temp_argv[i], -1);
 			splitted_temp_argv = ft_lexing(trimmed_argv);
+			//here
 			k = 0;
 			while (splitted_temp_argv[k])
+			{
+				splitted_temp_argv[k] = backslash_remover(splitted_temp_argv[k], ft_strlen(splitted_temp_argv[k]) + 1);
 				cmd->argv[j++] = splitted_temp_argv[k++];
+			}
 		}
 		else
 			cmd->argv[j++] = temp_argv[i];
