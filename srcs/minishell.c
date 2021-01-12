@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 11:47:47 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:44:27 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,9 @@ int			main(int ac, char **av, char **envv)
 	ft_init_pwd();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	
+
 	ft_shlvl();
+	update_lastcmd("minishell");
 	if (ac == 1)
 		main_execution();
 	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))

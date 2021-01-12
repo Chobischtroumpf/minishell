@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 13:53:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:37:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	backslash_checker(char *token, char *buffer, int *j, int quote)
 	else if (*token == '\\')
 	{
 		ret = 1;
+		buffer[++*j] = -2;
 		buffer[++*j] = *token;
 		buffer[++*j] = *(++token);
 	}
@@ -66,7 +67,13 @@ static char	*backslash_remover(char	*token, int size_token)
 	ft_bzero(buffer, size_token);
 	while (token[++i])
 	{
-
+		if (token[i] == -2)
+		{
+			i += 2;
+			buffer[++j] = token[i];
+		}
+		else
+			buffer[++j] = token[i];
 		// printf("buffer[j] : %c\nj : %d\n i: %d\n", buffer[j], j, i);
 	}
 	return (ft_strdup(buffer));
@@ -145,7 +152,6 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		temp_argv[i] = check_quote(cmd->argv[i], -1);
 	i = -1;
 	size_temp_argv = 0;
-	// print_out_array(temp_argv);
 	while (temp_argv[++i])
 		if (ft_haschr(temp_argv[i], -1))
 		{
@@ -164,16 +170,21 @@ int			ft_dollar_quotes(t_cmd *cmd)
 		{
 			trimmed_argv = ft_strtrim_integral(temp_argv[i], -1);
 			splitted_temp_argv = ft_lexing(trimmed_argv);
-			//here
 			k = 0;
 			while (splitted_temp_argv[k])
 			{
+				// printf("before : |%s|\n", splitted_temp_argv[k]);
 				splitted_temp_argv[k] = backslash_remover(splitted_temp_argv[k], ft_strlen(splitted_temp_argv[k]) + 1);
+				// printf("after : |%s|\n", splitted_temp_argv[k]);
 				cmd->argv[j++] = splitted_temp_argv[k++];
 			}
 		}
 		else
+		{
+			temp_argv[i] = backslash_remover(temp_argv[i], ft_strlen(temp_argv[i]) + 1);
 			cmd->argv[j++] = temp_argv[i];
+		}
 	}
+	// print_out_array(cmd->argv);
 	return (1);
 }
