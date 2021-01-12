@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/08 22:53:26 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/12 13:29:28 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,6 @@ SRC_NAME =	cmd_add_rdir.c			\
 			quit.c					\
 			exit.c					\
 			dollar.c				\
-			dollar2.c				\
 			brackets.c				\
 			free.c					\
 			shlvl.c					\
