@@ -9,3 +9,5 @@ else
 modif ft_lexing et gestion dans main_execution et -c
 
 chopper size de temp_argv2 en uttilisant token_count dans une boucle 
+
+je crois qu'il vaut mieux enlever les backslash uniquement apres avoir fait le nouveau split

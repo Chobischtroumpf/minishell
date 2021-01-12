@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/11 21:17:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:14:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
 	if (!quote && ft_haschr(str, ' '))
 		skip_extra_spaces(str);
-	if (!quote)
-		buffer[++*j] = -1;
 	while (*str)
 		buffer[++*j] = *str++;
 }

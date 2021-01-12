@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 02:56:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:25:47 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void    print_out_array(char **pointertoarray)
+{
+	int count;
+	int i;
+
+	i = 0;
+	count = 0;
+	while (pointertoarray[count])
+		count++;
+	while (i < count)
+	{
+		printf("ARGS[%i] >%s< \n", i, pointertoarray[i]);
+		i++;
+	}
+}
 
 static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
 {
@@ -42,6 +58,7 @@ char		*check_quote(char *token, int i)
 {
 	char	buffer[LINE_MAX];
 	int		j;
+	int		k;
 
 	j = -1;
 	ft_bzero(buffer, LINE_MAX);
@@ -58,11 +75,22 @@ char		*check_quote(char *token, int i)
 		else
 		{
 			if (token[i] == '$')
+			{
 				i += process_dollar(&token[i], buffer, &j, 0);
+				if (buffer[0] != -1)
+				{
+					k = ++j;
+					while (k >= 0)
+					{
+						buffer[k + 1] = buffer[k];
+						k--;
+					}
+					buffer[0] = -1;
+				}
+			}
 			else
 				i += backslash_checker(&token[i], buffer, &j, 0);
 		}
-	buffer[++j] = '\0';
 	return (ft_strdup(buffer));
 }
 
@@ -92,27 +120,31 @@ int			ft_dollar_quotes(t_cmd *cmd)
 	int		k;
 
 	i = -1;
+	// print_out_array(cmd->argv);
 	if (!(temp_argv = ft_calloc(ft_array_size(cmd->argv) + 1, sizeof(char *))))
 		ft_exit_error();
 	while (cmd->argv[++i])
 		temp_argv[i] = check_quote(cmd->argv[i], -1);
 	i = -1;
 	size_temp_argv = 0;
+	// print_out_array(temp_argv);
 	while (temp_argv[++i])
-		if (temp_argv[i][0] == -1)
+		if (ft_haschr(temp_argv[i], -1))
+		{
 			size_temp_argv += ft_tokens_count(&(temp_argv[i][1]));
+		}
 		else
 			size_temp_argv++;
 	// ft_free_array(cmd->argv, 0);
-	if (!(cmd->argv = ft_calloc(size_temp_argv, sizeof(char *))))
+	if (!(cmd->argv = ft_calloc(size_temp_argv + 1, sizeof(char *))))
 		ft_exit_error();
 	i = -1;
 	j = 0;
-	while (temp_argv[++i])
+	while (temp_argv[++i] )
 	{
-		if (temp_argv[i][0] == -1)
+		if (ft_haschr(temp_argv[i], -1))
 		{
-			trimmed_argv = ft_substr(temp_argv[i], 1, ft_strlen(temp_argv[i]));
+			trimmed_argv = ft_strtrim_integral(temp_argv[i], -1);
 			splitted_temp_argv = ft_lexing(trimmed_argv);
 			k = 0;
 			while (splitted_temp_argv[k])

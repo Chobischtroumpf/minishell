@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 02:57:37 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 11:41:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,17 @@ char	**ft_lexing(char *line)
 
 	x = 0;
 	index = 0;
-	tmp = line;
 	while (ft_haschr(SPACE, line[x]))
 		x++;
-	line = ft_substr(tmp, x, ft_strlen(line) - x);
-	free(tmp);
-	if ((nbr_tokens = ft_tokens_count(line)) < 0)
+	tmp = ft_substr(line, x, ft_strlen(line) - x);
+	if ((nbr_tokens = ft_tokens_count(tmp)) < 0)
 		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
 	if (!(tokens = ft_calloc((nbr_tokens + 1), sizeof(char *))))
 		ft_exit_error();
 	x = -1;
 	while (++x < nbr_tokens)
-		tokens[x] = ft_tokens_split(line, &index);
+		tokens[x] = ft_tokens_split(tmp, &index);
+	free(tmp);
 	return (tokens);
 }
 
@@ -72,7 +71,6 @@ int		ft_line_handle(void)
 	{
 		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
 			return (0);
-		// free(minish->line);
 		minish->line = NULL;
 	}
 	else if (ret == 0 && (minish->was_eof = 1))
