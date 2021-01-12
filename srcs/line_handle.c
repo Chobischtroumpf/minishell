@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 02:31:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 02:57:37 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		ft_line_handle(void)
 	{
 		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
 			return (0);
-		free(minish->line);
+		// free(minish->line);
 		minish->line = NULL;
 	}
 	else if (ret == 0 && (minish->was_eof = 1))

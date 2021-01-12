@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 02:47:01 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 02:56:20 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			ft_dollar_quotes(t_cmd *cmd)
 {
 	char	**temp_argv;
 	char	**splitted_temp_argv;
-	char	*untrimmed_argv;
+	char	*trimmed_argv;
 	int		size_temp_argv;
 	int		i;
 	int		j;
@@ -103,7 +103,7 @@ int			ft_dollar_quotes(t_cmd *cmd)
 			size_temp_argv += ft_tokens_count(&(temp_argv[i][1]));
 		else
 			size_temp_argv++;
-	ft_free_array(cmd->argv);
+	// ft_free_array(cmd->argv, 0);
 	if (!(cmd->argv = ft_calloc(size_temp_argv, sizeof(char *))))
 		ft_exit_error();
 	i = -1;
@@ -112,10 +112,8 @@ int			ft_dollar_quotes(t_cmd *cmd)
 	{
 		if (temp_argv[i][0] == -1)
 		{
-			untrimmed_argv = temp_argv[i];
-			temp_argv[i] = ft_substr(temp_argv[i], 1, ft_strlen(temp_argv[i]));
-			free(untrimmed_argv);
-			splitted_temp_argv = ft_lexing(temp_argv[i]);
+			trimmed_argv = ft_substr(temp_argv[i], 1, ft_strlen(temp_argv[i]));
+			splitted_temp_argv = ft_lexing(trimmed_argv);
 			k = 0;
 			while (splitted_temp_argv[k])
 				cmd->argv[j++] = splitted_temp_argv[k++];

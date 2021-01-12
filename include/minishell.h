@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 02:33:12 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 02:53:31 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char				**ft_split_args(char **args, int i);
 char				**ft_split_skip_quotes(char const *str, char sep);
 
 char				*check_quote(char *token, int i);
-void				printoutarray(char **pointertoarray);
 int					process_dollar(char *token, char *buffer, int *j\
 															, int quote);
 void				check_dollar(t_cmd *cmd);
@@ -164,7 +163,7 @@ void				ft_free_cmd(t_cmd *cmd);
 void				ft_free_line(void);
 void				ft_free_all(void);
 void				ft_eof_exit(void);
-int					ft_get_exit_code(int status, int excode);
+char				**ft_get_exit_code(int status, int excode);
 
 int					ft_error_dispatch(int ret_val, char *cmd, char *arg);
 int					ft_too_many_args(char *cmd, int ret);

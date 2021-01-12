@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 12:15:49 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/12 02:52:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_get_exit_code(int status, int excode)
+char	**ft_get_exit_code(int status, int excode)
 {
 	if (excode == -1)
 	{
@@ -23,5 +23,5 @@ int		ft_get_exit_code(int status, int excode)
 	}
 	else
 		get_minishell()->excode = excode;
-	return (0);
+	return (NULL);
 }
