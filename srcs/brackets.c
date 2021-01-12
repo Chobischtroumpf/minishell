@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/11 21:35:25 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 02:47:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,45 @@ void		remove_all_chars(char *str, char c)
 
 int			ft_dollar_quotes(t_cmd *cmd)
 {
-	char	*old_arg;
 	char	**temp_argv;
+	char	**splitted_temp_argv;
+	char	*untrimmed_argv;
+	int		size_temp_argv;
 	int		i;
-	int		splits;
+	int		j;
+	int		k;
 
 	i = -1;
+	if (!(temp_argv = ft_calloc(ft_array_size(cmd->argv) + 1, sizeof(char *))))
+		ft_exit_error();
 	while (cmd->argv[++i])
-	{
-		old_arg = cmd->argv[i];
-		cmd->argv[i] = check_quote(cmd->argv[i], -1);
-		free(old_arg);
-		splits = ft_is_split(cmd->argv[i]);
-		if (splits && cmd->argv[i][0] == -1)
-		{
-			old_arg = cmd->argv[i];
-			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i]));
-			free(old_arg);
-			temp_argv = ft_split_args(cmd->argv, i);
-			free(cmd->argv);
-			cmd->argv = temp_argv;
-			i += splits - 1;
-		}
-	}
+		temp_argv[i] = check_quote(cmd->argv[i], -1);
 	i = -1;
-	while (cmd->argv[++i])
-		remove_all_chars(cmd->argv[i], -1);
+	size_temp_argv = 0;
+	while (temp_argv[++i])
+		if (temp_argv[i][0] == -1)
+			size_temp_argv += ft_tokens_count(&(temp_argv[i][1]));
+		else
+			size_temp_argv++;
+	ft_free_array(cmd->argv);
+	if (!(cmd->argv = ft_calloc(size_temp_argv, sizeof(char *))))
+		ft_exit_error();
+	i = -1;
+	j = 0;
+	while (temp_argv[++i])
+	{
+		if (temp_argv[i][0] == -1)
+		{
+			untrimmed_argv = temp_argv[i];
+			temp_argv[i] = ft_substr(temp_argv[i], 1, ft_strlen(temp_argv[i]));
+			free(untrimmed_argv);
+			splitted_temp_argv = ft_lexing(temp_argv[i]);
+			k = 0;
+			while (splitted_temp_argv[k])
+				cmd->argv[j++] = splitted_temp_argv[k++];
+		}
+		else
+			cmd->argv[j++] = temp_argv[i];
+	}
 	return (1);
 }

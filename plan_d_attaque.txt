@@ -1,9 +1,11 @@
-if cmd->argv[j][0] == flag
+if temp_argv[i][0] == flag
 	trim argv[j], flag
-	temp_argv[i] = ft_lexing
-	while temp_argv[i]
-		temp_argv2[j] = temp_argv[i]
+	splitted_temp_argv = ft_lexing temp_argv[i]
+	while splitted_temp_argv[k]
+		temp_argv2[j] = splitted_temp_argv[k]
 else
 	temp_argv2[j] = cmd->argv[j]
 
 modif ft_lexing et gestion dans main_execution et -c
+
+chopper size de temp_argv2 en uttilisant token_count dans une boucle 

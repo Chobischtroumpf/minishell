@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 20:57:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 02:33:12 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <time.h>
+
 # define IS_DIR 040000
 # define IS_LINK 080000
 # define SEP_SPACE " 	<>|;"
@@ -98,7 +99,7 @@ int					has_dollar(char *arg);
 char				*dollar_to_env(char *arg);
 char				*remove_char(char *str, char c);
 int					free_str_ret(char *str, int ret);
-int					ft_lexing(void);
+char				**ft_lexing(char *line);
 int					ft_tokens_count(char *line);
 int					ft_check_sep(char *line, int nbr_token, int space);
 char				*ft_tokens_split(char *line, int *index);
@@ -121,6 +122,7 @@ void				close_redirection(t_cmd *cmd);
 int					get_next_char(int fd, char *cptr);
 char				*ft_chardup(char c);
 char				**ft_split_empty(char const *str, char sep);
+int					ft_array_size(char **array);
 
 void				ft_init_env(t_minishell *minishell, char **envv);
 char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
