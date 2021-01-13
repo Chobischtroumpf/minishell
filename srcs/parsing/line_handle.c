@@ -6,39 +6,40 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 23:20:12 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 13:44:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_lexing(void)
+char	**ft_lexing(char *line)
 {
-	t_minishell	*minishell;
 	int			nbr_tokens;
+	char		**tokens;
 	char		*tmp;
+	int			index;
 	int			x;
 
-	x = -1;
-	minishell = get_minishell();
-	tmp = minishell->line;
-	minishell->line = ft_strtrim(tmp, "\t");
-	free(tmp);
-	if ((nbr_tokens = ft_tokens_count(minishell->line)) < 0)
-		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
-	if (!(minishell->tokens = malloc(sizeof(char *) * (nbr_tokens + 1))))
-		ft_exit_error();
-	while (++x < nbr_tokens)
+	x = 0;
+	index = 0;
+	while (ft_haschr(SPACE, line[x]))
+		x++;
+	tmp = ft_substr(line, x, ft_strlen(line) - x);
+	if ((nbr_tokens = ft_tokens_count(tmp)) < 0)
 	{
-		tmp = ft_tokens_split(minishell->line, x + 1);
-		minishell->tokens[x] = ft_strdup(tmp);
 		free(tmp);
+		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
 	}
-	minishell->tokens[x] = NULL;
-	return (1);
+	if (!(tokens = ft_calloc((nbr_tokens + 1), sizeof(char *))))
+		ft_exit_error();
+	x = -1;
+	while (++x < nbr_tokens)
+		tokens[x] = ft_tokens_split(tmp, &index);
+	free(tmp);
+	return (tokens);
 }
 
-int	get_next_char(int fd, char *cptr)
+int		get_next_char(int fd, char *cptr)
 {
 	static char	buf;
 	int			ret;
@@ -54,7 +55,7 @@ int	get_next_char(int fd, char *cptr)
 	return (ret);
 }
 
-int	ft_line_handle(void)
+int		ft_line_handle(void)
 {
 	t_minishell	*minish;
 	int			ret;
@@ -71,10 +72,8 @@ int	ft_line_handle(void)
 		ft_exit_error();
 	if (ret == 1)
 	{
-		if (!minish->line || !ft_lexing())
+		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
 			return (0);
-		free(minish->line);
-		minish->line = NULL;
 	}
 	else if (ret == 0 && (minish->was_eof = 1))
 		if (!minish->line || !(minish->line)[0])

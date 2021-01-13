@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:58:37 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/09 13:04:45 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/11 20:58:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		ft_valid_key(char *str)
 	i = 0;
 	special_chars = "_+=";
 	if (ft_isdigit(arg[0]) || arg[0] == '=' || arg[0] == '+')
-		return (0);
+		return (free_str_ret(arg, 0));
 	while (arg[i])
 	{
 		if (!ft_isalnum(arg[i]) && !ft_strchr(special_chars, arg[i]))
-			return (0);
+			return (free_str_ret(arg, 0));
 		if (!eq_found && arg[i] == '+' && arg[i + 1] != '=')
-			return (0);
+			return (free_str_ret(arg, 0));
 		if (arg[i] == '=')
 			eq_found++;
 		i++;
@@ -82,7 +82,7 @@ void	ft_process_args(char **keyvalue)
 		else
 			ft_add_env(keyvalue);
 	}
-	ft_free_array(keyvalue);
+	ft_free_array(keyvalue, 0);
 }
 
 /*
@@ -120,28 +120,28 @@ int		ft_export_no_arg(t_minishell *minishell)
 int		ft_exec_export(t_cmd *cmd)
 {
 	char	**key_value;
-	char	**args;
+	char	**arg;
 	int		i;
 	int		ret;
 
-	args = cmd->argv;
+	arg = cmd->argv;
 	ret = 0;
 	i = 0;
-	if (!args[1])
+	if (!arg[1])
 		return (ft_export_no_arg(get_minishell()));
-	while (args[++i])
+	while (arg[++i])
 	{
-		if (!ft_strchr(args[i], '='))
+		if (!ft_strchr(arg[i], '='))
 		{
-			if (ft_hasnchar(args[i], "+=;|&$\"\\' ") || !ft_strlen(args[i]))
-				ret = ft_invalid_identifier("export", args[i]);
+			if (ft_hasnchar(arg[i], "+=;|&$\"\\' ") || !ft_strlen(arg[i]))
+				ret = ft_invalid_id("export", arg[i]);
 			continue;
 		}
-		key_value = ft_split_once(args[i], '=');
+		key_value = ft_split_once(arg[i], '=');
 		if (ft_valid_key(key_value[0]))
 			ft_process_args(key_value);
 		else
-			return (ft_invalid_identifier("export", args[i]));
+			return (ft_free_array(key_value, ft_invalid_id("export", arg[i])));
 	}
 	return ((ret) ? EXIT_FAILURE : EXIT_SUCCESS);
 }

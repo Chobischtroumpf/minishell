@@ -6,36 +6,62 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/08 15:24:53 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 13:39:53 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	backslash_checker(char *tokken, char *buffer, int *j, int quote)
+static int	backslash_checker(char *token, char *buffer, int *j, int quote)
 {
 	int ret;
 
 	ret = 0;
-	if (*tokken == '\\' && quote)
+	if (*token == '\\' && quote)
 	{
 		ret = 1;
-		if (ft_haschr("$\"\\", tokken[1]))
-			buffer[++*j] = *(++tokken);
+		if (ft_haschr("$\"\\", token[1]))
+			buffer[++*j] = *(++token);
 		else
 		{
-			buffer[++*j] = *tokken;
-			buffer[++*j] = *(++tokken);
+			buffer[++*j] = *token;
+			buffer[++*j] = *(++token);
 		}
 	}
-	else if (*tokken == '\\')
+	else if (*token == '\\')
 	{
 		ret = 1;
-		buffer[++*j] = *(++tokken);
+		buffer[++*j] = -2;
+		buffer[++*j] = *token;
+		buffer[++*j] = *(++token);
 	}
 	else
-		buffer[++*j] = *tokken;
+		buffer[++*j] = *token;
 	return (ret);
+}
+
+static char	*rm_backslash(char *token, int size_token)
+{
+	char	buffer[size_token];
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	ft_bzero(buffer, size_token);
+	while (token[++i])
+	{
+		if (token[i] == -2)
+		{
+			i += 2;
+			buffer[++j] = token[i];
+		}
+		else if (token[i] == -3)
+			buffer[++j] = ' ';
+		else
+			buffer[++j] = token[i];
+	}
+	return (ft_strdup(buffer));
 }
 
 char		*check_quote(char *token, int i)
@@ -62,47 +88,58 @@ char		*check_quote(char *token, int i)
 			else
 				i += backslash_checker(&token[i], buffer, &j, 0);
 		}
-	buffer[++j] = '\0';
 	return (ft_strdup(buffer));
 }
 
-void		remove_all_chars(char *str, char c)
+static void	ft_splitting_argv(t_cmd *cmd, char **argv, int size_argv, int i)
 {
-	char *pr;
-	char *pw;
+	char	**tmp;
+	char	*old_arg;
+	int		k;
+	int		j;
 
-	pr = str;
-	pw = str;
-	while (*pr)
-	{
-		*pw = *pr++;
-		pw += (*pw != c);
-	}
-	*pw = '\0';
+	j = 0;
+	if (!(cmd->argv = ft_calloc(size_argv, sizeof(char*))))
+		ft_exit_error();
+	while (argv[++i])
+		if (ft_haschr(argv[i], -1))
+		{
+			old_arg = ft_strtrim_integral(argv[i], -1);
+			tmp = ft_lexing(old_arg);
+			free(old_arg);
+			k = -1;
+			while (tmp[++k])
+			{
+				old_arg = tmp[k];
+				cmd->argv[j++] = rm_backslash(tmp[k], ft_strlen(tmp[k]) + 1);
+				free(old_arg);
+			}
+			free(tmp);
+		}
+		else
+			cmd->argv[j++] = rm_backslash(argv[i], ft_strlen(argv[i]) + 1);
 }
 
 int			ft_dollar_quotes(t_cmd *cmd)
 {
-	char	*old_arg;
+	char	**temp_argv;
+	int		size_temp_argv;
 	int		i;
-	int		splits;
 
 	i = -1;
+	if (!(temp_argv = ft_calloc(ft_array_size(cmd->argv) + 1, sizeof(char *))))
+		ft_exit_error();
 	while (cmd->argv[++i])
-	{
-		old_arg = cmd->argv[i];
-		cmd->argv[i] = check_quote(cmd->argv[i], -1);
-		splits = ft_is_split(cmd->argv[i]);
-		if (splits && cmd->argv[i][0] == 3)
-		{
-			cmd->argv[i] = ft_substr(cmd->argv[i], 1, ft_strlen(cmd->argv[i]));
-			cmd->argv = ft_split_args(cmd->argv, i);
-			i += splits - 1;
-		}
-		free(old_arg);
-	}
+		temp_argv[i] = check_quote(cmd->argv[i], -1);
 	i = -1;
-	while (cmd->argv[++i])
-		remove_all_chars(cmd->argv[i], 3);
+	size_temp_argv = 0;
+	while (temp_argv[++i])
+		if (ft_haschr(temp_argv[i], -1))
+			size_temp_argv += ft_tokens_count(&(temp_argv[i][1]));
+		else
+			size_temp_argv++;
+	ft_free_array(cmd->argv, 0);
+	ft_splitting_argv(cmd, temp_argv, size_temp_argv + 1, -1);
+	ft_free_array(temp_argv, 0);
 	return (1);
 }

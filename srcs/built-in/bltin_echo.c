@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/18 10:23:40 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/19 14:07:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:33:38 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_arg(char **argv, int i, int cnt)
 	{
 		ft_putstr(argv[i]);
 		if (i < cnt - 1)
-			ft_putstr(" ");
+			ft_putchar(' ');
 		i++;
 	}
 }

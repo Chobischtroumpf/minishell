@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/09 14:13:05 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 13:45:02 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int			check_in(t_rdir *in)
 
 	while (in)
 	{
-		tmp = check_quote(in->file, -1);
+		if (!(tmp = check_rdir_space(in->file)))
+			return (0);
 		free(in->file);
 		in->file = tmp;
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
@@ -68,7 +69,8 @@ int			check_out(t_rdir *out)
 
 	while (out)
 	{
-		tmp = check_quote(out->file, -1);
+		if (!(tmp = check_rdir_space(out->file)))
+			return (0);
 		free(out->file);
 		out->file = tmp;
 		if (out->is_dbl)
@@ -114,12 +116,12 @@ int			ft_exec_cmd(void)
 		ft_dollar_quotes(cmd);
 		if (cmd->pipe)
 		{
-			cmd = handle_pipe(cmd, count_pipes(cmd));
+			cmd = handle_pipe(get_minishell(), cmd, count_pipes(cmd), -1);
 			continue ;
 		}
 		if (!check_in(cmd->in) || !check_out(cmd->out))
 		{
-			get_minishell()->excode = 1;
+			get_minishell()->exval = 1;
 			cmd = cmd->next;
 			continue;
 		}

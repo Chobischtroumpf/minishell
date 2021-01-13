@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:51:38 by nathan            #+#    #+#             */
-/*   Updated: 2020/12/13 16:17:05 by alessandro       ###   ########.fr       */
+/*   Updated: 2021/01/11 20:57:45 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_exit_error(void)
 	return (NULL);
 }
 
-int		ft_invalid_identifier(char *cmd, char *arg)
+int		ft_invalid_id(char *cmd, char *arg)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);

@@ -6,7 +6,7 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/13 14:50:55 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/13 14:56:48 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,10 @@ SRC_NAME =	minishell.c						\
 			cmd/get_static.c				\
 			cmd/exec_cmd.c					\
 			cmd/exec_external.c				\
-			cmd/quit.c						\
 			\
 			environment/env.c				\
 			environment/env2.c				\
 			environment/dollar.c			\
-			environment/dollar2.c			\
 			environment/shlvl.c				\
 			\
 			errors/errors.c					\
@@ -59,6 +57,7 @@ SRC_NAME =	minishell.c						\
 			utils/utils2.c					\
 			utils/utils3.c					\
 			utils/utils4.c					\
+			utils/utils5.c
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g -I include -I libft/includes 

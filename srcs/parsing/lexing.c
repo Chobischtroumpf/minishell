@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/08 13:00:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:28:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int			ft_check_sep(char *line, int i, int space)
 		jump = 1;
 	else
 		return (0);
-	if (space == 0)
-		return (jump);
-	else if (space == 1)
+	if (space == 1)
 	{
 		i += jump;
 		while (line[i] == ' ' || *line == '\t')
@@ -40,7 +38,8 @@ int			ft_check_sep(char *line, int i, int space)
 		}
 		return (jump);
 	}
-	return (1);
+	else
+		return (jump);
 }
 
 /*
@@ -115,32 +114,31 @@ int			ft_tokens_count(char *line)
 ** nbr_token, or reaches the end of the line
 */
 
-char		*ft_tokens_split(char *line, int nbr_token)
+char		*ft_tokens_split(char *line, int *indx)
 {
-	int ck;
-	int cnt;
-	int i;
+	char	*token;
+	int		ck;
 
-	cnt = 0;
-	ck = 0;
-	i = 0;
-	while (line[i])
+	ck = *indx;
+	token = NULL;
+	if (!ft_haschr(SEP_SPACE, line[*indx]) && line[*indx])
 	{
-		if (!ft_haschr(SEP_SPACE, line[i]) && line[i] && ++cnt)
-		{
-			while (!(ft_haschr(SEP_SPACE, line[i]) &&
-				!ft_backslash_counter(line, i - 1)) && line[i])
-				i = ft_brackets(line, i) + 1;
-			if (cnt == nbr_token)
-				return (ft_substr(line, ck, i - ck));
-			ck = i;
-		}
-		if (ft_haschr(SEP, line[i]) && !ft_backslash_counter(line, i - 1)
-			&& ++cnt)
-			if (cnt == nbr_token)
-				return (ft_substr(line, ck, i + ft_check_sep(line, i, 0) - ck));
-		i += ft_check_sep(line, i, 1);
-		ck = i;
+		while (line[*indx] != '\0')
+			if (!ft_haschr(SEP_SPACE, line[*indx]))
+				*indx = ft_brackets(line, *indx) + 1;
+			else if (ft_haschr(SEP_SPACE, line[*indx])
+					&& ft_backslash_counter(line, *indx - 1))
+				*indx += 1;
+			else
+				break ;
+		token = ft_substr(line, ck, *indx - ck);
 	}
-	return (NULL);
+	else if (ft_haschr(SEP, line[*indx]))
+	{
+		token = ft_substr(line, ck, *indx + ft_check_sep(line, *indx, 0) - ck);
+		*indx += ft_check_sep(line, *indx, 0);
+	}
+	while (line[*indx] && ft_haschr(SPACE, line[*indx]))
+		(*indx)++;
+	return (token);
 }

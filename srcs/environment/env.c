@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/11/16 15:57:31 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/11 20:58:52 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_free_env(void)
 **	frees the **char itself
 */
 
-int		ft_free_array(char **array)
+int		ft_free_array(char **array, int ret)
 {
 	int i;
 
@@ -89,7 +89,7 @@ int		ft_free_array(char **array)
 	}
 	free(array);
 	array = NULL;
-	return (0);
+	return (ret);
 }
 
 /*
@@ -116,7 +116,7 @@ void	ft_init_env(t_minishell *minishell, char **envv)
 			new_node->value = ft_strdup("");
 		new_node->next = NULL;
 		ft_envadd_back(&minishell->env, new_node);
-		ft_free_array(key_value);
+		ft_free_array(key_value, 0);
 		i++;
 	}
 }
