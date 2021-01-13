@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 11:17:21 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/08 15:08:12 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 16:11:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ void	ft_add_env2(char *key, char *value)
 	t_env *new_node;
 
 	if (!(new_node = (t_env *)malloc(sizeof(t_env))))
-		exit(0);
-	new_node->key = ft_strdup(key);
-	new_node->value = ft_strdup(value);
+		ft_exit_error();
+	if (!(new_node->key = ft_strdup(key)))
+		ft_exit_error();
+	if (!(new_node->value = ft_strdup(value)))
+		ft_exit_error();
 	new_node->next = NULL;
 	ft_envadd_back(&get_minishell()->env, new_node);
 }

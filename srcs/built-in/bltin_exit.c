@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 16:51:52 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:08:43 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		checker(char **str)
+static int
+	checker(char **str)
 {
 	int	is_negative;
 
@@ -27,20 +28,23 @@ static int		checker(char **str)
 	return (is_negative);
 }
 
-static int		check_sign(char c)
+static int
+	check_sign(char c)
 {
 	if (c == '+' || c == '-')
 		return (1);
 	return (0);
 }
 
-static int		ft_atol_check(const char *str, int i, int is_sign, int is_neg)
+static int
+	ft_atol_check(const char *str, unsigned long nb, int is_sign, int is_neg)
 {
-	unsigned long	nb;
 	char			*str_cpy;
 	char			*str_cpy_cpy;
+	int				i;
 
-	str_cpy = ft_strtrim(str, " \t");
+	if (!(str_cpy = ft_strtrim(str, " \t")))
+		ft_exit_error();
 	str_cpy_cpy = str_cpy;
 	is_neg = checker(&str_cpy);
 	is_sign = check_sign(str_cpy[0]);
@@ -48,7 +52,6 @@ static int		ft_atol_check(const char *str, int i, int is_sign, int is_neg)
 	while (str_cpy[is_sign])
 		if (!ft_isdigit(str_cpy[is_sign++]))
 			return (free_str_ret(str_cpy_cpy, 0));
-	nb = 0;
 	while (str_cpy[i] >= '0' && str_cpy[i] <= '9')
 	{
 		if ((!is_neg && nb > LONG_MAX) || nb > (unsigned long)LONG_MIN)
@@ -70,7 +73,8 @@ static int		ft_atol_check(const char *str, int i, int is_sign, int is_neg)
 ** command will still do it's job, ie exiting, but with an error return code
 */
 
-int				ft_exec_exit(t_cmd *cmd)
+int
+	ft_exec_exit(t_cmd *cmd)
 {
 	int		digit;
 	int		ret;

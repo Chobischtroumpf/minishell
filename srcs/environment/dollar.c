@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/13 13:48:54 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 16:04:09 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int		check_part_cases(char *token, char *buffer, int *j, int quote)
 	}
 	else if (!ft_strncmp(token, "$?", 2))
 	{
-		integer = ft_itoa(get_minishell()->exval);
+		if (!(integer = ft_itoa(get_minishell()->exval)))
+			ft_exit_error();
 		add_str_to_buffer(buffer, integer, j, quote);
 		free(integer);
 		return (1);
@@ -74,7 +75,8 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	len = ft_strpbkr(&token[1], "-!`'\"%^&*()=+|\\<>,./~#@][¬:;$");
 	if (len == 0)
 		len = ft_strlen(token) - 1;
-	key = ft_substr(token, 1, len);
+	if (!(key = ft_substr(token, 1, len)))
+		ft_exit_error();
 	if ((value = ft_strdup(ft_find_by_key2(key))))
 	{
 		add_str_to_buffer(buffer, value, j, quote);
@@ -107,22 +109,28 @@ int		replace_false_dollar(char *token, char *buffer, int *j)
 	return (count);
 }
 
-int		process_dollar(char *token, char *buffer, int *j, int quote)
+int		process_dollar(char *tok, char *buffer, int *j, int quote)
 {
 	int		ret;
-	char	*token2;
+	char	*tok2;
 
 	ret = 0;
 	if (quote)
-		token2 = ft_substr(token, 0, (int)(ft_strchr(token, '"') - token));
+	{
+		if (!(tok2 = ft_substr(tok, 0, (int)(ft_strchr(tok, '"') - tok))))
+			ft_exit_error();
+	}
 	else
-		token2 = ft_strdup(token);
-	if ((ret = check_part_cases(token2, buffer, j, quote)))
-		return (free_str_ret(token2, ret));
-	else if ((ret = check_env(token2, buffer, j, quote)))
-		return (free_str_ret(token2, ret));
-	else if ((ret = replace_false_dollar(token2, buffer, j)))
-		return (free_str_ret(token2, ret));
-	free(token2);
+	{
+		if (!(tok2 = ft_strdup(tok)))
+			ft_exit_error();
+	}
+	if ((ret = check_part_cases(tok2, buffer, j, quote)))
+		return (free_str_ret(tok2, ret));
+	else if ((ret = check_env(tok2, buffer, j, quote)))
+		return (free_str_ret(tok2, ret));
+	else if ((ret = replace_false_dollar(tok2, buffer, j)))
+		return (free_str_ret(tok2, ret));
+	free(tok2);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/13 13:39:53 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:26:47 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void	ft_splitting_argv(t_cmd *cmd, char **argv, int size_argv, int i)
 			cmd->argv[j++] = rm_backslash(argv[i], ft_strlen(argv[i]) + 1);
 }
 
-int			ft_dollar_quotes(t_cmd *cmd)
+void		ft_dollar_quotes(t_cmd *cmd)
 {
 	char	**temp_argv;
 	int		size_temp_argv;
@@ -141,5 +141,4 @@ int			ft_dollar_quotes(t_cmd *cmd)
 	ft_free_array(cmd->argv, 0);
 	ft_splitting_argv(cmd, temp_argv, size_temp_argv + 1, -1);
 	ft_free_array(temp_argv, 0);
-	return (1);
 }

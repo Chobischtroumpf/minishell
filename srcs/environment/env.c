@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:07:45 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/11 20:58:52 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:11:16 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,20 @@ void	ft_init_env(t_minishell *minishell, char **envv)
 	i = 0;
 	while (envv[i])
 	{
-		key_value = ft_split_once(envv[i], '=');
-		if (!(new_node = (t_env *)malloc(sizeof(t_env))))
-			exit(0);
-		new_node->key = ft_strdup(key_value[0]);
+		if (!(key_value = ft_split_once(envv[i], '=')))
+			ft_exit_error();
+		if (!(new_node = (t_env *)ft_calloc(1, sizeof(t_env))))
+			ft_exit_error();
+		if (!(new_node->key = ft_strdup(key_value[0])))
+			ft_exit_error();
 		if (key_value[1])
-			new_node->value = ft_strdup(key_value[1]);
-		else
-			new_node->value = ft_strdup("");
-		new_node->next = NULL;
+		{
+			if (!(new_node->value = ft_strdup(key_value[1])))
+				ft_exit_error();
+		}
+		else if (!key_value[1])
+			if (!(new_node->value = ft_strdup("")))
+				ft_exit_error();
 		ft_envadd_back(&minishell->env, new_node);
 		ft_free_array(key_value, 0);
 		i++;

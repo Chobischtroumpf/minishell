@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/09 14:01:31 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:02:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	update_pwd(void)
 		oldpwd = ft_strdup(ft_find_by_key2("PWD"));
 	else
 		oldpwd = ft_strdup("");
+	if (!oldpwd)
+		ft_exit_error();
 	getcwd(pwd, sizeof(pwd));
 	ft_remove_env(&get_minishell()->env, "PWD");
 	ft_remove_env(&get_minishell()->env, "OLDPWD");
