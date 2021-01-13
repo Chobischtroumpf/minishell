@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:06:59 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/11 20:59:12 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:36:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ char	*ft_strtrim_integral(char const *s1, char const set)
 	int		i;
 
 	i = 0;
-	tab = ft_split(s1, set);
-	str_finale = ft_strdup("");
+	if (!(tab = ft_split(s1, set)))
+		ft_exit_error();
+	if (!(str_finale = ft_strdup("")))
+		ft_exit_error();
 	while (tab[i])
 	{
 		if (!(str_finale = ft_strjoin_free(str_finale, tab[i])))

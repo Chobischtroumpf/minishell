@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 14:55:36 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 16:41:07 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int					ft_exec_builtin(int bltin_pos, t_cmd *cmd);
 void				ft_shlvl(void);
 long				ft_atoi_pos(const char *str);
 long				ft_error_shlvl(long shlvl);
-int					ft_line_handle(void);
+int					ft_line_handle(int ret);
 char				**ft_split_skip_quotes(char const *str, char sep);
 
 char				*check_quote(char *token, int i);
@@ -103,7 +103,7 @@ char				*ft_tokens_split(char *line, int *indx);
 char				*ft_strtrim_integral(char const *s1, char const set);
 int					ft_brackets(char *line, int i);
 int					ft_backslash_counter(char *str, int i);
-int					ft_dollar_quotes(t_cmd *cmd);
+void				ft_dollar_quotes(t_cmd *cmd);
 void				skip_extra_spaces(char *str);
 int					ft_isascii_except(int c);
 int					ft_skip_quotes(char *str, int i);
@@ -127,7 +127,7 @@ char				*ft_strjoin_delimiter(char *s1, char *s2, char del);
 char				*ft_strjoin_delimiter_free(char *s1, char *s2, char del);
 char				**ft_env_to_array(void);
 void				ft_append_env(char **keyvalue);
-int					ft_valid_key(char *str);
+int					ft_valid_key(char *str, int i);
 void				ft_envadd_back(t_env **head, t_env *new);
 int					ft_envsize(t_env *env);
 t_env				*ft_find_by_key(char *key);
@@ -144,7 +144,7 @@ int					ft_exec_exit(t_cmd *cmd);
 int					ft_exec_cmd(void);
 int					ft_exec_env(void);
 int					ft_exec_unset(t_cmd *cmd);
-int					ft_exec_export(t_cmd *cmd);
+int					ft_exec_export(t_cmd *cmd, int i);
 void				ft_exec_extern(t_cmd *cmd);
 
 int					ft_file_readable(char *cmd);

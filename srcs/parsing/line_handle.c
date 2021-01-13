@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/13 13:44:04 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 16:40:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	**ft_lexing(char *line)
 	index = 0;
 	while (ft_haschr(SPACE, line[x]))
 		x++;
-	tmp = ft_substr(line, x, ft_strlen(line) - x);
+	if (!(tmp = ft_substr(line, x, ft_strlen(line) - x)))
+		ft_exit_error();
 	if ((nbr_tokens = ft_tokens_count(tmp)) < 0)
 	{
 		free(tmp);
@@ -34,7 +35,8 @@ char	**ft_lexing(char *line)
 		ft_exit_error();
 	x = -1;
 	while (++x < nbr_tokens)
-		tokens[x] = ft_tokens_split(tmp, &index);
+		if (!(tokens[x] = ft_tokens_split(tmp, &index)))
+			ft_exit_error();
 	free(tmp);
 	return (tokens);
 }
@@ -55,10 +57,9 @@ int		get_next_char(int fd, char *cptr)
 	return (ret);
 }
 
-int		ft_line_handle(void)
+int		ft_line_handle(int ret)
 {
 	t_minishell	*minish;
-	int			ret;
 	char		c;
 
 	minish = get_minishell();
@@ -66,14 +67,18 @@ int		ft_line_handle(void)
 	{
 		if (c == '\n')
 			break ;
-		minish->line = ft_strjoin_doublefree(minish->line, ft_chardup(c));
+		if (!(minish->line = ft_strjoin_doublefree(minish->line,
+												ft_chardup(c))))
+			ft_exit_error();
 	}
 	if (ret == -1)
 		ft_exit_error();
 	if (ret == 1)
 	{
-		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
+		if (!minish->line)
 			return (0);
+		else if (!(minish->tokens = ft_lexing(minish->line)))
+			ft_exit_error();
 	}
 	else if (ret == 0 && (minish->was_eof = 1))
 		if (!minish->line || !(minish->line)[0])

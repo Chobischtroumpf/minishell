@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 15:35:09 by adorigo           #+#    #+#             */
-/*   Updated: 2020/11/09 11:54:13 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 16:36:51 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static t_rdir	*ft_new_rdir(char *file, int is_dbl)
 
 	if (!(new = malloc(sizeof(t_rdir))))
 		return ((t_rdir*)ft_exit_error());
-	new->file = ft_strdup(file);
+	if (!(new->file = ft_strdup(file)))
+		ft_exit_error();
 	new->std = -1;
 	new->is_dbl = is_dbl;
 	new->next = NULL;

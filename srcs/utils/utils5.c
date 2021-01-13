@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 13:47:05 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 16:35:50 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ char	*check_rdir_space(char *file)
 	char	*tmp2;
 	char	**check;
 
-	tmp = check_quote(file, -1);
+	if (!(tmp = check_quote(file, -1)))
+		ft_exit_error();
 	if (!ft_strcmp(tmp, ""))
 	{
 		ft_err_redirect(file);

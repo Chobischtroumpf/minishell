@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:40:18 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		main_execution(void)
 	while (1)
 	{
 		prompt_msg();
-		if (!ft_line_handle())
+		if (!ft_line_handle(0))
 			continue ;
 		minishell->was_eof = 0;
 		if (!ft_cmd_parse(minishell->tokens))

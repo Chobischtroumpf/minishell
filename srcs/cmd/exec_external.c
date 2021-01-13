@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:05:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,18 @@ static char	**path_array_creation(char *cmd)
 			if (ft_haschr(path_array[i], -1))
 			{
 				free(path_array[i]);
-				path_array[i] = ft_strdup(".");
+				if (!(path_array[i] = ft_strdup(".")))
+					ft_exit_error();
 			}
 	}
 	else
 	{
 		if (ft_check_file(cmd, 1))
 			return (NULL);
-		if (!(path_array = malloc(sizeof(char *) * 2)))
+		if (!(path_array = ft_calloc(2, sizeof(char *))))
 			ft_exit_error();
-		path_array[0] = ft_strdup(".");
-		path_array[1] = NULL;
+		if (!(path_array[0] = ft_strdup(".")))
+			ft_exit_error();
 	}
 	return (path_array);
 }
@@ -74,8 +75,10 @@ static int	exec_with_path(t_cmd *cmd, char **path_array, char **env_array)
 	i = 0;
 	while (path_array[i])
 	{
-		path_cmd = ft_strjoin(path_array[i], "/");
-		path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0]);
+		if (!(path_cmd = ft_strjoin(path_array[i], "/")))
+			return (132);
+		if (!(path_cmd2 = ft_strjoin(path_cmd, cmd->argv[0])))
+			return (free_str_ret(path_cmd, 132));
 		if (execve(path_cmd2, cmd->argv, env_array) == -1)
 			if (ft_file_exists(path_cmd2) && !ft_file_is_exec(path_cmd2))
 				return (ft_err_no_access(path_cmd2, NULL, 126));
@@ -94,7 +97,8 @@ void		exec_cmd(t_cmd *cmd)
 	char	**env_array;
 	int		ret_val;
 
-	env_array = ft_env_to_array();
+	if (!(env_array = ft_env_to_array()))
+		ft_exit_error();
 	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
 	{
 		ret_val = exec_with_path(cmd, path_array, env_array);

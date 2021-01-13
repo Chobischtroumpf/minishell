@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:58:37 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/11 20:58:38 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:03:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 **	valid.(Wont start with a digit, '+' ot '=' sign and be only alphanum chars)
 */
 
-int		ft_valid_key(char *str)
+int			ft_valid_key(char *str, int i)
 {
-	int		i;
 	char	*special_chars;
 	char	*arg;
 	int		eq_found;
 
-	arg = ft_strjoin(str, "=");
+	if (!(arg = ft_strjoin(str, "=")))
+		ft_exit_error();
 	eq_found = 0;
-	i = 0;
 	special_chars = "_+=";
 	if (ft_isdigit(arg[0]) || arg[0] == '=' || arg[0] == '+')
 		return (free_str_ret(arg, 0));
@@ -57,32 +56,33 @@ int		ft_valid_key(char *str)
 **	In the case the node already existed, it is first deleted, then recreated.
 */
 
-void	ft_process_args(char **keyvalue)
+static void	ft_process_args(char **keyval)
 {
 	char	*tmp;
 
-	update_lastcmd(keyvalue[0]);
-	if ((keyvalue[0][ft_strlen(keyvalue[0]) - 1]) == '+')
+	update_lastcmd(keyval[0]);
+	if ((keyval[0][ft_strlen(keyval[0]) - 1]) == '+')
 	{
-		tmp = keyvalue[0];
-		keyvalue[0] = ft_strndup(keyvalue[0], ft_strlen(keyvalue[0]) - 1);
+		tmp = keyval[0];
+		if (!(keyval[0] = ft_strndup(keyval[0], ft_strlen(keyval[0]) - 1)))
+			ft_exit_error();
 		free(tmp);
-		if (ft_find_by_key(keyvalue[0]))
-			ft_append_env(keyvalue);
+		if (ft_find_by_key(keyval[0]))
+			ft_append_env(keyval);
 		else
-			ft_add_env(keyvalue);
+			ft_add_env(keyval);
 	}
 	else
 	{
-		if (ft_find_by_key(keyvalue[0]))
+		if (ft_find_by_key(keyval[0]))
 		{
-			ft_remove_env(&get_minishell()->env, keyvalue[0]);
-			ft_add_env(keyvalue);
+			ft_remove_env(&get_minishell()->env, keyval[0]);
+			ft_add_env(keyval);
 		}
 		else
-			ft_add_env(keyvalue);
+			ft_add_env(keyval);
 	}
-	ft_free_array(keyvalue, 0);
+	ft_free_array(keyval, 0);
 }
 
 /*
@@ -91,7 +91,7 @@ void	ft_process_args(char **keyvalue)
 **	"declare-x".
 */
 
-int		ft_export_no_arg(t_minishell *minishell)
+int			ft_export_no_arg(t_minishell *minishell)
 {
 	t_env	*tmp;
 	char	*temp;
@@ -101,7 +101,8 @@ int		ft_export_no_arg(t_minishell *minishell)
 	{
 		if (ft_haschr("$\"\\", tmp->value[0]) && ft_strlen(tmp->value) == 1)
 		{
-			temp = ft_strjoin("\\", tmp->value);
+			if (!(temp = ft_strjoin("\\", tmp->value)))
+				ft_exit_error();
 			free(tmp->value);
 			tmp->value = temp;
 		}
@@ -117,16 +118,14 @@ int		ft_export_no_arg(t_minishell *minishell)
 **	arguments are existing/valid. Returns (0) on complition.
 */
 
-int		ft_exec_export(t_cmd *cmd)
+int			ft_exec_export(t_cmd *cmd, int i)
 {
 	char	**key_value;
 	char	**arg;
-	int		i;
 	int		ret;
 
 	arg = cmd->argv;
 	ret = 0;
-	i = 0;
 	if (!arg[1])
 		return (ft_export_no_arg(get_minishell()));
 	while (arg[++i])
@@ -137,8 +136,9 @@ int		ft_exec_export(t_cmd *cmd)
 				ret = ft_invalid_id("export", arg[i]);
 			continue;
 		}
-		key_value = ft_split_once(arg[i], '=');
-		if (ft_valid_key(key_value[0]))
+		if (!(key_value = ft_split_once(arg[i], '=')))
+			ft_exit_error();
+		if (ft_valid_key(key_value[0], 0))
 			ft_process_args(key_value);
 		else
 			return (ft_free_array(key_value, ft_invalid_id("export", arg[i])));
@@ -146,7 +146,7 @@ int		ft_exec_export(t_cmd *cmd)
 	return ((ret) ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
-void	update_lastcmd(char *last_cmd)
+void		update_lastcmd(char *last_cmd)
 {
 	ft_remove_env(&get_minishell()->env, "_");
 	ft_add_env2("_", last_cmd);

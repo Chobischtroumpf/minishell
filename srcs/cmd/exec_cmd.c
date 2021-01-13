@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 13:45:02 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 15:20:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			ft_exec_builtin(int bltin_pos, t_cmd *cmd)
 	else if (bltin_pos == 2)
 		ret = ft_exec_pwd();
 	else if (bltin_pos == 3)
-		ret = ft_exec_export(cmd);
+		ret = ft_exec_export(cmd, 0);
 	else if (bltin_pos == 4)
 		ret = ft_exec_unset(cmd);
 	else if (bltin_pos == 5)
