@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/13 23:44:06 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:29:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	ft_exec_export_shlvl(char *shlvl)
 	free(cmd);
 }
 
-static int			is_numeric(char *str)
+static int	is_numeric(char *str)
 {
 	int	i;
 

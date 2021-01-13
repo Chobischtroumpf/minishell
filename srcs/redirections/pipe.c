@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/14 00:01:02 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:29:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
 	ft_get_exit_code(status, NO_EXCODE);
 }
 
-static int		start_pipes(int pipes[], int nb)
+static int	start_pipes(int pipes[], int nb)
 {
 	int i;
 
@@ -61,7 +61,7 @@ static int		start_pipes(int pipes[], int nb)
 	return (1);
 }
 
-t_cmd	*handle_pipe(t_minishell *m, t_cmd *cmd, int pipe_nb, int i)
+t_cmd		*handle_pipe(t_minishell *m, t_cmd *cmd, int pipe_nb, int i)
 {
 	int pipe_fds[pipe_nb * 2];
 	int pids[pipe_nb + 1];

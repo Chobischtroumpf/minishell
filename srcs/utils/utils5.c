@@ -6,13 +6,13 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/14 00:11:11 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:29:15 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_get_exit_code(int status, int exit)
+char		**ft_get_exit_code(int status, int exit)
 {
 	if (exit == -1)
 	{
@@ -26,7 +26,7 @@ char	**ft_get_exit_code(int status, int exit)
 	return (NULL);
 }
 
-void	skip_extra_spaces(char *str)
+void		skip_extra_spaces(char *str)
 {
 	char	*trimmed;
 	char	*untrimmed;
@@ -80,7 +80,7 @@ static char	*free_ret_str(char *str, char *ret)
 	return (ret);
 }
 
-char	*check_rdir_space(char *file)
+char		*check_rdir_space(char *file)
 {
 	char	*tmp;
 	char	*tmp2;
