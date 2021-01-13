@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/14 00:01:02 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_pipes(int pipes[], int nb)
+static void	close_pipes(int pipes[], int nb)
 {
 	int i;
 
@@ -21,7 +21,7 @@ void	close_pipes(int pipes[], int nb)
 		close(pipes[i++]);
 }
 
-void	dup2_and_close_pipe(int pipes[], int i, int nb)
+static void	dup2_and_close_pipe(int pipes[], int i, int nb)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -32,7 +32,7 @@ void	dup2_and_close_pipe(int pipes[], int i, int nb)
 	close_pipes(pipes, nb);
 }
 
-void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
+static void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
 {
 	int status;
 	int	i;
@@ -47,7 +47,7 @@ void	close_pipe_and_wait(int pipes[], int nb, int cpid[])
 	ft_get_exit_code(status, NO_EXCODE);
 }
 
-int		start_pipes(int pipes[], int nb)
+static int		start_pipes(int pipes[], int nb)
 {
 	int i;
 

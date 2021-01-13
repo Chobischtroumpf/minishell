@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 16:35:50 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:11:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	skip_extra_spaces(char *str)
 	*trimmed = '\0';
 }
 
-char	*check_new_size(char **check, char *file)
+static char	*check_new_size(char **check, char *file)
 {
 	char *tmp2;
 
@@ -73,7 +73,7 @@ char	*check_new_size(char **check, char *file)
 	return (NULL);
 }
 
-char	*free_ret_str(char *str, char *ret)
+static char	*free_ret_str(char *str, char *ret)
 {
 	if (str)
 		free(str);

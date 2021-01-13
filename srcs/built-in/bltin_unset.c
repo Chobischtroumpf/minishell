@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/11 20:58:10 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 23:31:31 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	Returns 0 if equal, 1 otherwise.
 */
 
-int		ft_is_key(t_env *env, char *str)
+static int	ft_is_key(t_env *env, char *str)
 {
 	if (ft_strcmp(env->key, str))
 		return (1);
@@ -29,7 +29,7 @@ int		ft_is_key(t_env *env, char *str)
 **	corresponding value. If the key isn't found, returns NULL.
 */
 
-char	*ft_get_env_value(t_env *env_list, char *key)
+static char	*ft_get_env_value(t_env *env_list, char *key)
 {
 	t_env	*tmp;
 
@@ -48,7 +48,7 @@ char	*ft_get_env_value(t_env *env_list, char *key)
 **	and re-link the list.
 */
 
-int		ft_remove_env(t_env **env_list, char *key)
+int			ft_remove_env(t_env **env_list, char *key)
 {
 	t_env	*current;
 	t_env	*next;
@@ -77,7 +77,7 @@ int		ft_remove_env(t_env **env_list, char *key)
 	return (0);
 }
 
-int		ft_valid_key2(char *str)
+static int	ft_valid_key2(char *str)
 {
 	char	*tmp;
 	int		i;
@@ -103,7 +103,7 @@ int		ft_valid_key2(char *str)
 **	and removes them appropriatly.
 */
 
-int		ft_exec_unset(t_cmd *cmd)
+int			ft_exec_unset(t_cmd *cmd)
 {
 	char				**args;
 	int					i;

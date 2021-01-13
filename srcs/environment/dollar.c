@@ -6,13 +6,13 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/13 16:04:09 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 23:39:50 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
+static void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
 	int k;
 
@@ -41,7 +41,7 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 	}
 }
 
-int		check_part_cases(char *token, char *buffer, int *j, int quote)
+static int	check_part_cases(char *token, char *buffer, int *j, int quote)
 {
 	char *integer;
 
@@ -66,7 +66,7 @@ int		check_part_cases(char *token, char *buffer, int *j, int quote)
 	return (0);
 }
 
-int		check_env(char *token, char *buffer, int *j, int quote)
+static int		check_env(char *token, char *buffer, int *j, int quote)
 {
 	int		len;
 	char	*value;
@@ -89,7 +89,7 @@ int		check_env(char *token, char *buffer, int *j, int quote)
 	return (0);
 }
 
-int		replace_false_dollar(char *token, char *buffer, int *j)
+static int		replace_false_dollar(char *token, char *buffer, int *j)
 {
 	int i;
 	int count;

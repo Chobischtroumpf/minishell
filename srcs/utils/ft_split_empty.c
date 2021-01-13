@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 11:45:10 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/09 13:28:40 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/14 00:04:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*malloc_word(char const *str, char sep)
 	return (word);
 }
 
-void		split_helper(char *buff, char *str, char sep)
+static void	split_helper(char *buff, char *str, char sep)
 {
 	int i;
 	int j;
