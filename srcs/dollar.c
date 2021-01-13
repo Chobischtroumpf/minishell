@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/12 21:55:14 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:35:32 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
 	int k;
-
+	
+	k = *j;
 	if (!quote && ft_haschr(str, ' '))
 		skip_extra_spaces(str);
 	while (*str)
@@ -29,6 +30,16 @@ void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 			k--;
 		}
 		buffer[0] = -1;
+	}
+	else if (quote)
+	{
+		k++;
+		while (k <= *j)
+		{	
+			if (buffer[k] == ' ')
+				buffer[k] = -3;
+			k++;
+		}
 	}
 }
 

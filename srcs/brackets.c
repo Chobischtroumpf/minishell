@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 21:54:00 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:39:53 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static char	*rm_backslash(char *token, int size_token)
 			i += 2;
 			buffer[++j] = token[i];
 		}
+		else if (token[i] == -3)
+			buffer[++j] = ' ';
 		else
 			buffer[++j] = token[i];
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 21:55:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 12:18:28 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int					ft_err_not_exec(char *cmd, char *arg, int ret);
 int					ft_err_read_error(char *arg, int ret);
 int					ft_err_is_segfault(char *cmd, char *arg, int ret);
 int					ft_err_is_symlink_loop(char *cmd, int ret_val);
+int					ft_err_redirect(char *file);
 
 int					count_pipes(t_cmd *cmd);
 t_cmd				*handle_pipe(t_minishell *m, t_cmd *cmd, int pipe_nb, int i);
@@ -194,5 +195,7 @@ int					check_out(t_rdir *out);
 void				update_lastcmd(char *last_cmd);
 char				*ft_last_arg(char **arg);
 void				init_home(void);
+char				*check_rdir_space(char *file);
+
 
 #endif

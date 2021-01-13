@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/12 16:38:09 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:40:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,14 @@ char	**ft_lexing(char *line)
 	if (!(tokens = ft_calloc((nbr_tokens + 1), sizeof(char *))))
 		ft_exit_error();
 	x = -1;
+	// printf("line in token split : %s\n", tmp);
+	
 	while (++x < nbr_tokens)
+	{
 		tokens[x] = ft_tokens_split(tmp, &index);
+		// printf("token[x] : |%s|\n", tokens[x]);
+	}
+	
 	free(tmp);
 	return (tokens);
 }
@@ -74,7 +80,6 @@ int		ft_line_handle(void)
 	{
 		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
 			return (0);
-		minish->line = NULL;
 	}
 	else if (ret == 0 && (minish->was_eof = 1))
 		if (!minish->line || !(minish->line)[0])

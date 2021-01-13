@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 12:41:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int			check_in(t_rdir *in)
 
 	while (in)
 	{
-		tmp = check_quote(in->file, -1);
+		if(!(tmp = check_rdir_space(in->file)))
+			return (0);
 		free(in->file);
 		in->file = tmp;
 		if ((in->fd = open(in->file, O_RDONLY)) < 0)
@@ -68,7 +69,8 @@ int			check_out(t_rdir *out)
 
 	while (out)
 	{
-		tmp = check_quote(out->file, -1);
+		if(!(tmp = check_rdir_space(out->file)))
+			return (0);
 		free(out->file);
 		out->file = tmp;
 		if (out->is_dbl)
