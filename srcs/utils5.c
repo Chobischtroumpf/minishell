@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 13:10:40 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 13:47:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	skip_extra_spaces(char *str)
 char	*check_new_size(char **check, char *file)
 {
 	char *tmp2;
-	
+
 	if (ft_array_size(check) == 1)
 	{
-		if(!(tmp2 = ft_strdup(check[0])))
+		if (!(tmp2 = ft_strdup(check[0])))
 		{
 			ft_free_array(check, 0);
 			return (NULL);
@@ -70,10 +70,10 @@ char	*check_new_size(char **check, char *file)
 	}
 	else
 		ft_free_array(check, ft_err_redirect(file));
-	return(NULL);
+	return (NULL);
 }
 
-char 	*free_ret_str(char *str, char *ret)
+char	*free_ret_str(char *str, char *ret)
 {
 	if (str)
 		free(str);
@@ -87,20 +87,20 @@ char	*check_rdir_space(char *file)
 	char	**check;
 
 	tmp = check_quote(file, -1);
-	if(!ft_strcmp(tmp, ""))
+	if (!ft_strcmp(tmp, ""))
 	{
 		ft_err_redirect(file);
 		free_ret_str(tmp, NULL);
 	}
 	else if (ft_haschr(tmp, -1))
 	{
-		if(!(tmp2 = ft_strtrim_integral(tmp, -1)))
-			free_ret_str(tmp,NULL);
+		if (!(tmp2 = ft_strtrim_integral(tmp, -1)))
+			free_ret_str(tmp, NULL);
 		free(tmp);
-		if(!(check = ft_lexing(tmp2)))
-			free_ret_str(tmp2,NULL);
+		if (!(check = ft_lexing(tmp2)))
+			free_ret_str(tmp2, NULL);
 		free(tmp2);
-		return (check_new_size(check, file));	
+		return (check_new_size(check, file));
 	}
 	else
 		return (tmp);

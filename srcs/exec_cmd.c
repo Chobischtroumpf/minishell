@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 12:41:42 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 13:45:02 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			check_in(t_rdir *in)
 
 	while (in)
 	{
-		if(!(tmp = check_rdir_space(in->file)))
+		if (!(tmp = check_rdir_space(in->file)))
 			return (0);
 		free(in->file);
 		in->file = tmp;
@@ -69,7 +69,7 @@ int			check_out(t_rdir *out)
 
 	while (out)
 	{
-		if(!(tmp = check_rdir_space(out->file)))
+		if (!(tmp = check_rdir_space(out->file)))
 			return (0);
 		free(out->file);
 		out->file = tmp;

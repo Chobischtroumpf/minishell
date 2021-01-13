@@ -6,7 +6,7 @@
 /*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/13 13:40:10 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/13 13:44:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,8 @@ char	**ft_lexing(char *line)
 	if (!(tokens = ft_calloc((nbr_tokens + 1), sizeof(char *))))
 		ft_exit_error();
 	x = -1;
-	// printf("line in token split : %s\n", tmp);
-	
 	while (++x < nbr_tokens)
-	{
 		tokens[x] = ft_tokens_split(tmp, &index);
-		// printf("token[x] : |%s|\n", tokens[x]);
-	}
-	
 	free(tmp);
 	return (tokens);
 }
