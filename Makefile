@@ -6,28 +6,13 @@
 #    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/11 13:21:53 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/13 14:50:55 by nathan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
-###############################
-### LOADING BAR BY VGOLDMAN ###
-###############################
-TOTAL = $(shell find srcs -iname  "*.c" | wc -l | bc)
-O_COUNT = 0
-COUNT = 0
-define update
-	$(eval O_COUNT := $(shell find objs -iname "*.o" 2> /dev/null | wc -l | bc))
-	printf "\r["
-	printf "=%.0s" $(shell seq 0 ${O_COUNT})
-	printf ">"
-	$(eval COUNT := $(shell echo ${TOTAL} - ${O_COUNT} | bc))
-	printf "%${COUNT}s" "]"
-endef
-########################################
-
 NAME = minishell
+
+SRC_PATH = srcs
 
 SRC_NAME =	minishell.c						\
 			\
@@ -75,16 +60,13 @@ SRC_NAME =	minishell.c						\
 			utils/utils3.c					\
 			utils/utils4.c					\
 
-OBJ_PATH = objs
-OBJ_NAME = $(SRC_NAME:.c=.o)
-
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g -I include -I libft/includes 
 LDFLAGS = -L libft #-fsanitize=address
 LDLIBS = -lft 
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+OBJ = $(SRC:%.c=%.o)
 
 TICK = \342\234\224
 RE = \342\231\272
@@ -97,12 +79,8 @@ all: libft $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@$(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
-	@echo "\033[32;1m\rMinishell by adorigo & ncolin compiled ${TICK}          \033[0m"
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) -c $< $(CFLAGS) -o $@
 	@$(call update)
+	@echo "\033[32;1m\rMinishell by adorigo & ncolin compiled ${TICK}          \033[0m"
 
 libft:
 	@make -s -C libft
@@ -123,13 +101,12 @@ clean_libft:
 
 clean_minishell:
 	@rm -rf $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
 fclean_libft:
 	@make -s -C libft fclean
 
 fclean_minishell:
-	@rm -rf $(OBJ_PATH)
+	@rm -rf $(OBJ)
 	@rm -f $(NAME)
 	
 
