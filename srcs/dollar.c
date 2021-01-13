@@ -3,52 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/11 21:17:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:48:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_extra_spaces(char *str)
-{
-	char	*trimmed;
-	char	*untrimmed;
-	int		prev_space;
-
-	trimmed = str;
-	untrimmed = str;
-	prev_space = 0;
-	while (*untrimmed)
-	{
-		if (ft_isspace(*untrimmed))
-		{
-			if (!prev_space)
-			{
-				*trimmed++ = ' ';
-				prev_space = 1;
-			}
-		}
-		else
-		{
-			*trimmed++ = *untrimmed;
-			prev_space = 0;
-		}
-		++untrimmed;
-	}
-	*trimmed = '\0';
-}
-
 void	add_str_to_buffer(char *buffer, char *str, int *j, int quote)
 {
+	int k;
+
+	k = *j;
 	if (!quote && ft_haschr(str, ' '))
 		skip_extra_spaces(str);
-	if (!quote)
-		buffer[++*j] = -1;
 	while (*str)
 		buffer[++*j] = *str++;
+	if (!quote && buffer[0] != -1)
+	{
+		k = ++*j;
+		while (k >= 0)
+		{
+			buffer[k + 1] = buffer[k];
+			k--;
+		}
+		buffer[0] = -1;
+	}
+	else if (quote)
+	{
+		while (++k <= *j)
+		{
+			if (buffer[k] == ' ')
+				buffer[k] = -3;
+		}
+	}
 }
 
 int		check_part_cases(char *token, char *buffer, int *j, int quote)
@@ -62,7 +52,7 @@ int		check_part_cases(char *token, char *buffer, int *j, int quote)
 	}
 	else if (!ft_strncmp(token, "$?", 2))
 	{
-		integer = ft_itoa(get_minishell()->excode);
+		integer = ft_itoa(get_minishell()->exval);
 		add_str_to_buffer(buffer, integer, j, quote);
 		free(integer);
 		return (1);

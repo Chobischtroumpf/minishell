@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/11 17:11:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/13 13:28:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int			ft_check_sep(char *line, int i, int space)
 		jump = 1;
 	else
 		return (0);
-
 	if (space == 1)
 	{
 		i += jump;
@@ -115,31 +114,31 @@ int			ft_tokens_count(char *line)
 ** nbr_token, or reaches the end of the line
 */
 
-char		*ft_tokens_split(char *line, int *index)
+char		*ft_tokens_split(char *line, int *indx)
 {
 	char	*token;
 	int		ck;
 
-	ck = *index;
+	ck = *indx;
 	token = NULL;
-	if (!ft_haschr(SEP_SPACE, line[*index]) && line[*index])
+	if (!ft_haschr(SEP_SPACE, line[*indx]) && line[*indx])
 	{
-		while (line[*index] != '\0')
-			if (!ft_haschr(SEP_SPACE, line[*index]))
-				*index = ft_brackets(line, *index) + 1;
-			else if (ft_haschr(SEP_SPACE, line[*index])
-					&& ft_backslash_counter(line, *index - 1))
-				*index += 1;
+		while (line[*indx] != '\0')
+			if (!ft_haschr(SEP_SPACE, line[*indx]))
+				*indx = ft_brackets(line, *indx) + 1;
+			else if (ft_haschr(SEP_SPACE, line[*indx])
+					&& ft_backslash_counter(line, *indx - 1))
+				*indx += 1;
 			else
 				break ;
-		token = ft_substr(line, ck, *index - ck);
+		token = ft_substr(line, ck, *indx - ck);
 	}
-	else if (ft_haschr(SEP, line[*index]))
+	else if (ft_haschr(SEP, line[*indx]))
 	{
-		token = ft_substr(line, ck, *index + ft_check_sep(line, *index, 0) - ck);
-		*index += ft_check_sep(line, *index, 0);
+		token = ft_substr(line, ck, *indx + ft_check_sep(line, *indx, 0) - ck);
+		*indx += ft_check_sep(line, *indx, 0);
 	}
-	while (line[*index] && ft_haschr(SPACE, line[*index]))
-		(*index)++;
+	while (line[*indx] && ft_haschr(SPACE, line[*indx]))
+		(*indx)++;
 	return (token);
 }

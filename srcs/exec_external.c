@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/11 20:59:00 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:07:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void		ft_exec_extern(t_cmd *cmd)
 	{
 		wait(&status);
 		ft_get_exit_code(status, NO_EXCODE);
-		if (get_minishell()->excode == 139)
+		if (get_minishell()->exval == 139)
 			ft_err_is_segfault(cmd->argv[0], NULL, 0);
 	}
 }
