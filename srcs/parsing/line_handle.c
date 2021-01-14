@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/13 16:40:04 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/14 12:14:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ int		ft_line_handle(int ret)
 		ft_exit_error();
 	if (ret == 1)
 	{
-		if (!minish->line)
+		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
 			return (0);
-		else if (!(minish->tokens = ft_lexing(minish->line)))
-			ft_exit_error();
 	}
 	else if (ret == 0 && (minish->was_eof = 1))
 		if (!minish->line || !(minish->line)[0])
