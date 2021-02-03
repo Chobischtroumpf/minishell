@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 17:12:12 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/13 23:31:31 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/03 16:41:00 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	ft_valid_key2(char *str)
 		return (0);
 	while (tmp[i])
 	{
-		if (!ft_isalnum(tmp[i]))
+		if (!ft_isalnum(tmp[i]) && tmp[i] != '_')
 			return (0);
 		if (ft_isspace(tmp[i]))
 			return (0);

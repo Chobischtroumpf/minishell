@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   brackets.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/22 10:23:00 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/03 17:33:20 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char		*check_quote(char *token, int i)
 				i += process_dollar(&token[i], buffer, &j, 0);
 			else
 				i += backslash_checker(&token[i], buffer, &j, 0);
+			if (!token[i])
+				break;
 		}
 	return (ft_strdup(buffer));
 }

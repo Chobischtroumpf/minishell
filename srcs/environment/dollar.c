@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/02/03 16:34:12 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/03 17:33:15 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	replace_false_dollar(char *token, char *buffer, int *j)
 		i++;
 		count++;
 	}
-	if (count == 0)
+	if (count == 0 && !ft_haschr("\'\"", token[i]))
 		buffer[++*j] = token[0];
 	if (token[i] != '$' && (ft_isalnum(token[i]) || token[i] == '_'))
 		while (token[i])
