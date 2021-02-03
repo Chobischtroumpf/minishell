@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/02/03 17:33:15 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/03 17:50:29 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static int	check_part_cases(char *token, char *buffer, int *j, int quote)
 
 	if (!ft_strncmp(token, "$$", 2))
 	{
-		add_str_to_buffer(buffer, "$$", j, quote);
+		if (!(integer = ft_itoa((long)getpid())))
+			ft_exit_error();
+		add_str_to_buffer(buffer, integer, j, quote);
+		free(integer);
 		return (1);
 	}
 	else if (!ft_strncmp(token, "$?", 2))

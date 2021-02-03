@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/02/03 16:30:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/03 17:49:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <limits.h>
 # include <fcntl.h>
 # include <signal.h>
