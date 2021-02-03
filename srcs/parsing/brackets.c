@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/18 15:05:40 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/22 10:23:00 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	ft_splitting_argv(t_cmd *cmd, char **argv, int size_argv, int i)
 		if (ft_haschr(argv[i], -1))
 		{
 			old_arg = ft_strtrim_integral(argv[i], -1);
-			tmp = ft_lexing(old_arg);
+			tmp = ft_lexing(old_arg, 1);
 			free(old_arg);
 			k = -1;
 			while (tmp[++k])

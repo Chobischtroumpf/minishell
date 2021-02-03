@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nathan <nathan@student.42.fr>              +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/13 14:56:48 by nathan           ###   ########.fr        #
+#    Updated: 2021/01/21 17:15:52 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC_NAME =	minishell.c						\
 			errors/errors2.c				\
 			errors/errors3.c				\
 			errors/errors4.c				\
+			errors/errors5.c				\
 			\
 			parsing/brackets.c				\
 			parsing/cmd_parser_1.c			\

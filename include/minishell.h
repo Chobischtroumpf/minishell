@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/18 16:02:22 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/03 16:30:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define SEP_SPACE " 	<>|;"
 # define SEP "<>|;"
 # define SPACE " \t"
+# define INVALID_CHAR " 	-!`'\"%^&*()=+|\\<>,./~#@][¬:;$"
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
@@ -220,6 +221,8 @@ int					ft_parse_error(char *error, int ret);
 /*
 ** errors2.c
 */
+
+int					ft_check_file(char *cmd, int is_printed);
 int					ft_err_file_not_found(char *cmd, char *arg, int ret);
 void				ft_err_file_too_long(char *cmd, char *arg);
 void				ft_err_loop(char *cmd, char *arg);
@@ -245,6 +248,12 @@ int					ft_err_not_exec(char *cmd, char *arg, int ret);
 int					ft_err_is_segfault(char *cmd, char *arg, int ret);
 int					ft_err_is_symlink_loop(char *cmd, int ret_val);
 int					ft_err_redirect(char *file);
+
+/*
+** errors5.c
+*/
+
+int					ft_error_redir(char *file);
 
 /*
 **   ___  _   ___  ___ ___ _  _  ___
@@ -280,13 +289,14 @@ int					ft_cmd_parse(char **tokens);
 int					ft_check_sep(char *line, int nbr_token, int space);
 int					ft_brackets(char *line, int i);
 int					ft_tokens_count(char *line);
-char				*ft_tokens_split(char *line, int *indx);
+char				*replace_tilde(char *token);
+char				*ft_tokens_split(char *line, int *idx, int ck, int is_dlr);
 
 /*
 ** line_handle.c
 */
 
-char				**ft_lexing(char *line);
+char				**ft_lexing(char *line, int is_dollar);
 int					get_next_char(int fd, char *cptr);
 int					ft_line_handle(int ret);
 

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/18 15:36:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/21 17:09:06 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			ft_check_file(char *cmd, int is_printed)
 	int ret_val;
 
 	ret_val = ft_file_is_symlink(cmd);
-	if (!is_printed && ret_val != 127)
+	if (is_printed && ret_val != 127)
 	{
 		if (!ft_file_exists(cmd))
 			ret_val = ft_err_file_not_found(cmd, NULL, 127);
@@ -56,7 +56,7 @@ static char	**path_array_creation(char *cmd)
 	}
 	else
 	{
-		if (ft_check_file(cmd, 1))
+		if (ft_check_file(cmd, 0))
 			return (NULL);
 		if (!(path_array = ft_calloc(2, sizeof(char *))))
 			ft_exit_error();
@@ -110,7 +110,7 @@ void		exec_cmd(t_cmd *cmd)
 	}
 	else
 	{
-		ret_val = ft_check_file(cmd->argv[0], 0);
+		ret_val = ft_check_file(cmd->argv[0], 1);
 		execve(cmd->argv[0], cmd->argv, env_array);
 		exit(ret_val);
 	}

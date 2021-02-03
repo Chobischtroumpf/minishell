@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:12:57 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/14 00:30:16 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/03 16:34:12 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	check_part_cases(char *token, char *buffer, int *j, int quote)
 	}
 	else if (token[0] == '$' && (ft_haschr("\\", token[1]) || !token[1]))
 	{
-		add_str_to_buffer(buffer, "$", j, quote);
+		buffer[++*j] = '$';
 		return (1);
 	}
 	return (0);
@@ -72,7 +72,7 @@ static int	check_env(char *token, char *buffer, int *j, int quote)
 	char	*value;
 	char	*key;
 
-	len = ft_strpbkr(&token[1], "-!`'\"%^&*()=+|\\<>,./~#@][¬:;$");
+	len = ft_strpbkr(&token[1], INVALID_CHAR);
 	if (len == 0)
 		len = ft_strlen(token) - 1;
 	if (!(key = ft_substr(token, 1, len)))

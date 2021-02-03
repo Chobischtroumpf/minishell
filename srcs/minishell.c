@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 16:40:18 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/21 17:22:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** void		print_lst(void);
-*/
 
 static void	prompt_msg(void)
 {
@@ -108,6 +104,8 @@ int			main(int ac, char **av, char **envv)
 {
 	t_minishell	*minishell;
 
+	(void)ac;
+	(void)av;
 	minishell = get_minishell();
 	ft_init_env(minishell, envv);
 	ft_init_pwd();
@@ -115,18 +113,7 @@ int			main(int ac, char **av, char **envv)
 	signal(SIGQUIT, signal_handler);
 	ft_shlvl();
 	update_lastcmd("minishell");
-	if (ac == 1)
-		main_execution();
-	else if (ac >= 2 && !ft_strcmp(av[1], "-c"))
-	{
-		minishell->line = ft_strdup(av[2]);
-		if (!(minishell->tokens = ft_lexing(minishell->line)))
-			return (1 || ft_exit_error());
-		if (!(ft_cmd_parse(minishell->tokens)))
-			return (1 || ft_exit_error());
-		if (!(ft_exec_cmd()))
-			return (1 || ft_exit_error());
-	}
+	main_execution();
 	ft_free_minishell();
 	ft_free_env();
 	return (minishell->exval);

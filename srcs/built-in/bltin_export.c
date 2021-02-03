@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:58:37 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/13 16:03:04 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/22 11:30:46 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	ft_process_args(char **keyval)
 		if (!(keyval[0] = ft_strndup(keyval[0], ft_strlen(keyval[0]) - 1)))
 			ft_exit_error();
 		free(tmp);
+		keyval[1] = replace_tilde(keyval[1]);
 		if (ft_find_by_key(keyval[0]))
 			ft_append_env(keyval);
 		else
@@ -74,13 +75,10 @@ static void	ft_process_args(char **keyval)
 	}
 	else
 	{
+		keyval[1] = replace_tilde(keyval[1]);
 		if (ft_find_by_key(keyval[0]))
-		{
 			ft_remove_env(&get_minishell()->env, keyval[0]);
-			ft_add_env(keyval);
-		}
-		else
-			ft_add_env(keyval);
+		ft_add_env(keyval);
 	}
 	ft_free_array(keyval, 0);
 }
@@ -132,7 +130,7 @@ int			ft_exec_export(t_cmd *cmd, int i)
 	{
 		if (!ft_strchr(arg[i], '='))
 		{
-			if (ft_hasnchar(arg[i], "+=;|&$\"\\' ") || !ft_strlen(arg[i]))
+			if (ft_hasnchar(arg[i], INVALID_CHAR) || !ft_strlen(arg[i]))
 				ret = ft_invalid_id("export", arg[i]);
 			continue;
 		}

@@ -6,13 +6,13 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/14 12:14:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/22 10:32:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_lexing(char *line)
+char	**ft_lexing(char *line, int is_dollar)
 {
 	int			nbr_tokens;
 	char		**tokens;
@@ -35,7 +35,7 @@ char	**ft_lexing(char *line)
 		ft_exit_error();
 	x = -1;
 	while (++x < nbr_tokens)
-		if (!(tokens[x] = ft_tokens_split(tmp, &index)))
+		if (!(tokens[x] = ft_tokens_split(tmp, &index, index, is_dollar)))
 			ft_exit_error();
 	free(tmp);
 	return (tokens);
@@ -75,7 +75,7 @@ int		ft_line_handle(int ret)
 		ft_exit_error();
 	if (ret == 1)
 	{
-		if (!minish->line || !(minish->tokens = ft_lexing(minish->line)))
+		if (!minish->line || !(minish->tokens = ft_lexing(minish->line, 0)))
 			return (0);
 	}
 	else if (ret == 0 && (minish->was_eof = 1))

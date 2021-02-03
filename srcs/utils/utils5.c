@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/14 00:29:15 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/22 10:25:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char		*check_rdir_space(char *file)
 		if (!(tmp2 = ft_strtrim_integral(tmp, -1)))
 			free_ret_str(tmp, NULL);
 		free(tmp);
-		if (!(check = ft_lexing(tmp2)))
+		if (!(check = ft_lexing(tmp2, 1)))
 			free_ret_str(tmp2, NULL);
 		free(tmp2);
 		return (check_new_size(check, file));

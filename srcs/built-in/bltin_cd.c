@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/13 15:02:11 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/21 16:16:47 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int		cd_cases(char **argv, char *home)
 	}
 	else if (!(ft_strncmp(argv[1], "", ft_strlen(argv[1]))))
 		return (ft_chdir_err(chdir("."), argv[0], argv[1]));
-	else if (!(ft_strncmp(argv[1], "~", ft_strlen(argv[1]))))
-		return (ft_chdir_err(chdir(home), argv[0], argv[1]));
 	else if (!(ft_strncmp(argv[1], "-", ft_strlen(argv[1]))))
 		return (ft_chdir_err(chdir(ft_find_by_key2("OLDPWD")),\
 											argv[0], argv[1]));

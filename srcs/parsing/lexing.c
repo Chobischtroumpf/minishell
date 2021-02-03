@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 16:59:14 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 13:28:12 by nathan           ###   ########.fr       */
+/*   Updated: 2021/01/22 10:33:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,24 @@ int			ft_tokens_count(char *line)
 	return (count);
 }
 
+char		*replace_tilde(char *token)
+{
+	char	*new_token;
+
+	if (token[0] == '~')
+	{
+		new_token = ft_strdup(ft_find_by_key2("HOME"));
+		if (ft_strncmp(&token[1], "/", 1))
+			new_token = ft_strjoin_free(new_token, "/");
+		new_token = ft_strjoin_doublefree(new_token,
+					ft_substr(token, 1, ft_strlen(token) - 1));
+		free(token);
+		return (new_token);
+	}
+	else
+		return (token);
+}
+
 /*
 ** the ft_tokens_split function take two arguments, char *line, and
 ** int nbr_token nbr_token indicates the position of the token that needs to be
@@ -114,31 +132,31 @@ int			ft_tokens_count(char *line)
 ** nbr_token, or reaches the end of the line
 */
 
-char		*ft_tokens_split(char *line, int *indx)
+char		*ft_tokens_split(char *line, int *idx, int ck, int is_dlr)
 {
 	char	*token;
-	int		ck;
 
-	ck = *indx;
 	token = NULL;
-	if (!ft_haschr(SEP_SPACE, line[*indx]) && line[*indx])
+	if (!ft_haschr(SEP_SPACE, line[*idx]) && line[*idx])
 	{
-		while (line[*indx] != '\0')
-			if (!ft_haschr(SEP_SPACE, line[*indx]))
-				*indx = ft_brackets(line, *indx) + 1;
-			else if (ft_haschr(SEP_SPACE, line[*indx])
-					&& ft_backslash_counter(line, *indx - 1))
-				*indx += 1;
+		while (line[*idx] != '\0')
+			if (!ft_haschr(SEP_SPACE, line[*idx]))
+				*idx = ft_brackets(line, *idx) + 1;
+			else if (ft_haschr(SEP_SPACE, line[*idx])
+					&& ft_backslash_counter(line, *idx - 1))
+				*idx += 1;
 			else
 				break ;
-		token = ft_substr(line, ck, *indx - ck);
+		token = ft_substr(line, ck, *idx - ck);
 	}
-	else if (ft_haschr(SEP, line[*indx]))
+	else if (ft_haschr(SEP, line[*idx]))
 	{
-		token = ft_substr(line, ck, *indx + ft_check_sep(line, *indx, 0) - ck);
-		*indx += ft_check_sep(line, *indx, 0);
+		token = ft_substr(line, ck, *idx + ft_check_sep(line, *idx, 0) - ck);
+		*idx += ft_check_sep(line, *idx, 0);
 	}
-	while (line[*indx] && ft_haschr(SPACE, line[*indx]))
-		(*indx)++;
+	while (line[*idx] && ft_haschr(SPACE, line[*idx]))
+		(*idx)++;
+	if (!is_dlr)
+		token = replace_tilde(token);
 	return (token);
 }

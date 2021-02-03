@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:08:19 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/18 16:05:27 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/01/21 17:14:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ int			check_out(t_rdir *out)
 			out->fd = open(out->file, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR
 				| S_IRGRP | S_IWGRP | S_IWUSR);
 		if (out->fd < 0)
-		{
-			if (ft_file_exists(out->file) && !ft_file_is_exec(out->file))
-				return (ft_err_no_access(out->file, NULL, 0));
-			return (0);
-		}
+			if (!ft_error_redir(out->file))
+				return (0);
 		if (out->next)
 			close(out->fd);
 		out = out->next;
