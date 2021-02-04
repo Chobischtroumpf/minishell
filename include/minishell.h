@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/02/03 17:49:30 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/04 13:15:20 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <signal.h>
 # include <errno.h>
 # include <time.h>
+# include <termcap.h>
+# include "termcaps.h"
 
 # define IS_DIR 040000
 # define IS_LINK 080000
