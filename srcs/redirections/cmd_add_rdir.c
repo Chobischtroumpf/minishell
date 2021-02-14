@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_add_rdir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 15:35:09 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 16:36:51 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:12:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static t_rdir	*ft_new_rdir(char *file, int is_dbl)
 	t_rdir *new;
 
 	if (!(new = malloc(sizeof(t_rdir))))
-		return ((t_rdir*)ft_exit_error());
+		return ((t_rdir*)ft_exit_error(NULL));
 	if (!(new->file = ft_strdup(file)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	new->std = -1;
 	new->is_dbl = is_dbl;
 	new->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 13:05:43 by adorigo           #+#    #+#             */
-/*   Updated: 2021/02/04 13:15:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:08:36 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void				ft_err_not_dir(char *cmd, char *arg);
 ** errors3.c
 */
 
-void				*ft_exit_error(void);
+void				*ft_exit_error(char *err_msg);
 int					ft_invalid_id(char *cmd, char *arg);
 long				ft_error_shlvl(long shlvl);
 int					ft_eof_error(int nbr_tokens, int ret);

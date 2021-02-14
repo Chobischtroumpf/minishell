@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:53:12 by adorigo           #+#    #+#              #
-#    Updated: 2021/01/21 17:15:52 by adorigo          ###   ########.fr        #
+#    Updated: 2021/02/14 14:27:52 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,55 +14,56 @@ NAME = minishell
 
 SRC_PATH = srcs
 
-SRC_NAME =	minishell.c						\
+SRC_NAME =	minishell.c					\
 			\
-			built-in/bltin_echo.c			\
-			built-in/bltin_exit.c			\
-			built-in/bltin_pwd.c			\
-			built-in/bltin_env.c			\
-			built-in/bltin_unset.c			\
-			built-in/bltin_export.c			\
-			built-in/bltin_cd.c 			\
+			built-in/bltin_echo.c		\
+			built-in/bltin_exit.c		\
+			built-in/bltin_pwd.c		\
+			built-in/bltin_env.c		\
+			built-in/bltin_unset.c		\
+			built-in/bltin_export.c		\
+			built-in/bltin_cd.c 		\
 			\
-			cmd/get_static.c				\
-			cmd/exec_cmd.c					\
-			cmd/exec_external.c				\
+			cmd/get_static.c			\
+			cmd/exec_cmd.c				\
+			cmd/exec_external.c			\
 			\
-			environment/env.c				\
-			environment/env2.c				\
-			environment/dollar.c			\
-			environment/shlvl.c				\
+			environment/env.c			\
+			environment/env2.c			\
+			environment/dollar.c		\
+			environment/shlvl.c			\
 			\
-			errors/errors.c					\
-			errors/errors2.c				\
-			errors/errors3.c				\
-			errors/errors4.c				\
-			errors/errors5.c				\
+			errors/errors.c				\
+			errors/errors2.c			\
+			errors/errors3.c			\
+			errors/errors4.c			\
+			errors/errors5.c			\
 			\
-			parsing/brackets.c				\
-			parsing/cmd_parser_1.c			\
-			parsing/cmd_parser_2.c			\
-			parsing/lexing.c				\
-			parsing/line_handle.c			\
+			parsing/brackets.c			\
+			parsing/cmd_parser_1.c		\
+			parsing/cmd_parser_2.c		\
+			parsing/lexing.c			\
+			parsing/line_handle.c		\
 			\
-			redirections/cmd_add_rdir.c		\
-			redirections/redirections.c		\
-			redirections/pipe.c				\
+			redirections/cmd_add_rdir.c	\
+			redirections/redirections.c	\
+			redirections/pipe.c			\
 			\
-			utils/exit.c					\
-			utils/files.c					\
-			utils/free.c					\
-			utils/ft_split_empty.c			\
-			utils/ft_split_skip_quotes.c	\
-			utils/utils.c					\
-			utils/utils2.c					\
-			utils/utils3.c					\
-			utils/utils4.c					\
-			utils/utils5.c
-
+			utils/exit.c				\
+			utils/files.c				\
+			utils/free.c				\
+			utils/ft_split_empty.c		\
+			utils/ft_split_skip_quotes.c\
+			utils/utils.c				\
+			utils/utils2.c				\
+			utils/utils3.c				\
+			utils/utils4.c				\
+			utils/utils5.c				\
+			\
+			term/term.c
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g -I include -I libft/includes 
-LDFLAGS = -L libft #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I include -I libft/includes
+LDFLAGS = -L libft -ltermcap#-fsanitize=address
 LDLIBS = -lft 
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))

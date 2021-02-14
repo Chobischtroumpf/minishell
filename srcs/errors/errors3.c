@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:51:38 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/11 20:57:45 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:11:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@
 ** and prints strerr to the stderr
 */
 
-void	*ft_exit_error(void)
+void	*ft_exit_error(char *err_msg)
 {
 	char *strerr;
 
 	ft_free_minishell();
 	ft_free_env();
-	strerr = strerror(errno);
+	if (!err_msg)
+		strerr = strerror(errno);
+	else
+		strerr = err_msg;
 	ft_putstr_fd(strerr, 2);
 	exit(-1);
 	return (NULL);
@@ -44,7 +47,7 @@ long	ft_error_shlvl(long shlvl)
 	char	*shlvl_str;
 
 	if (!(shlvl_str = ft_itoa(shlvl)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	ft_putstr_fd("minishell: warning: shell level (", 2);
 	ft_putstr_fd(shlvl_str, 2);
 	ft_putstr_fd(") too high, resetting to 1\n", 2);

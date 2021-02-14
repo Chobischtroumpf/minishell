@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 18:09:34 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 16:36:41 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:13:56 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*remove_char(char *str, char c)
 	int		l;
 
 	if (!(new = ft_strnew(ft_strlen(str))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	i = 0;
 	j = 0;
 	l = ft_strlen(str);
@@ -73,7 +73,7 @@ void	ft_append_env(char **keyvalue)
 	tmp = ft_find_by_key(keyvalue[0]);
 	if (!(new = (char *)malloc(ft_strlen(tmp->value) + \
 								ft_strlen(keyvalue[1] + 1))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (!(tmp->value = ft_strjoin_free(tmp->value, keyvalue[1])))
-		ft_exit_error();
+		ft_exit_error(NULL);
 }

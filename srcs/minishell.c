@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:54:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/21 17:22:01 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 15:10:34 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ int			main(int ac, char **av, char **envv)
 	minishell = get_minishell();
 	ft_init_env(minishell, envv);
 	ft_init_pwd();
+	ft_init_terminal_data();
+	ft_interrogating_terminal();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 	ft_shlvl();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:52:51 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 15:08:43 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:10:20 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int
 	int				i;
 
 	if (!(str_cpy = ft_strtrim(str, " \t")))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	str_cpy_cpy = str_cpy;
 	is_neg = checker(&str_cpy);
 	is_sign = check_sign(str_cpy[0]);

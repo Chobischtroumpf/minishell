@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 15:02:38 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/09 14:10:20 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:13:55 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_chardup(char c)
 
 	if (!(dup = (char *)ft_calloc(2, sizeof(char))))
 	{
-		ft_exit_error();
+		ft_exit_error(NULL);
 		return (NULL);
 	}
 	dup[0] = c;

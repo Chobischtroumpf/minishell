@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:00:29 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/21 16:16:47 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:10:20 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	update_pwd(void)
 	else
 		oldpwd = ft_strdup("");
 	if (!oldpwd)
-		ft_exit_error();
+		ft_exit_error(NULL);
 	getcwd(pwd, sizeof(pwd));
 	ft_remove_env(&get_minishell()->env, "PWD");
 	ft_remove_env(&get_minishell()->env, "OLDPWD");

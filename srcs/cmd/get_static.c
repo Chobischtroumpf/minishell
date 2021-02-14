@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_static.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 12:17:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/10/27 16:34:01 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:45:35 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ t_minishell	*get_minishell(void)
 	return (&minishell);
 }
 
+t_termcaps	*get_termcaps(void)
+{
+	static t_termcaps	termcap;
+
+	return(&termcap);
+}
 /*
 ** returns a static tab with all the builtin commands
 */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 15:07:26 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/22 10:25:28 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:13:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char		*check_rdir_space(char *file)
 	char	**check;
 
 	if (!(tmp = check_quote(file, -1)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (!ft_strcmp(tmp, ""))
 	{
 		ft_err_redirect(file);

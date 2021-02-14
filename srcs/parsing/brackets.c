@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:02:19 by alessandro        #+#    #+#             */
-/*   Updated: 2021/02/03 17:33:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:11:27 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	ft_splitting_argv(t_cmd *cmd, char **argv, int size_argv, int i)
 
 	j = 0;
 	if (!(cmd->argv = ft_calloc(size_argv, sizeof(char*))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	while (argv[++i])
 		if (ft_haschr(argv[i], -1))
 		{
@@ -130,7 +130,7 @@ void		ft_dollar_quotes(t_cmd *cmd)
 
 	i = -1;
 	if (!(temp_argv = ft_calloc(ft_array_size(cmd->argv) + 1, sizeof(char *))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	while (cmd->argv[++i])
 		temp_argv[i] = check_quote(cmd->argv[i], -1);
 	i = -1;

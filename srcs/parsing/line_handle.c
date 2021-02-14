@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 10:38:47 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/22 10:32:51 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:12:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ char	**ft_lexing(char *line, int is_dollar)
 	while (ft_haschr(SPACE, line[x]))
 		x++;
 	if (!(tmp = ft_substr(line, x, ft_strlen(line) - x)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if ((nbr_tokens = ft_tokens_count(tmp)) < 0)
 	{
 		free(tmp);
 		return (ft_get_exit_code(NO_STATUS, ft_eof_error(nbr_tokens, 2)));
 	}
 	if (!(tokens = ft_calloc((nbr_tokens + 1), sizeof(char *))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	x = -1;
 	while (++x < nbr_tokens)
 		if (!(tokens[x] = ft_tokens_split(tmp, &index, index, is_dollar)))
-			ft_exit_error();
+			ft_exit_error(NULL);
 	free(tmp);
 	return (tokens);
 }
@@ -69,10 +69,10 @@ int		ft_line_handle(int ret)
 			break ;
 		if (!(minish->line = ft_strjoin_doublefree(minish->line,
 												ft_chardup(c))))
-			ft_exit_error();
+			ft_exit_error(NULL);
 	}
 	if (ret == -1)
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (ret == 1)
 	{
 		if (!minish->line || !(minish->tokens = ft_lexing(minish->line, 0)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bltin_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:58:37 by nathan            #+#    #+#             */
-/*   Updated: 2021/01/22 11:30:46 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:10:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			ft_valid_key(char *str, int i)
 	int		eq_found;
 
 	if (!(arg = ft_strjoin(str, "=")))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	eq_found = 0;
 	special_chars = "_+=";
 	if (ft_isdigit(arg[0]) || arg[0] == '=' || arg[0] == '+')
@@ -65,7 +65,7 @@ static void	ft_process_args(char **keyval)
 	{
 		tmp = keyval[0];
 		if (!(keyval[0] = ft_strndup(keyval[0], ft_strlen(keyval[0]) - 1)))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		free(tmp);
 		keyval[1] = replace_tilde(keyval[1]);
 		if (ft_find_by_key(keyval[0]))
@@ -100,7 +100,7 @@ int			ft_export_no_arg(t_minishell *minishell)
 		if (ft_haschr("$\"\\", tmp->value[0]) && ft_strlen(tmp->value) == 1)
 		{
 			if (!(temp = ft_strjoin("\\", tmp->value)))
-				ft_exit_error();
+				ft_exit_error(NULL);
 			free(tmp->value);
 			tmp->value = temp;
 		}
@@ -135,7 +135,7 @@ int			ft_exec_export(t_cmd *cmd, int i)
 			continue;
 		}
 		if (!(key_value = ft_split_once(arg[i], '=')))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		if (ft_valid_key(key_value[0], 0))
 			ft_process_args(key_value);
 		else

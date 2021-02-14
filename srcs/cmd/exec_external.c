@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 13:19:58 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/21 17:09:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:10:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static char	**path_array_creation(char *cmd)
 	if (ft_strcmp(ft_find_by_key2("PATH"), "") && (i = -1))
 	{
 		if (!(path_array = ft_split_empty(ft_find_by_key2("PATH"), ':')))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		while (path_array[++i] != NULL)
 			if (ft_haschr(path_array[i], -1))
 			{
 				free(path_array[i]);
 				if (!(path_array[i] = ft_strdup(".")))
-					ft_exit_error();
+					ft_exit_error(NULL);
 			}
 	}
 	else
@@ -59,9 +59,9 @@ static char	**path_array_creation(char *cmd)
 		if (ft_check_file(cmd, 0))
 			return (NULL);
 		if (!(path_array = ft_calloc(2, sizeof(char *))))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		if (!(path_array[0] = ft_strdup(".")))
-			ft_exit_error();
+			ft_exit_error(NULL);
 	}
 	return (path_array);
 }
@@ -98,7 +98,7 @@ void		exec_cmd(t_cmd *cmd)
 	int		ret_val;
 
 	if (!(env_array = ft_env_to_array()))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (!cmd->has_path && (path_array = path_array_creation(cmd->argv[0])))
 	{
 		ret_val = exec_with_path(cmd, path_array, env_array);
@@ -124,7 +124,7 @@ void		ft_exec_extern(t_cmd *cmd)
 	if (ft_haschr(cmd->argv[0], '/'))
 		cmd->has_path = 1;
 	if ((pid = fork()) == -1)
-		ft_exit_error();
+		ft_exit_error(NULL);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);

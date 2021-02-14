@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:43:01 by alessandro        #+#    #+#             */
-/*   Updated: 2021/01/14 00:29:54 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:11:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	ft_exec_export_shlvl(char *shlvl)
 	char			**argv;
 
 	if (!(cmd = malloc(sizeof(t_cmd*))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (!(argv = malloc(sizeof(char*) * 3)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (!(argv[0] = ft_strdup("export")))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (!(argv[1] = ft_strjoin("SHLVL=", shlvl)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	argv[2] = NULL;
 	cmd->argv = argv;
 	ft_exec_export(cmd, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parser_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nathan <nathan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:41:46 by adorigo           #+#    #+#             */
-/*   Updated: 2021/01/13 16:25:47 by nathan           ###   ########.fr       */
+/*   Updated: 2021/02/14 14:11:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ static t_cmd	*ft_new_cmd(char *token)
 	t_cmd	*new;
 
 	if (!(new = malloc(sizeof(t_cmd))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	if (token)
 	{
 		if (!(new->argv = malloc(sizeof(char *) * 2)))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		if (!(new->argv[0] = ft_strdup(token)))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		new->argv[1] = NULL;
 	}
 	else
 	{
 		if (!(new->argv = malloc(sizeof(char *) * 1)))
-			ft_exit_error();
+			ft_exit_error(NULL);
 		new->argv[0] = NULL;
 	}
 	new->pipe = 0;
@@ -96,7 +96,7 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 	last = ft_last_cmd(cmd);
 	cnt = ft_count_arg(last->argv);
 	if (!(new_arr = ft_calloc((cnt + 2), sizeof(char*))))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	i = 0;
 	while (i < cnt)
 	{
@@ -104,7 +104,7 @@ static void		ft_add_argv_cmd(t_cmd *cmd, char *arg)
 		i++;
 	}
 	if (!(new_arr[i] = ft_strdup(arg)))
-		ft_exit_error();
+		ft_exit_error(NULL);
 	free(last->argv);
 	last->argv = new_arr;
 }

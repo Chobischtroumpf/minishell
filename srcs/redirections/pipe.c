@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 10:56:04 by ncolin            #+#    #+#             */
-/*   Updated: 2021/01/18 15:48:42 by adorigo          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:12:40 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	start_pipes(int pipes[], int nb)
 	while (i < nb)
 	{
 		if (pipe(pipes + (i * 2)) == -1)
-			ft_exit_error();
+			ft_exit_error(NULL);
 		i++;
 	}
 	return (1);
@@ -87,7 +87,7 @@ t_cmd		*handle_pipe(t_minishell *m, t_cmd *cmd, int pipe_nb, int i)
 			handle_with_pipes(cmd);
 		}
 		else if (pids[i] == -1)
-			ft_exit_error();
+			ft_exit_error(NULL);
 		cmd = cmd->next;
 	}
 	close_pipe_and_wait(pipe_fds, pipe_nb, pids);
